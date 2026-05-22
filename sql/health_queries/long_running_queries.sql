@@ -1,5 +1,5 @@
 -- ============================================
--- CPU Monitoring Query
+-- Long Running Query Monitoring
 -- Autonomous AI DBA Operations Platform
 -- ============================================
 
@@ -9,16 +9,18 @@ SELECT TOP 10
 
     status,
 
+    command,
+
     cpu_time,
 
     total_elapsed_time,
 
-    reads,
+    blocking_session_id,
 
-    writes,
-
-    logical_reads
+    wait_type
 
 FROM sys.dm_exec_requests
 
-ORDER BY cpu_time DESC;
+WHERE total_elapsed_time > 10000
+
+ORDER BY total_elapsed_time DESC;
