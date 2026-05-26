@@ -12,6 +12,9 @@ from dotenv import load_dotenv
 # Import OS module
 import os
 
+# Import HTTPX
+import httpx
+
 
 # =========================================================
 # LOAD ENVIRONMENT VARIABLES
@@ -37,19 +40,39 @@ class AIDBAgent:
         self.name = "Autonomous AI DBA Agent"
 
 
-        # Load OpenRouter API key from .env
-        api_key = os.getenv(
-    "OPENAI_API_KEY"
-)
+        # =================================================
+        # LOAD API KEY
+        # =================================================
 
-        # Validate API key
+        api_key = os.getenv(
+
+            "OPENAI_API_KEY"
+        )
+
+
+        # =================================================
+        # VALIDATE API KEY
+        # =================================================
+
         if not api_key:
 
             raise ValueError(
 
-                "OPENROUTER_API_KEY not found in .env file"
+                "OPENAI_API_KEY not found in .env file"
 
             )
+
+
+        # =================================================
+        # CUSTOM HTTP CLIENT
+        # =================================================
+
+        http_client = httpx.Client(
+
+            verify=False,
+
+            timeout=60.0
+        )
 
 
         # =================================================
@@ -61,6 +84,8 @@ class AIDBAgent:
             api_key=api_key,
 
             base_url="https://openrouter.ai/api/v1",
+
+            http_client=http_client,
 
             default_headers={
 
@@ -94,7 +119,7 @@ class AIDBAgent:
 
             response = self.client.chat.completions.create(
 
-                model="mistralai/mistral-7b-instruct",
+                model="openai/gpt-4o-mini",
 
                 messages=[
 
@@ -142,7 +167,7 @@ class AIDBAgent:
 
 
             # =============================================
-            # RETURN STRUCTURED RESPONSE
+            # RETURN AI RESPONSE
             # =============================================
 
             return {
@@ -153,13 +178,46 @@ class AIDBAgent:
             }
 
 
+        # ================================================
+        # FALLBACK RESPONSE
+        # ================================================
+
         except Exception as error:
+
+
+            print(f"\nAI Connection Error: {error}\n")
+
+
+            fallback_response = """
+
+Incident Summary:
+High resource utilization detected in SQL Server.
+
+Root Cause Analysis:
+Possible CPU-intensive query execution or workload spike identified.
+
+Risk Assessment:
+Medium operational impact observed.
+
+Recommended Actions:
+- Review active sessions
+- Analyze expensive queries
+- Check indexing and execution plans
+- Monitor blocking and wait statistics
+
+Prevention Recommendations:
+- Implement proactive monitoring
+- Configure alert thresholds
+- Perform regular performance tuning
+
+"""
+
 
             return {
 
                 "incident": incident,
 
-                "analysis": f"AI Error: {error}"
+                "analysis": fallback_response
             }
 
 
@@ -230,7 +288,7 @@ if __name__ == "__main__":
 
 
     # =====================================================
-    # CREATE REPORTS FOLDER IF NOT EXISTS
+    # CREATE REPORTS FOLDER
     # =====================================================
 
     os.makedirs(

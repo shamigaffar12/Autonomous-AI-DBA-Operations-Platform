@@ -5,9 +5,30 @@
 
 # Import monitoring collector functions
 from app.monitoring.sql_collector import (
+
     execute_monitoring_query,
+
     read_sql_file
 )
+
+
+# Import AI DBA Agent
+from app.ai_agent.agent import AIDBAgent
+
+
+# Import incident formatter
+from app.monitoring.incident_formatter import (
+
+    format_incident_data
+)
+
+
+# Import datetime
+from datetime import datetime
+
+
+# Import OS
+import os
 
 
 # =========================================================
@@ -15,21 +36,26 @@ from app.monitoring.sql_collector import (
 # =========================================================
 
 print("\n========================================")
+
 print(" CPU Monitoring Results ")
+
 print("========================================\n")
 
 
 # Read CPU monitoring query
 cpu_query = read_sql_file(
+
     "sql/health_queries/cpu_monitor.sql"
 )
 
 
 # Execute CPU monitoring query
-cpu_results = execute_monitoring_query(cpu_query)
+cpu_results = execute_monitoring_query(
+
+    cpu_query
+)
 
 
-# Display CPU results
 # Display CPU results
 if cpu_results:
 
@@ -48,23 +74,29 @@ if cpu_results:
 else:
 
     print("No CPU monitoring data found.")
+
+
 # =========================================================
 # BLOCKING SESSION MONITORING
 # =========================================================
 
 print("\n========================================")
+
 print(" Blocking Session Monitoring ")
+
 print("========================================\n")
 
 
 # Read blocking session query
 blocking_query = read_sql_file(
+
     "sql/health_queries/blocking_sessions.sql"
 )
 
 
 # Execute blocking monitoring query
 blocking_results = execute_monitoring_query(
+
     blocking_query
 )
 
@@ -92,18 +124,22 @@ else:
 # =========================================================
 
 print("\n========================================")
+
 print(" Long Running Query Monitoring ")
+
 print("========================================\n")
 
 
 # Read long running query monitoring query
 long_query = read_sql_file(
+
     "sql/health_queries/long_running_queries.sql"
 )
 
 
 # Execute long running query monitoring
 long_results = execute_monitoring_query(
+
     long_query
 )
 
@@ -133,23 +169,26 @@ else:
 # =========================================================
 
 print("\n========================================")
+
 print(" Database Size Monitoring ")
+
 print("========================================\n")
 
 
 # Read database size query
 database_query = read_sql_file(
+
     "sql/health_queries/database_size.sql"
 )
 
 
 # Execute database size query
 database_results = execute_monitoring_query(
+
     database_query
 )
 
 
-# Display database size results
 # Display database size results
 if database_results:
 
@@ -163,43 +202,120 @@ if database_results:
 else:
 
     print("No database size data found.")
+
+
 # =========================================================
-# FAILED JOB MONITORING
+# INCIDENT FORMATTING
 # =========================================================
-"""
+
+incident_summary = format_incident_data(
+
+    cpu_results,
+
+    blocking_results,
+
+    long_results
+)
+
+
 print("\n========================================")
-print(" Failed SQL Job Monitoring ")
+
+print(" INCIDENT SUMMARY ")
+
 print("========================================\n")
 
 
-# Read failed jobs query
-jobs_query = read_sql_file(
-    "sql/health_queries/failed_jobs.sql"
+print(incident_summary)
+
+
+# =========================================================
+# AI INCIDENT ANALYSIS
+# =========================================================
+
+print("\n========================================")
+
+print(" AI INCIDENT ANALYSIS ")
+
+print("========================================\n")
+
+
+# Create AI DBA Agent
+agent = AIDBAgent()
+
+
+# Send monitoring results to AI
+ai_result = agent.analyze_incident(
+
+    incident_summary
 )
 
 
-# Execute failed jobs query
-jobs_results = execute_monitoring_query(
-    jobs_query
+# Display AI RCA result
+print(
+
+    ai_result["analysis"]
+
 )
 
 
-# Display failed job results
-if jobs_results:
+# =========================================================
+# SAVE INCIDENT REPORT
+# =========================================================
 
-    for row in jobs_results:
+# Create reports folder
+os.makedirs(
 
-        print(row)
+    "reports",
 
-else:
+    exist_ok=True
+)
 
-    print("No failed jobs detected.")
-"""
+
+# Generate timestamp
+timestamp = datetime.now().strftime(
+
+    "%Y%m%d_%H%M%S"
+)
+
+
+# Dynamic report filename
+report_file = (
+
+    f"reports/incident_report_{timestamp}.txt"
+)
+
+
+# Save report
+with open(
+
+    report_file,
+
+    "w",
+
+    encoding="utf-8"
+
+) as file:
+
+
+    file.write(
+
+        ai_result["analysis"]
+
+    )
+
+
+print(
+
+    f"\nIncident report saved: {report_file}"
+)
+
 
 # =========================================================
 # MONITORING COMPLETED
 # =========================================================
 
 print("\n========================================")
+
 print(" SQL Monitoring Completed Successfully ")
+
 print("========================================\n")
