@@ -1,0 +1,90 @@
+### Incident Summary
+
+**Incident Title:** High CPU Usage Alert on SQL Server
+
+**Date/Time of Detection:** [Insert Date/Time]
+
+**Affected Instance(s):** [Specify SQL Server Instance(s)]
+
+**Alert Trigger:** Monitoring tools triggered an alert indicating a sustained high CPU usage above the configured thresholds (e.g., > 85% CPU utilization for more than 10 minutes).
+
+**Impact:** Potential degradation of database performance leading to slow query responses and possible application timeout errors.
+
+---
+
+### Root Cause Analysis
+
+Upon investigation, the following potential causes for high CPU usage were identified:
+
+1. **Resource-Intensive Queries:**
+   - Long-running queries or poorly optimized SQL statements, particularly those lacking proper indexing or executing Cartesian joins.
+
+2. **Increased Workload:**
+   - An unexpected spike in database workload due to new application deployments, batch jobs, or user activities that increased the demand for server resources.
+
+3. **Parameter Sniffing Issues:**
+   - Queries that perform differently based on the parameters passed may lead to suboptimal execution plans being utilized repeatedly.
+
+4. **Blocking Issues:**
+   - Sessions waiting due to blocking can lead to resource contention, leading to increased CPU usage by other processes waiting for resources.
+
+5. **Hardware Limitations:**
+   - Insufficient CPU resources allocated to the SQL Server instance may not meet the requirements for current application or data workloads.
+
+---
+
+### Risk Assessment
+
+**Severity Level:** High
+
+**Risks Identified:**
+- Potential for degraded application performance impacting business operations.
+- Increased load on the infrastructure, which could lead to cascading failures in dependent systems.
+- Risk of user dissatisfaction due to prolonged response times or downtime.
+
+---
+
+### Recommended Actions
+
+1. **Query Performance Analysis:**
+   - Use Query Store or Extended Events to identify the top resource-consuming queries and evaluate their execution plans.
+   - Optimize the identified queries through indexing, rewriting, or adjusting their execution approach.
+
+2. **Workload Management:**
+   - Review workload patterns to identify any abnormal spikes and correlate them with user activity or batch jobs.
+   - Schedule heavy processing activities during off-peak hours to minimize impact on performance.
+
+3. **Review System Resources:**
+   - Monitor hardware performance metrics (CPU, RAM, I/O) to confirm existing resources are adequate for current workloads.
+   - Consider scaling up resources or transitioning to a more powerful instance if necessary.
+
+4. **Resolve Blocking:**
+   - Identify any sessions that are causing blocking and take corrective actions, such as terminating blocking sessions or optimizing code to reduce lock contention.
+
+---
+
+### Prevention Recommendations
+
+1. **Regular Performance Reviews:**
+   - Schedule regular reviews of query performance and server resource usage to proactively identify trends and areas needing optimization.
+
+2. **Implementation of Best Practices:**
+   - Ensure best practices are followed during query writing, including proper indexing strategies, use of query hints, and avoiding anti-patterns such as SELECT *.
+
+3. **Alerting and Monitoring Improvements:**
+   - Refine monitoring thresholds to catch early signs of CPU stress, and ensure notifications are actionable by defining specific escalation paths.
+
+4. **Education and Training:**
+   - Conduct workshops for developers focused on writing optimized SQL queries, understanding execution plans, and the effects of different indexing strategies.
+
+5. **Capacity Planning:**
+   - Plan for future growth by forecasting application usage and resource needs, ensuring infrastructure can scale accordingly.
+
+**Follow-Up Review:** Schedule a follow-up meeting to assess the effectiveness of implemented actions and to discuss further preventative measures as required.
+
+---
+
+**Prepared By:** [Your Name]  
+**Position:** SQL Server DBA / Database Reliability Engineer  
+**Date:** [Insert Date]  
+**Contact Information:** [Insert Contact Information]
