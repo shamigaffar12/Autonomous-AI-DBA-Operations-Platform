@@ -1,0 +1,38 @@
+# SQL Server Incident Report
+
+## 1. Incident Summary
+On May 29, 2026, at 16:32:51, monitoring was performed on the AdventureWorks2019 database. The monitoring revealed the status of various database sessions, indicating that CPU utilization is within normal ranges across the board. No blocking sessions or long-running queries were detected, and the overall health status of the database was classified as healthy.
+
+## 2. Root Cause Analysis
+The monitoring session captured indicates normal running conditions for all active sessions. It is noted that:
+
+- Session ID 58 was the only session actively using CPU resources, accumulating 12 ms of CPU time.
+- All other sessions were in a sleeping state, showing no CPU activity during this monitoring interval.
+- All observed sessions reported logical reads, which suggests that data was being accessed efficiently without triggering high CPU usage or writes.
+- No blocking or long-running queries were present, which underlines the system's reliability and optimal performance during this timeframe.
+
+Given these observations, root causes for the incident were not particularly relevant as the system's performance was optimal, and all parameters are functioning as expected.
+
+## 3. Risk Assessment
+The risk assessment indicates minimal risk associated with the current database operations:
+
+- **Potential Risks:**
+  - Future increases in workload could lead to higher CPU utilization, particularly if new queries are introduced or expected workload increases.
+  - Maintenance tasks or unexpected events (e.g., hardware failure) could impact this current healthy state.
+
+- **Overall Experience with Alert Levels:**
+  - Current performance monitoring shows all CPU usage remains within normal ranges.
+  - With no blocking sessions or long-running queries detected, the risk of immediate performance issues is considered low.
+
+## 4. Recommended Actions
+1. **Continued Monitoring:** Maintain regular monitoring of system performance, focusing on CPU usage, the session states, and query performance to spot anomalies early.
+2. **Capacity Planning:** Analyze patterns in performance metrics over time to understand the current resource usage and plan for scalability as necessary.
+3. **Performance Review:** Conduct periodic reviews of query execution plans and indexing strategies to ensure optimal performance, especially as the database grows.
+
+## 5. Prevention Recommendations
+1. **Automated Alerts:** Implement automated thresholds for performance alerts to preemptively identify when CPU usage trends towards abnormal levels.
+2. **Index Optimization:** Regularly evaluate and optimize database indexes to ensure that queries run efficiently, minimizing performance impacts.
+3. **Resource Assessment:** Regularly assess available system resources and consider upgrading hardware or configurations based on forecasted growth and workload increases.
+4. **Documentation and Training:** Document standard operating procedures for monitoring and handling performance issues, and provide training for team members to ensure preparedness for future incidents.
+
+In summary, the monitoring results indicate a healthy operational status for the AdventureWorks2019 database. Continued vigilance, effective management practices, and proactive planning will be crucial to maintain this healthy state as usage patterns evolve.

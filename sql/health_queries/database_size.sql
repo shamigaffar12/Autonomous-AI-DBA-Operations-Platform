@@ -5,13 +5,11 @@
 
 SELECT
 
-    DB_NAME(database_id) AS database_name,
+    DB_NAME() AS database_name,
 
-    CAST(SUM(size) * 8 / 1024 AS DECIMAL(10,2))
-    AS size_mb
+    CAST(
+        SUM(size) * 8.0 / 1024
+        AS DECIMAL(10,2)
+    ) AS size_mb
 
-FROM sys.master_files
-
-GROUP BY database_id
-
-ORDER BY size_mb DESC;
+FROM sys.database_files;

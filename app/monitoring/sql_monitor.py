@@ -183,11 +183,19 @@ database_query = read_sql_file(
 
 
 # Execute database size query
+# Execute database size query
 database_results = execute_monitoring_query(
 
     database_query
 )
 
+# =========================================================
+# DEBUG DATABASE RESULTS
+# =========================================================
+
+print("\nDEBUG DATABASE RESULTS:")
+print(database_results)
+print(f"TYPE: {type(database_results)}")
 
 # Display database size results
 if database_results:

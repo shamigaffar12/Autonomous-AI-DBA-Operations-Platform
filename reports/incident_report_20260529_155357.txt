@@ -1,0 +1,59 @@
+### Incident Summary
+
+**Incident Title:** High CPU Usage Alert  
+**Monitoring Timestamp:** 2026-05-29 15:53:38.360495  
+**Database Affected:** AdventureWorks2019  
+**Session ID:** 63  
+**Status:** Running  
+**CPU Time:** 17 ms  
+**Elapsed Time:** 17 ms  
+**Reads:** 0  
+**Writes:** 0  
+**Logical Reads:** 407  
+
+An alert was generated indicating elevated CPU usage indicated by a session with ID 63. This session was active at the time of monitoring, with CPU usage recorded at 17 milliseconds during a short elapsed time of 17 milliseconds, resulting in an indication of a potential performance concern.
+
+---
+
+### Root Cause Analysis
+
+The CPU usage alert was generated within a minimal timeframe (17 ms). Given that there were no detected blocking sessions or long-running queries, the elevated CPU usage may be attributed to transient workload spikes, executing non-blocking operations or complex queries that involve substantial logical reads. It is also possible that the database experienced a temporary increase in resource demand due to background processes, or other concurrent workloads that were not captured at this specific point in time.
+
+**Key Findings:**
+- No blocking sessions observed, indicating no resource contention at the time.
+- Elevated logical reads (407) during a brief execution time suggests a possible inefficient query plan or suboptimal index usage moderating the CPU usage.
+- Overall system health appears stable, with no indication of long-term issues.
+
+---
+
+### Risk Assessment
+
+- **Low to Moderate Risk:** The immediate CPU metric did not point towards an ongoing performance degradation but does indicate that the workload may require monitoring for potential inefficiency.
+- **Potential Impact:** If transient spikes in CPU usage continue, they could affect the overall performance of the SQL Server, leading to longer query response times and impacting end-user experiences.
+- **Mitigation Needs:** Continual monitoring is warranted to assess workload patterns over time and to evaluate the need for query optimizations or hardware adjustments.
+
+---
+
+### Recommended Actions
+
+1. **Query Analysis:** Investigate the execution plan for the most common queries running within the context of session ID 63 and others if replicated. Identify any potential inefficiencies.
+   
+2. **Performance Monitoring:** Set up more granular performance monitoring to identify and log recurring high CPU usage instances across sessions, capturing additional metrics for follow-up analysis.
+
+3. **Resource Allocation Review:** Assess resource allocation, including CPU and memory settings for the SQL Server instance, ensuring they meet the current demand based on workload patterns.
+
+---
+
+### Prevention Recommendations
+
+1. **Index Optimization:** Evaluate the indexing strategy for the AdventureWorks2019 database, considering the addition of missing indexes and the removal of unused ones. This can help reduce logical reads in future operations.
+
+2. **Query Tuning:** Implement routine performance reviews of critical queries, refining them for better resource utilization. Use SQL Server Profiler and Extended Events to identify problem queries without aliasing resources.
+
+3. **Automated Alerts:** Set up thresholds for alerting mechanisms that can capture CPU spikes in real-time, along with contextual information to provide immediate insight into the nature of the session demanding resources.
+
+4. **Capacity Planning:** Conduct a capacity planning analysis for the SQL Server to ensure that it can scale with projected growth in application load, preparing for both hardware and service-level adjustments when needed.
+
+5. **Training & Best Practices:** Ensure that development and operations teams are trained on performance best practices for SQL Server, emphasizing query efficiency and resource-aware coding habits.
+
+By implementing the above recommendations, we can improve the overall stability and performance of the SQL Server environment, thereby mitigating risks of future CPU-related incidents.

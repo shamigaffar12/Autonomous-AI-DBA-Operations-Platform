@@ -3,20 +3,39 @@
 # Autonomous AI DBA Operations Platform
 # =========================================================
 
-# Import required library
+# Import required libraries
 import pyodbc
+import os
+
+from dotenv import load_dotenv
+
+
+# =========================================================
+# LOAD ENVIRONMENT VARIABLES
+# =========================================================
+
+load_dotenv()
 
 
 # =========================================================
 # SQL SERVER CONFIGURATION
 # =========================================================
 
-# SQL Server name
-server = "ICS-LT-4V2CJ84\\SQLEXPRESS"
+server = os.getenv(
+    "DB_SERVER"
+)
 
+database = os.getenv(
+    "DB_DATABASE"
+)
 
-# Database name
-database = "master"
+username = os.getenv(
+    "DB_USERNAME"
+)
+
+password = os.getenv(
+    "DB_PASSWORD"
+)
 
 
 # =========================================================
@@ -31,17 +50,16 @@ def get_sql_connection():
 
     try:
 
-        # Create SQL connection
         connection = pyodbc.connect(
 
             f"DRIVER={{ODBC Driver 17 for SQL Server}};"
             f"SERVER={server};"
             f"DATABASE={database};"
-            "Trusted_Connection=yes;"
+            f"UID={username};"
+            f"PWD={password};"
         )
 
         return connection
-
 
     except Exception as error:
 
@@ -50,8 +68,9 @@ def get_sql_connection():
         print(error)
 
         return None
-    
-    # =========================================================
+
+
+# =========================================================
 # CONNECTION TEST
 # =========================================================
 
@@ -59,14 +78,43 @@ if __name__ == "__main__":
 
     print("\nTesting SQL Connection...\n")
 
+    print(f"DB_SERVER   : {server}")
+    print(f"DB_DATABASE : {database}")
+
     connection = get_sql_connection()
 
     if connection:
 
-        print("SQL Server connection successful.")
+        print("\nSQL Server connection successful.")
+
+        try:
+
+            cursor = connection.cursor()
+
+            cursor.execute(
+                "SELECT DB_NAME()"
+            )
+
+            current_db = cursor.fetchone()[0]
+
+            print(
+                f"Connected Database : {current_db}"
+            )
+
+            cursor.close()
+
+        except Exception as error:
+
+            print(
+                "\nDatabase Verification Error:\n"
+            )
+
+            print(error)
 
         connection.close()
 
     else:
 
-        print("SQL Server connection failed.")
+        print(
+            "\nSQL Server connection failed."
+        )

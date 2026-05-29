@@ -1,0 +1,57 @@
+### Incident Summary
+**Incident Date/Time:** 2026-05-29 16:29:09  
+**Database:** AdventureWorks2019  
+**Overall Status:** Attention Required  
+**Nature of Incident:** High CPU usage and long-running queries detected across multiple background sessions.
+
+### Root Cause Analysis
+1. **High CPU Usage:** 
+   - Multiple sessions (IDs: 12, 23, 5, 8, 7, 10, 25, 2, 26, 1) demonstrated excessive CPU usage, leading to alerts indicating potential performance degradation.
+   - The processes being executed had high CPU time relative to their elapsed time, which implies that while they are consuming CPU resources, they are not progressing efficiently.
+
+2. **Long-Running Queries:** 
+   - Five sessions exhibited long run times, particularly commands associated with database maintenance and management tasks such as `LOG WRITER`, `LAZY WRITER`, and `XTP_CKPT_AGENT`.
+   - Session IDs 2 and 1 reported elapsed times over 201,000, indicating they have been waiting for extended periods while consuming CPU cycles (albeit they are marked by `SLEEP_TASK` wait types).
+
+3. **No Blocking Sessions Detected:** 
+   - The absence of blocking sessions suggests that the database operations are not being held up due to transactional locks, which points to inefficiencies in task processing or resource allocation.
+
+### Risk Assessment
+- **Performance Degradation:** Continued high CPU usage could lead to overall slow response times for application users and might affect critical query execution and application performance.
+- **Resource Exhaustion:** Prolonged high CPU usage can cause resource starvation, potentially leading to system crashes or unresponsive database instances.
+- **Customer Impact:** Performance issues could affect user satisfaction and lead to potential service-level agreement (SLA) breaches.
+
+### Recommended Actions
+1. **Immediate Investigation:**
+   - Analyze the queries and processes running in the identified sessions to understand the workload characteristics.
+   - Monitor system resource metrics (CPU, memory, and disk I/O) for bottlenecks.
+
+2. **Session Management:**
+   - Consider terminating or throttling sessions that are consuming excessive CPU resources without completing tasks effectively, especially background processes.
+
+3. **Execution Plan Analysis:**
+   - Review execution plans for long-running queries to identify potential inefficiencies such as missing indexes or suboptimal query designs.
+
+4. **Workload Distribution:**
+   - Reassess the workload management strategy to improve resource allocation and reduce contention for CPU resources.
+
+### Prevention Recommendations
+1. **Query Optimization:**
+   - Regularly review code and queries for optimization opportunities; utilize tools like the SQL Server Database Engine Tuning Advisor.
+   
+2. **Index Maintenance Strategy:**
+   - Implement a proactive index maintenance strategy to ensure that statistics are updated regularly and that high seek times are minimized.
+   
+3. **Performance Monitoring:**
+   - Establish thresholds for high CPU usage and long-running queries, with automated alerts to notify the DBA team upon crossing those thresholds.
+   
+4. **Load Testing:**
+   - Conduct periodic load tests to estimate system performance under stress and identify potential bottlenecks before they manifest in production.
+   
+5. **System Resource Assessment:**
+   - Ensure adequate resources (CPU, RAM, Storage) are provisioned to handle peak loads based on business metrics and historical usage patterns.
+
+6. **Training and Documentation:**
+   - Continuous training for team members on best practices for SQL performance tuning and maintaining application efficiency; document changes and observed results for future reference.
+
+By addressing the identified issues and recommendations promptly, the performance and reliability of the AdventureWorks2019 database can be improved, mitigating the risk of similar incidents in the future.
