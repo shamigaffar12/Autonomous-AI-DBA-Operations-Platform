@@ -10,7 +10,11 @@
 
 from app.mcp_server.workflow_manager import (
 
-    display_workflow_steps
+    display_workflow_steps,
+
+    execute_workflow,
+
+    workflow_summary
 )
 
 
@@ -37,7 +41,6 @@ class MCPController:
 
     def __init__(self):
 
-        # MCP Controller Name
         self.name = (
 
             "MCP Orchestration Controller"
@@ -53,7 +56,6 @@ class MCPController:
         """
         Start MCP orchestration workflow.
         """
-
 
         print("\n========================================")
 
@@ -72,19 +74,39 @@ class MCPController:
 
 
         # =================================================
-        # DISPLAY WORKFLOW EXECUTION
+        # DISPLAY WORKFLOW
         # =================================================
 
         display_workflow_steps()
 
 
         # =================================================
-        # MCP READY MESSAGE
+        # EXECUTE WORKFLOW
+        # =================================================
+
+        execute_workflow()
+
+
+        # =================================================
+        # WORKFLOW SUMMARY
         # =================================================
 
         print("\n========================================")
 
-        print(" MCP ORCHESTRATION READY ")
+        print(" WORKFLOW SUMMARY ")
+
+        print("========================================")
+
+        workflow_summary()
+
+
+        # =================================================
+        # COMPLETION MESSAGE
+        # =================================================
+
+        print("\n========================================")
+
+        print(" MCP ORCHESTRATION SUCCESSFUL ")
 
         print("========================================\n")
 
@@ -95,10 +117,6 @@ class MCPController:
 
 if __name__ == "__main__":
 
-
-    # Create MCP controller object
     controller = MCPController()
 
-
-    # Start orchestration workflow
     controller.start_workflow()
