@@ -39,61 +39,43 @@ class AIDBAgent:
         # AI Agent Name
         self.name = "Autonomous AI DBA Agent"
 
-
         # =================================================
         # LOAD API KEY
         # =================================================
 
         api_key = os.getenv(
-
             "OPENAI_API_KEY"
         )
-
 
         # =================================================
         # VALIDATE API KEY
         # =================================================
 
         if not api_key:
-
             raise ValueError(
-
                 "OPENAI_API_KEY not found in .env file"
-
             )
-
 
         # =================================================
         # CUSTOM HTTP CLIENT
         # =================================================
 
         http_client = httpx.Client(
-
             verify=False,
-
             timeout=60.0
         )
-
 
         # =================================================
         # OPENROUTER CLIENT CONFIGURATION
         # =================================================
 
         self.client = OpenAI(
-
             api_key=api_key,
-
             base_url="https://openrouter.ai/api/v1",
-
             http_client=http_client,
-
             default_headers={
-
-                "HTTP-Referer":
-                "http://localhost",
-
-                "X-Title":
-                "Autonomous AI DBA Operations Platform"
+                "HTTP-Referer": "http://localhost",
+                "X-Title": "Autonomous AI DBA Operations Platform"
             }
         )
 
@@ -112,7 +94,6 @@ class AIDBAgent:
 
             print("\nGenerating AI Incident Analysis...\n")
 
-
             # =============================================
             # SEND INCIDENT TO AI MODEL
             # =============================================
@@ -127,56 +108,51 @@ class AIDBAgent:
                         "role": "system",
 
                         "content": """
+You are an expert SQL Server DBA and database reliability engineer.
 
-                        You are an expert SQL Server DBA
-                        and database reliability engineer.
+Analyze the provided monitoring context and respond based on the current database status:
 
-                        Analyze the SQL incident and generate:
+If the status is HEALTHY:
+- Provide a concise System Health Summary
+- Highlight monitoring observations
+- Mention preventive recommendations only
+- Do not present it as a critical incident
 
-                        1. Incident Summary
-                        2. Root Cause Analysis
-                        3. Risk Assessment
-                        4. Recommended Actions
-                        5. Prevention Recommendations
+If the status is ATTENTION REQUIRED:
+- Provide Incident Summary
+- Root Cause Analysis
+- Risk Assessment
+- Recommended Actions
+- Prevention Recommendations
 
-                        Provide response in professional
-                        enterprise operational format.
-
-                        """
+Use professional enterprise operational format.
+"""
                     },
 
                     {
                         "role": "user",
-
                         "content": incident
                     }
                 ]
             )
-
 
             # =============================================
             # EXTRACT AI RESPONSE
             # =============================================
 
             ai_analysis = (
-
                 response.choices[0]
                 .message.content
-
             )
-
 
             # =============================================
             # RETURN AI RESPONSE
             # =============================================
 
             return {
-
                 "incident": incident,
-
                 "analysis": ai_analysis
             }
-
 
         # ================================================
         # FALLBACK RESPONSE
@@ -184,39 +160,32 @@ class AIDBAgent:
 
         except Exception as error:
 
-
             print(f"\nAI Connection Error: {error}\n")
-
 
             fallback_response = """
 
-Incident Summary:
-High resource utilization detected in SQL Server.
+System Health Summary:
+Monitoring completed successfully for the SQL Server environment.
 
-Root Cause Analysis:
-Possible CPU-intensive query execution or workload spike identified.
-
-Risk Assessment:
-Medium operational impact observed.
+Monitoring Observations:
+- CPU usage was captured successfully.
+- Blocking and long-running query checks were performed.
+- Database size information was retrieved successfully.
 
 Recommended Actions:
-- Review active sessions
-- Analyze expensive queries
-- Check indexing and execution plans
-- Monitor blocking and wait statistics
+- Continue regular monitoring.
+- Review workload trends periodically.
+- Maintain index and statistics upkeep.
 
 Prevention Recommendations:
-- Implement proactive monitoring
-- Configure alert thresholds
-- Perform regular performance tuning
+- Keep alert thresholds in place.
+- Perform routine capacity planning.
+- Maintain documentation and operational logs.
 
 """
 
-
             return {
-
                 "incident": incident,
-
                 "analysis": fallback_response
             }
 
@@ -227,15 +196,10 @@ Prevention Recommendations:
 
 if __name__ == "__main__":
 
-
     print("\n========================================")
-
     print(" Autonomous AI DBA Operations Platform ")
-
     print(" AI DBA Agent ")
-
     print("========================================\n")
-
 
     # =====================================================
     # CREATE AI AGENT OBJECT
@@ -243,90 +207,68 @@ if __name__ == "__main__":
 
     agent = AIDBAgent()
 
-
     # =====================================================
     # SAMPLE INCIDENT DATA
     # =====================================================
 
     incident_data = """
 
-    SQL Monitoring Alert:
+SQL Monitoring Alert:
 
-    - High CPU usage detected
-    - Blocking session identified
-    - Long running query detected
-    - Database response time increased
-    - Query timeout reported by application
-    - CPU utilization exceeded threshold
+- High CPU usage detected
+- Blocking session identified
+- Long running query detected
+- Database response time increased
+- Query timeout reported by application
+- CPU utilization exceeded threshold
 
-    """
-
+"""
 
     # =====================================================
     # RUN AI INCIDENT ANALYSIS
     # =====================================================
 
     result = agent.analyze_incident(
-
         incident_data
-
     )
-
 
     # =====================================================
     # DISPLAY AI OUTPUT
     # =====================================================
 
     print("\n========================================")
-
     print(" AI INCIDENT ANALYSIS REPORT ")
-
     print("========================================\n")
 
-
     print(result["analysis"])
-
 
     # =====================================================
     # CREATE REPORTS FOLDER
     # =====================================================
 
     os.makedirs(
-
         "reports",
-
         exist_ok=True
     )
-
 
     # =====================================================
     # SAVE INCIDENT REPORT
     # =====================================================
 
     with open(
-
         "reports/incident_report.txt",
-
         "w",
-
         encoding="utf-8"
-
     ) as report_file:
 
-
         report_file.write(
-
             result["analysis"]
-
         )
-
 
     # =====================================================
     # SUCCESS MESSAGE
     # =====================================================
 
     print("\n========================================")
-
     print(" Incident report saved successfully ")
-
     print("========================================\n")

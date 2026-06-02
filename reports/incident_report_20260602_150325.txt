@@ -1,0 +1,41 @@
+**Incident Summary:**
+
+Date: 2026-06-02  
+Database: AdventureWorks2019  
+Overall Status: ATTENTION REQUIRED  
+
+**Root Cause Analysis:**
+
+The database is experiencing a blocking situation as observed with the suspended Session ID 52, which is running an UPDATE command and has been blocked by Session ID 67. This session has waited for 391,509 milliseconds (approximately 391.5 seconds) on a lock type (LCK_M_U), indicating that it is unable to complete its operation due to resource contention.
+
+**Risk Assessment:**
+
+The prolonged blocking scenario can lead to:
+- Performance degradation for users affected by the long-running transaction.
+- Potential timeouts or failures in operations depending on the blocking session.
+- Increased load on the database, impacting overall responsiveness.
+
+**Recommended Actions:**
+
+1. **Investigate Blocking Session ID 67:**
+   - Identify the operation being performed by the blocking session and evaluate if it can be optimized or terminated if it's not critical.
+   - Consider examining indexing strategies or transaction management to mitigate long-running locks.
+
+2. **Monitor Suspended Sessions:**
+   - Continuously monitor all suspended sessions to identify the impact on performance and user experience.
+
+3. **Review Long-Running Queries:**
+   - Analyze Session ID 52 to understand the query structure and execution plan to potentially streamline the update operation.
+
+**Prevention Recommendations:**
+
+1. **Query Optimization:**
+   - Implement indexing strategies to enhance performance on frequently updated tables, minimizing lock contention.
+
+2. **Utilize Transaction Management:**
+   - Encourage best practices for transaction management in application code, such as keeping transactions as short as possible.
+
+3. **Implement Alerting Mechanisms:**
+   - Set up alerts for long-running queries and blocking sessions to allow for prompt corrective actions before impacting end users. 
+
+By addressing the immediate blocking issue while implementing preventive measures, you can enhance database performance and reliability.

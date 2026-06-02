@@ -1,0 +1,77 @@
+### Incident Summary
+
+**Date and Time of Monitoring:** 2026-06-02 14:57:05  
+**Database:** AdventureWorks2019  
+**Overall Status:** Attention Required  
+
+During the monitoring of SQL Server, a critical condition was identified wherein session ID 52 was blocked and suspended due to an ongoing lock held by session ID 67. This incident requires immediate attention due to the potential impact on database performance and availability. 
+
+---
+
+### Root Cause Analysis
+
+The following conditions led to the incident:
+
+1. **Blocking Session:**  
+   - Session ID 52 was suspended and was being blocked by session ID 67 with the wait type `LCK_M_U` (Update Lock). The update lock indicates that session ID 67 is performing an operation that necessitates an update lock on a resource that session ID 52 is also trying to access.
+
+2. **Wait Time:**  
+   - The duration of the wait time reported was approximately 16511ms for session ID 52, indicating a substantial blockage that likely affects user experience and app functionality.
+
+3. **Session State:**  
+   - The majority of sessions were either sleeping or running typically with no significant CPU overhead. This indicates that while the overall CPU usage is within normal parameters, one session's blocking could prevent others from executing properly.
+
+---
+
+### Risk Assessment
+
+1. **Impact on Application Performance:**  
+   The blocking issue can lead to increased wait times for users trying to execute queries, potentially resulting in timeouts and lost transactions, disrupting business operations.
+
+2. **Downtime Risk:**  
+   If not addressed promptly, the blocking can escalate into a broader application unavailability situation, which may lead to prolonged downtime.
+
+3. **User Frustration:**  
+   End users may experience slow performance or application crashes, leading to decreased productivity and dissatisfaction.
+
+---
+
+### Recommended Actions
+
+1. **Identify and Resolve Blocking:**  
+   - Investigate session ID 67 to understand the operation it is performing, which is causing the blockage.
+   - Consider terminating session ID 67 if it is safe to do so. Use the command: 
+     ```sql
+     KILL 67;
+     ```
+
+2. **Review Indexing and Query Performance:**  
+   - Analyze the queries executed by both session ID 52 and 67 to determine if they can be optimized to reduce blocking occurrences in the future.
+
+3. **Monitor Locks and Sessions:**  
+   - Implement routine monitoring of locks and sessions to catch blocking scenarios earlier.
+   
+4. **Engagement of Application Teams:**  
+   - Engage with the database application teams to discuss transaction and lock usage patterns that could be contributing to persistent locking issues.
+
+---
+
+### Prevention Recommendations
+
+1. **Query Optimization:**  
+   - Conduct periodic reviews of long-running queries and their execution plans to identify performance bottlenecks.
+   - Ensure that transactions are kept as short as possible to avoid holding locks for prolonged periods.
+
+2. **Isolation Level Review:**  
+   - Evaluate and adjust the transaction isolation levels across applications to use the lowest level appropriate for the tasks to minimize locking.
+
+3. **Update Lock Management:**  
+   - Revise application logic to reduce the frequency of operations that lead to update locks or to batch operations whenever possible.
+
+4. **Baseline Performance Metrics:**  
+   - Establish baseline performance metrics regarding typical session behavior to assist in detecting anomalies early.
+
+5. **Training and Documentation:**  
+   - Provide training sessions and comprehensive documentation for application teams on best practices regarding database interactions to reduce blocking scenarios.
+
+By applying these measures, the organization can significantly minimize the risk of future blocking incidents and enhance overall database reliability and performance.

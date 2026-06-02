@@ -1,0 +1,37 @@
+# Incident Report
+
+## 1. Incident Summary
+On June 2, 2026, at 14:54:10 UTC, regular monitoring was conducted on the AdventureWorks2019 database utilizing SQL Server. The monitoring results indicated that the overall health of the database was stable and within normal operational parameters. The CPU usage across active sessions was within normal limits, with no alerts or signs of performance degradation. Importantly, no blocking sessions or long-running queries were detected.
+
+## 2. Root Cause Analysis
+The environment operated smoothly due to:
+- Adequate CPU resources being available which allowed for sessions to execute without contention.
+- Sessions monitored all maintained normal CPU usage, and no session surpassed critical thresholds necessitating attention.
+- Efficient query design or timely maintenance ensuring no long-running queries emerged during the monitoring period, suggesting that the performance optimization measures in place were effective.
+
+## 3. Risk Assessment
+- **Low Risk**: There were no active issues within the database; all monitored parameters fell within acceptable thresholds.
+- **Potential Risks**:
+  - Future spikes in CPU use or unexpected long-running queries could lead to performance degradation, especially under increased loads.
+  - Lack of adequate monitoring for longer timeframes could mean hidden issues may arise that could affect database performance without immediate detection.
+
+## 4. Recommended Actions
+- Continuation of regular monitoring with emphasis on key busy hours or changes in workload, to ensure promptly identifying any concerning patterns.
+- Document and analyze the performance of the running queries to ensure their efficiency and optimize further if necessary.
+- Engage in routine database health checks and optimizations, including indexing strategies and regular maintenance plans to sustain optimal performance.
+
+## 5. Prevention Recommendations
+- **Implement Comprehensive Monitoring Solutions**:
+  - Set up alerts for unusual increases in consume resources to catch potential performance issues before they affect the end-users.
+  - Use SQL Server built-in tools like Extended Events or Query Store for deeper insights into query performance over time.
+
+- **Maintain a Performance Baseline**:
+  - Establish a performance baseline to better understand normal operational thresholds and quickly identify variances that may indicate issues.
+
+- **Regular Scheduled Maintenance**:
+  - Execute regular updates to indexes and statistics as part of ongoing maintenance, which can help in minimizing the risk of long-running queries.
+
+- **Training and Best Practices**:
+  - Train application developers on SQL optimization techniques and review the SQL code regularly for efficiency, ensuring that the system remains scalable under heavier loads.
+
+By instituting these recommendations, the responsible parties can maintain the current health of the AdventureWorks2019 database while being better prepared for potential future incidents.
