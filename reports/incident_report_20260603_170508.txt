@@ -1,0 +1,22 @@
+### Incident Summary
+- **Database**: AdventureWorks2019
+- **Monitoring Time**: 2026-06-03 17:05:01.261946
+- **Overall Status**: ATTENTION REQUIRED
+
+### Root Cause Analysis
+The current incident is primarily due to a long-running query (Session ID: 52) that is in a suspended state due to blocking by Session ID: 67. This blocking stems from a lock wait (LCK_M_U), which has caused significant wait time, indicating resource contention within the database.
+
+### Risk Assessment
+The prolonged blocking situation can lead to degraded application performance, increased response times, and ultimately user dissatisfaction. If left unresolved, it could potentially escalate, affecting the application availability and reliability. 
+
+### Recommended Actions
+1. **Identify Blocking Session**: Investigate the blocking session (Session ID: 67) to understand what resource it is holding and its impact on other queries.
+2. **Query Optimization**: Review the query being executed in Session ID: 52 (UPDATE command) for potential optimizations to reduce execution time and decrease locking behavior.
+3. **Session Termination**: Consider terminating Session ID: 67 if it is safe to do so, to release the lock held on Session ID: 52, thereby allowing it to proceed.
+4. **Monitoring**: Implement enhanced monitoring for long-running queries and blocking events to respond more promptly in the future.
+
+### Prevention Recommendations
+- **Regular Index Maintenance**: Ensure that database maintenance plans incorporate regular updates to statistics and rebuilding of indexes to improve query performance.
+- **Lock Monitoring**: Implement monitoring on lock waits and blockings to quickly identify and resolve locking issues before they escalate into performance problems.
+- **Query Review Procedures**: Establish a routine review process for queries, particularly those that are known to run long, to identify potential optimization opportunities.
+- **Transaction Management**: Review current transaction handling practices to ensure that transactions are as short-lived as possible to reduce locking duration.

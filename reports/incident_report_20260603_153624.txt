@@ -1,0 +1,40 @@
+### Incident Summary
+
+**Date and Time:** 2026-06-03 15:36:16  
+**Database:** AdventureWorks2019  
+**Overall Status:** ATTENTION REQUIRED
+
+### Root Cause Analysis
+
+The database has detected a long-running query associated with **Session ID: 52**, which has been suspended for a duration of approximately **88772941 milliseconds**. This session is blocked by another process (Session ID: 67) and is waiting on a lock type (**LCK_M_U**), indicating that it is attempting to acquire an update lock but is currently unable to proceed.
+
+### Risk Assessment
+
+The prolonged suspension of the session points to potential contention issues within the database, which might lead to:
+- Degraded performance for affected transactions.
+- Increased response time for end users.
+- A potential bottleneck in application workflows, which can result in higher application load times and impact user experience.
+
+If the blockage persists, it may escalate into further resource contention and could impact overall database availability.
+
+### Recommended Actions
+
+1. **Investigate Blocking Session (ID: 67):** Identify the nature of the operation that Session ID: 67 is performing and determine whether it can be optimized or cancelled.
+   
+2. **Kill Blocking Session (if appropriate):** Evaluate the necessity of terminating Session ID: 67 if it is determined that the blocking operation can be safely aborted.
+
+3. **Review Long-running queries:** Analyze the execution plans and indexes for Session ID: 52 and possibly optimize the underlying query to reduce its execution time.
+
+4. **Monitoring:** Increase the monitoring frequency of active sessions to catch such blocking issues early in the future.
+
+### Prevention Recommendations
+
+- **Index Optimization:** Conduct a review of indexes on frequently updated tables to minimize lock contention during updates.
+  
+- **Query Optimization:** Regularly analyze and optimize slow-running queries. Implement best practices for ensuring that long-running operations are executed efficiently.
+
+- **Transaction Management:** Encourage shorter transactions where possible to reduce lock duration and improve concurrency.
+
+- **Lock Escalation Monitoring:** Monitor lock escalation events and adjust the configuration appropriately to manage resource lock usage.
+
+Implementing these recommended actions and preventive measures will help improve the performance of the AdventureWorks2019 database and mitigate the risk of similar incidents in the future.

@@ -5,13 +5,17 @@
 
 
 # =========================================================
-# WORKFLOW STEPS
+# IMPORT MONITORING EXECUTOR
 # =========================================================
 
 from app.mcp_server.monitoring_executor import (
     run_monitoring
 )
 
+
+# =========================================================
+# WORKFLOW STEPS
+# =========================================================
 
 WORKFLOW_STEPS = [
 
@@ -24,6 +28,8 @@ WORKFLOW_STEPS = [
     "Send Incident To AI Agent",
 
     "Generate RCA Report",
+
+    "Send Notifications",
 
     "Save Incident Report"
 ]
@@ -78,34 +84,91 @@ def execute_workflow():
     print("========================================\n")
 
 
+    # =====================================================
+    # STEP 1
+    # =====================================================
+
     print("[STEP 1] Run Monitoring Engine")
 
     run_monitoring()
 
 
+    # =====================================================
+    # STEP 2
+    # =====================================================
+
     print("\n[STEP 2] Collect Monitoring Results")
 
-    print("Monitoring results collected successfully.")
+    print(
 
+        "Monitoring results collected successfully."
+
+    )
+
+
+    # =====================================================
+    # STEP 3
+    # =====================================================
 
     print("\n[STEP 3] Format Incident Data")
 
-    print("Incident formatting workflow completed.")
+    print(
 
+        "Incident formatting workflow completed."
+
+    )
+
+
+    # =====================================================
+    # STEP 4
+    # =====================================================
 
     print("\n[STEP 4] Send Incident To AI Agent")
 
-    print("AI analysis workflow completed.")
+    print(
 
+        "AI analysis workflow completed."
+
+    )
+
+
+    # =====================================================
+    # STEP 5
+    # =====================================================
 
     print("\n[STEP 5] Generate RCA Report")
 
-    print("RCA report generated successfully.")
+    print(
+
+        "RCA report generated successfully."
+
+    )
 
 
-    print("\n[STEP 6] Save Incident Report")
+    # =====================================================
+    # STEP 6
+    # =====================================================
 
-    print("Incident report saved successfully.")
+    print("\n[STEP 6] Send Notifications")
+
+    print(
+
+        "Notification workflow completed."
+
+    )
+
+
+    # =====================================================
+    # STEP 7
+    # =====================================================
+
+    print("\n[STEP 7] Save Incident Report")
+
+    print(
+
+        "Incident report saved successfully."
+
+    )
 
 
     print("\n========================================")
@@ -113,6 +176,7 @@ def execute_workflow():
     print(" MCP WORKFLOW COMPLETED ")
 
     print("========================================\n")
+
 
 # =========================================================
 # GET WORKFLOW STEPS
@@ -148,6 +212,7 @@ def workflow_summary():
     print(
 
         "Workflow Status      : Defined"
+
     )
 
 

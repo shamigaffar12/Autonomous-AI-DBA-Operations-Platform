@@ -1,0 +1,24 @@
+### Incident Summary
+**Date and Time of Monitoring:** 2026-06-03 17:07:09  
+**Database:** AdventureWorks2019  
+**Overall Status:** Attention Required
+
+### Root Cause Analysis
+- The primary concern identified in the monitoring report is a long-running query associated with Session ID 52. It is currently in a suspended state due to blocking by Session ID 67, which is potentially holding up transaction locks (LCK_M_U). This wait type indicates that the query is waiting for an update lock to be released by the blocking session.
+
+### Risk Assessment
+- The presence of a long-running query and blocking may lead to performance degradation and impact overall database responsiveness. If the blocking situation persists, it may result in additional timeouts and increased response times for dependent queries, which can affect application performance and usability.
+
+### Recommended Actions
+1. **Identify the Blocking Session (Session ID 67):** Investigate the transaction or query associated with Session ID 67 to understand why it is holding the lock and if it can be optimized or terminated safely.
+2. **Evaluate Session 52:** Consider investigating the logic behind the long-running update query to see if it can be optimized to complete faster.
+3. **Monitor Performance:** Continuously monitor the database for additional blocking incidents and high resource consumption patterns.
+
+### Prevention Recommendations
+1. **Query Optimization:** Review and optimize queries that are often causing long locks and plans that might lead to blocking situations.
+2. **Indexing Strategy:** Evaluate the indexing on key tables impacted by frequent updates to reduce locking scenarios and improve overall performance.
+3. **Update Statistics:** Regularly update statistics for performance optimization to ensure the query optimizer can make the best decisions for executing plans.
+4. **Transactional Practices:** Educate developers on best practices for transactions, including keeping transactions as short as possible to minimize locking issues.
+5. **Database Resource Monitoring:** Implement regular monitoring for blocking sessions and long-running queries to proactively address potential issues before they impact users.
+
+By implementing these preventive measures, the overall health and performance of the AdventureWorks2019 database can be enhanced, helping to mitigate the risk of future incidents.
