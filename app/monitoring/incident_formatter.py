@@ -5,14 +5,11 @@
 
 from datetime import datetime
 
-
-# =========================================================
-# ALERT THRESHOLDS
-# =========================================================
-
-CPU_THRESHOLD = 1000
-
-LONG_QUERY_THRESHOLD = 30000
+from app.common.config_manager import (
+    CPU_THRESHOLD,
+    LONG_QUERY_THRESHOLD,
+    DATABASE_NAME
+)
 
 
 # =========================================================
@@ -20,15 +17,10 @@ LONG_QUERY_THRESHOLD = 30000
 # =========================================================
 
 def format_incident_data(
-
     cpu_results,
-
     blocking_results,
-
     long_query_results
-
 ):
-
     """
     Convert monitoring results into
     AI-readable incident summary.
@@ -43,11 +35,10 @@ def format_incident_data(
     )
 
     incident_summary += (
-        "\nDatabase: AdventureWorks2019\n"
+        f"\nDatabase: {DATABASE_NAME}\n"
     )
 
     critical_issue_found = False
-
 
     # =====================================================
     # CPU MONITORING
@@ -79,14 +70,12 @@ def format_incident_data(
                 critical_issue_found = True
 
                 incident_summary += (
-
                     "\nAlert: High CPU Usage Detected"
                 )
 
             else:
 
                 incident_summary += (
-
                     "\nAlert: CPU Usage Within Normal Range"
                 )
 
@@ -99,7 +88,6 @@ def format_incident_data(
         incident_summary += (
             "\n\nNo CPU monitoring data found."
         )
-
 
     # =====================================================
     # BLOCKING SESSION MONITORING
@@ -131,7 +119,6 @@ def format_incident_data(
             "\n\nNo blocking sessions detected."
         )
 
-
     # =====================================================
     # LONG RUNNING QUERY MONITORING
     # =====================================================
@@ -162,14 +149,12 @@ def format_incident_data(
                 critical_issue_found = True
 
                 incident_summary += (
-
                     "\nAlert: Long Running Query Detected"
                 )
 
             else:
 
                 incident_summary += (
-
                     "\nAlert: Query Duration Within Normal Range"
                 )
 
@@ -183,24 +168,20 @@ def format_incident_data(
             "\n\nNo long running queries detected."
         )
 
-
     # =====================================================
-    # OVERALL HEALTH STATUS
+    # OVERALL STATUS
     # =====================================================
 
     if critical_issue_found:
 
         incident_summary += (
-
             "\n\nOverall Status: ATTENTION REQUIRED"
         )
 
     else:
 
         incident_summary += (
-
             "\n\nOverall Status: HEALTHY"
         )
-
 
     return incident_summary

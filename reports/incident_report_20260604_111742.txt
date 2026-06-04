@@ -1,0 +1,32 @@
+### System Health Summary
+
+**Monitoring Time:** 2026-06-04 11:17:35
+
+**Database:** AdventureWorks2019
+
+**Overall Status:** HEALTHY
+
+The monitoring indicates a stable and healthy database environment for AdventureWorks2019. All sessions are performing within expected parameters, and no issues have been detected that require immediate attention.
+
+### Monitoring Observations
+
+- **CPU Performance:** 
+  - All session CPU usage is within normal range.
+  - Session ID 60 is the only active session with minimal CPU time (7 ms) and logical reads (257).
+  
+- **Session Status:** 
+  - Majority of sessions are in a sleeping state (IDs 52-59), indicating no immediate load or contention issues.
+  
+- **No Blocking:** 
+  - No blocking sessions were observed during the monitoring period.
+
+- **No Long Running Queries:** 
+  - The monitoring did not identify any long-running queries, confirming efficient query performance.
+
+### Preventive Recommendations
+
+1. **Regular Performance Monitoring:** Continue routine performance monitoring to ensure that CPU and memory usage remains optimal.
+2. **Session Management:** Regularly review active sessions and consider identifying and purging any unnecessary sleeping or idle sessions to optimize resource usage.
+3. **Index Maintenance:** Perform periodic index maintenance to promote query efficiency and reduce logical reads, ensuring overall performance remains strong.
+
+By adhering to these recommendations, the health and performance of the AdventureWorks2019 database can be effectively maintained.

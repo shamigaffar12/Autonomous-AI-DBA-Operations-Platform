@@ -1,0 +1,15 @@
+**System Health Summary**
+
+**Monitoring Time:** 2026-06-04 11:25:41  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+**Monitoring Observations:**
+- All monitored sessions are within normal CPU usage thresholds.
+- Current running session (Session ID: 58) shows minimal resource consumption, with CPU Time at 2 ms and an Elapsed Time of 2 ms.
+- There are no blocking sessions or long-running queries detected, indicating a well-functioning environment.
+
+**Preventive Recommendations:**
+1. Continue monitoring CPU usage trends over time to ensure performance remains optimal.
+2. Schedule regular maintenance tasks, such as index optimization and statistics updates, to maintain query performance.
+3. Ensure that monitoring tools are in place to track metrics such as memory usage, disk I/O, and query execution times for proactive management.

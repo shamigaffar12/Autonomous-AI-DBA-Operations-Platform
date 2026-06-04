@@ -16,24 +16,37 @@ from app.notifications.teams_notifier import (
 # BUILD TEAMS SUMMARY
 # =========================================================
 
-def build_teams_summary(overall_status, incident_summary):
-
+def build_teams_summary(
+    overall_status,
+    incident_summary
+):
     """
     Create a short Teams-friendly incident message.
     """
 
     lines = []
 
-    lines.append(f"SQL Alert: {overall_status}")
+    lines.append(
+        f"SQL Alert: {overall_status}"
+    )
 
     if "Blocking Sessions Detected:" in incident_summary:
-        lines.append("Blocking session detected")
+
+        lines.append(
+            "Blocking session detected"
+        )
 
     if "Long Running Query Analysis:" in incident_summary:
-        lines.append("Long running query detected")
+
+        lines.append(
+            "Long running query detected"
+        )
 
     if "High CPU Usage Detected" in incident_summary:
-        lines.append("High CPU usage detected")
+
+        lines.append(
+            "High CPU usage detected"
+        )
 
     return "\n".join(lines)
 
@@ -42,26 +55,43 @@ def build_teams_summary(overall_status, incident_summary):
 # SEND NOTIFICATIONS
 # =========================================================
 
-def send_notifications(overall_status, incident_summary):
+def send_notifications(
+    overall_status,
+    incident_summary
+):
+    """
+    Send notifications only when required.
+    """
 
-    """
-    Send notifications only when needed.
-    """
+    # =====================================================
+    # HEALTHY SYSTEM
+    # =====================================================
 
     if overall_status.upper() == "HEALTHY":
 
-        print("\nSystem Healthy. No notifications required.")
-        return
+        print(
+            "\nSystem Healthy. No notifications required."
+        )
 
-    subject = f"SQL Alert - {overall_status}"
+        return True
 
-    # Full detail to Email
+    # =====================================================
+    # EMAIL ALERT
+    # =====================================================
+
+    subject = (
+        f"SQL Alert - {overall_status}"
+    )
+
     send_email_alert(
         subject,
         incident_summary
     )
 
-    # Short summary to Teams
+    # =====================================================
+    # TEAMS ALERT
+    # =====================================================
+
     teams_message = build_teams_summary(
         overall_status,
         incident_summary
@@ -71,6 +101,8 @@ def send_notifications(overall_status, incident_summary):
         teams_message
     )
 
+    return True
+
 
 # =========================================================
 # TEST EXECUTION
@@ -78,7 +110,20 @@ def send_notifications(overall_status, incident_summary):
 
 if __name__ == "__main__":
 
+    sample_incident = """
+
+    SQL Monitoring Summary
+
+    Blocking Sessions Detected:
+
+    Session ID: 52
+    Blocking Session ID: 67
+
+    Overall Status: ATTENTION REQUIRED
+
+    """
+
     send_notifications(
         "ATTENTION REQUIRED",
-        "SQL Monitoring Summary\n\nBlocking Sessions Detected:\nSession ID: 52\nBlocking Session ID: 67"
+        sample_incident
     )
