@@ -1,0 +1,114 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 12:45:06.874726
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 57
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 60
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 612
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1709
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 4326
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**  
+Database: AdventureWorks2019  
+Monitoring Time: 2026-06-05 12:45:06  
+
+The database is currently operating under a HEALTHY status with no critical issues detected. The CPU utilization is within the normal operational range across all active sessions.
+
+**Monitoring Observations**  
+- **Active Sessions:** A total of 7 sessions were monitored. Session 57 is currently active with a low CPU time of 3 ms, indicating minimal workload.
+- **Session Status:** Most sessions are in a sleeping state, featuring a low CPU and memory footprint.
+- **Performance Metrics:** No blocking sessions or long-running queries were noted, reinforcing stable performance indications.
+
+**Preventive Recommendations**  
+- Continue monitoring CPU usage trends periodically to ensure optimal performance, especially during peak hours.
+- Maintain regular performance reviews to identify any potential inefficiencies or areas for enhancement as workload volumes change.
+- Implement a routine check of session statuses and resource utilization to preemptively address any emerging issues before they impact performance.
+
+========================================
+ END OF REPORT
+========================================
+

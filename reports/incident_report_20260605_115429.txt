@@ -1,0 +1,82 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 11:54:26.315520
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1120
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 762
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Context**  
+- **Database:** AdventureWorks2019  
+- **Monitoring Time:** 2026-06-05 11:54:26  
+
+**Overall Status:** HEALTHY  
+
+### Monitoring Observations
+- **CPU Usage:** All monitored sessions exhibit normal activity, with CPU usage staying within acceptable parameters.
+- **Session States:** 
+  - **Running (Session ID: 52):** Active with minimal resource consumption.
+  - **Sleeping (Session IDs: 57 & 56):** Idle sessions not impacting performance.
+- **Blocking & Long Running Queries:** No instances detected, indicating smooth operations and optimal performance.
+
+### Preventive Recommendations
+- Regularly review and optimize indexes to maintain query performance as database usage evolves.
+- Continue monitoring session activity to ensure ongoing health, and review logs periodically for any unexpected anomalies.
+- Consider implementing automated performance tuning solutions to proactively address performance issues before they escalate.
+
+========================================
+ END OF REPORT
+========================================
+

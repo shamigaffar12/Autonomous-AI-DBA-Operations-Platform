@@ -1,0 +1,103 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 16:07:50.333285
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1626
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 762
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 356
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 612
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary for AdventureWorks2019 Database**
+
+**Monitoring Time:** 2026-06-05 16:07:50
+
+---
+
+**Monitoring Observations:**
+- CPU Profiler: All active sessions are operating within normal CPU usage thresholds.
+- Active session analysis indicates that one session (ID: 55) is currently running with minimal CPU engagement, while the remaining sessions are in a sleeping state.
+- There are no indications of blocking sessions or long-running queries, which suggests efficient transaction processing and resource allocation.
+
+---
+
+**Preventive Recommendations:**
+1. Continue to monitor CPU usage patterns over time to ensure there are no unexpected spikes.
+2. Regularly review indexing strategies to maintain optimal query performance, especially during peak usage times.
+3. Schedule periodic maintenance tasks, such as updating statistics and rebuilding fragmented indexes, to ensure the database performs optimally.
+4. Keep track of session behavior and resource utilization trends to identify any shifts that may necessitate intervention in the future.
+
+--- 
+
+Status remains **HEALTHY** and no immediate actions are required.
+
+========================================
+ END OF REPORT
+========================================
+

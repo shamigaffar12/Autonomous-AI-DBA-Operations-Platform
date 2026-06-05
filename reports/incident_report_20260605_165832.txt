@@ -1,0 +1,87 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 16:58:30.125350
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 53
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 514
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 4522
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1070
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 16:58:30
+
+**Overall Status:** HEALTHY
+
+### Monitoring Observations
+- All active sessions are displaying normal CPU usage; there are no sessions exhibiting blocking or long-running queries.
+- The CPU time for active sessions remains low, indicating efficient resource utilization.
+- Logical Reads across sessions suggest diverse activity, yet fall within acceptable limits.
+
+### Preventive Recommendations
+1. **Regular Performance Reviews:** Continue regular monitoring to maintain awareness of session behaviors and CPU usage patterns.
+2. **Index Maintenance:** Periodically review index effectiveness to ensure optimal query performance and minimal logical reads.
+3. **Capacity Planning:** Keep track of database growth and resource allocation to maintain performance as the workload increases over time.
+
+========================================
+ END OF REPORT
+========================================
+

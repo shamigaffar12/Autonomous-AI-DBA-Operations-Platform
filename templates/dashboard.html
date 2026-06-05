@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+
+    Operations Dashboard
+
+</h2>
+
+<div class="row g-3">
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Platform Health
+
+                </h6>
+
+                <h3>
+
+                    {{ metrics.platform_health }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Total Incidents
+
+                </h6>
+
+                <h3>
+
+                    {{ metrics.total_incidents }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Healthy Incidents
+
+                </h6>
+
+                <h3>
+
+                    {{ metrics.healthy_incidents }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Attention Required
+
+                </h6>
+
+                <h3>
+
+                    {{ metrics.attention_required }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row mt-4">
+
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h5>
+
+                    Latest Incident Status
+
+                </h5>
+
+                <h3>
+
+                    {{ metrics.latest_status }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h5>
+
+                    Latest Report
+
+                </h5>
+
+                <p>
+
+                    {{ metrics.latest_report }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 17:44:06.826925
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 356
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**  
+Monitoring Date: 2026-06-05  
+Database: AdventureWorks2019  
+Overall Status: HEALTHY  
+
+**Monitoring Observations**  
+- CPU monitoring indicates that both active sessions (Session ID 52 and Session ID 59) are operational without any significant resource contention or stress.  
+- CPU usage for both running and sleeping sessions remains within the normal range.  
+- No blocking sessions or long-running queries have been detected, indicating a stable and responsive database environment.  
+
+**Preventive Recommendations**  
+- Continue to monitor CPU usage and database performance metrics on a regular basis to ensure adherence to baseline performance.  
+- Implement routine maintenance checks, such as index optimization and statistics updates, to further enhance query performance and overall database efficiency.  
+- Schedule periodic reviews of session activity to identify and address potential performance bottlenecks before they escalate.  
+
+--- 
+
+This summary reflects a standard health status and ongoing best practices for maintaining database reliability without indicating any critical incidents.
+
+========================================
+ END OF REPORT
+========================================
+

@@ -1,0 +1,106 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 14:56:51.669890
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1934
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 50
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 2540
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 558
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 14:56:51
+
+The current health status of the AdventureWorks2019 database is classified as **HEALTHY**. All monitored parameters are operating within expected thresholds, and no critical issues have been identified.
+
+### Monitoring Observations
+
+- **CPU Usage:** All sessions are operating within normal CPU usage parameters:
+  - Session ID 55 is actively running with minimal CPU usage.
+  - Other session IDs (52, 53, 54, 57) exhibit sleeping status with normal logical reads.
+  
+- **Blocking Sessions:** No blocking sessions were detected during the monitoring period, indicating a smooth transaction process.
+  
+- **Query Performance:** No long-running queries were identified, contributing to optimal database performance.
+
+### Preventive Recommendations
+
+1. **Regular Performance Reviews:** Continue to monitor CPU usage across different sessions periodically to ensure performance optimization.
+2. **Index Maintenance:** Perform regular index maintenance to sustain query performance and data retrieval efficiency.
+3. **Backup Strategy:** Ensure that a robust backup strategy is in place to safeguard data continuity and availability in case of unforeseen incidents.
+4. **Resource Scaling:** Evaluate resource allocation periodically to accommodate potential growth in traffic or data load.
+
+In summary, the database is performing optimally, but adherence to preventive measures will aid in sustaining this healthy state over time.
+
+========================================
+ END OF REPORT
+========================================
+

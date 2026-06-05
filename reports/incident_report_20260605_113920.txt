@@ -1,0 +1,85 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 11:39:16.638854
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 10
+Elapsed Time: 10
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1068
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database**: AdventureWorks2019  
+**Monitoring Time**: 2026-06-05 11:39:16
+
+The current state of the AdventureWorks2019 database is considered healthy. CPU usage is within normal operational parameters, and there are no issues with blocking sessions or long-running queries.
+
+### Monitoring Observations
+
+- **Session ID 52**: 
+  - Status: Running
+  - CPU Time: 10 ms
+  - Elapsed Time: 10 ms
+  - Logical Reads: 257
+  
+- **Session ID 54**: 
+  - Status: Sleeping
+  - CPU Time: 0 ms
+  - Elapsed Time: 0 ms
+  - Logical Reads: 1068
+
+Overall CPU usage is low and all activities are operating as expected with no performance bottlenecks.
+
+### Preventive Recommendations
+
+1. **Regular Maintenance**: Continue performing regular database maintenance tasks such as indexes defragmentation and statistics updates to ensure optimal performance.
+2. **Capacity Planning**: Monitor the growth patterns and resource utilization to preemptively manage capacity as the database usage increases.
+3. **Monitoring Alerts**: Maintain current monitoring alerts to quickly identify any anomalies in CPU, memory, or I/O performance.
+4. **Documentation**: Keep detailed documentation of performance baselines and any changes made to the server or database configuration.
+
+Following these recommendations will help ensure continued performance and reliability of the AdventureWorks2019 database.
+
+========================================
+ END OF REPORT
+========================================
+

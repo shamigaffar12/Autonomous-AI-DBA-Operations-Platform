@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+
+    Governance Approvals
+
+</h2>
+
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+        <table class="table table-hover align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Request ID</th>
+
+                    <th>Request Type</th>
+
+                    <th>Recommendation</th>
+
+                    <th>Status</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% if approvals %}
+
+                    {% for approval in approvals %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ approval.request_id }}
+
+                        </td>
+
+                        <td>
+
+                            {{ approval.request_type }}
+
+                        </td>
+
+                        <td>
+
+                            {{ approval.recommendation }}
+
+                        </td>
+
+                        <td>
+
+                            {% if approval.status == "PENDING" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    PENDING
+
+                                </span>
+
+                            {% elif approval.status == "APPROVED" %}
+
+                                <span class="badge bg-success">
+
+                                    APPROVED
+
+                                </span>
+
+                            {% elif approval.status == "REJECTED" %}
+
+                                <span class="badge bg-danger">
+
+                                    REJECTED
+
+                                </span>
+
+                            {% else %}
+
+                                {{ approval.status }}
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {% if approval.status == "PENDING" %}
+
+                                <a
+                                    href="/approve/{{ approval.request_id }}"
+                                    class="btn btn-success btn-sm"
+                                >
+
+                                    Approve
+
+                                </a>
+
+                                <a
+                                    href="/reject/{{ approval.request_id }}"
+                                    class="btn btn-danger btn-sm"
+                                >
+
+                                    Reject
+
+                                </a>
+
+                            {% else %}
+
+                                <span class="text-muted">
+
+                                    Action Completed
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="text-center"
+                        >
+
+                            No approval requests found.
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

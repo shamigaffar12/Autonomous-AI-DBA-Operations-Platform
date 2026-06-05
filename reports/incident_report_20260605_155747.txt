@@ -1,0 +1,108 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 15:57:41.031279
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 4174
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 156
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 358
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 15:57:41.031279  
+**Overall Status:** HEALTHY
+
+The system is operating within optimal parameters with no identified issues. CPU usage remains within normal ranges across active sessions, reflecting efficient resource allocation and utilization.
+
+### Monitoring Observations
+
+- **Session Overview:**
+  - Multiple sessions observed with either running or sleeping status.
+  - CPU time across all sessions is low, indicating minimal processing load.
+  
+- **Logical Reads:** 
+  - Logical reads for session 55 (active) are significantly higher than those for other sleeping sessions. This could be indicative of a potential focus area for queries or indexing, though no immediate concern is present.
+
+- **No Blocking or Long Running Queries:** 
+  - The absence of blocking sessions and long-running queries highlights a responsive environment conducive to performance.
+
+### Preventive Recommendations
+
+1. **Regular Performance Checks:** Continue to monitor CPU and logical read patterns to identify trends that could indicate resource strain over time.
+2. **Index Maintenance:** Consider regular index maintenance to optimize query performance and reduce logical reads for frequently accessed tables.
+3. **Session Monitoring:** Keep an eye on sessions transitioning from sleeping to active states to ensure responsiveness and resource availability during peak loads. 
+
+Overall, maintaining the monitoring of these preventive aspects will help sustain the database's healthy operational state.
+
+========================================
+ END OF REPORT
+========================================
+

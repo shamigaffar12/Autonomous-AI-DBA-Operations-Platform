@@ -1,0 +1,88 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 18:44:57.595742
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 6
+Elapsed Time: 6
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 614
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary:**
+As of June 5, 2026, 18:44:57, the AdventureWorks2019 database is observed to be in a HEALTHY state. The CPU usage across all monitored sessions is within normal operational parameters, indicating efficient resource utilization.
+
+**Monitoring Observations:**
+- **Session Activity:** 
+  - Active sessions (ID: 55) are efficiently utilizing CPU resources with minimal elapsed time and logical reads.
+  - Several sessions (IDs: 52, 53, and 54) remain in a sleeping state with no resource consumption, which is expected behavior when idle.
+  
+- **Performance Metrics:** 
+  - No blocking sessions detected, ensuring smooth transaction processing.
+  - No long-running queries identified, suggesting optimal query performance and responsiveness.
+
+**Preventive Recommendations:**
+- Regularly review and optimize SQL queries to ensure long-term performance stability.
+- Schedule routine maintenance tasks such as index tuning and statistics updates to maintain query efficiency and execution plans.
+- Continue monitoring for potential future fluctuations in CPU usage and other performance indicators to proactively manage any arising issues.
+
+========================================
+ END OF REPORT
+========================================
+

@@ -1,0 +1,89 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 12:19:47.225183
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 60
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 408
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 3054
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 3762
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+Monitoring Date and Time: **2026-06-05 12:19:47**  
+Database: **AdventureWorks2019**  
+Overall Status: **HEALTHY**
+
+**Monitoring Observations:**
+- CPU usage is within the normal range across all monitored sessions.
+- There are no blocking sessions, indicating smooth database operations.
+- No long-running queries were detected, suggesting efficient query performance at this time.
+  
+**Preventive Recommendations:**
+- Continue regularly monitoring CPU utilization and session activities to maintain optimal performance.
+- Consider implementing regular performance reviews and index maintenance to ensure efficient query execution in the future.
+- Schedule routine backups and performance tuning sessions to sustain overall database health and responsiveness.
+
+This report reflects a stable operational environment and suggests ongoing vigilance in monitoring practices.
+
+========================================
+ END OF REPORT
+========================================
+

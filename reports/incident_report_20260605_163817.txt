@@ -1,0 +1,106 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 16:38:12.948823
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 51
+Status: running
+CPU Time: 5
+Elapsed Time: 5
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 61
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1222
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 2544
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 612
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 16:38:12 UTC  
+**Overall Status:** HEALTHY
+
+The current status of the database indicates optimal performance with all server metrics within normal operational ranges.
+
+### Monitoring Observations
+
+- **CPU Monitoring:** 
+  - Average CPU usage across active sessions is well within normal limits.
+  - All monitored session IDs are either in a "running" state (ID: 51) with minimal CPU time consumed or in a "sleeping" state, indicating no active workload interference.
+  - Logical reads across sessions are varied but remain low enough to reflect healthy activity levels.
+
+- **Blocking and Long-Running Queries:** 
+  - No blocking sessions detected, ensuring that performance is not impacted by contention between queries.
+  - No long-running queries have been noted, suggesting efficient query execution and resource management.
+
+### Preventive Recommendations
+
+1. **Regular Performance Monitoring:** Continue periodic checks on CPU and memory usage to ensure consistent health and immediately catch potential anomalies.
+2. **Resource Allocation Review:** Assess current resource allocations as workload changes over time. Adjustments may enhance performance as needed.
+3. **Index Maintenance:** Schedule regular index reviews and maintenance to optimize query performance and reduce logical reads in future workloads.
+4. **Backup Strategy:** Ensure that ongoing backup strategies are in place and tested for both data integrity and recovery to maintain operational continuity.
+
+========================================
+ END OF REPORT
+========================================
+

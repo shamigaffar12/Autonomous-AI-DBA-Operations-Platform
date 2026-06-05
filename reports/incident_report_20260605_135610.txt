@@ -1,0 +1,97 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 13:56:07.538480
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 2
+Elapsed Time: 2
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 304
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1274
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 306
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 13:56:07.538480  
+**Overall Status:** HEALTHY
+
+**Monitoring Observations:**
+- All monitored sessions are operating within normal CPU usage parameters.
+- There are no active blocking sessions or long-running queries detected, indicating optimal performance and responsiveness.
+- CPU time and logical reads across sessions indicate light utilization, contributing to a healthy database environment.
+
+**Preventive Recommendations:**
+- Continue to monitor CPU usage and session statuses periodically to ensure continued optimal performance.
+- Implement regular maintenance plans, including index optimization and statistics updates, to sustain database performance.
+- Set up alerts for performance thresholds to proactively address potential issues before they escalate.
+
+
+========================================
+ END OF REPORT
+========================================
+

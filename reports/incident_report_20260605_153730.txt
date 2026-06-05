@@ -1,0 +1,94 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 15:37:25.344405
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 814
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 104
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 15:37:25.344405  
+**Overall Status:** HEALTHY  
+
+The monitoring analysis indicates optimal performance for the AdventureWorks2019 database, with all systems functioning efficiently.
+
+### Monitoring Observations
+
+- **CPU Usage:** All active and sleeping sessions exhibit CPU usage within normal parameters.
+- **Active Sessions:** One session (ID: 55) is currently running, consuming minimal CPU time (3 milliseconds), while other sessions are in a sleeping state with no CPU utilization.
+- **Logical Reads:** Varying logical reads across sessions indicate normal activity without excessive workloads.
+- **Performance Metrics:** No blocking sessions or long-running queries were detected, contributing to an efficient operational state.
+
+### Preventive Recommendations
+
+- **Regular Monitoring:** Continue to monitor CPU utilization, logical reads, and session statuses to ensure ongoing performance stability.
+- **Index Maintenance:** Periodically review and maintain indexes to optimize query performance.
+- **Capacity Planning:** Ensure sufficient resources are allocated for future growth, and consider load testing during peak times to validate performance under stress.
+
+Overall, maintaining current best practices in performance monitoring will ensure the database remains healthy.
+
+========================================
+ END OF REPORT
+========================================
+

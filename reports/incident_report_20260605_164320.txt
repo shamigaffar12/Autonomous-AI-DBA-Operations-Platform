@@ -1,0 +1,87 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 16:43:17.487492
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 864
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 818
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 16:43:17  
+
+The overall health of the database is deemed **HEALTHY**. Current CPU usage across monitored sessions is within normal operational parameters, with no alerts raised and no issues regarding blocking or long-running queries.
+
+### Monitoring Observations
+- **CPU Monitoring:** All sessions reported normal CPU usage, with session IDs 52, 55, 54, and 51 showing acceptable CPU times and no I/O contention issues.
+- **Blocking Sessions:** There are no detected blocking sessions, indicating that deadlocks are being effectively managed.
+- **Long Running Queries:** Likewise, there are no long-running queries observed, suggesting efficient query performance across the system.
+
+### Preventive Recommendations
+- **Regular Performance Reviews:** Schedule periodic performance assessments to ensure that system configurations and indexing support optimal query performance.
+- **Monitoring Alerts:** Maintain current monitoring alerts to quickly identify any abnormalities or performance degradation before they escalate.
+- **Resource Scaling:** Ensure that future workload growth is anticipated with proactive scaling of resources as necessary, to avoid performance bottlenecks during peak usage times.
+
+========================================
+ END OF REPORT
+========================================
+

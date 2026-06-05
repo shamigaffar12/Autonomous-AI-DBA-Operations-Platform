@@ -1,0 +1,87 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 12:24:50.662002
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1068
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 12:24:50  
+
+The overall status of the AdventureWorks2019 database is healthy, indicating optimal performance without any critical issues.
+
+---
+
+### Monitoring Observations
+
+- **CPU Usage:** All monitored sessions (ID: 52, 53, and 54) display CPU usage within normal ranges, with no sessions consuming excessive resources.
+- **Sessions:** Session ID 54 is currently running with low CPU time (3 ms), while sessions 52 and 53 are sleeping, indicating minimal resource contention.
+- **Blocking & Long Running Queries:** No blocking sessions or long-running queries were detected during the monitoring period.
+
+---
+
+### Preventive Recommendations
+
+- **Regular Monitoring:** Continue to monitor CPU and session activity to ensure performance remains optimal.
+- **Resource Optimization:** Review workload and query performance periodically to identify potential areas for optimization.
+- **Capacity Planning:** Anticipate changes in workload and growth of data to adjust resources accordingly, thereby preventing future issues.
+
+Maintaining awareness of these aspects will help sustain the current health of the database.
+
+========================================
+ END OF REPORT
+========================================
+

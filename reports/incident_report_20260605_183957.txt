@@ -1,0 +1,77 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 18:39:52.831967
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 510
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-05 18:39:52  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY
+
+The current health status of the AdventureWorks2019 database indicates that all monitored metrics are within acceptable thresholds, exhibiting optimal performance characteristics. All CPU activities are notably within normal operational ranges, with no sessions indicating excessive resource utilization.
+
+### Monitoring Observations
+
+- **CPU Monitoring:**
+   - Session ID 52 is currently running with minimal CPU usage (4 ms), demonstrating efficient processing without any I/O contention.
+   - Session ID 53 is in a sleeping state, indicating that the workload is light and there are no active queries consuming CPU resources.
+   - Aggregate readings show no blocking sessions and no long-running queries, signaling effective concurrency and response times.
+
+### Preventive Recommendations
+
+- Continue to monitor system performance metrics routinely to ensure consistent operational health.
+- Schedule regular maintenance tasks (such as index optimization, statistics updates, and integrity checks) to uphold database efficiency.
+- Review and analyze workload trends periodically, preparing to adjust resource allocations as needed for future capacity planning.
+- Educate team members on best practices for query optimization and resource management to prevent potential future performance issues. 
+
+This ensures ongoing reliability and performance of the database system without presenting any immediate concerns.
+
+========================================
+ END OF REPORT
+========================================
+

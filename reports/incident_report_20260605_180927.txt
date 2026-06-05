@@ -1,0 +1,94 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 18:09:24.511614
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 63
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 2644
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 18:09:24
+
+The current monitoring cycle indicates a healthy status of the AdventureWorks2019 database with normal operational performance and no concerns regarding resource utilization.
+
+### Monitoring Observations
+
+- **CPU Monitoring:**
+  - Sessions are predominantly in a sleeping state, with only one active session (Session ID: 54) utilizing minimal CPU resources.
+  - All sessions' CPU usage and logical reads are within acceptable limits, indicating balanced load handling.
+  
+- **Session Activity:**
+  - No blocking sessions detected, resulting in uninterrupted database operations.
+  - No long-running queries were identified, contributing to overall smooth database performance.
+
+### Preventive Recommendations
+
+- Continue to monitor CPU and session activity periodically to preemptively address any future performance fluctuations.
+- Schedule routine maintenance tasks such as index rebuilding or updating statistics to maintain optimal query performance.
+- Ensure that regular backups are conducted to mitigate risks of data loss and maintain recoverability.
+
+========================================
+ END OF REPORT
+========================================
+

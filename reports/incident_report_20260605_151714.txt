@@ -1,0 +1,117 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 15:17:11.464802
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 764
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 102
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 866
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 3098
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+Date: 2026-06-05 15:17:11  
+Database: AdventureWorks2019  
+Overall Status: HEALTHY
+
+**Monitoring Observations**
+- CPU usage for all active sessions is within normal range, indicating optimal performance.
+- No blocking sessions or long-running queries have been detected.
+- Active sessions are primarily in a sleeping state with one session actively running without notable resource contention.
+
+**Preventive Recommendations**
+- Continue monitoring CPU and session activity to ensure consistent performance.
+- Regularly review and update statistics to maintain query performance.
+- Implement a routine check on disk I/O and memory usage to prevent potential bottlenecks.
+- Consider performance benchmarks for future growth to ensure responsiveness as usage increases. 
+
+Please ensure that these practices are integrated into the ongoing database management protocol to maintain optimal health in the AdventureWorks2019 database.
+
+========================================
+ END OF REPORT
+========================================
+

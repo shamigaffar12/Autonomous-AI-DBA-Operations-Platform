@@ -1,0 +1,103 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 16:53:26.246947
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 8
+Elapsed Time: 8
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 358
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 306
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 2386
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 156
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 16:53:26  
+
+The current health status of the AdventureWorks2019 database is assessed to be **HEALTHY**. System performance indicators reflect optimal functioning with no signs of stress or issues.
+
+### Monitoring Observations
+
+- **CPU Monitoring:**
+  - All monitored sessions (51, 52, 54, 57, 58) are operating within normal CPU usage parameters.
+  - No blocking sessions or long-running queries were detected.
+  - The maximum logical reads from sleeping sessions indicate no unusual activity.
+
+### Preventive Recommendations
+
+- **Regular Performance Review:** Continue to monitor CPU performance and session statuses routinely to ensure sustained database health.
+- **Resource Allocation:** Review resource allocation periodically to prepare for potential spikes in activity, particularly during peak operational hours.
+- **Database Maintenance:** Schedule regular maintenance tasks (such as index optimization and statistics updates) to prevent potential performance degradation over time.
+- **Capacity Planning:** Engage in ongoing capacity planning to ensure users' demands are met with adequate resources as the database and its usage grow.
+
+Ensuring these preventive measures are implemented can help maintain the current healthy status of the AdventureWorks2019 database.
+
+========================================
+ END OF REPORT
+========================================
+

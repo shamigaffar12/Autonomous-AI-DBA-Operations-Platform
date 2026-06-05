@@ -1,0 +1,123 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 14:46:44.848357
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 58
+Status: running
+CPU Time: 5
+Elapsed Time: 5
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 560
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1322
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 3064
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1274
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+**Monitoring Time:** 2026-06-05 14:46:44  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY
+
+The system is currently operating within expected parameters, with no alerts being triggered for CPU usage, blocking sessions, or long-running queries.
+
+---
+
+**Monitoring Observations:**
+
+- **CPU Activity:** All active sessions are either running optimally with CPU time recorded or are in a sleeping state. 
+- **Logical Reads:** All sessions demonstrate reasonable logical read counts, indicating efficient data access.
+
+---
+
+**Preventive Recommendations:**
+
+1. **Regular Maintenance Checks:** Continue periodic assessments of database performance and server health to ensure long-term capabilities remain optimal.
+2. **Monitor Growth Trends:** Keep an eye on growth in logical reads and overall session activity to preemptively address any spikes in resource consumption that may arise from future workload changes.
+3. **Backup Strategy Review:** Ensure that database backups are routinely verified for integrity and efficiency, and review the backup strategy for alignment with recovery objectives.
+
+Maintaining these best practices will ensure continued stability and performance of the AdventureWorks2019 database environment.
+
+========================================
+ END OF REPORT
+========================================
+

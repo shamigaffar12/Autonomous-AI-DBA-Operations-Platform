@@ -1,0 +1,95 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 13:51:02.382213
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 104
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 306
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 814
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+**Monitoring Time:** 2026-06-05 13:51:02  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+**Monitoring Observations:**
+- CPU utilization remains within normal ranges across all active sessions.
+- No blocking sessions or long-running queries were detected, indicating optimal performance and responsiveness of the system.
+
+**Preventive Recommendations:**
+- Continue regular monitoring of CPU and session activity to ensure optimal performance.
+- Maintain the current configuration and apply periodic updates to database statistics to enhance query performance.
+- Consider regular performance tuning reviews to identify and resolve potential inefficiencies in database queries and indexing strategies.
+
+========================================
+ END OF REPORT
+========================================
+

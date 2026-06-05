@@ -1,0 +1,99 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 16:28:06.209385
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 5
+Elapsed Time: 5
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 408
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 612
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 866
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 662
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 16:28:06  
+
+The current status of the AdventureWorks2019 database is categorized as **HEALTHY**. All metrics indicate normal operation with no abnormalities detected. 
+
+**Monitoring Observations:**
+- All active sessions are functioning within normal CPU usage thresholds.
+- No blocking sessions have been detected, indicating smooth transactional operations.
+- There are no long-running queries, suggesting efficient query performance and resource utilization.
+
+**Preventive Recommendations:**
+- Regularly review and optimize database indexes to ensure continued performance efficiency.
+- Consider scheduling routine performance audits to preemptively identify and mitigate any potential issues.
+- Maintain regular backups and validate restore processes to ensure data recovery readiness.
+
+By implementing these recommendations, we can further solidify the database’s reliability and performance stability.
+
+========================================
+ END OF REPORT
+========================================
+

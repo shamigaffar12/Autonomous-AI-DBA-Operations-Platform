@@ -1,0 +1,99 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 13:05:20.352265
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1680
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 13:05:20
+
+The current health status of the AdventureWorks2019 database is classified as HEALTHY. The CPU performance across sessions is stable, and system resources are functioning within normal parameters. 
+
+### Monitoring Observations
+
+- CPU usage is consistently within the normal range across all active sessions.
+- No blocking sessions were detected, indicating effective process management.
+- There are no long-running queries, reflecting efficient query execution and resource allocation.
+
+### Preventive Recommendations
+
+- Continue regular monitoring of CPU usage to ensure that performance remains optimal.
+- Implement scheduled maintenance plans to routinely analyze indexes and update statistics, helping to sustain query performance.
+- Conduct periodic reviews of session activity to address sleeping sessions if they become frequently inactive, ensuring efficient resource utilization.
+
+========================================
+ END OF REPORT
+========================================
+

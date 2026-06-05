@@ -1,0 +1,96 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 13:25:40.394640
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 60
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 560
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 306
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**  
+**Database Name:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 13:25:40.394640  
+**Overall Status:** HEALTHY  
+
+**Monitoring Observations:**  
+- All monitored SQL sessions are operating within normal CPU usage thresholds.  
+- The active session (ID: 55) has minimal CPU consumption, with elapsed time of 4 ms.  
+- Sleeping sessions are all recording normal activity, indicating no stress on system resources.  
+- No blocking sessions or long-running queries have been detected.
+
+**Preventive Recommendations:**  
+- Continue monitoring CPU performance trends for any unusual spikes or resource contention.  
+- Regularly verify that index maintenance and statistics updates are performed to ensure optimal query performance.
+- Consider implementing a periodic review of session activity to identify potential optimizations or unnecessary resource consumption.
+
+========================================
+ END OF REPORT
+========================================
+

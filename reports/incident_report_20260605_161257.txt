@@ -1,0 +1,127 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 16:12:53.536824
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 59
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 560
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 762
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 304
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 104
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 612
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 864
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 3054
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary for AdventureWorks2019**
+
+**Monitoring Time:** 2026-06-05 16:12:53.536824
+
+**Current Status:** HEALTHY
+
+**Monitoring Observations:**
+- All monitored sessions exhibit normal CPU usage, with no session exceeding the standard thresholds.
+- The active session (Session ID: 59) is running efficiently with minimal CPU time (4 ms) and logical reads (257).
+- No blocking sessions have been detected, ensuring smooth transaction processing.
+- There are no long-running queries, indicating effective query performance.
+
+**Preventive Recommendations:**
+- Continuously monitor CPU performance metrics to ensure they remain within optimal ranges.
+- Regularly review query performance and indexing strategies to maintain efficient database operations.
+- Implement alerts for potential spikes in resource usage to facilitate proactive management of resources.
+- Conduct routine maintenance tasks, including index optimization and statistics updates, to sustain healthy database performance.
+
+---
+
+========================================
+ END OF REPORT
+========================================
+

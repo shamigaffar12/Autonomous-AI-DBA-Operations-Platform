@@ -1,0 +1,94 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 19:05:12.646165
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 306
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 50
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 19:05:12  
+
+The current status of the database is HEALTHY, indicating stable performance and resource utilization.
+
+### Monitoring Observations
+
+- **CPU Activity:** 
+  - Session IDs 55 (running), 54, 53, and 52 (sleeping) show no anomalies, all CPU usage is within normal parameters.
+  - Logical reads across sessions are low, with a maximum of 257 for the running session.
+  
+- **Session State:** 
+  - No blocking sessions detected, ensuring smooth execution of queries.
+  - No long-running queries present, which maintains optimal performance levels.
+
+### Preventive Recommendations
+
+- **Regular Monitoring:** Continue to monitor CPU and session performance regularly to ensure early detection of potential issues.
+- **Resource Utilization Review:** Periodically review database resources and usage patterns to anticipate potential future growth and optimize settings accordingly.
+- **Index Maintenance:** Conduct routine index maintenance to keep query performance optimal, especially as data volumes grow.
+
+========================================
+ END OF REPORT
+========================================
+

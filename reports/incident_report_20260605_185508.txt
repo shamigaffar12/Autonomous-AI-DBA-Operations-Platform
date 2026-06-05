@@ -1,0 +1,88 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 18:55:05.706031
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 61
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1476
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 612
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**  
+**Monitoring Time:** 2026-06-05 18:55:05 UTC  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+**Monitoring Observations:**  
+- All monitored sessions exhibit normal CPU usage metrics.
+- **Session ID 54:** Currently active and within normal CPU usage range with a CPU time of 4ms and logical reads of 257.
+- **Session IDs 61 and 53:** In a sleeping state with no current CPU time and low logical reads.  
+- **Session ID 52:** Also in a sleeping state with no activity.  
+- No blocking sessions or long-running queries were detected in the monitoring period, indicating robust performance and efficiency.
+
+**Preventive Recommendations:**  
+- Continue regular monitoring of CPU utilization and session activity to ensure no changes in performance patterns.
+- Consider periodic maintenance tasks such as index optimization and statistics updates to maintain query performance.
+- Set up alerts to proactively track any deviation from typical resource utilization trends in the future.
+
+========================================
+ END OF REPORT
+========================================
+

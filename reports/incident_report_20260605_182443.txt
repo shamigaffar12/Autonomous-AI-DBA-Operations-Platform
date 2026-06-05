@@ -1,0 +1,90 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 18:24:39.333716
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 53
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1374
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 18:24:39
+
+The current status of the AdventureWorks2019 database is HEALTHY, indicating a well-functioning SQL Server environment with no performance anomalies or issues detected at this time.
+
+### Monitoring Observations
+
+- CPU Usage:
+  - Session ID 53 is actively running with minimal CPU usage (4 ms), indicating efficient processing.
+  - Sessions IDs 52 and 59 are in a sleeping state, reflecting no immediate processing demand and no CPU load.
+  
+- I/O Operations: 
+  - All sessions show a healthy read and write pattern, with logical reads remaining within acceptable limits.
+  
+- Blocking Monitoring:
+  - No blocking sessions have been identified, which is a positive indicator of database performance.
+
+- Long Running Queries: 
+  - There were no long-running queries detected during this monitoring period, indicating efficient query execution.
+
+### Preventive Recommendations
+
+1. **Regular Maintenance**: Continue with regular index maintenance to optimize query performance.
+2. **Monitoring Alerts**: Keep monitoring CPU usage and I/O statistics to identify any emerging patterns that might indicate performance degradation over time.
+3. **Capacity Planning**: Conduct periodic reviews of resource utilization to ensure the database scales effectively with growing workloads, especially as application demands fluctuate.
+
+========================================
+ END OF REPORT
+========================================
+

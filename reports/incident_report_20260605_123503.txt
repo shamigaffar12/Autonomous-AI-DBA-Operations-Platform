@@ -1,0 +1,106 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 12:34:59.258268
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 814
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1374
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-05 12:34:59  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY
+
+**System Performance Overview:**
+- CPU usage is within normal ranges across all sessions.
+- Active sessions are appropriately managed, showing minimal resource contention.
+- No blocking sessions or long-running queries have been detected, indicating efficient query processing and session management.
+
+### Monitoring Observations
+- **Session Activity:**
+  - Active session (Session ID 56) is currently executing with low CPU time.
+  - Other sessions are in a sleeping state, minimizing unnecessary CPU utilization.
+  
+- **Logical Reads:**
+  - Varying logical read counts among sleeping sessions suggest varying workload patterns; however, they remain manageable without excessive resource consumption.
+
+### Preventive Recommendations
+- Continue monitoring CPU and memory usage trends to ensure sustained performance under varying load conditions.
+- Periodically review indexing strategies to optimize future query performance and reduce logical reads where appropriate.
+- Conduct routine maintenance tasks, including statistics updates and fragmentation checks, to maintain database efficiency.
+  
+By adhering to these practices, the database is well-positioned to maintain its healthy status in future operations.
+
+========================================
+ END OF REPORT
+========================================
+

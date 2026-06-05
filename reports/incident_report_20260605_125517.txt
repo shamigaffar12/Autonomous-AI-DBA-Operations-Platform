@@ -1,0 +1,102 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 12:55:14.138830
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 104
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 335
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+**Monitoring Time:** 2026-06-05 12:55:14.138830  
+**Database:** AdventureWorks2019
+
+The current monitoring report for the AdventureWorks2019 database indicates that the system is operating within optimal parameters, showcasing a healthy status. All CPU usage is within normal ranges, and no blocking sessions or long-running queries have been detected.
+
+---
+
+**Monitoring Observations:**
+- All active sessions exhibit either a running or sleeping status, without any significant strain on CPU resources.
+- Sessions show low logical read counts, indicating efficient query performance and resource management.
+
+---
+
+**Preventive Recommendations:**
+- Regularly monitor session activity to ensure that potential idle or inactive sessions are appropriately managed.
+- Periodically review and optimize database indexes to maintain performance efficiency as data grows.
+- Implement scheduled maintenance tasks to clear up any unnecessary old records or data logs, helping to ensure sustained database health. 
+
+Maintaining proactive monitoring will contribute positively to continued database performance.
+
+========================================
+ END OF REPORT
+========================================
+

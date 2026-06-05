@@ -1,0 +1,96 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 15:07:00.014640
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 53
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 918
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 918
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1830
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 15:07:00.014640  
+**Overall Status:** HEALTHY  
+
+**Key Observations:**
+- **CPU Monitoring:** All active sessions reported CPU usage within normal range. The active session (ID: 53) is utilizing minimal CPU time (3ms) with no blocking or long-running queries detected.
+- **Active Sessions:** 
+  - Session ID 53 is currently running; the rest of the sessions are sleeping, indicating low workload during the monitoring window.
+  
+### Preventive Recommendations
+- **Performance Monitoring:** Regularly monitor session activity and CPU utilization trends to ensure sustained performance and preemptively identify anomalous patterns.
+- **Index Maintenance:** Conduct regular index reviews and maintenance to optimize data retrieval performance, ensuring that logical reads remain efficient as workload increases.
+- **Resource Planning:** Consider scheduling performance reviews and resource allocation assessments during planned maintenance windows to prepare for potential changes in workload demand.
+
+========================================
+ END OF REPORT
+========================================
+

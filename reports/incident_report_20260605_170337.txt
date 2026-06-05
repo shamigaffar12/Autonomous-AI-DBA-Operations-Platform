@@ -1,0 +1,71 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 17:03:33.175437
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 51
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 406
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+**Monitoring Time:** 2026-06-05 17:03:33  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+**Monitoring Observations:**
+- CPU usage is within the normal range across monitored sessions (Session ID 51 and Session ID 59).
+- Session ID 51 is currently active with a CPU Time of 4 ms and a small number of logical reads (257).
+- Session ID 59 is in a sleeping state with minimal resource utilization (0 CPU Time, 406 logical reads).
+- There are no blocking sessions detected, indicating a smooth operational flow.
+- No long-running queries have been identified, which contributes to the overall health and performance of the database.
+
+**Preventive Recommendations:**
+- Continue to monitor CPU usage patterns over time to quickly identify any sudden spikes in resource utilization.
+- Schedule regular maintenance tasks (e.g., index optimization, statistics updates) to keep performance optimal.
+- Ensure that the SQL Server instance and the underlying hardware are monitored for any potential risks related to resource availability.
+
+========================================
+ END OF REPORT
+========================================
+

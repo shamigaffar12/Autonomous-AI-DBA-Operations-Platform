@@ -1,0 +1,87 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 11:44:20.516263
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 2
+Elapsed Time: 2
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 61
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 104
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1068
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 612
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-05 11:44:20  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+#### Monitoring Observations:
+- CPU usage across all monitored sessions is within normal ranges.
+- No blocking sessions detected, ensuring smooth performance.
+- No long-running queries logged, indicating efficient query execution and resource management.
+
+#### Preventive Recommendations:
+- Continue monitoring CPU usage periodically to maintain optimal performance.
+- Implement regular performance reviews to ensure that query efficiency remains high.
+- Schedule routine database maintenance tasks, including index optimization and statistics updates, to prevent potential future performance degradation.
+
+========================================
+ END OF REPORT
+========================================
+

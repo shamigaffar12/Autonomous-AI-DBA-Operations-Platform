@@ -1,0 +1,111 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 13:35:48.195470
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 864
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 13:35:48  
+**Overall Status:** HEALTHY  
+
+The monitoring results indicate that the AdventureWorks2019 database is operating optimally with all monitored resources within normal limits.
+
+### Monitoring Observations
+
+1. **CPU Utilization**: 
+   - All active sessions (Session IDs: 52-56) are reporting CPU usage within normal ranges. 
+   - Session ID 56 is currently running with minimal CPU time (4 ms), while all other sessions are in a sleeping state, indicating no resource contention.
+
+2. **I/O Activity**:
+   - Logical reads across sessions are low, with the highest being 864 in Session ID 55, which is a good sign of I/O health.
+   - No reads or writes were reported for multiple sessions, signifying that there are no excessive resource demands at this time.
+
+3. **Session Activity**:
+   - No blocking sessions or long-running queries were detected, further supporting the healthy state of the database.
+
+### Preventive Recommendations
+
+1. **Regular Maintenance**: Continue regular database maintenance activities such as index optimization and statistics updates to sustain performance.
+   
+2. **Usage Monitoring**: Implement periodic monitoring of CPU and I/O patterns to quickly identify any changes that may lead to performance degradation.
+
+3. **Alert Configuration**: Review and tune alerting thresholds to ensure timely notifications for any deviations from normal operating parameters.
+
+By adhering to these preventive measures, the database's performance can be maintained in a healthy state in the future.
+
+========================================
+ END OF REPORT
+========================================
+

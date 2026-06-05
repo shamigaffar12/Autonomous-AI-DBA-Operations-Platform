@@ -1,0 +1,115 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 15:47:33.617604
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 58
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 3460
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1576
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+- **Database Name:** AdventureWorks2019
+- **Monitoring Timestamp:** 2026-06-05 15:47:33
+- **Overall Status:** Healthy
+
+**Monitoring Observations:**
+- The CPU usage across all tracked sessions is within normal operational ranges.
+- All active sessions report low CPU time, with a maximum of 3 milliseconds recorded.
+- There are no blocking sessions or long-running queries impacting performance.
+
+**Preventive Recommendations:**
+1. **Regular Review of Session Activity:** Continue monitoring active sessions to proactively identify any potential performance bottlenecks.
+2. **Performance Optimization:** Periodically evaluate query performance and index usage to ensure queries remain efficient as the data size grows.
+3. **Backup and Maintenance Plan:** Ensure that regular backups and database maintenance tasks are scheduled to safeguard against data loss and maintain optimal performance.
+4. **Resource Planning:** Monitor hardware resources to accommodate future growth in data volume and user load, preventing potential performance issues.
+
+========================================
+ END OF REPORT
+========================================
+

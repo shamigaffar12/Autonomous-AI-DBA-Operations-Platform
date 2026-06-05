@@ -1,0 +1,89 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 11:59:29.759237
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 358
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time**: 2026-06-05 11:59:29  
+**Database**: AdventureWorks2019  
+**Overall Status**: HEALTHY
+
+The current monitoring assessment indicates that the AdventureWorks2019 database is in good health with all performance metrics operating within expected ranges. The CPU utilization is minimal, and there are no blocking or long-running queries present.
+
+### Monitoring Observations
+
+- **Session ID 52**: 
+  - Status: Running 
+  - CPU Time: 4 ms 
+  - Logical Reads: 257
+  - Alert: CPU Usage Within Normal Range
+
+- **Session ID 54**: 
+  - Status: Sleeping
+  - CPU Time: 0 ms 
+  - Logical Reads: 358
+  - Alert: CPU Usage Within Normal Range
+
+**Overall Performance**: Both active sessions exhibit efficient CPU utilization, with no indication of performance bottlenecks or resource contention.
+
+### Preventive Recommendations
+
+1. **Regular Performance Audits**: Conduct routine checks to ensure that all sessions maintain optimal performance levels and to identify any impending issues before they escalate.
+   
+2. **Monitoring Alerts**: Continue monitoring CPU usage and other performance metrics actively to ensure they remain within healthy limits.
+
+3. **Session Management**: Evaluate sleeping sessions periodically to ensure they are necessary and not consuming unnecessary resources, thereby optimizing overall performance.
+
+4. **Health Check Procedures**: Implement a regular database health check routine to capture any changes in performance that could indicate underlying issues. 
+
+By adhering to these preventive recommendations, you can sustain the database's healthy status and avoid potential performance degradation in the future.
+
+========================================
+ END OF REPORT
+========================================
+

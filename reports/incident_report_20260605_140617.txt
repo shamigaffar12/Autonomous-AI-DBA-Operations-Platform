@@ -1,0 +1,98 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 14:06:14.124190
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 60
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1478
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 610
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 81
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 560
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database Name:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-05 14:06:14 UTC  
+**Overall Status:** HEALTHY
+
+**Key Monitoring Observations:**
+- All CPU sessions are operating within normal ranges:
+  - **Session ID 55:** Active with minimal CPU usage.
+  - **Sessions ID 52, 53, 54, 60:** Sleeping sessions showing efficient resource management.
+- No blocking sessions were detected, indicating a smooth and unimpeded execution environment.
+- No long-running queries were observed, reflecting optimal query performance.
+
+### Preventive Recommendations:
+- Continue to monitor CPU usage periodically to ensure sessions remain efficient.
+- Implement regular reviews of index usage and statistics to maintain query performance.
+- Consider maintaining a baseline for normal performance to quickly identify deviations in future monitoring intervals.
+
+========================================
+ END OF REPORT
+========================================
+

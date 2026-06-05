@@ -1,0 +1,18 @@
+[
+    {
+        "request_id": "20260605130432",
+        "request_time": "2026-06-05 13:04:32.871928",
+        "request_type": "INDEX REBUILD",
+        "recommendation": "Rebuild fragmented index.",
+        "requested_by": "AI DBA Agent",
+        "status": "REJECTED"
+    },
+    {
+        "request_id": "20260605130907",
+        "request_time": "2026-06-05 13:09:07.609646",
+        "request_type": "AI RECOMMENDATION",
+        "recommendation": "Create missing index recommendation.",
+        "requested_by": "AI DBA Agent",
+        "status": "APPROVED"
+    }
+]

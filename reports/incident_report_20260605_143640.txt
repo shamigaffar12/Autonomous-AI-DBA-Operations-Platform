@@ -1,0 +1,96 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 14:36:37.520981
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 5
+Elapsed Time: 5
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 966
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 560
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 510
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+Date: 2026-06-05  
+Database: AdventureWorks2019  
+Overall Status: HEALTHY  
+
+**Monitoring Observations**  
+- All active sessions are running within normal CPU usage parameters.
+- No blocking sessions have been detected, indicating smooth transaction processing.
+- There are no long-running queries present in the current monitoring period.
+
+**Preventive Recommendations**  
+- Regularly review and optimize index performance and query execution plans to maintain optimal performance as the database scales.
+- Continue monitoring CPU usage patterns periodically to pre-emptively address any spikes that may arise during peak usage times.
+- Schedule routine maintenance, including statistics updates and index reorganizations, to enhance query performance and efficiency.
+
+========================================
+ END OF REPORT
+========================================
+

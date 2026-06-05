@@ -1,0 +1,82 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 16:17:57.213906
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 560
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 4630
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+**Monitoring Time:** 2026-06-05 16:17:57  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+### Monitoring Observations
+- **CPU Monitoring:**
+  - **Session ID 54**: Currently running with a CPU Time of 4 ms and an Elapsed Time of 4 ms, exhibiting normal CPU usage.
+  - **Session ID 53**: Sleeping state, with no CPU usage, and a logical read count of 560.
+  - **Session ID 52**: Also in a sleeping state; recorded logical reads of 4630, with no CPU usage.
+  
+- **Performance Metrics**: All monitored sessions are showing CPU usage within normal operating ranges, with no blocking sessions or long running queries detected, indicating an optimized performance environment.
+
+### Preventive Recommendations
+- **Routine Monitoring**: Continue to monitor CPU performance and session status regularly to ensure that all sessions are operating efficiently.
+- **Performance Tuning**: Evaluate queries and indexes periodically to maintain optimal performance, especially for sessions with high logical reads.
+- **Resource Allocation**: Ensure that sufficient resources are allocated to the SQL Server to accommodate upcoming workloads and prevent future performance degradation. 
+
+Overall, maintain current monitoring practices and proactively address potential performance tuning opportunities.
+
+========================================
+ END OF REPORT
+========================================
+

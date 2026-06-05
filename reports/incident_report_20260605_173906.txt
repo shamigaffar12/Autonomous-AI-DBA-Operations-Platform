@@ -1,0 +1,73 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 17:39:01.827949
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 964
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-05 17:39:01  
+**Database:** AdventureWorks2019  
+
+The current analysis of the AdventureWorks2019 database indicates a **HEALTHY** operational status with no significant issues detected. 
+
+### Monitoring Observations
+- **CPU Sessions:** Active sessions (Session ID 52) exhibit normal CPU usage with a peak cumulative time of 4 ms over an elapsed duration of 4 ms. A sleeping session (Session ID 54) shows no CPU activity, which is expected for idle processes.
+- **I/O Activity:** Logical reads remain at 257 for Session ID 52 and 964 for Session ID 54, both within acceptable operational parameters.
+- **Blocking & Long-Running Queries:** There are no indications of blocking sessions or long-running queries, suggesting efficient processing and query handling.
+
+### Preventive Recommendations
+1. **Regular Monitoring:** Continue to routinely monitor CPU usage and session activity to maintain optimal performance levels.
+2. **Index Maintenance:** Schedule regular index optimization tasks to ensure query performance is uninterrupted and efficient as data volumes escalate.
+3. **Capacity Planning:** Assess resource allocation periodically to confirm that it aligns with database growth projections and workload changes.
+4. **Performance Baselines:** Establish baseline performance metrics to facilitate quicker identification of anomalies in the future.
+
+This summary reflects the current operational status and emphasizes maintaining healthy system practices without indications of any critical incidents.
+
+========================================
+ END OF REPORT
+========================================
+

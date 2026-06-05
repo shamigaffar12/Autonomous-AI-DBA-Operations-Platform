@@ -1,0 +1,90 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 18:29:43.568007
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 53
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 306
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 662
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 460
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary for AdventureWorks2019**
+
+**Monitoring Time:** 2026-06-05 18:29:43
+
+**System Health Status:** HEALTHY
+
+**Monitoring Observations:**
+- **CPU Monitoring:** All monitored sessions (IDs: 52, 53, 54, 56) are exhibiting normal CPU usage. The CPU usage is within the expected range, indicating no immediate concerns regarding CPU performance.
+- **Session Activity:** 
+  - Session ID 53 is currently running with a minimal CPU time of 4ms and has performed 257 logical reads.
+  - The remaining sleeping sessions (IDs: 52, 54, 56) have also shown normal behavior with negligible CPU usage and reasonable logical reads.
+
+**Preventive Recommendations:**
+- **Regular Monitoring:** Continue routine monitoring of CPU usage trends over time to ensure that the performance remains within optimal levels, especially during peak usage times.
+- **Session Management:** Periodically review sleeping sessions to determine if any long-standing connections should be terminated to conserve resources.
+- **Performance Tuning:** Consider analyzing logical reads for sessions to identify potential areas for query optimization, enhancing overall database performance in future workloads. 
+
+This report should be kept for reference to affirm the current operational health of the AdventureWorks2019 database while also promoting best practices for ongoing management.
+
+========================================
+ END OF REPORT
+========================================
+
