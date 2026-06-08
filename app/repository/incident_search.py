@@ -31,6 +31,7 @@ def search_by_status(
         for incident in incidents
 
         if incident["overall_status"].upper()
+
         == status.upper()
 
     ]
@@ -55,6 +56,37 @@ def get_latest_incident():
         return None
 
     return incidents[-1]
+
+
+# =========================================================
+# GET INCIDENT BY INDEX
+# =========================================================
+
+def get_incident_by_index(
+
+    index
+
+):
+
+    """
+    Return incident by index.
+    """
+
+    incidents = load_incidents()
+
+    if not incidents:
+
+        return None
+
+    if index < 0:
+
+        return None
+
+    if index >= len(incidents):
+
+        return None
+
+    return incidents[index]
 
 
 # =========================================================
@@ -83,6 +115,19 @@ def search_by_report_file(
 
 
 # =========================================================
+# GET ALL INCIDENTS
+# =========================================================
+
+def get_all_incidents():
+
+    """
+    Return all incidents.
+    """
+
+    return load_incidents()
+
+
+# =========================================================
 # DISPLAY INCIDENTS
 # =========================================================
 
@@ -104,7 +149,11 @@ def display_incidents(
 
     if not incidents:
 
-        print("No incidents found.")
+        print(
+
+            "No incidents found."
+
+        )
 
         return
 
@@ -161,5 +210,17 @@ if __name__ == "__main__":
     print(
 
         get_latest_incident()
+
+    )
+
+    print("\nIncident By Index:\n")
+
+    print(
+
+        get_incident_by_index(
+
+            0
+
+        )
 
     )

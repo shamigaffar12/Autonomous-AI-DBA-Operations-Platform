@@ -62,6 +62,18 @@ def generate_daily_summary():
 
     return summary
 
+# =========================================================
+# GET DAILY SUMMARY
+# =========================================================
+
+def get_daily_summary():
+
+    """
+    Return daily summary.
+    """
+
+    return generate_daily_summary()
+
 
 # =========================================================
 # DISPLAY DAILY SUMMARY

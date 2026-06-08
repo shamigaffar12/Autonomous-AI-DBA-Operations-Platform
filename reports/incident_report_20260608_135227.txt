@@ -1,0 +1,116 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 13:52:21.696415
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 57
+Status: running
+CPU Time: 5
+Elapsed Time: 5
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 2342
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 972
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: background
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 814
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 306
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database**: AdventureWorks2019  
+**Monitoring Time**: 2026-06-08 13:52:21.696415  
+**Overall Status**: HEALTHY  
+
+### Monitoring Observations
+- All active sessions (session IDs: 57 to 54) are reported within normal CPU usage parameters. 
+- The system demonstrates efficient resource utilization with no sessions exhibiting blocking or extended processing times.
+- Logical reads across sessions reflect reasonable activity without signs of contention.
+
+### Preventive Recommendations
+- **Regular Performance Reviews**: Continue to monitor CPU and memory usage trends on a regular basis to identify any emerging patterns that need attention before they escalate.
+- **Database Maintenance Plans**: Ensure that regular maintenance tasks (such as index optimization and statistics updates) are in place to maintain database performance.
+- **Capacity Planning**: Assess current database growth trends to anticipate and prepare for future resource scalability requirements.
+
+In summary, the database is operating optimally, and maintaining vigilance through periodic reviews and maintenance is recommended to ensure continued performance stability.
+
+========================================
+ END OF REPORT
+========================================
+

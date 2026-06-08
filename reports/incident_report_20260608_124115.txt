@@ -1,0 +1,131 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 12:41:12.186651
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 59
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 2136
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-08 12:41:12  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+The SQL Server instance is operating optimally, with no abnormalities detected across CPU usage, blocking sessions, or long-running queries.
+
+### Monitoring Observations
+
+- **CPU Usage:** All monitored session IDs have reported CPU usage within normal ranges, reflecting effective resource allocation.
+- **Session Activity:** Most sessions are in a sleeping state, indicating that they are awaiting further tasks, which is typical behavior in a healthy environment.
+- **Read/Write Activity:** The majority of sessions have minimal logical reads, and there have been no physical reads or writes detected that could indicate performance issues.
+- **Blocking & Long Query Monitoring:** No blocking sessions or long-running queries were observed, indicating smooth concurrent activity without contention.
+
+### Preventive Recommendations
+
+1. **Regular Index Maintenance:** Ensure ongoing maintenance of indexes to optimize query performance and keep statistics up to date.
+2. **Performance Monitoring:** Continue to proactively monitor system performance metrics regularly to detect any deviations from the norm.
+3. **Database Backups:** Regularly verify the backup and restore strategy to ensure data recovery capabilities in case of an unexpected incident.
+4. **Plan for Growth:** Monitor database growth trends and resource consumption patterns to manage capacity planning effectively for future needs.
+
+This concise summary reflects the current healthy status of the database without indicating any critical incidents, ensuring ongoing operational efficiency.
+
+========================================
+ END OF REPORT
+========================================
+

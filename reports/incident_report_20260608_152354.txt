@@ -1,0 +1,112 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 15:23:48.540329
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 662
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 814
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 714
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-08 15:23:48  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+The current health status of the AdventureWorks2019 database indicates optimal performance, with all monitored CPU sessions operating within normal parameters. There are no indications of blocking sessions or long-running queries, suggesting a stable environment for transaction processing.
+
+### Monitoring Observations
+
+1. All sessions (ID 51-56) are either in a running or sleeping state, reflecting efficient CPU usage.
+2. CPU usage is within normal ranges across all sessions, indicating no performance bottlenecks.
+3. Logical reads are consistently within normal limits, demonstrating an efficient data access pattern.
+
+### Preventive Recommendations
+
+1. **Monitor Workload Patterns:** Continue monitoring CPU usage trends to identify potential increases in workload that could affect performance.
+2. **Regular Index Maintenance:** Perform routine maintenance on indexing to ensure optimal query performance over time.
+3. **Plan for Growth:** Maintain awareness of database growth and anticipate the need for scale, both in infrastructure and SQL Server resources.
+4. **Conduct Health Checks:** Regularly review DB configuration settings and performance metrics to ensure continued optimization in line with changing workload patterns. 
+
+Overall, the maintenance of current practices combined with proactive monitoring will help ensure sustained database performance and health.
+
+========================================
+ END OF REPORT
+========================================
+

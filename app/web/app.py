@@ -9,6 +9,8 @@ from app.web.routes import (
     router
 )
 
+
+
 app = FastAPI(
 
     title=
@@ -22,3 +24,4 @@ app = FastAPI(
 app.include_router(
     router
 )
+

@@ -1,0 +1,106 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 11:50:12.451882
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 2
+Elapsed Time: 2
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 72
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 206
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 69
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1118
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 560
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+# System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-08 11:50:12
+
+## Monitoring Observations
+- All monitored sessions display normal CPU usage with no sessions in a blocking state.
+- Active sessions are either running or in a sleeping state, indicating no significant resource strain.
+- No long-running queries have been identified, contributing to stable performance.
+
+## Preventive Recommendations
+1. **Regularly Review Query Performance:** Implement routine checks for long-running queries, even though none were detected in this monitoring period.
+2. **Continue Monitoring Resource Usage:** Maintain consistent monitoring of CPU, memory, and I/O operations to proactively address any upcoming demands or trends.
+3. **Database Maintenance:** Schedule regular database maintenance tasks, including index optimization and statistical updates, to ensure sustained performance levels and data accuracy. 
+
+This summary indicates that the database environment is currently stable, fostering a proactive approach towards ongoing monitoring and maintenance practices.
+
+========================================
+ END OF REPORT
+========================================
+

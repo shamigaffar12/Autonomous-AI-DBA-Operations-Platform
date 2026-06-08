@@ -84,6 +84,27 @@ def get_attention_required_incidents():
 
 
 # =========================================================
+# INCIDENT DISTRIBUTION
+# =========================================================
+
+def get_incident_distribution():
+
+    """
+    Return incident distribution.
+    """
+
+    return {
+
+        "healthy":
+        get_healthy_incidents(),
+
+        "attention_required":
+        get_attention_required_incidents()
+
+    }
+
+
+# =========================================================
 # LATEST INCIDENT
 # =========================================================
 

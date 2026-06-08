@@ -1,0 +1,116 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 13:31:57.319849
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 57
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 62
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 712
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 880
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 410
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 560
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary:**
+
+Date: 2026-06-08  
+Database: AdventureWorks2019  
+Overall Status: HEALTHY
+
+The current monitoring period reveals that the database AdventureWorks2019 is operating within optimal parameters. There are no alerts or concerns regarding CPU usage, with all active sessions remaining within normal usage ranges. No blocking sessions or long-running queries have been detected, further indicating stable performance.
+
+**Monitoring Observations:**
+- All sessions are either running or sleeping, with none exhibiting abnormal behavior.
+- CPU usage is efficient, with no sessions exceeding typical resource utilization.
+- Logical reads across sessions indicate a balanced workload.
+
+**Preventive Recommendations:**
+- Continue routine monitoring of CPU performance and session activity to ensure quick identification of potential issues.
+- Implement regular maintenance tasks including index optimization and statistics updates to maintain query performance.
+- Schedule performance tuning assessments periodically to analyze and adjust configurations as necessary, thereby ensuring long-term reliability and efficiency.
+
+========================================
+ END OF REPORT
+========================================
+

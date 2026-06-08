@@ -28,7 +28,20 @@ from app.governance.approval_actions import (
     approve_request,
     reject_request
 )
+from app.repository.incident_repository import (
+    load_incidents
+)
+from app.repository.incident_search import (
+    get_incident_by_index
+)
 
+from app.analytics.analytics_manager import (
+    get_analytics_status
+)
+
+from app.analytics.daily_summary import (
+    get_daily_summary
+)
 # =========================================================
 # ROUTER
 # =========================================================
@@ -101,6 +114,79 @@ def dashboard(
 
     )
 
+# =========================================================
+# INCIDENTS
+# =========================================================
+
+@router.get("/incidents")
+def incidents(
+
+    request: Request
+
+):
+
+    incidents_data = (
+
+        load_incidents()
+
+    )
+
+    return templates.TemplateResponse(
+
+        request=request,
+
+        name="incidents.html",
+
+        context={
+
+            "incidents":
+
+            incidents_data
+
+        }
+
+    )
+    
+    # =========================================================
+# INCIDENT DETAILS
+# =========================================================
+
+@router.get(
+    "/incidents/{incident_index}"
+)
+def incident_details(
+
+    request: Request,
+
+    incident_index: int
+
+):
+
+    incident = (
+
+        get_incident_by_index(
+
+            incident_index
+
+        )
+
+    )
+
+    return templates.TemplateResponse(
+
+        request=request,
+
+        name="incident_details.html",
+
+        context={
+
+            "incident":
+
+            incident
+
+        }
+
+    )
 
 # =========================================================
 # GOVERNANCE APPROVALS
@@ -200,5 +286,48 @@ def reject(
         url="/approvals",
 
         status_code=303
+
+    )
+    
+    # =========================================================
+# ANALYTICS
+# =========================================================
+
+@router.get("/analytics")
+def analytics(
+
+    request: Request
+
+):
+
+    analytics_data = (
+
+        get_analytics_status()
+
+    )
+
+    daily_summary = (
+
+        get_daily_summary()
+
+    )
+
+    return templates.TemplateResponse(
+
+        request=request,
+
+        name="analytics.html",
+
+        context={
+
+            "analytics":
+
+            analytics_data,
+
+            "summary":
+
+            daily_summary
+
+        }
 
     )

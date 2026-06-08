@@ -1,0 +1,111 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 11:08:06.574284
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 57
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1220
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 306
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-08 11:08:06  
+**Database:** AdventureWorks2019  
+
+The system health status is currently Healthy with stable and optimal performance metrics across various monitored sessions. CPU utilization is within normal parameters, indicating effective resource management.
+
+### Monitoring Observations
+
+- All monitored session IDs display CPU usage within the normal range.
+- There are no blocking sessions or long-running queries which could affect performance.
+- Logical reads are moderate across the active sessions with no excessive resource consumption observed.
+
+### Preventive Recommendations
+
+- **Periodic Resource Review:** Continue to monitor resource usage regularly to ensure that CPU and memory utilization stays within optimal ranges.
+- **Session Management:** Keep an eye on session statuses to quickly identify any that may enter a blocking state in the future, even if none are currently detected.
+- **Performance Testing:** Regularly run performance tests on the database, especially prior to major updates, to gauge the impact of any changes.
+- **Database Maintenance:** Implement a routine maintenance schedule that includes reindexing and updating statistics to ensure that query performance remains optimal. 
+
+This preventive approach will aid in maintaining system health and performance standards moving forward.
+
+========================================
+ END OF REPORT
+========================================
+

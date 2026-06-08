@@ -1,0 +1,74 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 15:28:54.704648
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 51
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 558
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**  
+**Monitoring Time:** 2026-06-08 15:28:54.704648  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+The current health status of the AdventureWorks2019 database is considered healthy, with all critical performance parameters operating within expected ranges.
+
+**Monitoring Observations:**  
+- **CPU Monitoring:**  
+  - Session ID 51: Running status with minimal CPU usage (3 ms), indicating normal activity.
+  - Session ID 52: Sleeping status with no active CPU time but some logical reads (558), showing that it is not currently taxing the CPU.
+  
+- **Performance Indicators:**  
+  - No blocking sessions detected.  
+  - No long running queries reported.
+
+**Preventive Recommendations:**  
+1. Continue regular monitoring of CPU and memory usage patterns to ensure resources are allocated appropriately based on load variations.
+2. Schedule periodic reviews of active sessions to ensure they align with performance expectations and to identify any usage trends that may require tuning.
+3. Implement alerting mechanisms for changes in usage patterns, particularly spikes in CPU or memory usage, to ensure continued operational efficiency.
+
+========================================
+ END OF REPORT
+========================================
+

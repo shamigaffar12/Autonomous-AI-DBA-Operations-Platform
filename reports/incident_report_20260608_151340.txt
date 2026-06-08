@@ -1,0 +1,119 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 15:13:35.804111
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 58
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 306
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 104
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 762
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 710
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 716
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 156
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-08 15:13:35  
+
+The SQL Server database is currently in a healthy state with optimal performance indicators.
+
+### Monitoring Observations
+- **CPU Usage:** All sessions are within the normal CPU usage range, with no sessions exhibiting excessive resource consumption.
+- **Session Activity:** Active sessions show light CPU activity, with the longest running session (ID 58) having a CPU time of 3ms.
+- **Read Efficiency:** Logical reads across sessions are moderate, indicating a balanced workload with no significant resource strain.
+- **Blocking and Queries:** There are no detected blocking sessions, and no long-running queries are present, ensuring efficient transaction processing.
+
+### Preventive Recommendations
+- **Regular Maintenance:** Continue regular database maintenance tasks, such as index optimization and statistics updates, to preserve query performance.
+- **Monitoring Tools:** Utilize advanced monitoring tools to proactively track performance trends over time, facilitating early identification of potential issues.
+- **Resource Allocation Review:** Periodically review resource allocations for SQL Server instances to ensure they meet performance needs as workload volumes fluctuate.
+
+---
+
+If the status changes or if issues are detected, further analysis and incident reporting will be necessary.
+
+========================================
+ END OF REPORT
+========================================
+

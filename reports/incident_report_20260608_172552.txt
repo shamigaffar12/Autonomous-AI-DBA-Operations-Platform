@@ -1,0 +1,88 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 17:25:46.431708
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 4
+Elapsed Time: 5
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1322
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-08 17:25:46  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+**System Performance Overview:**  
+The CPU usage for active sessions is within normal operating range, and there is no indication of blocking or long-running queries.
+
+---
+
+### Monitoring Observations
+
+- **Running Sessions:**
+  - Session ID 52: Minimal CPU usage (4 ms), normal elapsed time (5 ms), and no read/write operations during this interval.
+  
+- **Sleeping Sessions:**
+  - Session ID 57: No active CPU usage recorded (0 ms), indicative of low resource utilization, with a total of 1322 logical reads.
+
+---
+
+### Preventive Recommendations
+
+1. **Routine Performance Reviews:** Continue to monitor CPU usage trends over time to identify any patterns or early signs of resource constraints.
+  
+2. **Index Maintenance:** Regularly schedule index maintenance to ensure optimal query performance.
+  
+3. **Statistics Update:** Ensure that statistics are automatically updated or create a schedule for manual updates to improve the query optimizer’s performance.
+
+4. **Query Optimization:** Periodically review and optimize queries to maintain efficient execution plans.
+
+5. **Monitoring Tools:** Consider leveraging additional monitoring tools to gain deeper insights into database performance and system health.
+
+By following these recommendations, the database can continue to operate in a healthy state, ensuring reliable performance and minimize risks of future issues.
+
+========================================
+ END OF REPORT
+========================================
+

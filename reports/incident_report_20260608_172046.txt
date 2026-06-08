@@ -1,0 +1,105 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 17:20:42.290552
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 358
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: background
+CPU Time: 0
+Elapsed Time: 2010
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 50
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-08 17:20:42.290552  
+**Overall Status:** HEALTHY
+
+### Monitoring Observations
+- CPU usage remains within the normal range across all monitored sessions, indicating efficient resource management.
+- No blocking sessions or long-running queries have been identified, demonstrating good query performance.
+- Sessions are primarily in a sleeping state, with only one actively running session making minimal CPU usage.
+
+### Preventive Recommendations
+- Continue monitoring CPU and session behaviors to ensure they remain within expected ranges. Consider implementing alerts for unusual spikes in CPU utilization or blocked sessions.
+- Regularly review database performance metrics and session states to preemptively identify any potential performance bottlenecks.
+- Schedule routine maintenance tasks (e.g., index maintenance, query optimization) to sustain optimal database performance and responsiveness.
+
+========================================
+ END OF REPORT
+========================================
+

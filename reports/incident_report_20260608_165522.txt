@@ -1,0 +1,75 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 16:55:19.153589
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 53
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database Overview: AdventureWorks2019**  
+**Monitoring Time:** 2026-06-08 16:55:19.153589  
+**Overall Status:** HEALTHY  
+
+**CPU Monitoring Summary:**  
+- **Session ID 53**: Running | CPU Time: 3ms | Elapsed Time: 3ms | Reads: 0 | Writes: 0 | Logical Reads: 257  
+- **Session ID 52**: Sleeping | CPU Time: 0ms | Elapsed Time: 0ms | Reads: 0 | Writes: 0 | Logical Reads: 0  
+
+### Monitoring Observations
+- CPU usage is within normal range for all active sessions, indicating efficient resource utilization.
+- No blocking sessions or long-running queries detected, suggesting smooth database operation.
+
+### Preventive Recommendations
+- Continue to monitor CPU utilization trends to ensure performance remains optimal.
+- Periodically review indexes and execution plans to maintain query performance and efficiency.
+- Regularly update statistics to ensure the query optimizer has the most accurate information.
+
+---
+This concise status report affirms that AdventureWorks2019 is operating normally with no immediate actions required. Please ensure ongoing monitoring to sustain database reliability.
+
+========================================
+ END OF REPORT
+========================================
+

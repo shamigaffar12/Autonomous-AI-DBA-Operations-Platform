@@ -1,0 +1,148 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 15:08:28.705931
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 63
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 62
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 61
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 560
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 60
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 814
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 358
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 154
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 104
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 610
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-08 15:08:28  
+
+The current health status of the AdventureWorks2019 database is determined to be **HEALTHY**. The overall performance metrics exhibit regular operations with no signs of distress or irregularities.
+
+### Monitoring Observations
+
+- **CPU Activity:** The CPU usage across various sessions is within the normal range. The currently active session (ID: 63) is utilizing minimal CPU resources, and all other sessions are in a sleeping state with no CPU overhead, indicating proper resource distribution.
+- **No Blocking Sessions:** There are no instances of blocking detected, highlighting efficient locking and transaction management.
+- **No Long Running Queries:** All queries are performing optimally, as no long-running operations have been identified.
+
+### Preventive Recommendations
+
+1. **Regular Monitoring:** Continue regular monitoring of CPU usage and session statuses to ensure prompt identification of any anomalies.
+2. **Database Indexing:** Periodically review and optimize indexing strategies to maintain query performance as data volume increases.
+3. **Backup Strategy:** Ensure your backup and recovery strategies are up to date, facilitating robust data restoration capabilities in case of emergencies.
+4. **Performance Tuning:** Regularly engage in performance tuning exercises to prevent potential issues as the workload changes over time.
+5. **Capacity Planning:** Plan for future growth, considering performance thresholds and resource allocation to sustain long-term database health. 
+
+Maintaining consistent operational practices will foster continued database efficiency and reliability.
+
+========================================
+ END OF REPORT
+========================================
+

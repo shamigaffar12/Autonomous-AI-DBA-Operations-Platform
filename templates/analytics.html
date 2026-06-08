@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+
+    Analytics Dashboard
+
+</h2>
+
+<div class="row">
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h6>Total Incidents</h6>
+
+                <h3>
+
+                    {{ analytics.total_incidents }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h6>Healthy Incidents</h6>
+
+                <h3>
+
+                    {{ analytics.healthy_incidents }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h6>Attention Required</h6>
+
+                <h3>
+
+                    {{ analytics.attention_required }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h6>Status</h6>
+
+                <h3>
+
+                    {{ analytics.status }}
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm mt-4">
+
+    <div class="card-body">
+
+        <h5>
+
+            Daily Operations Summary
+
+        </h5>
+
+        <hr>
+
+        <p>
+
+            <strong>Date:</strong>
+
+            {{ summary.date }}
+
+        </p>
+
+        <p>
+
+            <strong>Total Incidents:</strong>
+
+            {{ summary.total_incidents }}
+
+        </p>
+
+        <p>
+
+            <strong>Healthy Incidents:</strong>
+
+            {{ summary.healthy_incidents }}
+
+        </p>
+
+        <p>
+
+            <strong>Attention Required:</strong>
+
+            {{ summary.attention_required }}
+
+        </p>
+
+        <p>
+
+            <strong>Platform Health:</strong>
+
+            {{ summary.platform_health }}
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

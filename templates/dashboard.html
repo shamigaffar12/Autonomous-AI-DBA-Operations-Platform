@@ -2,17 +2,31 @@
 
 {% block content %}
 
-<h2 class="mb-4">
+<div class="mb-4">
 
-    Operations Dashboard
+    <h2 class="fw-bold">
 
-</h2>
+        AI DBA Operations Control Center
+
+    </h2>
+
+    <p class="text-muted">
+
+        Monitoring • AI Analysis • Governance • Repository
+
+    </p>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- PLATFORM KPI -->
+<!-- ===================================================== -->
 
 <div class="row g-3">
 
-    <div class="col-md-3">
+    <div class="col-lg-3 col-md-6">
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm h-100">
 
             <div class="card-body">
 
@@ -22,11 +36,23 @@
 
                 </h6>
 
-                <h3>
+                {% if metrics.platform_health == "STABLE" %}
+
+                <span class="badge bg-success fs-6">
 
                     {{ metrics.platform_health }}
 
-                </h3>
+                </span>
+
+                {% else %}
+
+                <span class="badge bg-danger fs-6">
+
+                    {{ metrics.platform_health }}
+
+                </span>
+
+                {% endif %}
 
             </div>
 
@@ -34,9 +60,9 @@
 
     </div>
 
-    <div class="col-md-3">
+    <div class="col-lg-3 col-md-6">
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm h-100">
 
             <div class="card-body">
 
@@ -46,11 +72,11 @@
 
                 </h6>
 
-                <h3>
+                <h1 class="fw-bold">
 
                     {{ metrics.total_incidents }}
 
-                </h3>
+                </h1>
 
             </div>
 
@@ -58,9 +84,9 @@
 
     </div>
 
-    <div class="col-md-3">
+    <div class="col-lg-3 col-md-6">
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm h-100">
 
             <div class="card-body">
 
@@ -70,11 +96,11 @@
 
                 </h6>
 
-                <h3>
+                <h1 class="fw-bold text-success">
 
                     {{ metrics.healthy_incidents }}
 
-                </h3>
+                </h1>
 
             </div>
 
@@ -82,9 +108,9 @@
 
     </div>
 
-    <div class="col-md-3">
+    <div class="col-lg-3 col-md-6">
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm h-100">
 
             <div class="card-body">
 
@@ -94,11 +120,11 @@
 
                 </h6>
 
-                <h3>
+                <h1 class="fw-bold text-danger">
 
                     {{ metrics.attention_required }}
 
-                </h3>
+                </h1>
 
             </div>
 
@@ -108,25 +134,29 @@
 
 </div>
 
-<div class="row mt-4">
+<!-- ===================================================== -->
+<!-- GOVERNANCE KPI -->
+<!-- ===================================================== -->
 
-    <div class="col-md-6">
+<div class="row g-3 mt-2">
 
-        <div class="card shadow-sm">
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card shadow-sm h-100">
 
             <div class="card-body">
 
-                <h5>
+                <h6 class="text-muted">
 
-                    Latest Incident Status
+                    Total Requests
 
-                </h5>
+                </h6>
 
-                <h3>
+                <h1 class="fw-bold">
 
-                    {{ metrics.latest_status }}
+                    {{ metrics.total_requests }}
 
-                </h3>
+                </h1>
 
             </div>
 
@@ -134,23 +164,291 @@
 
     </div>
 
-    <div class="col-md-6">
+    <div class="col-lg-3 col-md-6">
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm h-100">
 
             <div class="card-body">
 
-                <h5>
+                <h6 class="text-muted">
 
-                    Latest Report
+                    Pending Requests
 
-                </h5>
+                </h6>
+
+                <h1 class="fw-bold text-warning">
+
+                    {{ metrics.pending_requests }}
+
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Approved Requests
+
+                </h6>
+
+                <h1 class="fw-bold text-success">
+
+                    {{ metrics.approved_requests }}
+
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Rejected Requests
+
+                </h6>
+
+                <h1 class="fw-bold text-danger">
+
+                    {{ metrics.rejected_requests }}
+
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- INCIDENT + REPORT -->
+<!-- ===================================================== -->
+
+<div class="row mt-4">
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-header bg-white">
+
+                <strong>
+
+                    Latest Incident
+
+                </strong>
+
+            </div>
+
+            <div class="card-body">
 
                 <p>
 
-                    {{ metrics.latest_report }}
+                    <strong>Status:</strong>
+
+                    {{ metrics.latest_status }}
 
                 </p>
+
+                <p>
+
+                    <strong>Repository Records:</strong>
+
+                    {{ metrics.repository_records }}
+
+                </p>
+
+                <p class="mb-0">
+
+                    <strong>Platform Health:</strong>
+
+                    {{ metrics.platform_health }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-header bg-white">
+
+                <strong>
+
+                    Latest Report
+
+                </strong>
+
+            </div>
+
+            <div class="card-body">
+
+                <small class="text-muted">
+
+                    {{ metrics.latest_report }}
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- SYSTEM STATUS -->
+<!-- ===================================================== -->
+
+<div class="card shadow-sm mt-4">
+
+    <div class="card-header bg-white">
+
+        <strong>
+
+            System Status
+
+        </strong>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row text-center">
+
+            <div class="col-md-3">
+
+                <span class="badge bg-success fs-6">
+
+                    Monitoring Active
+
+                </span>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <span class="badge bg-success fs-6">
+
+                    AI Analysis Active
+
+                </span>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <span class="badge bg-success fs-6">
+
+                    Governance Enabled
+
+                </span>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <span class="badge bg-success fs-6">
+
+                    Repository Online
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- QUICK SUMMARY -->
+<!-- ===================================================== -->
+
+<div class="card shadow-sm mt-4">
+
+    <div class="card-header bg-white">
+
+        <strong>
+
+            Operations Summary
+
+        </strong>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <strong>
+
+                    Incident Repository
+
+                </strong>
+
+                <br>
+
+                {{ metrics.repository_records }}
+
+                Records
+
+            </div>
+
+            <div class="col-md-4">
+
+                <strong>
+
+                    Governance Requests
+
+                </strong>
+
+                <br>
+
+                {{ metrics.total_requests }}
+
+                Requests
+
+            </div>
+
+            <div class="col-md-4">
+
+                <strong>
+
+                    Current State
+
+                </strong>
+
+                <br>
+
+                {{ metrics.platform_health }}
 
             </div>
 

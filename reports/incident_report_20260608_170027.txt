@@ -1,0 +1,98 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 17:00:22.644363
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 53
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 61
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 408
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 768
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 612
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 968
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary for AdventureWorks2019
+**Monitoring Time:** 2026-06-08 17:00:22.644363  
+**Overall Status:** HEALTHY
+
+The monitoring results indicate a stable and well-functioning database environment with no critical alerts or issues present. 
+
+### Monitoring Observations
+- CPU usage across sessions is within the normal range.
+- All active sessions are performing in expected states, with no sessions in a blocked state.
+- The workload consists of a mixture of running and sleeping sessions, showcasing healthy session management.
+- No long-running queries were detected, indicating efficient query execution times.
+
+### Preventive Recommendations
+- Continue monitoring CPU and resource utilization to maintain optimal performance levels.
+- Regularly review session activities and health metrics to ensure timely identification of potential performance degradations.
+- Implement routine performance testing and tuning to anticipate future growth or changes in workload.
+- Maintain a proactive backup and disaster recovery strategy to safeguard data integrity and availability.
+
+========================================
+ END OF REPORT
+========================================
+

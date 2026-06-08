@@ -1,0 +1,103 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 16:40:05.046208
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 918
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-08 16:40:05  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY
+
+The system is currently operating within optimal parameters, demonstrating healthy resource management and load patterns across all active sessions.
+
+### Monitoring Observations
+
+- All monitored CPU sessions exhibit normal performance:
+  - **Session ID 55:** Active with minimal CPU usage (4 ms) and a logical read count of 257, indicative of lightweight processing.
+  - **Sessions IDs 52, 53, 54, 56, and 57:** All are in a sleeping state, emphasizing low current workload and resource needs.
+- No blocking sessions or long-running queries have been detected, suggesting fluid transaction processing and efficient query execution.
+
+### Preventive Recommendations
+
+- Regularly monitor session activity to maintain insight into performance trends and user interactions.
+- Consider reviewing query performance metrics periodically to ensure that any future changes in workload or application use are identified early.
+- Ensure routine maintenance tasks such as index optimization and statistics updates to sustain database performance. 
+
+By carrying out these preventive measures, potential issues can be mitigated, securing continued operational stability.
+
+========================================
+ END OF REPORT
+========================================
+

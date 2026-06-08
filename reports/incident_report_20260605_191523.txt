@@ -1,0 +1,89 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 19:15:20.557998
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1172
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-05 19:15:20  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY
+
+The current state of the AdventureWorks2019 database reflects optimal performance metrics with no detected anomalies in CPU usage or session activity. 
+
+### Monitoring Observations
+- All monitored sessions are within normal CPU usage limits.
+- No active blocking sessions or long-running queries were identified.
+- Logical reads for each session are within expected thresholds, ensuring minimal contention and optimized resource utilization.
+
+### Preventive Recommendations
+- Continue regular monitoring and performance analysis to maintain current health status.
+- Implement scheduled maintenance for indexing and statistics updates to enhance query performance.
+- Encourage a proactive review of database activity periodically to ensure any potential issues are addressed before escalation.
+
+========================================
+ END OF REPORT
+========================================
+

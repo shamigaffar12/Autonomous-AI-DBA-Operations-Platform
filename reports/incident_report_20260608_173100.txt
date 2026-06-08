@@ -1,0 +1,99 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 17:30:52.785843
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 10
+Elapsed Time: 10
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 104
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1172
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+**Database Name:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-08 17:30:52  
+
+The current health status of the AdventureWorks2019 database is assessed as **HEALTHY**. The CPU utilization across all monitored sessions is within normal operational parameters, with no blocking sessions or long-running queries detected, indicating a stable and efficient querying environment.
+
+### Monitoring Observations
+- All active sessions are either running or sleeping, with minimal CPU time recorded across the board.
+- Logical reads are at acceptable levels, suggesting efficient data retrieval operations.
+- The CPU usage is within normal range, confirming that the server resources are adequately maintained without overutilization.
+
+### Preventive Recommendations
+1. **Regular Index Maintenance:** Ensure that regular index maintenance is performed, including rebuilding and reorganizing indexes to optimize query performance and reduce fragmentation.
+2. **Monitoring & Alerts Configuration:** Regularly review and update monitoring thresholds and alert configurations to promptly respond to any changes in workload or performance patterns.
+3. **Backup Strategy Review:** Confirm that backups are scheduled appropriately and tested for integrity to provide recovery assurance in the event of a failure.
+4. **Database Statistics Maintenance:** Regularly update statistics to enhance the query optimizer’s ability to select efficient execution plans, particularly as the data set grows.
+
+Overall, the database environment is operating optimally, and continued diligence in these preventive measures will help sustain performance and reliability.
+
+========================================
+ END OF REPORT
+========================================
+

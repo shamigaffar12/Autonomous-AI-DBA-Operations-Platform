@@ -1,0 +1,103 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 16:34:57.768864
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 306
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 664
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-08 16:34:57  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+The current health status of the AdventureWorks2019 database is stable, with all critical metrics indicating normal operation.
+
+### Monitoring Observations
+
+- **CPU Monitoring:** All sessions were recorded with CPU usage within normal ranges. The active session (Session ID: 56) had minimal CPU time, indicative of light processing load.
+- **Session Status:** The majority of sessions are in a sleeping state, suggesting that the server is efficiently handling query workloads without strain.
+- **Blocking Sessions:** No blocking sessions detected, which is crucial for maintaining performance and user experience.
+- **Long Running Queries:** There are no long running queries present, indicating timely execution of database transactions.
+
+### Preventive Recommendations
+
+1. **Regular CPU Performance Review:** Continue to monitor CPU performance at regular intervals to ensure that operational thresholds remain stable.
+2. **Session Management:** Keep an eye on the number of concurrent sessions, especially with increased workload periods, to maintain responsiveness and mitigate potential bottlenecks.
+3. **Resource Usage Forecasting:** Implement alerts and thresholds to predict and respond to potential resource usage increases, thereby ensuring optimal performance and availability.
+
+These recommendations aim to proactively maintain the database's performance and reliability.
+
+========================================
+ END OF REPORT
+========================================
+

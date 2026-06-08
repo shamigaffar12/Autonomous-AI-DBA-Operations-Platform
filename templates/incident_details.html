@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+
+    Incident Details
+
+</h2>
+
+<div class="card shadow-sm mb-3">
+
+    <div class="card-body">
+
+        <h5>Timestamp</h5>
+
+        <p>
+
+            {{ incident.timestamp }}
+
+        </p>
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm mb-3">
+
+    <div class="card-body">
+
+        <h5>Status</h5>
+
+        <p>
+
+            {{ incident.overall_status }}
+
+        </p>
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm mb-3">
+
+    <div class="card-body">
+
+        <h5>Report File</h5>
+
+        <p>
+
+            {{ incident.report_file }}
+
+        </p>
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm mb-3">
+
+    <div class="card-body">
+
+        <h5>Incident Summary</h5>
+
+        <pre>
+
+{{ incident.incident_summary }}
+
+        </pre>
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+        <h5>AI Analysis</h5>
+
+        <pre>
+
+{{ incident.ai_analysis }}
+
+        </pre>
+
+    </div>
+
+</div>
+
+{% endblock %}

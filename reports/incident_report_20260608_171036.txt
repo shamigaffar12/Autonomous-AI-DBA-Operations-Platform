@@ -1,0 +1,96 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 17:10:33.023566
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 61
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 612
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1272
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-08 17:10:33  
+**Overall Status:** HEALTHY  
+
+#### Monitoring Observations:
+- All monitored sessions indicate CPU usage within normal operational ranges.
+- There are no blocking sessions detected, ensuring there are no performance bottlenecks impacting database operations.
+- No long-running queries were identified within the monitoring period, which contributes to optimal performance.
+
+### Preventive Recommendations:
+- Regularly review and analyze index usage statistics to ensure optimal query performance and to prevent any future performance issues.
+- Schedule routine database maintenance tasks, including updates and statistics refresh to keep the database operating at peak efficiency.
+- Monitor system resources and overall database performance trends to anticipate potential future issues before they escalate.
+
+========================================
+ END OF REPORT
+========================================
+

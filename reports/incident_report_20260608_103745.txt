@@ -1,0 +1,111 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 10:37:39.956687
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 5
+Elapsed Time: 5
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 66
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1426
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-08 10:37:39.956687  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY
+
+The current monitoring status indicates that the database is functioning optimally with all observed parameters within normal operating thresholds.
+
+### Monitoring Observations
+
+- **CPU Utilization**: All monitored sessions (Session IDs: 52, 53, 54, 55, 56, 66) exhibit CPU usage within the normal range, with no instances of excessive CPU utilization.
+- **Session Status**: The majority of sessions are in a sleeping state, suggesting no immediate workload stress.
+- **Locking and Blocking**: No blocking sessions or long-running queries were detected, indicating that the transactions are being processed efficiently.
+
+### Preventive Recommendations
+
+1. **Regular Maintenance**: Continue to perform routine database maintenance, including statistics updates and index optimizations, to ensure continued performance.
+2. **Resource Monitoring**: Maintain a regular monitoring schedule for CPU, memory, disk I/O, and network usage to proactively detect any potential performance bottlenecks.
+3. **Session Audits**: Regularly review session activity to ensure that all transactions are necessary and not holding locks longer than needed.
+
+By following these recommendations, we can sustain the healthy status and avoid potential future issues.
+
+========================================
+ END OF REPORT
+========================================
+

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Incident Repository
+</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        {% if incidents %}
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Status</th>
+                        <th>Report File</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for incident in incidents %}
+                    <tr>
+                        <td>
+                            {{ incident.timestamp }}
+                        </td>
+                        <td>
+                            {{ incident.overall_status }}
+                        </td>
+                        <td>
+                            {{ incident.report_file }}
+                        </td>
+                        <td>
+                            <a
+                                href="/incidents/{{ loop.index0 }}"
+                                class="btn btn-primary btn-sm"
+                            >
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-info mb-0">
+            No incident records found.
+        </div>
+
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

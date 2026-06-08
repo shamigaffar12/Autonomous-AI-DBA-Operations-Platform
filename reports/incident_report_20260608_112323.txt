@@ -1,0 +1,75 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 11:23:22.046115
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 53
+Status: running
+CPU Time: 74
+Elapsed Time: 74
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 306
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+
+
+System Health Summary:
+Monitoring completed successfully for the SQL Server environment.
+
+Monitoring Observations:
+- CPU usage was captured successfully.
+- Blocking and long-running query checks were performed.
+- Database size information was retrieved successfully.
+
+Recommended Actions:
+- Continue regular monitoring.
+- Review workload trends periodically.
+- Maintain index and statistics upkeep.
+
+Prevention Recommendations:
+- Keep alert thresholds in place.
+- Perform routine capacity planning.
+- Maintain documentation and operational logs.
+
+
+
+========================================
+ END OF REPORT
+========================================
+

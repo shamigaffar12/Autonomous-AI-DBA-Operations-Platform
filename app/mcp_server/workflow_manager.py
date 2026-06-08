@@ -42,12 +42,18 @@ from app.audit.audit_logger import (
 from app.common.error_handler import (
     handle_error
 )
-
-
+from app.ai_agent.agent_executor import (
+    execute_agent_workflow
+)
+from app.notifications.notification_router import (
+    get_notification_route
+)
+from app.ai_agent.remediation_executor import (
+    execute_remediation
+)
 # =========================================================
 # WORKFLOW STEPS
 # =========================================================
-
 WORKFLOW_STEPS = [
 
     "Environment Validation",
@@ -58,7 +64,13 @@ WORKFLOW_STEPS = [
 
     "Send Incident To AI Agent",
 
+    "Agent Risk Assessment",
+
+    "Agent Recommendation",
+
     "Governance Review",
+
+    "Remediation Execution",
 
     "Generate RCA Report",
 
@@ -67,8 +79,8 @@ WORKFLOW_STEPS = [
     "Send Notifications",
 
     "Save Incident Report"
-]
 
+]
 
 # =========================================================
 # DISPLAY WORKFLOW
@@ -203,10 +215,94 @@ def execute_workflow():
 
         )
 
+        # =================================================
+        # STEP 3A - AGENT EXECUTION
+        # =================================================
+
+        write_audit_log(
+            "STEP 3A STARTED - Agent Execution"
+        )
+
+        print(
+            "\n[STEP 3A] Agent Risk Assessment"
+        )
+
+        agent_result = execute_agent_workflow(
+
+            monitoring_result[
+                "incident_summary"
+            ],
+
+            ai_result[
+                "analysis"
+            ]
+
+        )
+        notification_route = (
+
+            get_notification_route(
+
+                agent_result[
+                    "risk"
+                ][
+                    "severity"
+                ]
+
+            )
+
+        )
+
+        print(
+
+            "\nNotification Route:\n"
+
+        )
+
+        print(
+
+            notification_route
+
+        )
+
+        print(
+            "\nAgent Risk:\n"
+        )
+
+        print(
+            agent_result[
+                "risk"
+            ]
+        )
+
+        print(
+            agent_result[
+                "recommendation"
+            ][
+                "recommendation"
+            ]
+        )
+
+        write_audit_log(
+
+            f"AGENT RISK: "
+            f"{agent_result['risk']['severity']}"
+
+        )
+
+        write_audit_log(
+
+    f"AGENT RECOMMENDATION: "
+    f"{agent_result['recommendation']['recommendation']}"
+
+)
+
+        write_audit_log(
+            "STEP 3A COMPLETED - Agent Execution"
+        )
+
         write_audit_log(
             "STEP 3 COMPLETED - AI Analysis"
         )
-
         # =================================================
         # STEP 4 - GOVERNANCE REVIEW
         # =================================================
@@ -221,13 +317,11 @@ def execute_workflow():
 
         if (
 
-            monitoring_result[
-                "overall_status"
-            ].upper()
-
-            !=
-
-            "HEALTHY"
+            agent_result[
+                "risk"
+            ][
+                "approval_required"
+            ]
 
         ):
 
@@ -257,14 +351,54 @@ def execute_workflow():
             )
 
             write_audit_log(
-                "GOVERNANCE REVIEW SKIPPED - HEALTHY"
+                "GOVERNANCE REVIEW SKIPPED - NO APPROVAL REQUIRED"
             )
 
         write_audit_log(
             "STEP 4 COMPLETED - Governance Review"
         )
-
+                # =================================================
+        # STEP 4A - REMEDIATION EXECUTION
         # =================================================
+
+        write_audit_log(
+            "STEP 4A STARTED - Remediation Execution"
+        )
+
+        print(
+            "\n[STEP 4A] Remediation Execution"
+        )
+
+        remediation_result = (
+
+            execute_remediation(
+
+                agent_result[
+                    "recommendation"
+                ]
+
+            )
+
+        )
+
+        print(
+            remediation_result
+        )
+
+        write_audit_log(
+
+            f"REMEDIATION RESULT: "
+            f"{remediation_result}"
+
+        )
+
+        write_audit_log(
+            "STEP 4A COMPLETED - Remediation Execution"
+        )
+        
+          
+        # =====
+        # ============================================
         # STEP 5 - REPORT GENERATION
         # =================================================
 
@@ -345,18 +479,37 @@ def execute_workflow():
         print(
             "\n[STEP 7] Send Notifications"
         )
+        if (
 
-        run_notifications(
-
-            monitoring_result[
-                "overall_status"
-            ],
-
-            monitoring_result[
-                "incident_summary"
+            notification_route[
+                "send_email"
             ]
 
-        )
+            or
+
+            notification_route[
+                "send_teams"
+            ]
+
+        ):
+
+            run_notifications(
+
+                monitoring_result[
+                    "overall_status"
+                ],
+
+                monitoring_result[
+                    "incident_summary"
+                ]
+
+            )
+
+        else:
+
+            print(
+                "Notification not required."
+            )
 
         write_audit_log(
             "STEP 7 COMPLETED - Notifications"

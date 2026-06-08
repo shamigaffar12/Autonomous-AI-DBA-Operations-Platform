@@ -22,88 +22,195 @@
         rel="stylesheet"
     >
 
+    <style>
+
+        body {
+
+            margin: 0;
+
+            background-color: #f4f6f9;
+
+            overflow-x: hidden;
+
+        }
+
+        .sidebar {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            height: 100vh;
+
+            width: 250px;
+
+            background-color: #0d1b2a;
+
+            color: white;
+
+            padding-top: 20px;
+
+            z-index: 1000;
+
+        }
+
+        .sidebar-title {
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            text-align: center;
+
+            padding: 15px;
+
+            border-bottom: 1px solid #243447;
+
+        }
+
+        .sidebar a {
+
+            display: block;
+
+            color: #dce3ea;
+
+            text-decoration: none;
+
+            padding: 14px 25px;
+
+            transition: 0.3s;
+
+        }
+
+        .sidebar a:hover {
+
+            background-color: #1b263b;
+
+            color: white;
+
+        }
+
+        .main-content {
+
+            margin-left: 250px;
+
+            min-height: 100vh;
+
+        }
+
+        .top-header {
+
+            background-color: white;
+
+            padding: 15px 25px;
+
+            border-bottom: 1px solid #dee2e6;
+
+        }
+
+        .page-content {
+
+            padding: 25px;
+
+        }
+
+        .card {
+
+            border: none;
+
+            border-radius: 12px;
+
+        }
+
+    </style>
+
 </head>
 
-<body class="bg-light">
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- SIDEBAR -->
 
-        <div class="container-fluid">
+    <div class="sidebar">
 
-            <a
-                class="navbar-brand"
-                href="/dashboard"
-            >
+        <div class="sidebar-title">
 
-                AI DBA Operations Platform
+            AI DBA Platform
 
-            </a>
+        </div>
 
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-            >
+        <a href="/dashboard">
 
-                <span
-                    class="navbar-toggler-icon"
-                ></span>
+            Dashboard
 
-            </button>
+        </a>
+
+        <a href="/analytics">
+
+            Analytics
+
+        </a>
+
+        <a href="/incidents">
+
+            Incidents
+
+        </a>
+
+        <a href="/approvals">
+
+            Governance
+
+        </a>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-content">
+
+        <div class="top-header">
 
             <div
-                class="collapse navbar-collapse"
-                id="navbarNav"
+                class="d-flex justify-content-between align-items-center"
             >
 
-                <ul class="navbar-nav">
+                <div>
 
-                    <li class="nav-item">
+                    <strong>
 
-                        <a
-                            class="nav-link"
-                            href="/dashboard"
-                        >
+                        Autonomous AI DBA Operations Platform
 
-                            Dashboard
+                    </strong>
 
-                        </a>
+                </div>
 
-                    </li>
+                <div>
 
-                    <li class="nav-item">
+                    <span
+                        class="badge bg-success"
+                    >
 
-                        <a
-                            class="nav-link"
-                            href="/approvals"
-                        >
+                        Platform Online
 
-                            Governance
+                    </span>
 
-                        </a>
-
-                    </li>
-
-                </ul>
+                </div>
 
             </div>
 
         </div>
 
-    </nav>
+        <div class="page-content">
 
-    <div class="container mt-4">
+            {% block content %}
 
-        {% block content %}
+            {% endblock %}
 
-        {% endblock %}
+        </div>
 
     </div>
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    ></script>
 
 </body>
 

@@ -1,0 +1,63 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 16:19:44.209368
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 51
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary for AdventureWorks2019**
+
+**Monitoring Time:** 2026-06-08 16:19:44
+
+**Overall Status:** HEALTHY
+
+**Monitoring Observations:**
+- The database is operating efficiently with no performance issues.
+- CPU Usage is within normal range with current session ID 51 showing minimal CPU time and no blocking or long-running queries detected.
+- Logical reads are at a healthy count of 257, indicating a stable operation.
+
+**Preventive Recommendations:**
+1. Continue to monitor CPU usage and review workload periodically to ensure performance remains optimal.
+2. Implement regular index maintenance tasks to prevent fragmentation and maintain query performance.
+3. Schedule periodic database backups and integrity checks to ensure data reliability and recoverability.
+4. Stay updated with SQL Server patches and updates to mitigate any performance or security vulnerabilities. 
+
+Regular health checks and monitoring will help maintain the database health and readiness for future loads.
+
+========================================
+ END OF REPORT
+========================================
+

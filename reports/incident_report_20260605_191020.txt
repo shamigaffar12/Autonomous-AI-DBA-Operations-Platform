@@ -1,0 +1,98 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 19:10:16.839919
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: background
+CPU Time: 0
+Elapsed Time: 7100
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 970
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1320
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1016
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+*Date/Time of Monitoring:* 2026-06-05 19:10:16.839919  
+*Database:* AdventureWorks2019  
+*Overall Health Status:* HEALTHY
+
+**Monitoring Observations:**
+- All active sessions are within normal operating ranges with no unusual CPU usage detected.
+- No blocking sessions or long-running queries were reported, indicating that database performance remains optimal.
+- Logical reads are balanced across sessions, suggesting a consistent workload distribution.
+
+**Preventive Recommendations:**
+- Continue monitoring session activities and CPU usage regularly to ensure ongoing performance alignment with application demands.
+- Consider implementing a routine performance review, focusing on optimizing index usage to sustain query performance.
+- Periodically validate and analyze database statistics to maintain query optimization and efficiency, avoiding potential degradation in performance over time. 
+
+Maintain regular monitoring, and keep the database environment healthy.
+
+========================================
+ END OF REPORT
+========================================
+

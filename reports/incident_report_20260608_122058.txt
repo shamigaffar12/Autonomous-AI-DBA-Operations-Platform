@@ -1,0 +1,106 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 12:20:54.346204
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 57
+Status: running
+CPU Time: 51
+Elapsed Time: 66
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 762
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 104
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary – AdventureWorks2019**
+
+**Monitoring Time:** 2026-06-08 12:20:54
+
+**Overall Status:** HEALTHY
+
+**Monitoring Observations:**
+- CPU usage is within the normal range across all active sessions.
+- Active session (ID: 57) is currently running with CPU Time recorded at 51ms, and elapsed time is 66ms, indicating a brief, efficient operation.
+- No blocking sessions have been detected, contributing to smooth database operations.
+- There are no long-running queries, underscoring optimal performance and responsiveness.
+
+**Preventive Recommendations:**
+- Regularly monitor session activity to ensure that no unexpected performance degradation occurs.
+- Implement resource alerts to proactively identify if CPU usage trends change over time, providing insights for future capacity planning.
+- Maintain regular maintenance plans, including index management and statistics updating, to ensure the ongoing optimal performance of queries as data grows.
+
+========================================
+ END OF REPORT
+========================================
+

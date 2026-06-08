@@ -1,0 +1,80 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-05 19:20:24.205213
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 6
+Elapsed Time: 6
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1118
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Database**: AdventureWorks2019  
+**Monitoring Time**: 2026-06-05 19:20:24  
+
+The overall health of the AdventureWorks2019 database is confirmed to be healthy at the current monitoring interval. This indicates effective system performance, with no immediate issues identified.
+
+### Monitoring Observations
+
+- **CPU Monitoring**:
+  - **Session ID 52**: Active status with normal CPU usage (6 ms CPU Time, 6 ms Elapsed Time).
+  - **Session ID 59**: In a sleeping state, also confirming normal CPU usage (0 ms CPU Time).
+  
+- **Read/Write Activity**:
+  - Logical reads remain low and within acceptable parameters, indicating controlled activity levels. No reads or writes were recorded for active sessions at this time.
+
+- **Blocking and Long-Running Queries**: 
+  - No blocking sessions or long-running queries were detected during this monitoring period, further supporting the database's healthy status.
+
+### Preventive Recommendations
+
+1. **Regular Monitoring**: Continue regular monitoring of CPU, memory, and disk usage to ensure consistent performance.
+2. **Database Maintenance**: Implement regular maintenance plans, including index optimization and database consistency checks to avert potential future issues.
+3. **Capacity Planning**: Periodically review resource usage trends to prepare for any necessary adjustments in server capacity as database activity grows.
+
+Maintaining these practices will aid in the continued health and efficiency of the AdventureWorks2019 database.
+
+========================================
+ END OF REPORT
+========================================
+

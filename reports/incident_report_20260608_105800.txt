@@ -1,0 +1,114 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-08 10:57:56.282554
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 57
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 2602
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 306
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-08 10:57:56  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+The database is operating within normal parameters, with all CPU usage alerts indicating normal range. No blocking sessions or long-running queries have been identified, which indicates a well-functioning database environment.
+
+---
+
+### Monitoring Observations
+
+- **CPU Activity:** Session ID 57 is actively using CPU resources, while other sessions remain idle.
+- **Session Management:** All sessions, except one, are in a sleeping state, which is typical for a system with light load.
+- **Logical Reads:** The range of logical reads across the sessions is acceptable and reflects healthy activity, without indicating any stress on the database.
+
+---
+
+### Preventive Recommendations
+
+- **Regular Health Checks:** Continue to perform routine checks on system performance, including reviewing statistics and index health to ensure optimal query performance.
+- **Monitoring Setup:** Leverage extended monitoring tools to track CPU usage patterns over time, particularly for active sessions, to catch anomalies early.
+- **Performance Benchmarks:** Consider establishing benchmarks for CPU and memory utilization, and review regularly to ensure the database continues to meet performance standards.
+- **Index Maintenance:** Schedule regular index maintenance jobs to optimize performance long-term and to prevent fragmentation, which can impact query performance over time.
+
+========================================
+ END OF REPORT
+========================================
+
