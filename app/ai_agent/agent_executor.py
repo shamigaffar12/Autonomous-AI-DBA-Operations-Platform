@@ -25,6 +25,8 @@ from app.ai_agent.recommendation_engine import (
 
 def execute_agent_workflow(
 
+    monitoring_result,
+
     incident_summary,
 
     ai_analysis
@@ -80,23 +82,27 @@ def execute_agent_workflow(
 
     risk = (
 
-        classify_risk(
+       classify_risk(
 
-            ai_analysis
+    monitoring_result,
 
-        )
+    ai_analysis
+
+)
 
     )
 
     recommendation = (
 
-        generate_recommendation(
+    generate_recommendation(
 
-            ai_analysis
+        monitoring_result,
 
-        )
+        ai_analysis
 
     )
+
+)
 
     return {
 

@@ -33,7 +33,7 @@ APPROVAL_REPOSITORY_FILE = (
 def load_approvals():
 
     """
-    Load approval requests.
+    Load all approval requests.
     """
 
     try:
@@ -82,17 +82,17 @@ def load_approvals():
 
 
 # =========================================================
-# SAVE APPROVAL REQUEST
+# SAVE ALL APPROVALS
 # =========================================================
 
-def save_approval(
+def save_approvals(
 
-    approval_request
+    approvals
 
 ):
 
     """
-    Save approval request.
+    Persist complete approval list.
     """
 
     try:
@@ -102,14 +102,6 @@ def save_approval(
             "repository",
 
             exist_ok=True
-
-        )
-
-        approvals = load_approvals()
-
-        approvals.append(
-
-            approval_request
 
         )
 
@@ -135,6 +127,53 @@ def save_approval(
 
         write_audit_log(
 
+            "APPROVAL REPOSITORY UPDATED"
+
+        )
+
+    except Exception as error:
+
+        handle_error(
+
+            "APPROVAL REPOSITORY",
+
+            error
+
+        )
+
+
+# =========================================================
+# SAVE APPROVAL REQUEST
+# =========================================================
+
+def save_approval(
+
+    approval_request
+
+):
+
+    """
+    Save single approval request.
+    """
+
+    try:
+
+        approvals = load_approvals()
+
+        approvals.append(
+
+            approval_request
+
+        )
+
+        save_approvals(
+
+            approvals
+
+        )
+
+        write_audit_log(
+
             "APPROVAL REQUEST SAVED"
 
         )
@@ -151,13 +190,51 @@ def save_approval(
 
 
 # =========================================================
+# GET APPROVAL BY ID
+# =========================================================
+
+def get_approval_by_id(
+
+    request_id
+
+):
+
+    """
+    Return approval request
+    by request id.
+    """
+
+    approvals = load_approvals()
+
+    for approval in approvals:
+
+        if (
+
+            approval.get(
+
+                "request_id"
+
+            )
+
+            ==
+
+            request_id
+
+        ):
+
+            return approval
+
+    return None
+
+
+# =========================================================
 # GET APPROVAL COUNT
 # =========================================================
 
 def get_approval_count():
 
     """
-    Return approval count.
+    Return total approval count.
     """
 
     approvals = load_approvals()
@@ -199,3 +276,23 @@ if __name__ == "__main__":
         f"{get_approval_count()}"
 
     )
+
+    print(
+
+        "\nApproval Lookup:\n"
+
+    )
+
+    print(
+
+        get_approval_by_id(
+
+            approval[
+                "request_id"
+            ]
+
+        )
+
+    )
+    
+    

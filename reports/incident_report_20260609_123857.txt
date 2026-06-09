@@ -1,0 +1,84 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-09 12:38:51.069531
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 53
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 66
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1626
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 64
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 866
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+As of the monitoring timestamp on 2026-06-09 at 12:38:51, the database AdventureWorks2019 shows a healthy operational status. System metrics indicate optimal CPU usage, with no sessions experiencing blocking or extended run times.
+
+**Monitoring Observations**
+- CPU usage across all active sessions is within normal operational ranges.
+- Active sessions (Session ID: 53) are utilizing CPU time effectively, while other sessions (Session IDs: 66, 64, 52) remain idle, indicating no performance degradation.
+- Logical reads remain manageable with no read/write operations leading to potential backlogs.
+
+**Preventive Recommendations**
+- Regularly review and analyze active session activities to ensure optimal resource utilization.
+- Implement routine maintenance tasks, such as index optimization and statistics updates, to keep performance high and prevent potential degradation in the future.
+- Monitor system thresholds periodically and adjust alerts and thresholds based on observed patterns to preemptively address any emerging issues.
+
+========================================
+ END OF REPORT
+========================================
+

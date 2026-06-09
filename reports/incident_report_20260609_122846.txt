@@ -1,0 +1,108 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-09 12:28:42.845856
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 57
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 52
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary:**
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-09 12:28:42.845856  
+**Overall Status:** HEALTHY  
+
+**Monitoring Observations:**
+- All monitored sessions exhibit CPU usage within normal ranges, with no performance issues.
+- Notable SQL sessions:
+  - Session ID 57: Active with minimal CPU and logical reads, indicating efficient processing.
+  - Other sessions are in a sleeping state with no resource consumption.
+
+**Preventive Recommendations:**
+1. **Regularly Update Statistics:** Ensure that database statistics are regularly updated to optimize query performance.
+2. **Monitor Growth Trends:** Continue monitoring CPU usage patterns over extended periods to identify any potential growth trends that may lead to performance degradation in the future.
+3. **Database Maintenance Plans:** Schedule routine database maintenance tasks (backups, integrity checks, index rebuilds) to maintain overall database performance and reliability.
+
+### End of Report.
+
+========================================
+ END OF REPORT
+========================================
+

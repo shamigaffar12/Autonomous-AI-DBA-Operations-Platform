@@ -1,0 +1,85 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-09 11:58:04.351587
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 5
+Elapsed Time: 5
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 62
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 2
+Logical Reads: 782
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 2
+Logical Reads: 584
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary - AdventureWorks2019**
+
+**Monitoring Time:** 2026-06-09 11:58:04.351587  
+**Overall Status:** HEALTHY
+
+---
+
+**Monitoring Observations:**
+
+- All monitored sessions are operating within normal CPU usage parameters.
+- Session statistics indicate no blocking sessions or long-running queries, confirming optimal database performance.
+- Logical reads across sessions are within expected limits, indicating efficient data retrieval.
+
+---
+
+**Preventive Recommendations:**
+
+1. **Regularly Review Resource Utilization**: Continue to monitor CPU, memory, and I/O utilization regularly to maintain optimal performance levels and catch any potential issues before they escalate.
+2. **Query Optimization**: Continue analyzing frequently executed queries and consider implementing index maintenance strategies to enhance performance further.
+3. **Backup Strategy Assessment**: Ensure your backup routines are consistently followed and tested for efficiency and reliability, minimizing possible downtime during recovery times. 
+
+By implementing these preventive measures, you will help sustain the overall health of the database system.
+
+========================================
+ END OF REPORT
+========================================
+

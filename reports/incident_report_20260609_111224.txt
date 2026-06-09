@@ -1,0 +1,81 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-09 11:12:17.490490
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 5
+Elapsed Time: 5
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1324
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 916
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-09 11:12:17.490490  
+**Overall Status:** HEALTHY
+
+**Summary:**  
+The database is operating within normal parameters, with no incidents of blocking sessions or long-running queries. CPU usage is stable across all monitored sessions, indicating efficient resource utilization at this time.
+
+### Monitoring Observations
+- **Session Activity:** 
+  - Session ID 52 is actively running with minimal CPU time and logical reads.
+  - Sessions 51 and 55 are in a sleeping state, consuming negligible CPU resources.
+- **CPU Usage:** Normal range confirmed for all sessions, suggesting no immediate performance concerns.
+
+### Preventive Recommendations
+- **Regular Maintenance:** Continue regular index maintenance and statistics updates to ensure optimal query performance.
+- **Capacity Planning:** Monitor system resource utilization trends to ensure performance remains optimal as data volume and user load increase.
+- **Logging & Alerts:** Maintain monitoring for unexpected spikes in CPU usage or query performance degradation, implementing alerts where necessary for proactive response.
+
+========================================
+ END OF REPORT
+========================================
+

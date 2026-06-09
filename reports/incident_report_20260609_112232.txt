@@ -1,0 +1,66 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-09 11:22:29.051246
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 51
+Status: running
+CPU Time: 5
+Elapsed Time: 5
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-09 11:22:29  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY
+
+**CPU Monitoring Observation:**  
+- Session ID 51 is currently running with a CPU time of 5 ms and elapsed time of 5 ms.  
+- CPU usage remains within normal range with zero reads and writes.
+
+**Monitoring Observations:**  
+- No blocking sessions have been detected, indicating smooth operation of the database.  
+- No long-running queries have been identified, reflecting optimal query performance.
+
+### Preventive Recommendations
+1. **Routine Performance Review:** Conduct routine checks on CPU performance to ensure consistent optimization, particularly after any significant changes to workload.
+2. **Resource Allocation Audit:** Regularly review resource allocations and adjust as necessary to accommodate growth in data size or complexity of queries.
+3. **Database Maintenance Plans:** Ensure maintenance plans are routinely executed to optimize index usage and statistics, preventing future performance issues.  
+4. **Monitoring Enhancements:** Continue using monitoring tools to proactively detect variations in database performance metrics, enhancing the response to potential issues.  
+
+By adhering to these preventive measures, we can maintain the database's health and efficiency moving forward.
+
+========================================
+ END OF REPORT
+========================================
+

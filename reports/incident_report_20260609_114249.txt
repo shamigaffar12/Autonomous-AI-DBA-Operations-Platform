@@ -1,0 +1,85 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-09 11:42:45.494547
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1326
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1016
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-09 11:42:45  
+**Database:** AdventureWorks2019  
+
+The current health status of the database is classified as **HEALTHY**. All monitored parameters, including CPU usage and session statuses, indicate optimal operational conditions.
+
+### Monitoring Observations
+
+- **CPU Monitoring**: 
+  - Session ID 52 is actively running with a CPU time of 4 milliseconds and a logical read count of 257.
+  - Sessions ID 53 and 56 are in a sleeping state, showing no substantial CPU usage, with logical reads of 1016 and 1326, respectively.
+- **No Blockages**: There are no blocked sessions, ensuring smooth transactional processing.
+- **Query Performance**: No long-running queries were detected, supporting efficient database performance.
+
+### Preventive Recommendations
+
+1. **Regular Monitoring**: Continue regular monitoring of CPU usage patterns and session behaviors to preemptively address any potential issues as usage patterns evolve.
+2. **Performance Optimization**: Consider routine review and optimization of indexes and query plans based on workload trends to maintain optimal performance.
+3. **Capacity Planning**: Regularly assess resource utilization to ensure that hardware resources can accommodate future growth without impacting performance.
+
+This comprehensive approach will help in sustaining the healthy status of the database environment.
+
+========================================
+ END OF REPORT
+========================================
+

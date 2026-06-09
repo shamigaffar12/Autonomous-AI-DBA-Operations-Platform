@@ -14,33 +14,73 @@ from app.ai_agent.risk_classifier import (
 
 def generate_recommendation(
 
+    monitoring_result,
+
     ai_analysis
 
 ):
 
     """
-    Generate structured recommendation
-    from AI analysis.
+    Generate recommendation
+    using actual monitoring results.
     """
 
     risk = classify_risk(
+
+        monitoring_result,
 
         ai_analysis
 
     )
 
-    analysis = ai_analysis.upper()
+    overall_status = (
+
+        monitoring_result[
+            "overall_status"
+        ]
+        .upper()
+    )
+
+    incident_summary = (
+
+        monitoring_result[
+            "incident_summary"
+        ]
+        .upper()
+    )
+
+    # =====================================================
+    # HEALTHY
+    # =====================================================
+
+    if overall_status == "HEALTHY":
+
+        return {
+
+            "recommendation":
+            "System healthy. Continue monitoring.",
+
+            "action_type":
+            "NO_ACTION",
+
+            "risk":
+            risk["severity"],
+
+            "approval_required":
+            False
+
+        }
 
     # =====================================================
     # BLOCKING
     # =====================================================
 
-    if "BLOCKING" in analysis:
+    if "BLOCKING SESSION DETECTED" in incident_summary:
 
         return {
 
             "recommendation":
-            "Investigate and resolve blocking session.",
+            "Investigate blocking sessions and identify root blocking process.",
 
             "action_type":
             "BLOCKING_INVESTIGATION",
@@ -54,18 +94,18 @@ def generate_recommendation(
         }
 
     # =====================================================
-    # DEADLOCK
+    # LONG RUNNING QUERY
     # =====================================================
 
-    if "DEADLOCK" in analysis:
+    if "LONG RUNNING QUERY" in incident_summary:
 
         return {
 
             "recommendation":
-            "Investigate deadlock and optimize transaction flow.",
+            "Analyze execution plan and optimize long running query.",
 
             "action_type":
-            "DEADLOCK_ANALYSIS",
+            "QUERY_TUNING",
 
             "risk":
             risk["severity"],
@@ -79,12 +119,12 @@ def generate_recommendation(
     # HIGH CPU
     # =====================================================
 
-    if "HIGH CPU" in analysis:
+    if "HIGH CPU" in incident_summary:
 
         return {
 
             "recommendation":
-            "Analyze high CPU queries and execution plans.",
+            "Identify top CPU consuming queries and review execution plans.",
 
             "action_type":
             "CPU_ANALYSIS",
@@ -98,88 +138,44 @@ def generate_recommendation(
         }
 
     # =====================================================
-    # MISSING INDEX
+    # DATABASE SIZE
     # =====================================================
 
-    if "MISSING INDEX" in analysis:
+    if "DATABASE SIZE" in incident_summary:
 
         return {
 
             "recommendation":
-            "Create recommended missing index after approval.",
+            "Review database growth trend and perform capacity planning.",
 
             "action_type":
-            "INDEX_CREATION",
+            "CAPACITY_PLANNING",
 
             "risk":
             risk["severity"],
 
             "approval_required":
-            risk["approval_required"]
+            False
 
         }
 
     # =====================================================
-    # INDEX FRAGMENTATION
-    # =====================================================
-
-    if "FRAGMENTATION" in analysis:
-
-        return {
-
-            "recommendation":
-            "Rebuild fragmented index.",
-
-            "action_type":
-            "INDEX_REBUILD",
-
-            "risk":
-            risk["severity"],
-
-            "approval_required":
-            risk["approval_required"]
-
-        }
-
-    # =====================================================
-    # STATISTICS
-    # =====================================================
-
-    if "STATISTICS" in analysis:
-
-        return {
-
-            "recommendation":
-            "Update database statistics.",
-
-            "action_type":
-            "UPDATE_STATISTICS",
-
-            "risk":
-            risk["severity"],
-
-            "approval_required":
-            risk["approval_required"]
-
-        }
-
-    # =====================================================
-    # HEALTHY
+    # DEFAULT
     # =====================================================
 
     return {
 
         "recommendation":
-        "Continue monitoring. No action required.",
+        "Review incident manually and perform further investigation.",
 
         "action_type":
-        "NO_ACTION",
+        "MANUAL_REVIEW",
 
         "risk":
         risk["severity"],
 
         "approval_required":
-        False
+        risk["approval_required"]
 
     }
 
@@ -190,31 +186,21 @@ def generate_recommendation(
 
 if __name__ == "__main__":
 
-    sample_analysis = """
+    sample_monitoring = {
 
-    Blocking session detected.
-    High CPU usage observed.
+        "overall_status":
+        "HEALTHY",
 
-    """
+        "incident_summary":
+        "No blocking sessions detected."
+    }
 
-    recommendation = (
+    result = generate_recommendation(
 
-        generate_recommendation(
+        sample_monitoring,
 
-            sample_analysis
-
-        )
-
-    )
-
-    print(
-
-        "\nRecommendation:\n"
+        "System operating normally."
 
     )
 
-    print(
-
-        recommendation
-
-    )
+    print(result)

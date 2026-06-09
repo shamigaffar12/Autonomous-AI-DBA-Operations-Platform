@@ -11,6 +11,11 @@
         content="width=device-width, initial-scale=1"
     >
 
+    <meta
+        http-equiv="refresh"
+        content="30"
+    >
+
     <title>
 
         Autonomous AI DBA Operations Platform
@@ -22,6 +27,11 @@
         rel="stylesheet"
     >
 
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
     <style>
 
         body {
@@ -31,6 +41,8 @@
             background-color: #f4f6f9;
 
             overflow-x: hidden;
+
+            font-family: "Segoe UI", sans-serif;
 
         }
 
@@ -44,29 +56,45 @@
 
             height: 100vh;
 
-            width: 250px;
+            width: 260px;
 
-            background-color: #0d1b2a;
+            background: #0d1b2a;
 
             color: white;
 
-            padding-top: 20px;
-
             z-index: 1000;
+
+            overflow-y: auto;
 
         }
 
         .sidebar-title {
 
-            font-size: 22px;
+            font-size: 20px;
 
-            font-weight: bold;
+            font-weight: 700;
 
             text-align: center;
 
-            padding: 15px;
+            padding: 20px;
 
             border-bottom: 1px solid #243447;
+
+            background: #08131f;
+
+        }
+
+        .sidebar-section {
+
+            color: #8ea7c2;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            padding: 18px 20px 8px 20px;
+
+            text-transform: uppercase;
 
         }
 
@@ -78,7 +106,7 @@
 
             text-decoration: none;
 
-            padding: 14px 25px;
+            padding: 12px 20px;
 
             transition: 0.3s;
 
@@ -92,9 +120,15 @@
 
         }
 
+        .sidebar a i {
+
+            margin-right: 10px;
+
+        }
+
         .main-content {
 
-            margin-left: 250px;
+            margin-left: 260px;
 
             min-height: 100vh;
 
@@ -107,6 +141,8 @@
             padding: 15px 25px;
 
             border-bottom: 1px solid #dee2e6;
+
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 
         }
 
@@ -121,6 +157,32 @@
             border: none;
 
             border-radius: 12px;
+
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+        }
+
+        .page-title {
+
+            font-weight: 700;
+
+        }
+
+        .status-online {
+
+            font-size: 14px;
+
+        }
+
+        .footer {
+
+            margin-top: 40px;
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: 13px;
 
         }
 
@@ -140,28 +202,54 @@
 
         </div>
 
+        <div class="sidebar-section">
+
+            Operations
+        </div>
+
         <a href="/dashboard">
-
+            <i class="bi bi-speedometer2"></i>
             Dashboard
+        </a>
 
+        <a href="/monitoring">
+            <i class="bi bi-activity"></i>
+            Monitoring
         </a>
 
         <a href="/analytics">
-
+            <i class="bi bi-graph-up"></i>
             Analytics
-
         </a>
 
         <a href="/incidents">
-
+            <i class="bi bi-exclamation-triangle"></i>
             Incidents
-
         </a>
 
-        <a href="/approvals">
+        <div class="sidebar-section">
 
             Governance
+        </div>
 
+        <a href="/approvals">
+            <i class="bi bi-shield-check"></i>
+            Governance
+        </a>
+
+        <a href="/audit">
+            <i class="bi bi-journal-text"></i>
+            Audit Logs
+        </a>
+
+        <div class="sidebar-section">
+
+            Repository
+        </div>
+
+        <a href="/reports">
+            <i class="bi bi-file-earmark-text"></i>
+            Reports
         </a>
 
     </div>
@@ -184,12 +272,18 @@
 
                     </strong>
 
+                    <div class="text-muted small">
+
+                        AI-Powered Database Operations Center
+
+                    </div>
+
                 </div>
 
                 <div>
 
                     <span
-                        class="badge bg-success"
+                        class="badge bg-success status-online"
                     >
 
                         Platform Online
@@ -207,6 +301,13 @@
             {% block content %}
 
             {% endblock %}
+
+            <div class="footer">
+
+                Autonomous AI DBA Operations Platform |
+                Version 1.0.0
+
+            </div>
 
         </div>
 

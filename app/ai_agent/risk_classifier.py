@@ -10,40 +10,96 @@
 
 def classify_risk(
 
+    monitoring_result,
+
     ai_analysis
 
 ):
 
     """
-    Classify incident risk level
-    based on AI analysis.
+    Classify incident risk using
+    actual monitoring results.
     """
 
-    analysis = ai_analysis.upper()
+    overall_status = (
+
+        monitoring_result.get(
+
+            "overall_status",
+
+            "UNKNOWN"
+
+        ).upper()
+
+    )
+
+    incident_summary = (
+
+        monitoring_result.get(
+
+            "incident_summary",
+
+            ""
+
+        ).upper()
+
+    )
 
     # =====================================================
-    # CRITICAL
+    # HEALTHY
+    # =====================================================
+
+    if overall_status == "HEALTHY":
+
+        return {
+
+            "severity":
+            "LOW",
+
+            "confidence":
+            95,
+
+            "approval_required":
+            False,
+
+            "notify_email":
+            False,
+
+            "notify_teams":
+            False
+
+        }
+
+    # =====================================================
+    # CRITICAL CONDITIONS
     # =====================================================
 
     critical_keywords = [
 
         "DATABASE OFFLINE",
+
         "DATABASE UNAVAILABLE",
-        "SEVERE OUTAGE",
+
         "DATA CORRUPTION",
-        "DISK FULL"
+
+        "DISK FULL",
+
+        "SEVERE OUTAGE"
 
     ]
 
     for keyword in critical_keywords:
 
-        if keyword in analysis:
+        if keyword in incident_summary:
 
             return {
 
                 "severity":
                 "CRITICAL",
 
+                "confidence":
+                95,
+
                 "approval_required":
                 True,
 
@@ -56,28 +112,33 @@ def classify_risk(
             }
 
     # =====================================================
-    # HIGH
+    # HIGH RISK CONDITIONS
     # =====================================================
 
     high_keywords = [
 
+        "BLOCKING SESSION DETECTED",
+
         "DEADLOCK",
-        "BLOCKING",
-        "HIGH CPU",
-        "LONG RUNNING QUERY",
-        "QUERY TIMEOUT"
+
+        "QUERY TIMEOUT",
+
+        "HIGH CPU"
 
     ]
 
     for keyword in high_keywords:
 
-        if keyword in analysis:
+        if keyword in incident_summary:
 
             return {
 
                 "severity":
                 "HIGH",
 
+                "confidence":
+                90,
+
                 "approval_required":
                 True,
 
@@ -90,26 +151,32 @@ def classify_risk(
             }
 
     # =====================================================
-    # MEDIUM
+    # MEDIUM RISK CONDITIONS
     # =====================================================
 
     medium_keywords = [
 
-        "MISSING INDEX",
+        "LONG RUNNING QUERY",
+
         "FRAGMENTATION",
-        "STATISTICS",
-        "PERFORMANCE DEGRADATION"
+
+        "MISSING INDEX",
+
+        "STATISTICS"
 
     ]
 
     for keyword in medium_keywords:
 
-        if keyword in analysis:
+        if keyword in incident_summary:
 
             return {
 
                 "severity":
                 "MEDIUM",
+
+                "confidence":
+                85,
 
                 "approval_required":
                 True,
@@ -123,19 +190,22 @@ def classify_risk(
             }
 
     # =====================================================
-    # LOW
+    # DEFAULT ATTENTION REQUIRED
     # =====================================================
 
     return {
 
         "severity":
-        "LOW",
+        "MEDIUM",
+
+        "confidence":
+        75,
 
         "approval_required":
-        False,
+        True,
 
         "notify_email":
-        False,
+        True,
 
         "notify_teams":
         False
@@ -149,17 +219,31 @@ def classify_risk(
 
 if __name__ == "__main__":
 
-    sample_analysis = """
+    monitoring_result = {
 
-    Blocking session detected.
-    High CPU usage observed.
-    Query timeout reported.
+        "overall_status":
+        "HEALTHY",
 
-    """
+        "incident_summary":
+        """
+
+        SQL Monitoring Summary
+
+        No blocking sessions detected.
+
+        No long running queries detected.
+
+        Overall Status: HEALTHY
+
+        """
+
+    }
 
     result = classify_risk(
 
-        sample_analysis
+        monitoring_result,
+
+        "AI Analysis"
 
     )
 

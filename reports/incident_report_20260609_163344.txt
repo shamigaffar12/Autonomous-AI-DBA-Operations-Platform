@@ -1,0 +1,91 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-09 16:33:37.419668
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 7
+Elapsed Time: 7
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 3212049
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 3212075
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 3212120
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+**Incident Summary**  
+Date: 2026-06-09  
+Database: AdventureWorks2019  
+Current Status: ATTENTION REQUIRED  
+
+At the current monitoring instance, an incident has been identified concerning session handling and performance related to long-running queries.
+
+**Root Cause Analysis**  
+The issue arises from session ID 54, which is currently in a suspended state with a wait type of LCK_M_U (Lock: Update). This session has been blocked by session ID 55, resulting in an extended wait time of approximately 3212 seconds. Session ID 54's blocking is causing a detrimental effect on database performance by preventing it from executing operations in a timely manner.
+
+**Risk Assessment**  
+The prolonged suspension due to locking indicates that transactions in session 54 are unable to proceed, potentially leading to degraded application performance or user experience. If not addressed promptly, this could escalate into broader performance issues, affecting multiple transactions and user activities within the database. 
+
+**Recommended Actions**  
+1. **Identify the blocking session (Session ID 55)**: Investigate the operations being performed by session ID 55 and determine whether it can be terminated or optimized to relieve the block.
+2. **Analyze query performance**: Review the long-running query in session ID 54 to identify any issues with indexing, query design, or transaction management.
+3. **Implement SQL Server best practices**: Ensure that transactions are kept as short as possible and that queries are optimized to reduce resource contention.
+
+**Prevention Recommendations**  
+1. **Regular monitoring**: Continuously monitor session states and blockages weekly to identify patterns and resolve issues proactively before they impact performance.
+2. **Optimize queries**: Conduct regular query performance tuning sessions, focusing on those that exhibit high resource consumption or are prone to long-running executions.
+3. **Resource awareness**: Educate development teams about the impact of long-running transactions on database performance and set guidelines for transaction management best practices.
+
+========================================
+ END OF REPORT
+========================================
+

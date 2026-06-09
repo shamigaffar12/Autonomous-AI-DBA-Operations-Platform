@@ -1,0 +1,82 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-09 12:23:33.725818
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 53
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 662
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 304
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-09 12:23:33
+
+The current health status of the AdventureWorks2019 database is deemed **HEALTHY**. The monitoring metrics reflect optimal performance regarding CPU usage, with all monitored sessions operating within their normal parameters.
+
+**Monitoring Observations:**
+- **Session Overview:** 
+  - Session ID 53 is actively running and has consumed minimal CPU resources (3 ms) with logical reads recorded at 257.
+  - Sessions ID 58 and 52 are in a sleeping state, consuming negligible resources with logical reads of 662 and 304, respectively.
+- **CPU Monitoring:** 
+  - All CPU usage is within normal range with no alerts triggered.
+  - No blocking sessions or long-running queries were detected, suggesting efficient transaction management.
+
+**Preventive Recommendations:**
+- Continue to monitor for potential spikes in resource usage during peak hours.
+- Regularly schedule index maintenance tasks to ensure optimal query performance as the database grows.
+- Implement proactive monitoring tools for early detection of performance anomalies.
+
+========================================
+ END OF REPORT
+========================================
+

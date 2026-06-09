@@ -1,0 +1,108 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-09 12:08:11.571024
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 55
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 64
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1218
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 61
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 462
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+**System Health Summary**
+
+- **Monitoring Time:** 2026-06-09 12:08:11.571024  
+- **Database:** AdventureWorks2019  
+- **Overall Status:** HEALTHY  
+
+**Monitoring Observations**
+
+- CPU usage across all monitored sessions is within normal operational parameters, with no alerts for high usage.
+- Currently, there are active sessions, with one session (ID: 55) in a running state, showing low CPU and I/O characteristics. 
+- No blocking sessions or long-running queries were detected during the monitoring timeframe.
+
+**Preventive Recommendations**
+
+1. **Regular Capacity Review:** Ensure that a regular capacity review is conducted to accommodate any potential increases in workload, which could arise from application usage patterns or database growth.
+2. **Index Maintenance:** Continue regular index maintenance to ensure optimized query performance. This includes periodic rebuilding and reorganizing indexes.
+3. **Monitoring Thresholds:** Review and update custom monitoring thresholds to ensure they align with current database usage and application demands, potentially fine-tuning alerts to detect any developing issues early.
+4. **Health Check Schedule:** Establish a routine for scheduled health checks on the database to ensure all configurations and performance metrics remain optimal.
+
+========================================
+ END OF REPORT
+========================================
+

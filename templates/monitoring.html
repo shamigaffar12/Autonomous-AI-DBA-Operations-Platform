@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="mb-4">
+
+    <h2 class="fw-bold">
+
+        Monitoring Center
+
+    </h2>
+
+    <p class="text-muted">
+
+        Live SQL Server Health Monitoring
+
+    </p>
+
+</div>
+
+<div class="row g-3">
+
+    <div class="col-md-3">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Platform Status
+
+                </h6>
+
+                {% if monitoring.overall_status == "HEALTHY" %}
+
+                <span class="badge bg-success fs-6">
+
+                    HEALTHY
+
+                </span>
+
+                {% else %}
+
+                <span class="badge bg-danger fs-6">
+
+                    ATTENTION REQUIRED
+
+                </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    CPU Sessions
+
+                </h6>
+
+                <h2>
+
+                    {{ monitoring.cpu_sessions }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Blocking Sessions
+
+                </h6>
+
+                <h2>
+
+                    {{ monitoring.blocking_sessions }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Long Queries
+
+                </h6>
+
+                <h2>
+
+                    {{ monitoring.long_queries }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card mt-4">
+
+    <div class="card-header bg-white">
+
+        <strong>
+
+            Last Monitoring Run
+
+        </strong>
+
+    </div>
+
+    <div class="card-body">
+
+        {{ monitoring.last_check }}
+
+    </div>
+
+</div>
+
+<div class="card mt-4">
+
+    <div class="card-header bg-white">
+
+        <strong>
+
+            Incident Summary
+
+        </strong>
+
+    </div>
+
+    <div class="card-body">
+
+        <pre>
+
+{{ monitoring.incident_summary }}
+
+        </pre>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-09 10:46:49.930323
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 5
+Elapsed Time: 5
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1120
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 55
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 916
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+### System Health Summary
+
+**Monitoring Time:** 2026-06-09 10:46:49  
+**Database:** AdventureWorks2019  
+**Overall Status:** HEALTHY  
+
+### Monitoring Observations
+
+- **CPU Activity:** 
+  - The monitored sessions (IDs: 52, 56, 55) indicate normal CPU usage, with session ID 52 currently active and utilizing a nominal CPU time of 5 ms.
+  - Sessions in a sleeping state (IDs: 56 and 55) demonstrate manageable logical reads, confirming efficient memory usage.
+
+- **Blocking Sessions:** No blocking sessions were detected, which indicates that inter-session dependencies are not adversely affecting performance.
+
+- **Long Running Queries:** There were no long running queries identified in the monitoring time frame, which suggests optimal query execution times.
+
+### Preventive Recommendations
+
+1. **Regular Performance Reviews:** Schedule periodic reviews of query performance to identify any emerging trends or performance bottlenecks, ensuring that they remain within acceptable parameters.
+
+2. **Resource Monitoring:** Continue monitoring CPU and memory utilization trends over time to proactively address any changes in workload patterns.
+
+3. **Index Maintenance:** Regularly review and maintain indexes to optimize query execution speed and enhance performance as the database grows.
+
+4. **Update Statistics:** Ensure that database statistics are up-to-date to facilitate optimal query execution plans. Schedule regular statistics updates as part of routine maintenance.
+
+========================================
+ END OF REPORT
+========================================
+

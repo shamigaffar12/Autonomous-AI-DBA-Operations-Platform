@@ -42,18 +42,47 @@ from app.audit.audit_logger import (
 from app.common.error_handler import (
     handle_error
 )
+
 from app.ai_agent.agent_executor import (
     execute_agent_workflow
 )
+
 from app.notifications.notification_router import (
     get_notification_route
 )
+
+from app.ai_agent.sql_action_executor import (
+    generate_sql_action
+)
+
+from app.ai_agent.sql_risk_analyzer import (
+    analyze_sql_risk
+)
+
+from app.ai_agent.sql_validator import (
+    validate_sql_action
+)
+
+from app.ai_agent.sql_executor import (
+    execute_sql_action
+)
+
+from app.repository.action_repository import (
+    save_action
+)
+
+from app.ai_agent.execution_verifier import (
+    verify_execution
+)
+
 from app.ai_agent.remediation_executor import (
     execute_remediation
 )
+
 # =========================================================
 # WORKFLOW STEPS
 # =========================================================
+
 WORKFLOW_STEPS = [
 
     "Environment Validation",
@@ -68,7 +97,17 @@ WORKFLOW_STEPS = [
 
     "Agent Recommendation",
 
+    "SQL Action Generation",
+
+    "SQL Risk Analysis",
+
+    "SQL Validation",
+
     "Governance Review",
+
+    "SQL Execution",
+
+    "Execution Verification",
 
     "Remediation Execution",
 
@@ -138,6 +177,18 @@ def execute_workflow():
         print("========================================\n")
 
         approval_request = None
+        sql_action = None
+        sql_risk = None
+        validation_result = None
+        execution_result = None
+        verification_result = None
+        remediation_result = None
+
+        notification_route = {
+            "send_email": False,
+            "send_teams": False,
+            "escalation_required": False
+        }
 
         # =================================================
         # STEP 0 - ENVIRONMENT VALIDATION
@@ -229,6 +280,8 @@ def execute_workflow():
 
         agent_result = execute_agent_workflow(
 
+            monitoring_result,
+
             monitoring_result[
                 "incident_summary"
             ],
@@ -238,6 +291,7 @@ def execute_workflow():
             ]
 
         )
+
         notification_route = (
 
             get_notification_route(
@@ -253,15 +307,11 @@ def execute_workflow():
         )
 
         print(
-
             "\nNotification Route:\n"
-
         )
 
         print(
-
             notification_route
-
         )
 
         print(
@@ -291,10 +341,10 @@ def execute_workflow():
 
         write_audit_log(
 
-    f"AGENT RECOMMENDATION: "
-    f"{agent_result['recommendation']['recommendation']}"
+            f"AGENT RECOMMENDATION: "
+            f"{agent_result['recommendation']['recommendation']}"
 
-)
+        )
 
         write_audit_log(
             "STEP 3A COMPLETED - Agent Execution"
@@ -303,6 +353,138 @@ def execute_workflow():
         write_audit_log(
             "STEP 3 COMPLETED - AI Analysis"
         )
+
+        # =================================================
+        # STEP 3B - SQL ACTION GENERATION
+        # =================================================
+
+        write_audit_log(
+            "STEP 3B STARTED - SQL Action Generation"
+        )
+
+        print(
+            "\n[STEP 3B] SQL Action Generation"
+        )
+
+        sql_action = (
+
+            generate_sql_action(
+
+                agent_result[
+                    "recommendation"
+                ]
+
+            )
+
+        )
+
+        print(
+            "\nGenerated SQL Action:\n"
+        )
+
+        print(
+            sql_action
+        )
+
+        write_audit_log(
+
+            f"SQL ACTION: "
+            f"{sql_action['action_type']}"
+
+        )
+
+        write_audit_log(
+            "STEP 3B COMPLETED - SQL Action Generation"
+        )
+
+        # =================================================
+        # STEP 3C - SQL RISK ANALYSIS
+        # =================================================
+
+        write_audit_log(
+            "STEP 3C STARTED - SQL Risk Analysis"
+        )
+
+        print(
+            "\n[STEP 3C] SQL Risk Analysis"
+        )
+
+        sql_risk = (
+
+            analyze_sql_risk(
+
+                sql_action
+
+            )
+
+        )
+
+        print(
+            sql_risk
+        )
+
+        write_audit_log(
+
+            f"SQL RISK: "
+            f"{sql_risk}"
+
+        )
+
+        write_audit_log(
+            "STEP 3C COMPLETED - SQL Risk Analysis"
+        )
+
+        # =================================================
+        # STEP 3D - SQL VALIDATION
+        # =================================================
+
+        write_audit_log(
+            "STEP 3D STARTED - SQL Validation"
+        )
+
+        print(
+            "\n[STEP 3D] SQL Validation"
+        )
+
+        if sql_action["action_type"] == "NO_ACTION":
+
+            validation_result = {
+
+                "approved":
+                False,
+
+                "reason":
+                "No SQL Action Required"
+
+            }
+
+        else:
+
+            validation_result = (
+
+                validate_sql_action(
+
+                    sql_action
+
+                )
+
+            )
+
+        print(
+            validation_result
+        )
+
+        write_audit_log(
+
+            f"SQL VALIDATION: "
+            f"{validation_result}"
+
+        )
+
+        write_audit_log(
+            "STEP 3D COMPLETED - SQL Validation"
+        )
+
         # =================================================
         # STEP 4 - GOVERNANCE REVIEW
         # =================================================
@@ -315,7 +497,7 @@ def execute_workflow():
             "\n[STEP 4] Governance Review"
         )
 
-        if (
+        governance_required = (
 
             agent_result[
                 "risk"
@@ -323,15 +505,29 @@ def execute_workflow():
                 "approval_required"
             ]
 
-        ):
+            or
+
+            sql_risk[
+                "approval_required"
+            ]
+
+        )
+
+        if governance_required:
+
+            governance_context = (
+
+                f"AI Analysis:\n{ai_result['analysis']}\n\n"
+                f"SQL Action:\n{sql_action}\n\n"
+                f"SQL Risk:\n{sql_risk}"
+
+            )
 
             approval_request = (
 
                 create_governance_request(
 
-                    ai_result[
-                        "analysis"
-                    ]
+                    governance_context
 
                 )
 
@@ -357,29 +553,193 @@ def execute_workflow():
         write_audit_log(
             "STEP 4 COMPLETED - Governance Review"
         )
-                # =================================================
-        # STEP 4A - REMEDIATION EXECUTION
+
+        # =================================================
+        # STEP 4A - SQL EXECUTION
         # =================================================
 
         write_audit_log(
-            "STEP 4A STARTED - Remediation Execution"
+            "STEP 4A STARTED - SQL Execution"
         )
 
         print(
-            "\n[STEP 4A] Remediation Execution"
+            "\n[STEP 4A] SQL Execution"
         )
 
-        remediation_result = (
+        if sql_action["action_type"] == "NO_ACTION":
 
-            execute_remediation(
+            execution_result = {
 
-                agent_result[
-                    "recommendation"
-                ]
+                "status":
+                "SKIPPED",
+
+                "reason":
+                "No SQL Action Required"
+
+            }
+
+        elif (
+
+            validation_result[
+                "approved"
+            ]
+
+            and
+
+            not sql_risk[
+                "approval_required"
+            ]
+
+        ):
+
+            execution_result = (
+
+                execute_sql_action(
+
+                    sql_action
+
+                )
+
+            )
+
+        else:
+
+            execution_result = {
+
+                "status":
+                "BLOCKED",
+
+                "reason": (
+
+                    "Approval Required"
+
+                    if sql_risk[
+                        "approval_required"
+                    ]
+
+                    else
+
+                    validation_result[
+                        "reason"
+                    ]
+
+                )
+
+            }
+
+        print(
+            execution_result
+        )
+
+        save_action(
+
+            sql_action,
+
+            validation_result,
+
+            execution_result
+
+        )
+
+        write_audit_log(
+
+            f"SQL EXECUTION: "
+            f"{execution_result}"
+
+        )
+
+        write_audit_log(
+            "STEP 4A COMPLETED - SQL Execution"
+        )
+
+        # =================================================
+        # STEP 4B - EXECUTION VERIFICATION
+        # =================================================
+
+        write_audit_log(
+            "STEP 4B STARTED - Execution Verification"
+        )
+
+        print(
+            "\n[STEP 4B] Execution Verification"
+        )
+
+        verification_result = (
+
+            verify_execution(
+
+                monitoring_result,
+
+                execution_result
 
             )
 
         )
+
+        print(
+            verification_result
+        )
+
+        write_audit_log(
+
+            f"VERIFICATION RESULT: "
+            f"{verification_result}"
+
+        )
+
+        write_audit_log(
+            "STEP 4B COMPLETED - Execution Verification"
+        )
+
+        # =================================================
+        # STEP 4C - REMEDIATION EXECUTION
+        # =================================================
+
+        write_audit_log(
+            "STEP 4C STARTED - Remediation Execution"
+        )
+
+        print(
+            "\n[STEP 4C] Remediation Execution"
+        )
+
+        if (
+
+            agent_result[
+                "risk"
+            ][
+                "severity"
+            ] == "LOW"
+
+            or sql_action[
+                "action_type"
+            ] == "NO_ACTION"
+
+        ):
+
+            remediation_result = {
+
+                "status":
+                "SKIPPED",
+
+                "reason":
+                "System Healthy"
+
+            }
+
+        else:
+
+            remediation_result = (
+
+                execute_remediation(
+
+                    agent_result[
+                        "recommendation"
+                    ]
+
+                )
+
+            )
 
         print(
             remediation_result
@@ -393,12 +753,10 @@ def execute_workflow():
         )
 
         write_audit_log(
-            "STEP 4A COMPLETED - Remediation Execution"
+            "STEP 4C COMPLETED - Remediation Execution"
         )
-        
-          
-        # =====
-        # ============================================
+
+        # =================================================
         # STEP 5 - REPORT GENERATION
         # =================================================
 
@@ -479,6 +837,7 @@ def execute_workflow():
         print(
             "\n[STEP 7] Send Notifications"
         )
+
         if (
 
             notification_route[
@@ -551,7 +910,8 @@ def execute_workflow():
 
         return {
 
-            "status": "SUCCESS",
+            "status":
+            "SUCCESS",
 
             "overall_status":
             monitoring_result[
@@ -562,7 +922,25 @@ def execute_workflow():
             report_file,
 
             "approval_request":
-            approval_request
+            approval_request,
+
+            "sql_action":
+            sql_action,
+
+            "sql_risk":
+            sql_risk,
+
+            "validation_result":
+            validation_result,
+
+            "execution_result":
+            execution_result,
+
+            "verification_result":
+            verification_result,
+
+            "remediation_result":
+            remediation_result
 
         }
 
