@@ -1,0 +1,299 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+```
+<div>
+
+    <h2 class="fw-bold mb-1">
+
+        Reports Center
+
+    </h2>
+
+    <p class="text-muted mb-0">
+
+        RCA Reports • Incident Reports • AI Analysis Reports
+
+    </p>
+
+</div>
+
+<div>
+
+    <span class="badge bg-primary fs-6">
+
+        {{ reports.total_reports }} Reports
+
+    </span>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- REPORT KPI -->
+
+<!-- ===================================================== -->
+
+<div class="row g-3 mb-4">
+
+```
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Total Reports
+
+            </h6>
+
+            <hr>
+
+            <h2 class="fw-bold">
+
+                {{ reports.total_reports }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Report Status
+
+            </h6>
+
+            <hr>
+
+            <span class="badge bg-success">
+
+                ACTIVE
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                AI Reporting
+
+            </h6>
+
+            <hr>
+
+            <span class="badge bg-success">
+
+                ENABLED
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Latest Report
+
+            </h6>
+
+            <hr>
+
+            <small>
+
+                {{ reports.latest_report.split('/')[-1] }}
+
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- REPORT HEALTH -->
+
+<!-- ===================================================== -->
+
+<div class="card shadow-sm mb-4">
+
+```
+<div class="card-header bg-white">
+
+    <strong>
+
+        Reporting Services
+
+    </strong>
+
+</div>
+
+<div class="card-body">
+
+    <div class="row text-center">
+
+        <div class="col-md-4">
+
+            <span class="badge bg-success fs-6">
+
+                Report Generation Active
+
+            </span>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <span class="badge bg-success fs-6">
+
+                Repository Storage Active
+
+            </span>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <span class="badge bg-success fs-6">
+
+                AI RCA Reporting Active
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- REPORT HISTORY -->
+
+<!-- ===================================================== -->
+
+<div class="card shadow-sm">
+
+```
+<div class="card-header bg-white">
+
+    <strong>
+
+        Report Repository
+
+    </strong>
+
+</div>
+
+<div class="card-body">
+
+    {% if reports.reports %}
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Report File</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for report in reports.reports|reverse %}
+
+                <tr>
+
+                    <td>
+
+                        {{ report.split('/')[-1] }}
+
+                    </td>
+
+                    <td>
+
+                        <span class="badge bg-success">
+
+                            AVAILABLE
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-info mb-0">
+
+        No reports available.
+
+    </div>
+
+    {% endif %}
+
+</div>
+```
+
+</div>
+
+{% endblock %}

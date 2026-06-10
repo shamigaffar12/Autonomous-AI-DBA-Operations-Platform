@@ -2,67 +2,165 @@
 
 {% block content %}
 
-<h2 class="mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-    Incident Details
+    <div>
 
-</h2>
+        <h2 class="fw-bold mb-1">
 
-<div class="card shadow-sm mb-3">
+            Incident Investigation Center
 
-    <div class="card-body">
+        </h2>
 
-        <h5>Timestamp</h5>
+        <p class="text-muted mb-0">
 
-        <p>
-
-            {{ incident.timestamp }}
+            Monitoring Analysis • AI RCA • Incident Repository
 
         </p>
 
     </div>
 
-</div>
+    <div>
 
-<div class="card shadow-sm mb-3">
+        {% if incident.overall_status == "HEALTHY" %}
 
-    <div class="card-body">
+        <span class="badge bg-success fs-6">
 
-        <h5>Status</h5>
+            HEALTHY
 
-        <p>
+        </span>
 
-            {{ incident.overall_status }}
+        {% else %}
 
-        </p>
+        <span class="badge bg-danger fs-6">
 
-    </div>
+            ATTENTION REQUIRED
 
-</div>
+        </span>
 
-<div class="card shadow-sm mb-3">
-
-    <div class="card-body">
-
-        <h5>Report File</h5>
-
-        <p>
-
-            {{ incident.report_file }}
-
-        </p>
+        {% endif %}
 
     </div>
 
 </div>
 
-<div class="card shadow-sm mb-3">
+<!-- ===================================================== -->
+<!-- INCIDENT OVERVIEW -->
+<!-- ===================================================== -->
+
+<div class="row g-3 mb-4">
+
+    <div class="col-lg-4">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Timestamp
+
+                </h6>
+
+                <hr>
+
+                <p class="mb-0">
+
+                    {{ incident.timestamp }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Overall Status
+
+                </h6>
+
+                <hr>
+
+                {% if incident.overall_status == "HEALTHY" %}
+
+                <span class="badge bg-success">
+
+                    {{ incident.overall_status }}
+
+                </span>
+
+                {% else %}
+
+                <span class="badge bg-danger">
+
+                    {{ incident.overall_status }}
+
+                </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Report File
+
+                </h6>
+
+                <hr>
+
+                <small>
+
+                    {{ incident.report_file }}
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- INCIDENT SUMMARY -->
+<!-- ===================================================== -->
+
+<div class="card shadow-sm mb-4">
+
+    <div class="card-header bg-white">
+
+        <strong>
+
+            Monitoring Incident Summary
+
+        </strong>
+
+    </div>
 
     <div class="card-body">
 
-        <h5>Incident Summary</h5>
-
-        <pre>
+        <pre class="mb-0">
 
 {{ incident.incident_summary }}
 
@@ -72,19 +170,122 @@
 
 </div>
 
-<div class="card shadow-sm">
+<!-- ===================================================== -->
+<!-- AI ANALYSIS -->
+<!-- ===================================================== -->
+
+<div class="card shadow-sm mb-4">
+
+    <div class="card-header bg-white">
+
+        <strong>
+
+            AI Root Cause Analysis
+
+        </strong>
+
+    </div>
 
     <div class="card-body">
 
-        <h5>AI Analysis</h5>
-
-        <pre>
+        <pre class="mb-0">
 
 {{ incident.ai_analysis }}
 
         </pre>
 
     </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- INCIDENT METADATA -->
+<!-- ===================================================== -->
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-white">
+
+        <strong>
+
+            Repository Metadata
+
+        </strong>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row text-center">
+
+            <div class="col-md-4">
+
+                <h5>
+
+                    Incident
+
+                </h5>
+
+                <div class="text-muted">
+
+                    Repository Record
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h5>
+
+                    AI Analysis
+
+                </h5>
+
+                <div class="text-muted">
+
+                    Completed
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h5>
+
+                    Report Generated
+
+                </h5>
+
+                <div class="text-muted">
+
+                    Available
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- BACK BUTTON -->
+<!-- ===================================================== -->
+
+<div class="mt-4">
+
+    <a
+        href="/incidents"
+        class="btn btn-primary"
+    >
+
+        ← Back to Incident Repository
+
+    </a>
 
 </div>
 

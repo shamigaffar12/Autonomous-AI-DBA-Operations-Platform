@@ -1,0 +1,135 @@
+[
+    {
+        "timestamp": "2026-06-10 12:24:37.843146",
+        "action_type": "RECOMMENDATION",
+        "component": "AGENT ENGINE",
+        "status": "SUCCESS",
+        "details": "Index rebuild recommendation generated."
+    },
+    {
+        "timestamp": "2026-06-10 12:46:53.367125",
+        "action_type": "RISK_CLASSIFICATION",
+        "component": "RISK CLASSIFIER",
+        "status": "SUCCESS",
+        "details": "MEDIUM"
+    },
+    {
+        "timestamp": "2026-06-10 12:46:53.391033",
+        "action_type": "RECOMMENDATION",
+        "component": "RECOMMENDATION ENGINE",
+        "status": "SUCCESS",
+        "details": "Analyze execution plan and optimize long running query."
+    },
+    {
+        "timestamp": "2026-06-10 12:46:53.464151",
+        "action_type": "GOVERNANCE_REQUEST",
+        "component": "GOVERNANCE ENGINE",
+        "status": "CREATED",
+        "details": "20260610124653"
+    },
+    {
+        "timestamp": "2026-06-10 12:46:53.497434",
+        "action_type": "SQL_EXECUTION",
+        "component": "SQL EXECUTOR",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'No SQL Action Required'}"
+    },
+    {
+        "timestamp": "2026-06-10 12:46:53.537906",
+        "action_type": "REMEDIATION",
+        "component": "REMEDIATION ENGINE",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'System Healthy'}"
+    },
+    {
+        "timestamp": "2026-06-10 12:46:53.618904",
+        "action_type": "NOTIFICATION",
+        "component": "NOTIFICATION ENGINE",
+        "status": "SENT",
+        "details": "{'send_email': True, 'send_teams': False, 'escalation_required': False}"
+    },
+    {
+        "timestamp": "2026-06-10 13:44:49.141390",
+        "action_type": "RISK_CLASSIFICATION",
+        "component": "RISK CLASSIFIER",
+        "status": "SUCCESS",
+        "details": "MEDIUM"
+    },
+    {
+        "timestamp": "2026-06-10 13:44:49.147053",
+        "action_type": "RECOMMENDATION",
+        "component": "RECOMMENDATION ENGINE",
+        "status": "SUCCESS",
+        "details": "Analyze execution plan and optimize long running query."
+    },
+    {
+        "timestamp": "2026-06-10 13:44:49.207706",
+        "action_type": "GOVERNANCE_REQUEST",
+        "component": "GOVERNANCE ENGINE",
+        "status": "CREATED",
+        "details": "20260610134449"
+    },
+    {
+        "timestamp": "2026-06-10 13:44:49.239896",
+        "action_type": "SQL_EXECUTION",
+        "component": "SQL EXECUTOR",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'No SQL Action Required'}"
+    },
+    {
+        "timestamp": "2026-06-10 13:44:49.277674",
+        "action_type": "REMEDIATION",
+        "component": "REMEDIATION ENGINE",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'System Healthy'}"
+    },
+    {
+        "timestamp": "2026-06-10 13:44:49.324644",
+        "action_type": "NOTIFICATION",
+        "component": "NOTIFICATION ENGINE",
+        "status": "SENT",
+        "details": "{'send_email': True, 'send_teams': False, 'escalation_required': False}"
+    },
+    {
+        "timestamp": "2026-06-10 13:52:42.219333",
+        "action_type": "RISK_CLASSIFICATION",
+        "component": "RISK CLASSIFIER",
+        "status": "SUCCESS",
+        "details": "MEDIUM"
+    },
+    {
+        "timestamp": "2026-06-10 13:52:42.223495",
+        "action_type": "RECOMMENDATION",
+        "component": "RECOMMENDATION ENGINE",
+        "status": "SUCCESS",
+        "details": "Analyze execution plan and optimize long running query."
+    },
+    {
+        "timestamp": "2026-06-10 13:52:42.281890",
+        "action_type": "GOVERNANCE_REQUEST",
+        "component": "GOVERNANCE ENGINE",
+        "status": "CREATED",
+        "details": "20260610135242"
+    },
+    {
+        "timestamp": "2026-06-10 13:52:42.314142",
+        "action_type": "SQL_EXECUTION",
+        "component": "SQL EXECUTOR",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'No SQL Action Required'}"
+    },
+    {
+        "timestamp": "2026-06-10 13:52:42.350130",
+        "action_type": "REMEDIATION",
+        "component": "REMEDIATION ENGINE",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'System Healthy'}"
+    },
+    {
+        "timestamp": "2026-06-10 13:52:42.402575",
+        "action_type": "NOTIFICATION",
+        "component": "NOTIFICATION ENGINE",
+        "status": "SENT",
+        "details": "{'send_email': True, 'send_teams': False, 'escalation_required': False}"
+    }
+]

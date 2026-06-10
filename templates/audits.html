@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+```
+<div>
+
+    <h2 class="fw-bold mb-1">
+
+        Audit Control Center
+
+    </h2>
+
+    <p class="text-muted mb-0">
+
+        Workflow Tracking • Governance Audit • Agent Activity
+
+    </p>
+
+</div>
+
+<div>
+
+    <span class="badge bg-primary fs-6">
+
+        {{ audit.total_events }} Events
+
+    </span>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- AUDIT KPI -->
+
+<!-- ===================================================== -->
+
+<div class="row g-3 mb-4">
+
+```
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Total Events
+
+            </h6>
+
+            <hr>
+
+            <h2 class="fw-bold">
+
+                {{ audit.total_events }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Audit Status
+
+            </h6>
+
+            <hr>
+
+            <span class="badge bg-success">
+
+                ACTIVE
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Governance Tracking
+
+            </h6>
+
+            <hr>
+
+            <span class="badge bg-success">
+
+                ENABLED
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Log File
+
+            </h6>
+
+            <hr>
+
+            <small>
+
+                {{ audit.log_file }}
+
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- AUDIT HEALTH -->
+
+<!-- ===================================================== -->
+
+<div class="card shadow-sm mb-4">
+
+```
+<div class="card-header bg-white">
+
+    <strong>
+
+        Audit Health
+
+    </strong>
+
+</div>
+
+<div class="card-body">
+
+    <div class="row text-center">
+
+        <div class="col-md-4">
+
+            <span class="badge bg-success fs-6">
+
+                Audit Logging Active
+
+            </span>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <span class="badge bg-success fs-6">
+
+                Repository Tracking Active
+
+            </span>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <span class="badge bg-success fs-6">
+
+                Governance Tracking Active
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- AUDIT EVENTS -->
+
+<!-- ===================================================== -->
+
+<div class="card shadow-sm">
+
+```
+<div class="card-header bg-white">
+
+    <strong>
+
+        Audit Trail
+
+    </strong>
+
+</div>
+
+<div class="card-body">
+
+    {% if audit.events %}
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Audit Event</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for event in audit.events %}
+
+                <tr>
+
+                    <td>
+
+                        <small>
+
+                            {{ event }}
+
+                        </small>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-info mb-0">
+
+        No audit events found.
+
+    </div>
+
+    {% endif %}
+
+</div>
+```
+
+</div>
+
+{% endblock %}

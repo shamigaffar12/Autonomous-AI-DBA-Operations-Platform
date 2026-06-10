@@ -1,0 +1,125 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 16:00:11.381935
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 87612356
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: running
+CPU Time: 2
+Elapsed Time: 2
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 558
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1645
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1675
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 87612357
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 87612367
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+**Date/Time:** 2026-06-10 16:00:11.381935  
+**Database:** AdventureWorks2019  
+**Overall Status:** ATTENTION REQUIRED
+
+A blocking session has been detected (Session ID: 54), which is currently suspended due to waiting on a lock held by another session (Session ID: 55). The long-running query (UPDATE command in Session ID: 54) is causing potential performance issues.
+
+### Root Cause Analysis
+The analysis indicates that Session ID: 54 is experiencing blocking due to Session ID: 55, which is holding a lock that prevents the completion of the operation in Session ID: 54. The prolonged wait time (approximately 87612357 milliseconds) signifies that the lock contention is a critical issue leading to suspended states for other sessions. 
+
+### Risk Assessment
+The current situation poses several risks:
+1. **Performance Impairment**: Extended blocking can lead to performance degradation across the database due to resource contention.
+2. **User Experience**: Users may experience delays when trying to execute transactions that are dependent on the currently blocked session.
+3. **Database Health**: Ongoing blocking can eventually lead to timeouts or unresponsive applications relying on the database.
+
+### Recommended Actions
+1. **Identify and Resolve the Blocking Session**: Investigate the operation that Session ID: 55 is performing to determine if it can be optimized, rolled back, or aborted to release the lock.
+2. **Session Termination (if necessary)**: If Session ID: 55 is non-essential or can be completed without causing adverse impacts, consider terminating the session.
+3. **Set Lock Timeouts**: Implement lock timeouts on queries to prevent indefinite blocking.
+4. **Analyze Transaction Patterns**: Review transaction logic in the affected queries to reduce contention.
+
+### Prevention Recommendations
+1. **Query Optimization**: Analyze queries running in the production environment for potential optimizations - aiming for shorter execution times and reduced lock durations.
+2. **Transaction Management**: Encourage development practices that manage transactions efficiently, ensuring they are kept as short-lived as possible.
+3. **Regular Monitoring**: Establish a routine for monitoring blocking sessions, including automated alerts for long-running queries.
+4. **Use of Isolation Levels**: Consider using different transaction isolation levels when appropriate (e.g., Read Committed Snapshot Isolation) to reduce locking contention.
+
+By implementing these recommendations, the risk of blocking and its implications on database performance can be minimized.
+
+========================================
+ END OF REPORT
+========================================
+

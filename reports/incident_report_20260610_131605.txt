@@ -1,0 +1,134 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 13:15:59.015385
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 77759967
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 121
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 375
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1229
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 77759976
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 77759992
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+**Incident Summary**  
+Date: 2026-06-10  
+Database: AdventureWorks2019  
+Overall Status: ATTENTION REQUIRED
+
+**Root Cause Analysis**  
+The monitoring indicates that there is a significant issue with Session ID 54 which is currently suspended due to a blocking scenario with Session ID 55. This blockage is causing delays in executing actions, evident from the long elapsed time of approximately 21 hours (77759992 milliseconds) on the UPDATE command. The wait type noted is LCK_M_U (Update Lock), indicating that Session ID 54 is waiting for an Update lock held by Session ID 55.
+
+**Risk Assessment**  
+The prolonged blockage can lead to performance degradation in the database, as user transactions may be stalled waiting for the resource locked by Session ID 55. This can affect the overall database responsiveness and may result in user dissatisfaction if the issue persists. Repeated blocking situations can lead to cumulative negative impacts on operational metrics and database performance.
+
+**Recommended Actions**  
+- **Immediate Investigation:** Identify the nature of the operation being performed by Session ID 55 that is causing the blockage. Investigate if it is a long-running transaction or another issue impacting its completion.
+- **Terminate Blocking Session (if necessary):** If the operation in Session ID 55 is identified as non-critical or can be safely aborted, consider terminating it to resolve the blockage.
+- **Analyzing Blocking Patterns:** Review historical data for similar blocking occurrences to see if this is a recurring problem and develop strategies to minimize them.
+
+**Prevention Recommendations**  
+- **Index Optimization:** Analyze the queries involved in deadlocks and blocking situations and create appropriate indexes to enhance performance and reduce lock time.
+- **Transaction Management:** Review and optimize transaction size and execution time. Consider implementing shorter transactions and employing appropriate isolation levels to minimize locking contention.
+- **Monitoring and Alerts Enhancement:** Implement more granular monitoring and alerts for session statuses, especially for long-running queries and blocking sessions to ensure timely intervention in the future.
+
+========================================
+ END OF REPORT
+========================================
+

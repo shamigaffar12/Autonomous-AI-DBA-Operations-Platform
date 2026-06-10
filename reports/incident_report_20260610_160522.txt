@@ -1,0 +1,153 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 16:05:18.653228
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 87919594
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 61
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 304
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 50
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 579
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 325
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 87919608
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 87919628
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+**Incident Summary**  
+Date: 2026-06-10  
+Database: AdventureWorks2019  
+Overall Status: ATTENTION REQUIRED  
+
+**Root Cause Analysis**  
+The identified issue is linked to a long-running update query executed under Session ID 54, which is currently in a suspended state due to locking (lock-type LCK_M_U). This session has been waiting on blocking Session ID 55 for over 87 seconds, indicating potential contention for resources, which may adversely impact performance.
+
+**Risk Assessment**  
+The prolonged suspension of Session ID 54 can lead to application delays and may timeout subsequent operations that rely on the completion of this update query. If not addressed, the database performance could degrade, and user experience may be negatively impacted.
+
+**Recommended Actions**  
+1. **Identify Blocking Session (ID 55)**: Investigate the process associated with Session ID 55 to determine why it is holding onto the lock and whether it can be optimized or terminated.
+2. **Release Locks**: If feasible and safe for your operations, consider terminating the blocking session to allow the queued long-running update query to proceed.
+3. **Optimize the Update Query**: Review the execution plan for Session ID 54 and optimize the update statement to reduce its lock time and resource usage.
+
+**Prevention Recommendations**  
+1. **Implement Query Optimization**: Regularly review and optimize frequently executed queries to ensure they run efficiently and reduce the chances of blocking incidents.
+2. **Adjust Isolation Levels**: Depending on application requirements, consider using READ COMMITTED SNAPSHOT isolation levels to minimize locking.
+3. **Monitor Blocking Situations**: Set up alerts for blocking queries exceeding a specific threshold to proactively manage database contention.
+4. **Regular Performance Tuning**: Engage in routine database performance tuning sessions to identify and remediate performance bottlenecks across queries and workloads.
+
+========================================
+ END OF REPORT
+========================================
+

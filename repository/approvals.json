@@ -22,5 +22,29 @@
         "recommendation": "### System Health Summary\n\n**Monitoring Time:** 2026-06-08 16:29:00  \n**Database:** AdventureWorks2019\n\nThe SQL Server database is currently operating optimally without any performance issues or resource constraints. All monitored parameters indicate normal system behavior.\n\n### Monitoring Observations\n\n- **CPU Monitoring:**\n  - Session ID 52 is actively running without CPU strain, utilizing minimal resources (CPU Time: 3, Logical Reads: 257).\n  - Session ID 57 is in a sleeping state showing no resource utilization.\n  \n- **Resource Utilization:** \n  - All CPU usage metrics are within normal ranges.\n  - No blocking sessions or long-running queries have been identified.\n\n### Preventive Recommendations\n\n1. **Regular Performance Audits:** Continue to monitor CPU usage, session status, and query performance to ensure ongoing system health.\n2. **Index Maintenance:** Periodically review and update indexing strategies to optimize performance as data volume changes.\n3. **Backup and Recovery Testing:** Regularly test backup and restore processes to ensure data integrity and availability.\n",
         "requested_by": "AI DBA Agent",
         "status": "APPROVED"
+    },
+    {
+        "request_id": "20260610124653",
+        "request_time": "2026-06-10 12:46:53.435898",
+        "request_type": "AI RECOMMENDATION",
+        "recommendation": "AI Analysis:\n**Incident Summary**\n\n**Monitoring Context:** The AdventureWorks2019 database has been identified with performance-related issues. The observations indicate a long-running query and blocking session that requires immediate attention.\n\n---\n\n**Root Cause Analysis**\nThe long-running query (Session ID: 54) has been suspended due to locking issues, specifically waiting on a lock held by another session (Session ID: 55). This blocking situation indicates potential contention for resources, which may degrade overall database performance and responsiveness.\n\n---\n\n**Risk Assessment**\nFailure to resolve the blocking session and long-running query may lead to:\n- Increased latency for users.\n- Timeouts and possible application errors.\n- Potential data update delays affecting business processes.\n- Overall degradation in database performance.\n\n---\n\n**Recommended Actions**\n1. Identify the query and process for Session ID: 55 to understand what is causing the lock.\n2. Review the execution plan and indexing strategy for the long-running query (Session ID: 54) to optimize execution.\n3. Consider terminating the blocking session if it is safe to do so.\n4. Monitor sessions closely to verify if the interventions resolved the blocking issue.\n\n---\n\n**Prevention Recommendations**\n- Regularly analyze and optimize queries and their execution plans to prevent locking issues.\n- Implement proper indexing strategies to reduce contention and improve performance.\n- Schedule maintenance windows for updating statistics, rebuilding indexes, and reviewing long-running queries.\n- Utilize database monitoring tools to proactively identify blocking sessions and long-running queries before they impact performance.\n\nSQL Action:\n{'action_type': 'NO_ACTION', 'sql': None}\n\nSQL Risk:\n{'risk': 'NONE', 'approval_required': False, 'destructive': False, 'rollback_required': False}",
+        "requested_by": "AI DBA Agent",
+        "status": "REJECTED"
+    },
+    {
+        "request_id": "20260610134449",
+        "request_time": "2026-06-10 13:44:49.200089",
+        "request_type": "AI RECOMMENDATION",
+        "recommendation": "Severity: MEDIUM | Analyze execution plan and optimize long running query.",
+        "requested_by": "AI DBA Agent",
+        "status": "APPROVED"
+    },
+    {
+        "request_id": "20260610135242",
+        "request_time": "2026-06-10 13:52:42.274266",
+        "request_type": "AI RECOMMENDATION",
+        "recommendation": "Severity: MEDIUM | Analyze execution plan and optimize long running query.",
+        "requested_by": "AI DBA Agent",
+        "status": "APPROVED"
     }
 ]

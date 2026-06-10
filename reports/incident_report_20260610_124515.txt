@@ -1,0 +1,146 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 12:45:08.859831
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 51
+Status: running
+CPU Time: 8
+Elapsed Time: 8
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 75909808
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 2241
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1421
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 2833
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 325
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 75909819
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 75909832
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+
+**Monitoring Time:** 2026-06-10 12:45:08.859831  
+**Database:** AdventureWorks2019  
+**Overall Status:** ATTENTION REQUIRED  
+
+A blocking session has been detected, causing one session to be in a suspended state for an extended duration. This incident has implications for database performance and response times.
+
+### Root Cause Analysis
+
+The blocking session (ID: 54) is in a suspended state due to an ongoing lock held by another session (ID: 55). The wait type identified is `LCK_M_U`, which indicates that session ID: 54 is waiting for an update lock on a resource currently being held by session ID: 55. The elapsed time for session ID: 54 indicates it has been waiting for approximately 21 hours. The blocking situation has resulted in a long-running query that impacts the overall performance of the database.
+
+### Risk Assessment
+
+The blocking situation poses several risks:
+- **Performance Degradation:** Long wait times can lead to slow query response times, affecting user experience and application performance.
+- **Application Timeout:** Applications dependent on the database may encounter timeouts or degraded performance during the blocking event.
+- **Resource Contention:** Increased pressure on resources can lead to further locking and blocking issues, potentially cascading into broader service disruptions.
+
+### Recommended Actions
+
+1. **Identify Root Cause of Blocking Session:**
+   - Investigate the operation being performed by session ID: 55 to determine why it is holding locks for such an extended period and assess if it's necessary to terminate or optimize this query.
+
+2. **Terminate or Optimize Blocking Sessions:**
+   - Where appropriate, consider terminating the blocking session (ID: 55) if it is not crucial, or advising the user to optimize it to release the locks sooner.
+
+3. **Monitor Database Performance:**
+   - Keep close tabs on the performance and locking behavior of the database following remediation to ensure the issue does not recur.
+
+### Prevention Recommendations
+
+- **Query Optimization:** Regularly review and optimize long-running queries to minimize locking duration and resource contention.
+  
+- **Indexing Strategies:** Implement proper indexing to reduce the overall duration of operations that require locks.
+
+- **Monitoring Setup:** Enhance existing monitoring strategies to include thresholds for blocking durations and establish alerts for sessions exceeding those thresholds.
+
+- **Timeout Settings:** Consider adjusting application timeout settings to manage situations when queries interfere with each other, reducing the risk of application failures.
+
+- **Training and Documentation:** Educate application users and developers on best practices related to database transactions to minimize long-running operations and resource contention in future scenarios.
+
+========================================
+ END OF REPORT
+========================================
+

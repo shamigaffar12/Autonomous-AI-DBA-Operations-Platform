@@ -1,0 +1,135 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 13:44:40.517246
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 79481498
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: running
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 50
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 762
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 79481499
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 79481509
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+# Incident Summary
+
+**Monitoring Time:** 2026-06-10 13:44:40  
+**Database:** AdventureWorks2019  
+**Overall Status:** Attention Required
+
+The monitoring report indicates that there is a long-running query causing performance concerns due to blocking. Specifically, Session ID 54 is suspended while waiting for resources held by Blocking Session ID 55.
+
+# Root Cause Analysis
+
+The blocking situation is primarily due to a long-running transaction (Session ID 54) trying to update records but being held back by another session (Session ID 55). It seems that the wait type associated with this blocking is a lock escalation (LCK_M_U) indicating that the session is holding an incompatible lock on the resources required by the suspended transaction. The elapsed time of the blocked session significantly exceeds standard thresholds, indicating a potential bottleneck.
+
+# Risk Assessment
+
+This blocking issue can lead to degraded performance of the database and impact application availability. Extended blocking situations can trigger timeouts in the application layer and may eventually lead to operational disruptions if unaddressed. Additionally, if this scenario continues, database connectivity issues and deadlocks could become a concern.
+
+# Recommended Actions
+
+1. **Investigate Blocking Session (ID 55):**
+   - Identify the running transaction on Session ID 55 that is causing the blockage.
+   - Assess whether this transaction can be optimized or needs developer intervention.
+
+2. **Kill Blocking Session (if necessary):**
+   - If the blocking session is determined to be non-critical or deadlocked, consider terminating the session to free up resources.
+
+3. **Optimize Long-Running Queries:**
+   - Review the query associated with Session ID 54 to identify potential optimizations that may reduce its execution time.
+   - This can include adding appropriate indexes or rewriting the query for better performance.
+
+4. **Monitor Locking Behavior:**
+   - Implement proactive monitoring on blocking and locking scenarios to catch potential issues early before they impact database health.
+
+# Prevention Recommendations
+
+- Establish and enforce query performance standards and conduct regular reviews of execution plans to identify and rectify inefficient queries.
+- Implement and configure Resource Governor to manage workload and prevent individual sessions from monopolizing database resources.
+- Increase the frequency of monitoring sessions to ensure that blocking scenarios are detected early, allowing for prompt intervention before performance degradation occurs.
+
+The current situation warrants immediate attention but remains manageable. Consider following through with the recommendations to enhance the reliability and efficiency of your database operations.
+
+========================================
+ END OF REPORT
+========================================
+

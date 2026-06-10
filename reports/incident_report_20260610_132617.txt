@@ -1,0 +1,100 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 13:26:11.466826
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 78372427
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: running
+CPU Time: 5
+Elapsed Time: 5
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 396
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 78372430
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 78372445
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-10 13:26:11.466826  
+**Overall Status:** ATTENTION REQUIRED  
+
+The monitoring has detected a long-running query that is currently suspended and blocking operations due to lock contention.
+
+### Root Cause Analysis
+The long-running query (Session ID: 54) is an `UPDATE` statement that has been suspended due to being blocked by another session (Session ID: 55). The wait type is `LCK_M_U`, indicating that the session is waiting for an update lock. This can often occur in scenarios where multiple transactions are trying to access the same resource.
+
+### Risk Assessment
+The blocking situation may lead to performance degradation for users and impact transaction processing. If this condition persists, it could potentially lead to application timeouts and an increased number of failed transactions, affecting overall database reliability.
+
+### Recommended Actions
+1. Investigate Session ID: 55 to determine what operations it is performing that are causing the block. Assess if its execution time can be optimized or if it can be terminated safely.
+2. Examine the indexes and query plans associated with both Session ID: 54 and Session ID: 55 to identify any long-term optimization opportunities.
+3. Review transaction isolation levels in use to minimize locking conflicts.
+
+### Prevention Recommendations
+- Implement better transaction design to ensure shorter transaction times, thereby reducing the likelihood of contention.
+- Regular performance reviews should be conducted to identify and optimize long-running queries and high-activity sessions.
+- Consider using snapshot isolation or read committed snapshot isolation to reduce locking scenarios in high-concurrency environments.
+
+========================================
+ END OF REPORT
+========================================
+

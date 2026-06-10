@@ -1,0 +1,142 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 14:48:14.482429
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 83295454
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 63
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 3799
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1483
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1412
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 83295457
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 83295469
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+**Date/Time:** 2026-06-10 14:48:14 UTC  
+**Database:** AdventureWorks2019  
+**Overall Status:** ATTENTION REQUIRED  
+**Subject:** Blocking Session and Long Running Query Detected
+
+---
+
+### Root Cause Analysis
+The monitoring report indicates a blocking situation involving Session ID 54, which is in a suspended state while executing an UPDATE command. This session is being blocked by Session ID 55, resulting in a prolonged wait (approximately 83 seconds). The locking mechanism involved is a row-level lock (LCK_M_U), indicating that Session ID 55 is likely holding a lock on a resource needed by Session ID 54.
+
+---
+
+### Risk Assessment
+The long running query (Session ID 54) could lead to performance degradation for users accessing the affected tables, as it is causing delays in data retrieval and updates. If not resolved, this situation can escalate, resulting in application timeouts or increased resource usage, potentially affecting the overall availability of the database.
+
+---
+
+### Recommended Actions
+1. **Identify Blocking Session:**
+   - Investigate Session ID 55 to determine its current operation and why it is holding on to the lock.
+   
+2. **Terminate or Adjust the Query:**
+   - Evaluate whether it is viable to terminate Session ID 55 to release the lock or modify its execution to allow it to complete more efficiently.
+
+3. **Monitor Session Activity:**
+   - Keep an eye on session behavior and resource locks to prevent recurrence.
+
+---
+
+### Prevention Recommendations
+- **Optimize Queries and Locks:**
+  - Review and optimize the queries run by both Session ID 54 and ID 55 to minimize lock contention. Focus on indexes and query structure.
+
+- **Regular Monitoring:**
+  - Implement regular monitoring for blocking sessions, specifically looking at long-running transactions, to proactively manage potential performance issues.
+
+- **Transaction Management:**
+  - Educate developers on managing transaction scopes effectively and keeping them as short as possible to reduce the risk of locks.
+
+- **Session Timeout Settings:**
+  - Consider configuring or adjusting session timeout settings to help in scenarios where blocking sessions may occur frequently.
+
+---
+
+This analysis emphasizes the need for immediate attention to the blocking incident to maintain an optimal operational environment within the AdventureWorks2019 database.
+
+========================================
+ END OF REPORT
+========================================
+

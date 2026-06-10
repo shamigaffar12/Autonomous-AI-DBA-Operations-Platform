@@ -1,0 +1,161 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 11:53:41.029711
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 59
+Status: running
+CPU Time: 6
+Elapsed Time: 6
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 72821970
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1539
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 72821982
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 72822002
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+**Incident Summary:**
+
+- **Database**: AdventureWorks2019
+- **Monitoring Time**: 2026-06-10 11:53:41
+- **Overall Status**: ATTENTION REQUIRED
+- **Blocking Session**: 54
+- **Blocking Session ID**: 55
+- **Wait Type**: LCK_M_U
+- **Wait Time**: 72821982 ms
+- **Long Running Query**: Session ID 54 has been suspended for 72822002 ms due to blocking from Session ID 55.
+
+---
+
+**Root Cause Analysis:**
+
+The blocking issue is primarily due to Session ID 54, which is executing an `UPDATE` command and has been suspended while waiting for a lock held by Blocking Session ID 55. The prolonged wait indicates that the resource contention is affecting performance, as the session has not been able to complete its operation timely.
+
+---
+
+**Risk Assessment:**
+
+Continuous blocking can lead to:
+- Increased application latency, affecting user experience.
+- Potential for timeouts and subsequent failures in transactions.
+- Resource starvation for the affected session and any dependent operations.
+- Loss of business continuity if critical processes are blocked for extended periods.
+
+---
+
+**Recommended Actions:**
+
+1. **Identify Blocking Session**: Investigate Session ID 55 to determine what transaction or operation it is performing and its necessity.
+2. **Kill Blocking Session**: If feasible and after understanding the implications, consider terminating Session ID 55 to release the lock.
+3. **Optimize Long Running Transactions**: Review the query being executed in Session ID 54 for possible optimizations or index improvements that could expedite the process.
+4. **Review Lock Behavior**: Analyze the locking behavior of the transactions involved to consider transaction isolation level adjustments or lock escalation strategies.
+
+---
+
+**Prevention Recommendations:**
+
+- Implement a regular review of long-running queries and blocking scenarios as part of the performance maintenance schedule.
+- Set up alerts for prolonged blocking to facilitate quicker response to locking issues.
+- Evaluate and adjust transaction isolation levels as necessary to reduce locking contention without compromising data integrity.
+- Ensure that all relevant database statistics and indices are updated regularly to optimize query performance.
+- Consider using query hints or alternative query patterns to avoid deadlocks in frequently accessed tables.
+
+---
+
+========================================
+ END OF REPORT
+========================================
+

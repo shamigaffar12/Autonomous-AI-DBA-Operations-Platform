@@ -1,0 +1,117 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 14:58:34.375936
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 83915345
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 375
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 83915348
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 83915360
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Timestamp:** 2026-06-10 14:58:34  
+
+An issue has been detected regarding blocking and a long-running query that requires immediate attention to maintain the overall health of the database.
+
+---
+
+### Root Cause Analysis
+
+The current blocking issue is primarily associated with **Session ID 54**, which is suspended and waiting on a lock due to being blocked by **Session ID 55**. This situation entails that the update operation in session 54 is unable to proceed because it requires a resource that is currently held by session 55, thus leading to increased wait times and impacting performance.
+
+### Risk Assessment
+
+The prolonged blocking situation may lead to:
+- Degradation of database performance as other operations may be held pending the completion of the blocking session.
+- Increased response times for end users and applications accessing the database.
+- Potential application timeouts if blocking persists, which could impact users’ experience and functionality.
+
+### Recommended Actions
+
+1. **Identify Blocking Session:** Investigate session ID 55 to determine which query or transaction is causing the lock. Review any open transactions that may be holding locks unnecessarily.
+   
+2. **Terminate Long-Running Query (if necessary):** If session ID 55 is executing an unnecessary or long-running operation, consider terminating it to release the locks and mitigate blocking.
+
+3. **Analyze and Optimize:** Review the query in session ID 54, assessing if it can be optimized for performance or to implement better transaction management strategies.
+
+4. **Implement Tracking:** Monitor the frequency and duration of blocking instances moving forward to identify if this is a recurring problem, indicating possible underlying issues in query structures or transaction handling protocols.
+
+### Prevention Recommendations
+
+- **Query Optimization:** Regularly analyze long-running queries and blocking conditions to maintain performance efficiency. Utilize execution plans and index strategies to improve overall transaction speeds.
+
+- **Transaction Management:** Educate development and operations teams on best practices for transaction handling, such as minimizing the duration of transactions and avoiding unnecessary locks.
+
+- **Monitoring Tools:** Consider implementing real-time monitoring and alerting on blocking situations to facilitate quicker reactions in the future.
+
+- **Database Maintenance:** Schedule regular database maintenance tasks such as index rebuilding and statistics updates to ensure optimal performance and reduce the likelihood of blocking situations.
+
+========================================
+ END OF REPORT
+========================================
+

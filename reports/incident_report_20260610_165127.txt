@@ -1,0 +1,120 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 16:51:21.892273
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 6
+Elapsed Time: 6
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 90682868
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1167
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1087
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 90682866
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 90682878
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+## Incident Summary
+
+**Database**: AdventureWorks2019  
+**Monitoring Time**: 2026-06-10 16:51:21.892273  
+**Current Status**: ATTENTION REQUIRED  
+
+This report highlights a potential performance issue due to blocking sessions and long-running queries that require immediate attention for resolution.
+
+## Root Cause Analysis
+
+A blocking session (Session ID: 54) has been identified, which is currently in a `suspended` status due to waiting on a lock (wait type: LCK_M_U). It exhibits a significantly high elapsed time of over 90682868 milliseconds while attempting an `UPDATE` command. The blocking session (Session ID: 55) is contributing to this issue by holding locks that prevent session 54 from progressing.
+
+## Risk Assessment
+
+The prolonged locking situation can lead to:
+- Increased application latency for transactions dependent on the blocked session.
+- Potential timeouts for end-users waiting on affected applications or queries.
+- Overall diminishing performance of the database as contention increases.
+
+If unresolved, users may experience degraded performance and possible bottlenecks for critical application workflows.
+
+## Recommended Actions
+
+1. **Identify Blocking Session**: Investigate and determine the cause of the blocking from Session ID: 55. This could be due to long-running transactions or inefficient queries that hold locks longer than necessary.
+2. **Terminate Blocking Session**: If appropriate and feasible, consider terminating the blocking session (Session ID: 55) after evaluating the impact on ongoing operations.
+3. **Optimize Long-Running Transactions**: Analyze the executed commands that led to the long-running update and see if they can be optimized or broken into smaller transactions.
+
+## Prevention Recommendations
+
+- **Query Optimization**: Regularly review and optimize queries and indices that are frequently involved in blocking scenarios.
+- **Lock Monitoring**: Implement continuous monitoring of locking statistics to detect blocking situations early.
+- **Performance Baselines**: Establish performance baselines and review them regularly to identify any deviations that could indicate issues before they escalate.
+- **Schedule Maintenance**: Consider scheduling heavy transactions during off-peak hours to minimize locking contention during peak usage times.
+
+========================================
+ END OF REPORT
+========================================
+

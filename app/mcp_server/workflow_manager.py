@@ -325,13 +325,44 @@ def execute_workflow():
         )
 
         print(
+    agent_result[
+        "recommendation"
+    ][
+        "recommendation"
+    ]
+)
+
+        save_action(
+
+            "RISK_CLASSIFICATION",
+
+            "RISK CLASSIFIER",
+
+            "SUCCESS",
+
+            agent_result[
+                "risk"
+            ][
+                "severity"
+            ]
+
+        )
+
+        save_action(
+
+            "RECOMMENDATION",
+
+            "RECOMMENDATION ENGINE",
+
+            "SUCCESS",
+
             agent_result[
                 "recommendation"
             ][
                 "recommendation"
             ]
-        )
 
+        )
         write_audit_log(
 
             f"AGENT RISK: "
@@ -517,9 +548,11 @@ def execute_workflow():
 
             governance_context = (
 
-                f"AI Analysis:\n{ai_result['analysis']}\n\n"
-                f"SQL Action:\n{sql_action}\n\n"
-                f"SQL Risk:\n{sql_risk}"
+                f"Severity: "
+
+                f"{agent_result['risk']['severity']} | "
+
+                f"{agent_result['recommendation']['recommendation']}"
 
             )
 
@@ -530,6 +563,19 @@ def execute_workflow():
                     governance_context
 
                 )
+
+            )
+            save_action(
+
+                "GOVERNANCE_REQUEST",
+
+                "GOVERNANCE ENGINE",
+
+                "CREATED",
+
+                approval_request[
+                    "request_id"
+                ]
 
             )
 
@@ -633,11 +679,19 @@ def execute_workflow():
 
         save_action(
 
-            sql_action,
+            "SQL_EXECUTION",
 
-            validation_result,
+            "SQL EXECUTOR",
 
-            execution_result
+            execution_result[
+                "status"
+            ],
+
+            str(
+
+                execution_result
+
+            )
 
         )
 
@@ -744,6 +798,24 @@ def execute_workflow():
         print(
             remediation_result
         )
+        
+        save_action(
+
+            "REMEDIATION",
+
+            "REMEDIATION ENGINE",
+
+            remediation_result[
+                "status"
+            ],
+
+            str(
+
+                remediation_result
+
+            )
+
+        )
 
         write_audit_log(
 
@@ -826,7 +898,7 @@ def execute_workflow():
             "STEP 6 COMPLETED - Incident Repository"
         )
 
-        # =================================================
+               # =================================================
         # STEP 7 - NOTIFICATIONS
         # =================================================
 
@@ -864,10 +936,38 @@ def execute_workflow():
 
             )
 
+            save_action(
+
+                "NOTIFICATION",
+
+                "NOTIFICATION ENGINE",
+
+                "SENT",
+
+                str(
+
+                    notification_route
+
+                )
+
+            )
+
         else:
 
             print(
                 "Notification not required."
+            )
+
+            save_action(
+
+                "NOTIFICATION",
+
+                "NOTIFICATION ENGINE",
+
+                "SKIPPED",
+
+                "Notification not required"
+
             )
 
         write_audit_log(

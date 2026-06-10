@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
 
 ```
 <div>
@@ -15,19 +15,31 @@
 
     <p class="text-muted mb-0">
 
-        Monitoring • AI Analysis • Governance • Repository
+        Monitoring • AI Analysis • Governance • Repository • Agent Actions
 
     </p>
 
 </div>
 
-<div>
+<div class="mt-2 mt-md-0">
 
-    <span class="badge bg-primary fs-6">
+    {% if metrics.platform_health == "STABLE" %}
 
-        Live Dashboard
+    <span class="badge bg-success fs-6">
+
+        Platform Stable
 
     </span>
+
+    {% else %}
+
+    <span class="badge bg-danger fs-6">
+
+        Attention Required
+
+    </span>
+
+    {% endif %}
 
 </div>
 ```
@@ -36,48 +48,42 @@
 
 <!-- ===================================================== -->
 
-<!-- PLATFORM KPI -->
+<!-- PLATFORM OVERVIEW -->
 
 <!-- ===================================================== -->
 
 <div class="row g-3">
 
 ```
-<div class="col-lg-3 col-md-6">
+<div class="col-xl-3 col-md-6">
 
-    <div class="card h-100">
+    <div class="card border-0 shadow-sm h-100">
 
         <div class="card-body">
 
-            <h6 class="text-muted">
-
-                <i class="bi bi-heart-pulse me-1"></i>
+            <div class="text-muted">
 
                 Platform Health
 
-            </h6>
+            </div>
 
             <hr>
 
             {% if metrics.platform_health == "STABLE" %}
 
-            <span class="badge bg-success fs-6">
+            <h4 class="text-success">
 
-                <i class="bi bi-check-circle-fill"></i>
+                STABLE
 
-                {{ metrics.platform_health }}
-
-            </span>
+            </h4>
 
             {% else %}
 
-            <span class="badge bg-danger fs-6">
+            <h4 class="text-danger">
 
-                <i class="bi bi-exclamation-triangle-fill"></i>
+                ATTENTION REQUIRED
 
-                {{ metrics.platform_health }}
-
-            </span>
+            </h4>
 
             {% endif %}
 
@@ -87,23 +93,21 @@
 
 </div>
 
-<div class="col-lg-3 col-md-6">
+<div class="col-xl-3 col-md-6">
 
-    <div class="card h-100">
+    <div class="card border-0 shadow-sm h-100">
 
         <div class="card-body">
 
-            <h6 class="text-muted">
-
-                <i class="bi bi-exclamation-triangle me-1"></i>
+            <div class="text-muted">
 
                 Total Incidents
 
-            </h6>
+            </div>
 
             <hr>
 
-            <h1 class="fw-bold mb-0">
+            <h1 class="fw-bold">
 
                 {{ metrics.total_incidents }}
 
@@ -115,23 +119,21 @@
 
 </div>
 
-<div class="col-lg-3 col-md-6">
+<div class="col-xl-3 col-md-6">
 
-    <div class="card h-100">
+    <div class="card border-0 shadow-sm h-100">
 
         <div class="card-body">
 
-            <h6 class="text-muted">
-
-                <i class="bi bi-check-circle me-1"></i>
+            <div class="text-muted">
 
                 Healthy Incidents
 
-            </h6>
+            </div>
 
             <hr>
 
-            <h1 class="fw-bold text-success mb-0">
+            <h1 class="fw-bold text-success">
 
                 {{ metrics.healthy_incidents }}
 
@@ -143,25 +145,113 @@
 
 </div>
 
-<div class="col-lg-3 col-md-6">
+<div class="col-xl-3 col-md-6">
 
-    <div class="card h-100">
+    <div class="card border-0 shadow-sm h-100">
 
         <div class="card-body">
 
-            <h6 class="text-muted">
-
-                <i class="bi bi-bell-fill me-1"></i>
+            <div class="text-muted">
 
                 Attention Required
 
-            </h6>
+            </div>
 
             <hr>
 
-            <h1 class="fw-bold text-danger mb-0">
+            <h1 class="fw-bold text-danger">
 
                 {{ metrics.attention_required }}
+
+            </h1>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- OPERATIONS KPI -->
+
+<!-- ===================================================== -->
+
+<div class="row g-3 mt-1">
+
+```
+<div class="col-xl-4 col-md-6">
+
+    <div class="card border-0 shadow-sm h-100">
+
+        <div class="card-body">
+
+            <div class="text-muted">
+
+                Total Actions
+
+            </div>
+
+            <hr>
+
+            <h1 class="fw-bold text-primary">
+
+                {{ metrics.total_actions }}
+
+            </h1>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-xl-4 col-md-6">
+
+    <div class="card border-0 shadow-sm h-100">
+
+        <div class="card-body">
+
+            <div class="text-muted">
+
+                Audit Events
+
+            </div>
+
+            <hr>
+
+            <h1 class="fw-bold text-secondary">
+
+                {{ metrics.total_audit_events }}
+
+            </h1>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-xl-4 col-md-12">
+
+    <div class="card border-0 shadow-sm h-100">
+
+        <div class="card-body">
+
+            <div class="text-muted">
+
+                Reports Generated
+
+            </div>
+
+            <hr>
+
+            <h1 class="fw-bold text-success">
+
+                {{ metrics.total_reports }}
 
             </h1>
 
@@ -180,26 +270,24 @@
 
 <!-- ===================================================== -->
 
-<div class="row g-3 mt-2">
+<div class="row g-3 mt-1">
 
 ```
-<div class="col-lg-3 col-md-6">
+<div class="col-xl-3 col-md-6">
 
-    <div class="card h-100">
+    <div class="card border-0 shadow-sm h-100">
 
         <div class="card-body">
 
-            <h6 class="text-muted">
-
-                <i class="bi bi-list-check me-1"></i>
+            <div class="text-muted">
 
                 Total Requests
 
-            </h6>
+            </div>
 
             <hr>
 
-            <h1 class="fw-bold mb-0">
+            <h1 class="fw-bold">
 
                 {{ metrics.total_requests }}
 
@@ -211,23 +299,21 @@
 
 </div>
 
-<div class="col-lg-3 col-md-6">
+<div class="col-xl-3 col-md-6">
 
-    <div class="card h-100">
+    <div class="card border-0 shadow-sm h-100">
 
         <div class="card-body">
 
-            <h6 class="text-muted">
+            <div class="text-muted">
 
-                <i class="bi bi-hourglass-split me-1"></i>
+                Pending
 
-                Pending Requests
-
-            </h6>
+            </div>
 
             <hr>
 
-            <h1 class="fw-bold text-warning mb-0">
+            <h1 class="fw-bold text-warning">
 
                 {{ metrics.pending_requests }}
 
@@ -239,23 +325,21 @@
 
 </div>
 
-<div class="col-lg-3 col-md-6">
+<div class="col-xl-3 col-md-6">
 
-    <div class="card h-100">
+    <div class="card border-0 shadow-sm h-100">
 
         <div class="card-body">
 
-            <h6 class="text-muted">
+            <div class="text-muted">
 
-                <i class="bi bi-check-square-fill me-1"></i>
+                Approved
 
-                Approved Requests
-
-            </h6>
+            </div>
 
             <hr>
 
-            <h1 class="fw-bold text-success mb-0">
+            <h1 class="fw-bold text-success">
 
                 {{ metrics.approved_requests }}
 
@@ -267,23 +351,21 @@
 
 </div>
 
-<div class="col-lg-3 col-md-6">
+<div class="col-xl-3 col-md-6">
 
-    <div class="card h-100">
+    <div class="card border-0 shadow-sm h-100">
 
         <div class="card-body">
 
-            <h6 class="text-muted">
+            <div class="text-muted">
 
-                <i class="bi bi-x-circle-fill me-1"></i>
+                Rejected
 
-                Rejected Requests
-
-            </h6>
+            </div>
 
             <hr>
 
-            <h1 class="fw-bold text-danger mb-0">
+            <h1 class="fw-bold text-danger">
 
                 {{ metrics.rejected_requests }}
 
@@ -304,14 +386,14 @@
 
 <!-- ===================================================== -->
 
-<div class="card mt-4">
+<div class="card border-0 shadow-sm mt-4">
 
 ```
 <div class="card-header bg-white">
 
     <strong>
 
-        Quick Actions
+        Quick Navigation
 
     </strong>
 
@@ -319,34 +401,31 @@
 
 <div class="card-body">
 
-    <a
-        href="/incidents"
-        class="btn btn-primary me-2 mb-2"
-    >
+    <a href="/monitoring" class="btn btn-primary me-2 mb-2">
 
-        <i class="bi bi-search"></i>
-
-        View Incidents
+        Monitoring
 
     </a>
 
-    <a
-        href="/approvals"
-        class="btn btn-warning me-2 mb-2"
-    >
+    <a href="/incidents" class="btn btn-danger me-2 mb-2">
 
-        <i class="bi bi-shield-check"></i>
-
-        Review Approvals
+        Incidents
 
     </a>
 
-    <a
-        href="/analytics"
-        class="btn btn-success mb-2"
-    >
+    <a href="/approvals" class="btn btn-warning me-2 mb-2">
 
-        <i class="bi bi-graph-up"></i>
+        Governance
+
+    </a>
+
+    <a href="/actions" class="btn btn-dark me-2 mb-2">
+
+        Actions
+
+    </a>
+
+    <a href="/analytics" class="btn btn-success me-2 mb-2">
 
         Analytics
 
@@ -359,7 +438,7 @@
 
 <!-- ===================================================== -->
 
-<!-- INCIDENT + REPORT -->
+<!-- OPERATIONS SUMMARY -->
 
 <!-- ===================================================== -->
 
@@ -368,7 +447,7 @@
 ```
 <div class="col-lg-6">
 
-    <div class="card h-100">
+    <div class="card border-0 shadow-sm h-100">
 
         <div class="card-header bg-white">
 
@@ -414,7 +493,7 @@
 
 <div class="col-lg-6">
 
-    <div class="card h-100">
+    <div class="card border-0 shadow-sm h-100">
 
         <div class="card-header bg-white">
 
@@ -433,162 +512,6 @@
                 {{ metrics.latest_report }}
 
             </small>
-
-        </div>
-
-    </div>
-
-</div>
-```
-
-</div>
-
-<!-- ===================================================== -->
-
-<!-- SYSTEM STATUS -->
-
-<!-- ===================================================== -->
-
-<div class="card mt-4">
-
-```
-<div class="card-header bg-white">
-
-    <strong>
-
-        System Status
-
-    </strong>
-
-</div>
-
-<div class="card-body">
-
-    <div class="row text-center">
-
-        <div class="col-md-3 mb-2">
-
-            <span class="badge bg-success fs-6">
-
-                <i class="bi bi-activity"></i>
-
-                Monitoring Active
-
-            </span>
-
-        </div>
-
-        <div class="col-md-3 mb-2">
-
-            <span class="badge bg-success fs-6">
-
-                <i class="bi bi-cpu"></i>
-
-                AI Analysis Active
-
-            </span>
-
-        </div>
-
-        <div class="col-md-3 mb-2">
-
-            <span class="badge bg-success fs-6">
-
-                <i class="bi bi-shield-check"></i>
-
-                Governance Enabled
-
-            </span>
-
-        </div>
-
-        <div class="col-md-3 mb-2">
-
-            <span class="badge bg-success fs-6">
-
-                <i class="bi bi-database"></i>
-
-                Repository Online
-
-            </span>
-
-        </div>
-
-    </div>
-
-</div>
-```
-
-</div>
-
-<!-- ===================================================== -->
-
-<!-- OPERATIONS SUMMARY -->
-
-<!-- ===================================================== -->
-
-<div class="card mt-4">
-
-```
-<div class="card-header bg-white">
-
-    <strong>
-
-        Operations Summary
-
-    </strong>
-
-</div>
-
-<div class="card-body">
-
-    <div class="row text-center">
-
-        <div class="col-md-4">
-
-            <h5>
-
-                {{ metrics.repository_records }}
-
-            </h5>
-
-            <div class="text-muted">
-
-                Repository Records
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <h5>
-
-                {{ metrics.total_requests }}
-
-            </h5>
-
-            <div class="text-muted">
-
-                Governance Requests
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <h5>
-
-                {{ metrics.platform_health }}
-
-            </h5>
-
-            <div class="text-muted">
-
-                Current State
-
-            </div>
 
         </div>
 

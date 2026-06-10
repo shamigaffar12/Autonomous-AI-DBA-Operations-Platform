@@ -1,0 +1,148 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 16:56:27.689754
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 90988651
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 263
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 650
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 579
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 90988654
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 90988666
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+**Monitoring Time:** 2026-06-10 16:56:27  
+**Database:** AdventureWorks2019  
+**Overall Status:** ATTENTION REQUIRED
+
+A performance issue has been identified involving a long-running query that is currently suspended due to blocking. This incident affects user transactions and may lead to progressive contention if not addressed promptly.
+
+### Root Cause Analysis
+The root cause of the issue appears to be a blocking session (Session ID: 55) that is preventing Session ID: 54 (a long-running UPDATE query) from proceeding. Session 54 has been in a suspended state for a significant period (over 90 seconds), indicating contention over resources (specifically locks) that are required for the update operation.
+
+### Risk Assessment
+The blocking could impair application performance, resulting in delayed transactions and negatively impacting user experience. If unaddressed, this blockage could escalate, causing further long-running sessions and potential database contention or deadlocks. It could also lead to increased resource consumption due to prolonged waits, affecting the overall health of the database environment.
+
+### Recommended Actions
+1. **Identify the Blocking Session:**
+   - Investigate Session ID: 55 to understand what operations are causing the blockage. Examine the SQL being executed and the resource(s) it is holding.
+
+2. **Resolve the Blocking:**
+   - If possible, terminate Session ID: 55 to allow Session ID: 54 to complete. This should be done cautiously, considering the implications of killing sessions on data integrity and application logic.
+
+3. **Monitor Further SQL Activity:**
+   - Closely monitor the sessions and blocking status post-remediation to ensure no subsequent problems arise.
+
+4. **Analyze Application Logic:**
+   - Review the application logic that led to the blocking scenario. Determine if design or query optimizations are warranted to minimize locking issues.
+
+### Prevention Recommendations
+- **Optimize Queries:** Regularly analyze and optimize queries that frequently cause blocking or long execution times.
+  
+- **Implement Indexing Strategies:** Consider employing appropriate indexing strategies to enhance performance and reduce locking occurrences.
+
+- **Review Locking Strategies:** Evaluate your application's transaction isolation levels and locking strategies to ensure they meet your application needs without excessive locking. Minimizing transaction scope can prevent blockage situations.
+
+- **Scheduled Maintenance:** Establish monitoring and maintenance tasks to regularly review the database performance and locking behavior to catch these issues prior to escalation.
+
+========================================
+ END OF REPORT
+========================================
+

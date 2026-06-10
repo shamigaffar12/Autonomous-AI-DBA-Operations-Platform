@@ -2,15 +2,238 @@
 
 {% block content %}
 
-<h2 class="mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-    Governance Approvals
+```
+<div>
 
-</h2>
+    <h2 class="fw-bold mb-1">
+
+        Governance Control Center
+
+    </h2>
+
+    <p class="text-muted mb-0">
+
+        Human Approval Workflow • Risk Governance • Change Control
+
+    </p>
+
+</div>
+
+<div>
+
+    <span class="badge bg-primary fs-6">
+
+        {{ approvals|length }} Requests
+
+    </span>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- GOVERNANCE KPI -->
+
+<!-- ===================================================== -->
+
+<div class="row g-3 mb-4">
+
+```
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Total Requests
+
+            </h6>
+
+            <hr>
+
+            <h2 class="fw-bold">
+
+                {{ approvals|length }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Pending
+
+            </h6>
+
+            <hr>
+
+            <h2 class="fw-bold text-warning">
+
+                {{ approvals | selectattr("status","equalto","PENDING") | list | length }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Approved
+
+            </h6>
+
+            <hr>
+
+            <h2 class="fw-bold text-success">
+
+                {{ approvals | selectattr("status","equalto","APPROVED") | list | length }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Rejected
+
+            </h6>
+
+            <hr>
+
+            <h2 class="fw-bold text-danger">
+
+                {{ approvals | selectattr("status","equalto","REJECTED") | list | length }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- GOVERNANCE STATUS -->
+
+<!-- ===================================================== -->
+
+<div class="card shadow-sm mb-4">
+
+```
+<div class="card-header bg-white">
+
+    <strong>
+
+        Governance Status
+
+    </strong>
+
+</div>
+
+<div class="card-body">
+
+    <div class="row text-center">
+
+        <div class="col-md-4">
+
+            <span class="badge bg-success fs-6">
+
+                Governance Active
+
+            </span>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <span class="badge bg-success fs-6">
+
+                Human Approval Enabled
+
+            </span>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <span class="badge bg-primary fs-6">
+
+                Change Control Active
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- APPROVAL QUEUE -->
+
+<!-- ===================================================== -->
 
 <div class="card shadow-sm">
 
-    <div class="card-body">
+```
+<div class="card-header bg-white">
+
+    <strong>
+
+        Approval Queue
+
+    </strong>
+
+</div>
+
+<div class="card-body">
+
+    {% if approvals %}
+
+    <div class="table-responsive">
 
         <table class="table table-hover align-middle">
 
@@ -26,7 +249,7 @@
 
                     <th>Status</th>
 
-                    <th>Actions</th>
+                    <th>Action</th>
 
                 </tr>
 
@@ -34,124 +257,114 @@
 
             <tbody>
 
-                {% if approvals %}
+                {% for approval in approvals|reverse %}
 
-                    {% for approval in approvals %}
+                <tr>
 
-                    <tr>
+                    <td>
 
-                        <td>
+                        {{ approval.request_id }}
 
-                            {{ approval.request_id }}
+                    </td>
 
-                        </td>
+                    <td>
 
-                        <td>
+                        {{ approval.request_type }}
 
-                            {{ approval.request_type }}
+                    </td>
 
-                        </td>
+                    <td>
 
-                        <td>
+                        {{ approval.recommendation }}
 
-                            {{ approval.recommendation }}
+                    </td>
 
-                        </td>
+                    <td>
 
-                        <td>
+                        {% if approval.status == "PENDING" %}
 
-                            {% if approval.status == "PENDING" %}
+                            <span class="badge bg-warning text-dark">
 
-                                <span class="badge bg-warning text-dark">
+                                PENDING
 
-                                    PENDING
+                            </span>
 
-                                </span>
+                        {% elif approval.status == "APPROVED" %}
 
-                            {% elif approval.status == "APPROVED" %}
+                            <span class="badge bg-success">
 
-                                <span class="badge bg-success">
+                                APPROVED
 
-                                    APPROVED
+                            </span>
 
-                                </span>
+                        {% elif approval.status == "REJECTED" %}
 
-                            {% elif approval.status == "REJECTED" %}
+                            <span class="badge bg-danger">
 
-                                <span class="badge bg-danger">
+                                REJECTED
 
-                                    REJECTED
+                            </span>
 
-                                </span>
+                        {% endif %}
 
-                            {% else %}
+                    </td>
 
-                                {{ approval.status }}
+                    <td>
 
-                            {% endif %}
+                        {% if approval.status == "PENDING" %}
 
-                        </td>
+                            <a
+                                href="/approve/{{ approval.request_id }}"
+                                class="btn btn-success btn-sm"
+                            >
 
-                        <td>
+                                Approve
 
-                            {% if approval.status == "PENDING" %}
+                            </a>
 
-                                <a
-                                    href="/approve/{{ approval.request_id }}"
-                                    class="btn btn-success btn-sm"
-                                >
+                            <a
+                                href="/reject/{{ approval.request_id }}"
+                                class="btn btn-danger btn-sm"
+                            >
 
-                                    Approve
+                                Reject
 
-                                </a>
+                            </a>
 
-                                <a
-                                    href="/reject/{{ approval.request_id }}"
-                                    class="btn btn-danger btn-sm"
-                                >
+                        {% else %}
 
-                                    Reject
+                            <span class="text-muted">
 
-                                </a>
+                                Completed
 
-                            {% else %}
+                            </span>
 
-                                <span class="text-muted">
+                        {% endif %}
 
-                                    Action Completed
+                    </td>
 
-                                </span>
+                </tr>
 
-                            {% endif %}
-
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
-
-                {% else %}
-
-                    <tr>
-
-                        <td
-                            colspan="5"
-                            class="text-center"
-                        >
-
-                            No approval requests found.
-
-                        </td>
-
-                    </tr>
-
-                {% endif %}
+                {% endfor %}
 
             </tbody>
 
         </table>
 
     </div>
+
+    {% else %}
+
+    <div class="alert alert-info mb-0">
+
+        No approval requests found.
+
+    </div>
+
+    {% endif %}
+
+</div>
+```
 
 </div>
 

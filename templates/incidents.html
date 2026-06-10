@@ -2,60 +2,285 @@
 
 {% block content %}
 
-<h2 class="mb-4">
-    Incident Repository
-</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-<div class="card shadow-sm">
-    <div class="card-body">
+```
+<div>
 
-        {% if incidents %}
+    <h2 class="fw-bold mb-1">
 
-        <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Timestamp</th>
-                        <th>Status</th>
-                        <th>Report File</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for incident in incidents %}
-                    <tr>
-                        <td>
-                            {{ incident.timestamp }}
-                        </td>
-                        <td>
-                            {{ incident.overall_status }}
-                        </td>
-                        <td>
-                            {{ incident.report_file }}
-                        </td>
-                        <td>
-                            <a
-                                href="/incidents/{{ loop.index0 }}"
-                                class="btn btn-primary btn-sm"
-                            >
-                                View
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        Incident Repository
+
+    </h2>
+
+    <p class="text-muted mb-0">
+
+        Historical Incidents • AI Analysis • RCA Reports
+
+    </p>
+
+</div>
+
+<div>
+
+    <span class="badge bg-primary fs-6">
+
+        {{ incidents|length }} Records
+
+    </span>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- INCIDENT KPI -->
+
+<!-- ===================================================== -->
+
+<div class="row g-3 mb-4">
+
+```
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Total Incidents
+
+            </h6>
+
+            <hr>
+
+            <h2 class="fw-bold">
+
+                {{ incidents|length }}
+
+            </h2>
+
         </div>
-
-        {% else %}
-
-        <div class="alert alert-info mb-0">
-            No incident records found.
-        </div>
-
-        {% endif %}
 
     </div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Repository Status
+
+            </h6>
+
+            <hr>
+
+            <span class="badge bg-success">
+
+                ACTIVE
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Latest Status
+
+            </h6>
+
+            <hr>
+
+            {% if incidents %}
+
+                <strong>
+
+                    {{ incidents[-1].overall_status }}
+
+                </strong>
+
+            {% else %}
+
+                N/A
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-body">
+
+            <h6 class="text-muted">
+
+                Investigation Console
+
+            </h6>
+
+            <hr>
+
+            <span class="badge bg-primary">
+
+                Enabled
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- INCIDENT TABLE -->
+
+<!-- ===================================================== -->
+
+<div class="card shadow-sm">
+
+```
+<div class="card-header bg-white">
+
+    <strong>
+
+        Incident History
+
+    </strong>
+
+</div>
+
+<div class="card-body">
+
+    {% if incidents %}
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Timestamp</th>
+
+                    <th>Status</th>
+
+                    <th>Report</th>
+
+                    <th>Investigation</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for incident in incidents|reverse %}
+
+                <tr>
+
+                    <td>
+
+                        {{ incident.timestamp }}
+
+                    </td>
+
+                    <td>
+
+                        {% if incident.overall_status == "HEALTHY" %}
+
+                            <span class="badge bg-success">
+
+                                HEALTHY
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+
+                                ATTENTION REQUIRED
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <small>
+
+                            {{ incident.report_file.split('/')[-1] }}
+
+                        </small>
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="/incidents/{{ incidents.index(incident) }}"
+                            class="btn btn-primary btn-sm"
+                        >
+
+                            View Details
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-info mb-0">
+
+        No incident records found.
+
+    </div>
+
+    {% endif %}
+
+</div>
+```
+
 </div>
 
 {% endblock %}

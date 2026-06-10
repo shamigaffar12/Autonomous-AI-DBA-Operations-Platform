@@ -1,0 +1,143 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 16:46:12.276894
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 90373213
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 142
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 50
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 335
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 90373226
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 90373249
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+# Incident Summary
+
+- **Monitoring Time:** 2026-06-10 16:46:12
+- **Database:** AdventureWorks2019
+- **Overall Status:** ATTENTION REQUIRED
+
+## Root Cause Analysis
+
+The current monitoring data indicates that Session ID 54 is suspended and is part of a long-running query (UPDATE operation) that has been blocked by Session ID 55. This has resulted in a high wait time (90373226 ms), contributing to performance degradation and potential application impact.
+
+## Risk Assessment
+
+The presence of blocking sessions and long-running queries can lead to:
+- Application timeouts and degraded performance, affecting user experience.
+- Resource contention, which may strain system resources and lead to further performance issues if not addressed.
+- Potential data integrity risks if transactions are prolonged without resolution.
+
+## Recommended Actions
+
+1. **Identify and Resolve the Blocking Session (Session ID 55)** 
+   - Use the `sp_who2` command or a DMV query (e.g., `sys.dm_exec_requests`) to understand what Session ID 55 is executing.
+   - Investigate the reason for blocking. If possible, terminate or resolve the blocking session to allow Session ID 54 to complete.
+
+2. **Optimize the Long-Running Query (Session ID 54)**
+   - Analyze the execution plan for the UPDATE statement to identify potential issues.
+   - Consider querying performance tuning options, including indexing or revising transaction batching.
+
+3. **Monitor Resource Utilization**
+   - Investigate the overall CPU, memory, and disk I/O metrics during the blocking period to assess broader system health and mitigate any resource saturation.
+
+## Prevention Recommendations
+
+- **Regular Review of Query Performance**: Implement periodic query performance analysis to identify and optimize potentially slow-running queries before they contribute to blocking situations.
+- **Establish Blocking Alerts**: Utilize SQL Server alerts to notify the DBA team when blocking occurs, allowing for faster incident response.
+- **Deadlock Prevention**: Review transaction scopes and concurrency patterns in the application code to minimize the risk of future blocking scenarios.
+- **Update Statistics and Index Maintenance**: Regularly maintain database statistics and perform index rebuilds or reorganizations to ensure optimal query performance and execution. 
+
+By addressing the blocking situation promptly and taking steps to optimize long-running queries, we can prevent similar incidents in the future while maintaining overall database performance and reliability.
+
+========================================
+ END OF REPORT
+========================================
+

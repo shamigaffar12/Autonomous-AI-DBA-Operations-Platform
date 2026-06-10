@@ -1,0 +1,89 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 12:09:03.294431
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 73744269
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: running
+CPU Time: 2
+Elapsed Time: 2
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 73744268
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 73744280
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+**Incident Summary**  
+Date: 2026-06-10  
+Database: AdventureWorks2019  
+Overall Status: Attention Required  
+
+**Root Cause Analysis**  
+The SQL Server instance is currently experiencing blocking issues. The session with ID 54 is suspended due to being blocked by session ID 55. This session is attempting to execute an UPDATE command, leading to long wait times and suspending its process.
+
+**Risk Assessment**  
+The blocking situation poses a risk to overall database performance and responsiveness. Long running queries can lead to increased resource consumption, and depending on the duration, can affect the user experience and application performance.
+
+**Recommended Actions**  
+1. **Identify Blocking Session (ID 55)**: Investigate the operations being performed by session ID 55 to determine whether it can be optimized or if it should be terminated.
+2. **Analyze Execution Plans**: Review the execution plans of both sessions to identify potential inefficiencies or locking issues.
+3. **Consider Indexing Strategies**: If applicable, examine whether additional indexing on the tables involved could reduce locking and increase query efficiency.
+
+**Prevention Recommendations**  
+- **Regularly Monitor Blocking Sessions**: Implement proactive monitoring to identify and address blocking issues before they escalate.
+- **Optimizing Query Performance Regularly**: Conduct database performance tuning sessions to ensure queries are optimized and indices are utilized effectively.
+- **Session Timeout and Retry Logic**: Introduce timeout configurations and retry logic for critical operations to minimize impact from blocking conditions.
+
+========================================
+ END OF REPORT
+========================================
+

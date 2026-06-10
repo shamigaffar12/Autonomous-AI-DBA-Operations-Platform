@@ -3,6 +3,8 @@
 # Autonomous AI DBA Operations Platform
 # =========================================================
 
+import os
+
 from app.analytics.trend_analyzer import (
     get_total_incidents,
     get_healthy_incidents,
@@ -14,8 +16,20 @@ from app.repository.incident_repository import (
     get_incident_count
 )
 
+from app.repository.action_repository import (
+    load_actions
+)
+
 from app.governance.approval_search import (
     get_all_approvals
+)
+
+from app.audit.audit_reader import (
+    read_audit_log
+)
+
+from app.common.config_manager import (
+    REPORT_FOLDER
 )
 
 
@@ -102,6 +116,101 @@ def get_governance_metrics():
 
 
 # =========================================================
+# ACTION COUNT
+# =========================================================
+
+def get_action_count():
+
+    """
+    Return total action count.
+    """
+
+    actions = load_actions()
+
+    return len(
+
+        actions
+
+    )
+
+
+# =========================================================
+# AUDIT EVENT COUNT
+# =========================================================
+
+def get_audit_event_count():
+
+    """
+    Return total audit events.
+    """
+
+    log_content = read_audit_log()
+
+    if not log_content:
+
+        return 0
+
+    events = [
+
+        line
+
+        for line in log_content.splitlines()
+
+        if line.strip()
+
+    ]
+
+    return len(
+
+        events
+
+    )
+
+
+# =========================================================
+# REPORT COUNT
+# =========================================================
+
+def get_report_count():
+
+    """
+    Return total report count.
+    """
+
+    if not os.path.exists(
+
+        REPORT_FOLDER
+
+    ):
+
+        return 0
+
+    reports = [
+
+        file
+
+        for file in os.listdir(
+
+            REPORT_FOLDER
+
+        )
+
+        if file.endswith(
+
+            ".txt"
+
+        )
+
+    ]
+
+    return len(
+
+        reports
+
+    )
+
+
+# =========================================================
 # DASHBOARD METRICS
 # =========================================================
 
@@ -131,6 +240,15 @@ def get_dashboard_metrics():
 
         "repository_records":
         get_incident_count(),
+
+        "total_actions":
+        get_action_count(),
+
+        "total_audit_events":
+        get_audit_event_count(),
+
+        "total_reports":
+        get_report_count(),
 
         "total_requests":
         governance["total_requests"],

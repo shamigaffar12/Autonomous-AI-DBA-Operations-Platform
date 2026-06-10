@@ -1,0 +1,169 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 12:34:42.700072
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 75283646
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 63
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 142
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 325
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 62
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 71
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 61
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 142
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 304
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 75283655
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 75283667
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+**Database**: AdventureWorks2019  
+**Monitoring Time**: 2026-06-10 12:34:42.700072  
+**Overall Status**: ATTENTION REQUIRED
+
+### Root Cause Analysis
+The monitoring session has identified a potentially blocking situation caused by an update operation running on **Session ID 54**, which is currently suspended due to waiting for a lock held by **Session ID 55**. The blocking wait type is **LCK_M_U** (Update Lock), and the wait time has exceeded **75283655 milliseconds** (approximately 20.9 hours), indicating that this session is significantly affected by resource contention.
+
+### Risk Assessment
+The prolonged blocking could lead to degraded performance for users attempting to execute queries that rely on the locked resources or overall system responsiveness. If not resolved, this can create a bottleneck, affecting user experience and potentially leading to timeouts in transaction processing. 
+
+### Recommended Actions
+1. **Identify and Resolve Blocking Session**:
+   - Analyze **Session ID 55** to understand which queries or transactions are causing the locks.
+   - If applicable, consider rolling back or terminating **Session ID 55** if it is safe to do so, and if no critical operations are being impacted.
+
+2. **Monitor System Performance**:
+   - Continuously monitor the system for other sessions that may be entering into a blocked state unexpectedly.
+
+3. **Evaluate Query Design**:
+   - Review and optimize the update statement in **Session ID 54** for efficiency and to reduce lock contention.
+
+### Prevention Recommendations
+- **Implement Blocking Alerts**: Set up alerts for any blocking sessions that exceed a threshold (e.g. 10 seconds) to allow for prompt investigation.
+- **Perform Regular Performance Tuning**: Regularly analyze query performance to identify long-running queries. Optimize indices and statistics to keep execution paths efficient.
+- **Educate Development Teams**: Inform developers about best practices for coding transactions to minimize locking issues, such as keeping transactions short and considering isolation levels.
+
+By addressing the blocking situation promptly and implementing preventive measures, the health and performance of the AdventureWorks2019 database can be significantly improved.
+
+========================================
+ END OF REPORT
+========================================
+

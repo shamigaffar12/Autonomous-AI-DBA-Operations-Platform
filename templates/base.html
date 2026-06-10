@@ -66,6 +66,8 @@
 
             overflow-y: auto;
 
+            border-right: 1px solid #243447;
+
         }
 
         .sidebar-title {
@@ -96,6 +98,8 @@
 
             text-transform: uppercase;
 
+            letter-spacing: 1px;
+
         }
 
         .sidebar a {
@@ -108,7 +112,7 @@
 
             padding: 12px 20px;
 
-            transition: 0.3s;
+            transition: all 0.3s ease;
 
         }
 
@@ -117,6 +121,8 @@
             background-color: #1b263b;
 
             color: white;
+
+            padding-left: 24px;
 
         }
 
@@ -143,6 +149,12 @@
             border-bottom: 1px solid #dee2e6;
 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 999;
 
         }
 
@@ -184,6 +196,8 @@
 
             font-size: 13px;
 
+            padding-bottom: 20px;
+
         }
 
     </style>
@@ -202,54 +216,92 @@
 
         </div>
 
+        <!-- OPERATIONS -->
+
         <div class="sidebar-section">
 
             Operations
+
         </div>
 
         <a href="/dashboard">
+
             <i class="bi bi-speedometer2"></i>
+
             Dashboard
+
         </a>
 
         <a href="/monitoring">
+
             <i class="bi bi-activity"></i>
+
             Monitoring
+
         </a>
 
         <a href="/analytics">
+
             <i class="bi bi-graph-up"></i>
+
             Analytics
+
         </a>
 
         <a href="/incidents">
+
             <i class="bi bi-exclamation-triangle"></i>
+
             Incidents
+
         </a>
+
+        <!-- GOVERNANCE -->
 
         <div class="sidebar-section">
 
             Governance
+
         </div>
 
         <a href="/approvals">
+
             <i class="bi bi-shield-check"></i>
+
             Governance
+
         </a>
 
         <a href="/audit">
+
             <i class="bi bi-journal-text"></i>
+
             Audit Logs
+
         </a>
+
+        <!-- REPOSITORY -->
 
         <div class="sidebar-section">
 
             Repository
+
         </div>
 
+        <a href="/actions">
+
+            <i class="bi bi-list-check"></i>
+
+            Actions
+
+        </a>
+
         <a href="/reports">
+
             <i class="bi bi-file-earmark-text"></i>
+
             Reports
+
         </a>
 
     </div>
