@@ -1,0 +1,121 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 13:39:20.785480
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 165568223
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: running
+CPU Time: 2
+Elapsed Time: 2
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1208
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 165568223
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 165568236
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+## Incident Summary
+**Date & Time:** 2026-06-11 13:39:20.785480  
+**Database:** AdventureWorks2019  
+**Overall Status:** ATTENTION REQUIRED  
+**Key Issue:** A blocked session (ID 54) is in a suspended state due to locking (LCK_M_U) for an extended duration, impacting database performance while pending resources held by the blocking session (ID 55).
+
+---
+
+## Root Cause Analysis
+The suspended session (ID 54) is running an `UPDATE` command which has been blocked by another session (ID 55) for an extensive period, resulting in a long wait time of 165568223 milliseconds. The blocking condition indicates that session ID 55 holds a lock that session ID 54 requires to complete the update operation.
+
+---
+
+## Risk Assessment
+The ongoing blocking can lead to degraded performance of the application that relies on the AdventureWorks2019 database. If left unresolved, it can cause higher latency for users, potential timeouts for transactions, and could escalate into a critical incident if additional workloads exacerbate the blocking situation.
+
+---
+
+## Recommended Actions
+1. **Identify and Analyze Blocking Session:**
+   - Query the blocking session (ID 55) to understand its current operation and the reason it’s holding locks.
+   - Determine if the blocking session is completing normally or if it requires intervention.
+
+2. **Unblock if Necessary:**
+   - If feasible, consider terminating the blocking session (ID 55) to allow session ID 54 to proceed. Ensure application logic allows for this without adverse effects.
+
+3. **Monitoring and Alerting:**
+   - Enhance monitoring thresholds and alert mechanisms for long-running queries to detect long locks sooner in the future.
+
+4. **Review Session Management:**
+   - Implement application-level transaction management best practices to reduce the likelihood of blocking scenarios by optimizing transaction scopes wherever possible.
+
+---
+
+## Prevention Recommendations
+- **Optimize Queries:** Regularly review and optimize queries, particularly those that modify data, to limit locking duration.
+- **Transaction Management:** Implement best practices for managing database transactions with appropriate isolation levels to minimize the impact of locks on overall performance.
+- **Frequent Monitoring:** Establish proactive monitoring of session states, focusing on long-running transactions and deadlock detection to act swiftly before performance degradation occurs.
+- **Index Optimization:** Review and optimize indexes to improve query performance, potentially reducing the transaction time and lock duration.
+
+--- 
+
+Ensuring the health of the database is crucial; please take actions regarding the blocking sessions and consider ongoing optimization and monitoring as part of the operations strategy.
+
+========================================
+ END OF REPORT
+========================================
+

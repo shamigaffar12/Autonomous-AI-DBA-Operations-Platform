@@ -1,0 +1,128 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 13:49:39.113720
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 166186541
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: running
+CPU Time: 2
+Elapsed Time: 2
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 166186543
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 166186559
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary  
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-11 13:49:39  
+
+The AdventureWorks2019 database is currently experiencing performance issues due to a long-running query. Specifically, Session ID 54 is suspended and blocked, resulting in elevated wait times.
+
+---
+
+### Root Cause Analysis  
+The primary cause of the performance degradation is a blocking session detected on Session ID 54, where it is currently waiting for a lock held by Blocking Session ID 55. The query involves an `UPDATE` command that has been executing for a considerable time (166 seconds). Since blocked sessions contribute to resource contention, this is impacting overall database performance and application response time.
+
+---
+
+### Risk Assessment  
+The current situation poses several risks:  
+- **User Experience:** End users could experience delays or timeouts when interacting with the database, affecting productivity.
+- **Application Stability:** Prolonged blocking could lead to system instability or cascading failures in dependent applications.
+- **Resource Utilization:** Increased locking and waiting may lead to higher CPU and memory usage over time, potentially leading to resource exhaustion. 
+
+---
+
+### Recommended Actions  
+1. **Identify Blocking Session:** Investigate the SQL activity of Session ID 55 to understand what is causing it to hold locks and contributing to the blockage.
+   
+2. **Resolve Blocking Issue:** Depending on the findings, consider:  
+   - Optimizing the query in Session ID 55.  
+   - Killing the blocking session if it's causing unacceptable delays and cannot be optimized. Use this option cautiously to avoid data inconsistencies.
+   
+3. **Monitor Session Activity:** Continuously monitor both blocked and blocking sessions to determine if the issue persists or escalates.
+
+4. **Analyze Query Performance:** Once resolved, review the execution plans of both queries involved to identify potential optimizations.
+
+---
+
+### Prevention Recommendations  
+- **Regular Index Maintenance:** Implement a regular maintenance plan for database indexes to optimize query performance and reduce locking issues.
+- **Monitoring Tools:** Use SQL Server Profiler or extended events for capturing detailed insights into session behaviors and locking issues.
+- **Query Optimization:** Periodically review and refactor long-running queries. Use tools such as the Database Engine Tuning Advisor to identify potential improvements.
+- **Locking Strategies:** Consider implementing row-level locking where possible or evaluate transaction isolation levels to minimize locking contention and blocking scenarios.
+
+Continuously educate application developers on optimal query writing practices to mitigate future blocking scenarios. Regular health checks can prevent similar issues from becoming critical in the future.
+
+========================================
+ END OF REPORT
+========================================
+

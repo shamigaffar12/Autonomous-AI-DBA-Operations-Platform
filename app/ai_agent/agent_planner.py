@@ -3,7 +3,9 @@
 # Autonomous AI DBA Operations Platform
 # =========================================================
 
-def create_investigation_plan(intent_result):
+def create_investigation_plan(
+    intent_result
+):
     """
     Create agentic DBA investigation plan based on detected intent.
     """
@@ -26,6 +28,9 @@ def create_investigation_plan(intent_result):
             "CHECK_FAILED_JOBS",
             "CHECK_BACKUP_STATUS",
             "CHECK_DATABASE_SPACE",
+            "CHECK_INDEX_FRAGMENTATION",
+            "CHECK_STATISTICS_HEALTH",
+            "GENERATE_PERFORMANCE_TUNING_REPORT",
             "GENERATE_DAILY_HEALTH_REPORT"
         ]
 
@@ -56,7 +61,8 @@ def create_investigation_plan(intent_result):
     if intent == "BLOCKING_ANALYSIS":
 
         return [
-            "CHECK_BLOCKING"
+            "CHECK_BLOCKING",
+            "CHECK_LONG_RUNNING_QUERIES"
         ]
 
     # =====================================================
@@ -68,7 +74,10 @@ def create_investigation_plan(intent_result):
         return [
             "CHECK_CPU",
             "CHECK_LONG_RUNNING_QUERIES",
-            "CHECK_BLOCKING"
+            "CHECK_BLOCKING",
+            "CHECK_INDEX_FRAGMENTATION",
+            "CHECK_STATISTICS_HEALTH",
+            "GENERATE_PERFORMANCE_TUNING_REPORT"
         ]
 
     # =====================================================
@@ -88,7 +97,8 @@ def create_investigation_plan(intent_result):
     return [
         "CHECK_CPU",
         "CHECK_BLOCKING",
-        "CHECK_LONG_RUNNING_QUERIES"
+        "CHECK_LONG_RUNNING_QUERIES",
+        "CHECK_DATABASE_SPACE"
     ]
 
 
@@ -103,10 +113,14 @@ if __name__ == "__main__":
         "confidence": 95
     }
 
-    plan = create_investigation_plan(sample_intent)
+    plan = create_investigation_plan(
+        sample_intent
+    )
 
     print("\n========================================")
     print(" AGENT INVESTIGATION PLAN ")
     print("========================================\n")
 
-    print(plan)
+    print(
+        plan
+    )

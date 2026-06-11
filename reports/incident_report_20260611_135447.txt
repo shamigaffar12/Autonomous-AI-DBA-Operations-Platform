@@ -1,0 +1,124 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 13:54:43.278766
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 166490695
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 771
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 892
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 166490706
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 166490721
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+
+**Date/Time of Monitoring:** 2026-06-11 13:54:43  
+**Database:** AdventureWorks2019  
+**Overall Status:** ATTENTION REQUIRED  
+
+### Root Cause Analysis
+
+The monitoring report indicates that Session ID 54 is currently suspended due to blocking by Session ID 55. This session (54) is running a long-running `UPDATE` query which has escalated the wait time associated with the update operation (LCK_M_U - UPD lock), causing delays in database operations. 
+
+Given that the blocking session has held the lock for an extended period (approximately 166,490 seconds), this situation suggests that there may be contention for resources or inefficient transaction management in the application interacting with the database.
+
+### Risk Assessment
+
+The primary risk associated with this incident involves potential database performance degradation, which can impact the overall application responsiveness. Long-running queries can lead to transaction timeout errors, user frustration, and possibly corrupt application states if not managed properly. Additionally, if there are multiple users or applications relying on this database, an escalation of blocking could result in a broader performance crisis.
+
+### Recommended Actions
+
+1. **Identify and Resolve Blocking Session:** Determine the reason for the blocking in Session ID 55. Review the session’s transaction logic and data access patterns to understand what might be causing the lock contention.
+   
+2. **Kill Process as Necessary:** If Session ID 55 is determined to be non-essential or is stuck and anomalous, consider terminating the session to relieve the block on Session ID 54.
+
+3. **Analyze Query Performance:** Evaluate the long-running query in Session ID 54. Consider enabling query tuning or indexing to optimize performance and reduce its hold on locks.
+
+4. **Monitor for Additional Blocking Occurrences:** Continue monitoring performance and blocking sessions closely to ensure this does not become a recurring issue.
+
+### Prevention Recommendations
+
+- **Regular Query Optimization:** Conduct periodic analysis of query performance across the database to identify and optimize long-running queries preemptively.
+  
+- **Lock Management Strategy:** Implement strategies like appropriate isolation levels and applying row versioning where feasible to mitigate locking contention.
+  
+- **Application Transaction Management:** Ensure that application code efficiently manages transactions, and that they are kept as short as possible to minimize locking duration.
+  
+- **Monitoring Alerts:** Set up alerts for blocking sessions and long-running queries to enable proactive intervention before significant performance issues arise. 
+
+By addressing the aforementioned actions and recommendations, the risk of future blocking incidents can be significantly reduced, thereby enhancing overall database performance and reliability.
+
+========================================
+ END OF REPORT
+========================================
+

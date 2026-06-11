@@ -53,6 +53,30 @@ DBA_TOOL_REGISTRY = {
         "approval_required": False
     },
 
+    "CHECK_INDEX_FRAGMENTATION": {
+        "name": "Index Fragmentation Monitor",
+        "category": "PERFORMANCE",
+        "description": "Checks SQL Server index fragmentation and identifies indexes requiring maintenance.",
+        "risk": "LOW",
+        "approval_required": False
+    },
+
+    "CHECK_STATISTICS_HEALTH": {
+        "name": "Statistics Health Monitor",
+        "category": "PERFORMANCE",
+        "description": "Checks outdated or heavily modified SQL Server statistics.",
+        "risk": "LOW",
+        "approval_required": False
+    },
+
+    "GENERATE_PERFORMANCE_TUNING_REPORT": {
+        "name": "Performance Tuning Report Generator",
+        "category": "REPORTING",
+        "description": "Generates performance tuning report using fragmentation and statistics health results.",
+        "risk": "LOW",
+        "approval_required": False
+    },
+
     "GENERATE_DAILY_HEALTH_REPORT": {
         "name": "Daily DBA Health Report Generator",
         "category": "REPORTING",
@@ -67,7 +91,9 @@ DBA_TOOL_REGISTRY = {
 # GET TOOL DETAILS
 # =========================================================
 
-def get_tool_details(tool_name):
+def get_tool_details(
+    tool_name
+):
     """
     Return tool metadata from registry.
     """
@@ -108,4 +134,6 @@ if __name__ == "__main__":
 
     for tool, details in list_registered_tools().items():
 
-        print(f"{tool} -> {details['name']}")
+        print(
+            f"{tool} -> {details['name']}"
+        )

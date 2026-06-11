@@ -1,0 +1,58 @@
+========================================
+ DAILY DBA HEALTH REPORT
+ Autonomous AI DBA Operations Platform
+========================================
+
+Report Time: 2026-06-11 14:50:37.952144
+
+----------------------------------------
+Tool   : CHECK_CPU
+Status : EXECUTED
+Health : ATTENTION REQUIRED
+Message: No message available.
+
+----------------------------------------
+Tool   : CHECK_BLOCKING
+Status : EXECUTED
+Health : ATTENTION REQUIRED
+Message: No message available.
+
+----------------------------------------
+Tool   : CHECK_LONG_RUNNING_QUERIES
+Status : EXECUTED
+Health : ATTENTION REQUIRED
+Message: No message available.
+
+----------------------------------------
+Tool   : CHECK_FAILED_JOBS
+Status : EXECUTED
+Health : ATTENTION REQUIRED
+Message: Failed SQL jobs detected.
+
+----------------------------------------
+Tool   : CHECK_BACKUP_STATUS
+Status : EXECUTED
+Health : ATTENTION REQUIRED
+Message: One or more databases have old or missing backups.
+
+----------------------------------------
+Tool   : CHECK_DATABASE_SPACE
+Status : EXECUTED
+Health : HEALTHY
+Message: Database space check completed successfully.
+
+----------------------------------------
+Tool   : CHECK_INDEX_FRAGMENTATION
+Status : EXECUTED
+Health : ATTENTION REQUIRED
+Message: Fragmented indexes detected.
+
+----------------------------------------
+Tool   : CHECK_STATISTICS_HEALTH
+Status : EXECUTED
+Health : ATTENTION REQUIRED
+Message: Outdated or heavily modified statistics detected.
+
+========================================
+OVERALL DBA HEALTH STATUS: ATTENTION REQUIRED
+========================================

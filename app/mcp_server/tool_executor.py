@@ -15,6 +15,61 @@ from app.monitoring.sql_monitor import (
     run_monitoring
 )
 
+from app.monitoring.failed_jobs_monitor import (
+    check_failed_jobs
+)
+
+from app.monitoring.backup_status_monitor import (
+    check_backup_status
+)
+
+from app.monitoring.database_space_monitor import (
+    check_database_space
+)
+
+from app.monitoring.fragmentation_monitor import (
+    check_index_fragmentation
+)
+
+from app.monitoring.statistics_monitor import (
+    check_statistics_health
+)
+
+from app.reporting.performance_tuning_report_generator import (
+    generate_performance_tuning_report
+)
+
+from app.reporting.daily_health_report_generator import (
+    generate_daily_health_report
+)
+
+
+# =========================================================
+# BUILD EXECUTION RESPONSE
+# =========================================================
+
+def build_tool_response(
+    tool_name,
+    tool_details,
+    status,
+    result
+):
+    """
+    Build common tool execution response.
+    """
+
+    return {
+        "tool": tool_name,
+        "tool_name": tool_details["name"],
+        "category": tool_details["category"],
+        "risk": tool_details["risk"],
+        "approval_required": tool_details[
+            "approval_required"
+        ],
+        "status": status,
+        "result": result
+    }
+
 
 # =========================================================
 # EXECUTE SINGLE DBA TOOL
@@ -65,107 +120,134 @@ def execute_tool(
 
             result = run_monitoring()
 
-            return {
-                "tool": tool_name,
-                "tool_name": tool_details["name"],
-                "category": tool_details["category"],
-                "risk": tool_details["risk"],
-                "approval_required": tool_details[
-                    "approval_required"
-                ],
-                "status": "EXECUTED",
-                "result": result
-            }
+            return build_tool_response(
+                tool_name,
+                tool_details,
+                "EXECUTED",
+                result
+            )
 
         # =================================================
-        # DAY 16 REGISTERED TOOLS
-        # These tools are registered now and will be
-        # connected to dedicated monitoring modules next.
+        # FAILED SQL JOB MONITOR
         # =================================================
 
         if tool_name == "CHECK_FAILED_JOBS":
 
-            return {
-                "tool": tool_name,
-                "tool_name": tool_details["name"],
-                "category": tool_details["category"],
-                "risk": tool_details["risk"],
-                "approval_required": tool_details[
-                    "approval_required"
-                ],
-                "status": "PENDING_IMPLEMENTATION",
-                "result": (
-                    "Failed SQL job monitoring tool is registered "
-                    "and ready for dedicated monitor integration."
-                )
-            }
+            result = check_failed_jobs()
+
+            return build_tool_response(
+                tool_name,
+                tool_details,
+                "EXECUTED",
+                result
+            )
+
+        # =================================================
+        # BACKUP STATUS MONITOR
+        # =================================================
 
         if tool_name == "CHECK_BACKUP_STATUS":
 
-            return {
-                "tool": tool_name,
-                "tool_name": tool_details["name"],
-                "category": tool_details["category"],
-                "risk": tool_details["risk"],
-                "approval_required": tool_details[
-                    "approval_required"
-                ],
-                "status": "PENDING_IMPLEMENTATION",
-                "result": (
-                    "Backup status monitoring tool is registered "
-                    "and ready for dedicated monitor integration."
-                )
-            }
+            result = check_backup_status()
+
+            return build_tool_response(
+                tool_name,
+                tool_details,
+                "EXECUTED",
+                result
+            )
+
+        # =================================================
+        # DATABASE SPACE MONITOR
+        # =================================================
 
         if tool_name == "CHECK_DATABASE_SPACE":
 
-            return {
-                "tool": tool_name,
-                "tool_name": tool_details["name"],
-                "category": tool_details["category"],
-                "risk": tool_details["risk"],
-                "approval_required": tool_details[
-                    "approval_required"
-                ],
-                "status": "PENDING_IMPLEMENTATION",
-                "result": (
-                    "Database space monitoring tool is registered "
-                    "and ready for dedicated monitor integration."
+            result = check_database_space()
+
+            return build_tool_response(
+                tool_name,
+                tool_details,
+                "EXECUTED",
+                result
+            )
+
+        # =================================================
+        # INDEX FRAGMENTATION MONITOR
+        # =================================================
+
+        if tool_name == "CHECK_INDEX_FRAGMENTATION":
+
+            result = check_index_fragmentation()
+
+            return build_tool_response(
+                tool_name,
+                tool_details,
+                "EXECUTED",
+                result
+            )
+
+        # =================================================
+        # STATISTICS HEALTH MONITOR
+        # =================================================
+
+        if tool_name == "CHECK_STATISTICS_HEALTH":
+
+            result = check_statistics_health()
+
+            return build_tool_response(
+                tool_name,
+                tool_details,
+                "EXECUTED",
+                result
+            )
+
+        # =================================================
+        # PERFORMANCE TUNING REPORT
+        # Report generation is handled inside execute_tool_plan()
+        # after performance tool results are collected.
+        # =================================================
+
+        if tool_name == "GENERATE_PERFORMANCE_TUNING_REPORT":
+
+            return build_tool_response(
+                tool_name,
+                tool_details,
+                "WAITING_FOR_TOOL_RESULTS",
+                (
+                    "Performance tuning report will be generated "
+                    "after performance tool results are collected."
                 )
-            }
+            )
+
+        # =================================================
+        # DAILY HEALTH REPORT
+        # Report generation is handled inside execute_tool_plan()
+        # after all previous tool results are collected.
+        # =================================================
 
         if tool_name == "GENERATE_DAILY_HEALTH_REPORT":
 
-            return {
-                "tool": tool_name,
-                "tool_name": tool_details["name"],
-                "category": tool_details["category"],
-                "risk": tool_details["risk"],
-                "approval_required": tool_details[
-                    "approval_required"
-                ],
-                "status": "PENDING_IMPLEMENTATION",
-                "result": (
-                    "Daily DBA health report generation will be "
-                    "executed after all agentic tool results are collected."
+            return build_tool_response(
+                tool_name,
+                tool_details,
+                "WAITING_FOR_TOOL_RESULTS",
+                (
+                    "Daily DBA health report will be generated "
+                    "after all tool results are collected."
                 )
-            }
+            )
 
         # =================================================
         # UNKNOWN TOOL
         # =================================================
 
-        return {
-            "tool": tool_name,
-            "tool_name": tool_details["name"],
-            "category": tool_details["category"],
-            "risk": tool_details["risk"],
-            "approval_required": tool_details[
-                "approval_required"
-            ],
-            "status": "UNKNOWN_TOOL",
-            "result": None
-        }
+        return build_tool_response(
+            tool_name,
+            tool_details,
+            "UNKNOWN_TOOL",
+            None
+        )
 
     except Exception as error:
 
@@ -193,6 +275,62 @@ def execute_tool_plan(
     print("========================================\n")
 
     for tool_name in plan:
+
+        # =================================================
+        # PERFORMANCE TUNING REPORT
+        # Must run after fragmentation/statistics results.
+        # =================================================
+
+        if tool_name == "GENERATE_PERFORMANCE_TUNING_REPORT":
+
+            tool_details = get_tool_details(
+                tool_name
+            )
+
+            report_result = generate_performance_tuning_report(
+                {
+                    "results": results
+                }
+            )
+
+            results.append(
+                build_tool_response(
+                    tool_name,
+                    tool_details,
+                    "EXECUTED",
+                    report_result
+                )
+            )
+
+            continue
+
+        # =================================================
+        # DAILY HEALTH REPORT
+        # Must run after all previous tool results.
+        # =================================================
+
+        if tool_name == "GENERATE_DAILY_HEALTH_REPORT":
+
+            tool_details = get_tool_details(
+                tool_name
+            )
+
+            report_result = generate_daily_health_report(
+                {
+                    "results": results
+                }
+            )
+
+            results.append(
+                build_tool_response(
+                    tool_name,
+                    tool_details,
+                    "EXECUTED",
+                    report_result
+                )
+            )
+
+            continue
 
         result = execute_tool(
             tool_name
@@ -231,6 +369,9 @@ if __name__ == "__main__":
         "CHECK_FAILED_JOBS",
         "CHECK_BACKUP_STATUS",
         "CHECK_DATABASE_SPACE",
+        "CHECK_INDEX_FRAGMENTATION",
+        "CHECK_STATISTICS_HEALTH",
+        "GENERATE_PERFORMANCE_TUNING_REPORT",
         "GENERATE_DAILY_HEALTH_REPORT"
     ]
 

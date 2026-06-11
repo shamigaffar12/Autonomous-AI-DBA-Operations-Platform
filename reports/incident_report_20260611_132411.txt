@@ -1,0 +1,107 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 13:24:04.029101
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 164651450
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 396
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1025
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 164651456
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 164651473
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+The SQL Server database AdventureWorks2019 is currently facing performance challenges due to long-running queries and blocking sessions. Specific attention is required to address and resolve the underlying causes to ensure optimal operational performance.
+
+### Root Cause Analysis
+The blocking session (Session ID: 55) is preventing another session (Session ID: 54) from completing its update operation. The long wait time (over 164651456 milliseconds) for the blocked session indicates a significant resource contention which may lead to performance degradation or application timeouts.
+
+### Risk Assessment
+1. **Application Performance**: The prolonged blocking may affect the overall performance of dependent applications leading to potential user experience issues.
+2. **Resource Contention**: Continuous blocking can lead to increased resource usage and may escalate into cascading failures if not resolved promptly.
+3. **Data Integrity**: Extended wait times during updates increase the risk of potential data integrity issues if sessions are not managed properly.
+
+### Recommended Actions
+- **Investigate Blocking Session (ID: 55)**: Analyze the query and execution plan of the blocking session to determine the root cause of the lock it is holding.
+- **Review Indexing Strategy**: Ensure that the tables affected by the blocking sessions have proper indexing to reduce locking and wait times.
+- **Session Management**: If possible, reduce the transaction size or duration for the blocking session or implement shorter transactions that commit regularly to minimize blocking.
+
+### Prevention Recommendations
+- **Monitoring Enhancements**: Implement a more aggressive monitoring strategy for blocking sessions and long-running queries to enable early detection.
+- **Regular Performance Reviews**: Schedule periodic audits of queries that frequently cause blocking to identify patterns and opportunities for optimization.
+- **Transaction Handling Best Practices**: Educate developers and DBAs on best practices for transaction scopes and handling to minimize lengthy locks and blocking scenarios.
+
+========================================
+ END OF REPORT
+========================================
+
