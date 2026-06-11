@@ -1,0 +1,140 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 15:21:49.792660
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 57
+Status: running
+CPU Time: 6
+Elapsed Time: 6
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 171717212
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 558
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 171717220
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 171717237
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+# Incident Summary
+**Monitoring Time:** 2026-06-11 15:21:49  
+**Database:** AdventureWorks2019  
+**Overall Status:** ATTENTION REQUIRED  
+
+Despite CPU usage being within normal ranges for most sessions, there is a significant concern regarding a long-running query that is currently suspended, indicating possible blocking issues.
+
+---
+
+# Root Cause Analysis
+The issue has arisen due to Session ID **54** which is blocking due to a conflict with Session ID **55**. The suspended state suggests that Session ID **54** is waiting for a resource held by Session ID **55**. The wait type is **LCK_M_U**, indicating that the suspended session is currently waiting for an update lock. This could be due to a poorly optimized query or contention for resources, leading to deadlocks or prolonged locks.
+
+---
+
+# Risk Assessment
+The ongoing blocking and suspended sessions can lead to resource contention which may severely degrade application performance and availability. If not addressed, it may result in increased response times for database operations and a possible cascade of performance issues across dependent applications. 
+
+---
+
+# Recommended Actions
+1. **Investigate the Blocking Session (ID 55)**: Examine the nature of the operations being performed by Session ID **55** to determine if they can be optimized or broken down to minimize lock duration.
+  
+2. **Assess and Optimize the Long-Running Query (ID 54)**: Review the UPDATE command being executed in Session ID **54** for potential optimization. Ensure appropriate indices are in place and examine transaction scope to reduce lock contention.
+  
+3. **Consider Killing Blocking Sessions**: If applicable and safe, consider terminating the blocking session (ID 55) to allow the hung query (ID 54) to proceed.
+
+4. **Monitor Further**: Keep monitoring for repeated occurrences of long-running queries and blocking issues to identify patterns.
+
+---
+
+# Prevention Recommendations
+- **Optimize Queries Regularly**: Implement a regular review process for executing queries to ensure they are performing efficiently and using minimal resources and locks.
+  
+- **Transaction Management**: Review transaction isolation levels in your applications to ensure they are as low as possible while maintaining data integrity, potentially using the Read Committed Snapshot Isolation (RCSI) where appropriate.
+
+- **Indexes Review**: Periodically assess and maintain database indexes to ensure they are optimal for the query workload; removing obsolete indexes and adding indexes for frequently queried fields where appropriate.
+
+- **Resource Monitoring**: Continue to monitor locking and blocking statistics regularly to proactively identify problematic patterns before they escalate.
+
+- **Historical Analysis**: Maintain periodic logs of blocking sessions and long-running queries to identify trends and issues leading to performance degradation. 
+
+--- 
+
+Please implement the above recommendations to rectify the blocking issue and improve the overall performance of the database.
+
+========================================
+ END OF REPORT
+========================================
+

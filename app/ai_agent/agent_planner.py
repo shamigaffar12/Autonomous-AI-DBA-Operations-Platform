@@ -26,12 +26,16 @@ def create_investigation_plan(
             "CHECK_BLOCKING",
             "CHECK_LONG_RUNNING_QUERIES",
             "CHECK_FAILED_JOBS",
+            "VALIDATE_RBAC_PERMISSION",
+            "REQUEST_FAILED_JOB_RESTART_APPROVAL",
             "CHECK_BACKUP_STATUS",
             "CHECK_DATABASE_SPACE",
             "CHECK_INDEX_FRAGMENTATION",
             "CHECK_STATISTICS_HEALTH",
             "GENERATE_PERFORMANCE_TUNING_REPORT",
-            "GENERATE_DAILY_HEALTH_REPORT"
+            "GENERATE_DAILY_HEALTH_REPORT",
+            "SEND_TO_AZURE_MONITOR",
+            "CREATE_AZURE_AUTOMATION_RUNBOOK_REQUEST"
         ]
 
     # =====================================================
@@ -41,7 +45,10 @@ def create_investigation_plan(
     if intent == "FAILED_JOB_CHECK":
 
         return [
-            "CHECK_FAILED_JOBS"
+            "CHECK_FAILED_JOBS",
+            "VALIDATE_RBAC_PERMISSION",
+            "REQUEST_FAILED_JOB_RESTART_APPROVAL",
+            "CREATE_AZURE_AUTOMATION_RUNBOOK_REQUEST"
         ]
 
     # =====================================================
@@ -51,7 +58,8 @@ def create_investigation_plan(
     if intent == "BACKUP_HEALTH_CHECK":
 
         return [
-            "CHECK_BACKUP_STATUS"
+            "CHECK_BACKUP_STATUS",
+            "SEND_TO_AZURE_MONITOR"
         ]
 
     # =====================================================
@@ -62,7 +70,8 @@ def create_investigation_plan(
 
         return [
             "CHECK_BLOCKING",
-            "CHECK_LONG_RUNNING_QUERIES"
+            "CHECK_LONG_RUNNING_QUERIES",
+            "SEND_TO_AZURE_MONITOR"
         ]
 
     # =====================================================
@@ -77,7 +86,8 @@ def create_investigation_plan(
             "CHECK_BLOCKING",
             "CHECK_INDEX_FRAGMENTATION",
             "CHECK_STATISTICS_HEALTH",
-            "GENERATE_PERFORMANCE_TUNING_REPORT"
+            "GENERATE_PERFORMANCE_TUNING_REPORT",
+            "SEND_TO_AZURE_MONITOR"
         ]
 
     # =====================================================
@@ -87,7 +97,8 @@ def create_investigation_plan(
     if intent == "SPACE_ANALYSIS":
 
         return [
-            "CHECK_DATABASE_SPACE"
+            "CHECK_DATABASE_SPACE",
+            "SEND_TO_AZURE_MONITOR"
         ]
 
     # =====================================================
@@ -98,7 +109,8 @@ def create_investigation_plan(
         "CHECK_CPU",
         "CHECK_BLOCKING",
         "CHECK_LONG_RUNNING_QUERIES",
-        "CHECK_DATABASE_SPACE"
+        "CHECK_DATABASE_SPACE",
+        "SEND_TO_AZURE_MONITOR"
     ]
 
 

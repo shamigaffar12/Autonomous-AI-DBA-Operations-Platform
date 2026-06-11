@@ -1,0 +1,130 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 15:11:37.761420
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 171105178
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: running
+CPU Time: 3
+Elapsed Time: 3
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 71
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 325
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 142
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 171105184
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 171105200
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+The current monitoring snapshot for the AdventureWorks2019 database has revealed an incident requiring attention due to a long-running suspended query associated with blocking.
+
+### Root Cause Analysis
+- **Session ID 54** has been identified as a long-running suspended query (UPDATE command), which has been waiting on locks for an extended period and is being blocked by **Session ID 55**. The accumulated wait time indicates that session 54’s operations are being significantly hindered by locking contention.
+
+### Risk Assessment
+- Blocking issues can lead to increased response times and degraded performance for end-users or applications relying on this database. If not resolved, it could result in more significant transaction delays, potentially impacting business operations.
+
+### Recommended Actions
+1. **Identify the Blocking Session:**
+   - Investigate **Session ID 55** to understand what transaction is causing the blocking. Use `sp_who2` or querying the `sys.dm_exec_requests` catalog view to gather this information.
+
+2. **Assess the Need for the Blocking Operation:**
+   - Determine if the blocking session can be terminated or delayed so that session 54 can proceed. Engage with relevant stakeholders if the blocking session is part of critical processes.
+
+3. **Investigate Locks:**
+   - Utilize the `sys.dm_tran_locks` for further insight on the locking details. This will help identify which resources are being locked and if index tuning or query optimization is necessary to reduce contention.
+
+4. **Monitor Performance:**
+   - Track the performance and behavior of the system following any intervention. Ensure that session 54 can resume normal operations without further delays.
+
+### Prevention Recommendations
+- **Query Optimization:**
+  - Review and optimize queries to minimize locking duration. Ensure that queries are structured efficiently using appropriate indexing to reduce the chances of blocking in future operations.
+
+- **Lock Management:**
+  - Implement lock timeout parameters judiciously for long-running transactions, as this can reduce extended wait times under heavy contention situations.
+
+- **Scheduled Maintenance:**
+  - Schedule heavy or complex updates during off-peak hours to alleviate the risk of blocking sessions during peak times.
+
+- **Monitoring:**
+  - Enhance monitoring around locking and blocking metrics to trigger alerts proactively for long-running queries, enabling quicker resolution in future incidents.
+
+========================================
+ END OF REPORT
+========================================
+

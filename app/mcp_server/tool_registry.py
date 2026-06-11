@@ -37,6 +37,28 @@ DBA_TOOL_REGISTRY = {
         "approval_required": False
     },
 
+    "VALIDATE_RBAC_PERMISSION": {
+        "name": "RBAC Permission Validator",
+        "category": "SECURITY",
+        "description": (
+            "Validates whether the current DBA role is allowed "
+            "to perform medium or high-risk DBA actions."
+        ),
+        "risk": "LOW",
+        "approval_required": False
+    },
+
+    "REQUEST_FAILED_JOB_RESTART_APPROVAL": {
+        "name": "Failed Job Restart Approval Workflow",
+        "category": "AUTOMATION",
+        "description": (
+            "Creates approval-controlled restart request "
+            "for failed SQL Server Agent jobs."
+        ),
+        "risk": "MEDIUM",
+        "approval_required": True
+    },
+
     "CHECK_BACKUP_STATUS": {
         "name": "Backup Status Monitor",
         "category": "BACKUP",
@@ -56,7 +78,10 @@ DBA_TOOL_REGISTRY = {
     "CHECK_INDEX_FRAGMENTATION": {
         "name": "Index Fragmentation Monitor",
         "category": "PERFORMANCE",
-        "description": "Checks SQL Server index fragmentation and identifies indexes requiring maintenance.",
+        "description": (
+            "Checks SQL Server index fragmentation and identifies "
+            "indexes requiring maintenance."
+        ),
         "risk": "LOW",
         "approval_required": False
     },
@@ -72,7 +97,10 @@ DBA_TOOL_REGISTRY = {
     "GENERATE_PERFORMANCE_TUNING_REPORT": {
         "name": "Performance Tuning Report Generator",
         "category": "REPORTING",
-        "description": "Generates performance tuning report using fragmentation and statistics health results.",
+        "description": (
+            "Generates performance tuning report using fragmentation "
+            "and statistics health results."
+        ),
         "risk": "LOW",
         "approval_required": False
     },
@@ -83,6 +111,28 @@ DBA_TOOL_REGISTRY = {
         "description": "Generates daily DBA operational health report.",
         "risk": "LOW",
         "approval_required": False
+    },
+
+    "SEND_TO_AZURE_MONITOR": {
+        "name": "Azure Monitor Adapter",
+        "category": "AZURE_INTEGRATION",
+        "description": (
+            "Prepares DBA health summary for Azure Monitor "
+            "and Log Analytics integration."
+        ),
+        "risk": "LOW",
+        "approval_required": False
+    },
+
+    "CREATE_AZURE_AUTOMATION_RUNBOOK_REQUEST": {
+        "name": "Azure Automation Runbook Adapter",
+        "category": "AZURE_INTEGRATION",
+        "description": (
+            "Creates simulated Azure Automation runbook request "
+            "for approval-based DBA remediation."
+        ),
+        "risk": "MEDIUM",
+        "approval_required": True
     }
 }
 

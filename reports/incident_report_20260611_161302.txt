@@ -1,0 +1,140 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 16:12:58.105398
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 58
+Status: running
+CPU Time: 7
+Elapsed Time: 7
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 174785529
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 304
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 467
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1087
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 174785531
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 174785548
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-11 16:12:58.105398  
+**Overall Status:** ATTENTION REQUIRED  
+
+This report outlines the current issues regarding long-running queries and blocking sessions detected, which may impact database performance.
+
+### Root Cause Analysis
+
+- **Long Running Query:** A long-running query is associated with Session ID 54, currently in a suspended state due to blocking from Session ID 55. The `UPDATE` command has been executing for approximately 174.8 seconds.
+- **Blocking Session:** Session ID 55 is causing blocking due to a lock (`LCK_M_U`) on resources needed by Session ID 54, leading to elevated wait times.
+
+### Risk Assessment
+
+The persistence of blocking sessions and long-running queries introduces risks such as:
+- Degradation in application performance and user experience due to delayed responses.
+- Potential timeout errors if blocking is not resolved in a timely manner.
+- Increased resource utilization may lead to contention for system resources impacting other operations.
+
+### Recommended Actions 
+
+1. **Investigate Blocking Session (Session ID 55):** Determine the activity and transaction that Session ID 55 is executing. It is crucial to assess whether it can be optimized or if it needs to be terminated.
+2. **Analyze and Optimize Query:** Review the SQL `UPDATE` query for efficiency. Use query execution plans and statistics to identify possible indexes and condition adjustments.
+3. **Review Locking Configuration:** Check the database's locking and isolation level settings. Consider lightweight transaction management if appropriate for the workload.
+4. **Monitor Wait Statistics:** Analyze wait statistics to determine if this blocking issue is a recurring theme requiring systemic changes or optimizations.
+
+### Prevention Recommendations
+
+- **Frequent Query Performance Monitoring:** Implement regular checks of long-running queries and monitor blocking sessions.
+- **Isolation Level Adjustments:** If suitable, consider using a higher isolation level like `READ COMMITTED SNAPSHOT` to potentially reduce blocking scenarios.
+- **Index Management:** Ensure that appropriate indexes are in place for often-used queries to minimize locks during updates.
+- **Database Maintenance Plans:** Regularly update statistics and rebuild or reorganize indexes to ensure optimal query performance and reduce lock durations.
+
+By implementing these recommendations, we can enhance database performance and reduce the risk of prolonged blocking issues moving forward.
+
+========================================
+ END OF REPORT
+========================================
+

@@ -1,0 +1,131 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 18:31:26.137630
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 67
+Elapsed Time: 67
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 183097261
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 62
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 71
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 183097393
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 183097487
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+
+**Monitoring Time:** 2026-06-11 18:31:26.137630  
+**Database:** AdventureWorks2019  
+**Overall Status:** ATTENTION REQUIRED
+
+### Root Cause Analysis
+
+The monitoring report indicates that Session ID 54 is suspended, actively waiting on a lock held by Blocking Session ID 55. The long elapsed time (183,097,487 ms) suggests an extended contention for resources, likely due to insufficient query optimization or concurrent session management. The command involved is an UPDATE operation, typically more sensitive to locking issues than SELECT operations.
+
+### Risk Assessment
+
+The prolonged suspension of Session ID 54 raises concerns about potential performance degradation and resource contention, which could lead to:
+
+- Latency for transactions tied to the involved sessions.
+- Decreased throughput for the database operations impacted by the blocking.
+- Possible escalation of blocking scenarios, affecting end-user experience and application functionality.
+  
+If not addressed, this could result in bottlenecks and impact overall database performance.
+
+### Recommended Actions
+
+1. **Identify and Investigate Blocking Session (ID 55):**
+   - Inspect the execution plan and overall resource usage of Blocking Session ID 55 to determine the source of the lock.
+   - Analyze the operation being performed by Session ID 55 to assess if it’s causing an unnecessary delay.
+
+2. **Terminate the Blocking Session (If Applicable):**
+   - If appropriate and after a thorough assessment, consider terminating the blocking session to relieve the lock on Session ID 54.
+
+3. **Review Application Logic:**
+   - Assess the queries being executed to ensure efficient locking strategies are in place, particularly with UPDATE statements.
+  
+4. **Implement Query Optimization:**
+   - Look into indexes that can reduce locking duration or improve execution times.
+
+5. **Monitor and Adjust Locking Behavior:**
+   - Consider changing the isolation levels or utilizing more granular locks where plausible to minimize blocking occurrences.
+
+### Prevention Recommendations
+
+- **Conduct Regular Performance Tuning:**
+  - Perform routine assessments of long-running queries and adjust indexes or rewrite problematic queries to enhance locking behavior.
+  
+- **Deploy Query Optimizer Hints:**
+  - Use query hints judiciously to manage locking behaviors specifically in high-contention scenarios.
+
+- **Set Up Alerting on Blocking Sessions:**
+  - Implement proactive monitoring to alert the DBA team on blocking situations before they escalate.
+
+- **Review Isolation Levels:**
+  - Evaluate the use of transaction isolation levels that could reduce the potential for locking.
+
+Following these recommendations can enhance overall query performance and minimize the occurrence of blocking scenarios in the future.
+
+========================================
+ END OF REPORT
+========================================
+

@@ -1,0 +1,149 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 15:47:27.496842
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 61
+Status: running
+CPU Time: 14
+Elapsed Time: 14
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 173254892
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 192
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 50
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 71
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 173254910
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 173254933
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+The monitoring report for the AdventureWorks2019 database indicates that there is a problem requiring immediate attention due to session ID 54 being suspended and linked to a long-running query. This session is currently blocked by another session (ID 55), which is contributing to the performance issues within the database.
+
+### Root Cause Analysis
+- **Blocking Session:** Session ID 54 is blocked by session ID 55. The wait type `LCK_M_U` signifies that this session is waiting for a lock that is currently held by session ID 55. 
+- **Long Running Query:** The command executed by session ID 54, which is an `UPDATE` statement, has an elapsed time of approximately 173,254 seconds. This indicates that it is significantly impacting the performance and responsiveness of the database.
+
+### Risk Assessment
+- **Performance Impact:** The long-running and blocked session can lead to application-level performance degradation, which may affect end-users relying on timely database operations. There is a risk of increased latency for other sessions and possible timeout errors for applications interacting with the database.
+- **Potential for Data Integrity Issues:** If the locking situation persists, it may lead to transaction deadlocks or further blocking, complicating data integrity management and user experience.
+
+### Recommended Actions
+1. **Immediate Investigation:** Identify the nature of the transaction being held by session ID 55 and assess if it can be safely terminated. In cases where it is found to be unnecessary, consider terminating it to free the lock.
+  
+2. **Session Termination:** If session ID 55 is determined to be unresponsive or unnecessary, use the appropriate database command (e.g., `KILL <session_id>`) to terminate that session to allow session ID 54 to proceed.
+
+3. **Monitoring of Long-Running Queries:** Enable additional monitoring to track long-running transactions and automate alerting for future occurrences.
+
+### Prevention Recommendations
+- **Review Transaction Management Practices:** Assess and optimize transaction isolation levels and lock management practices within your application to reduce locking contention.
+  
+- **Optimize Queries:** Consider reviewing and optimizing the queries that are frequently running into blocking situations. Optimize the execution plans and indexing strategies where necessary.
+  
+- **Implement Lock Monitoring Tools:** Use tools or scripts to monitor and log lock waits regularly to proactively mitigate potential blocking issues before they become critical.
+
+- **Database Maintenance:** Regularly review database maintenance plans and ensure that statistics are up to date to assist the query optimizer in generating efficient execution plans.
+
+========================================
+ END OF REPORT
+========================================
+

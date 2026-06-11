@@ -1,0 +1,135 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 15:42:20.007834
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 56
+Status: running
+CPU Time: 6
+Elapsed Time: 6
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 172947440
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1796
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 2103
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 71
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 762
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 172947442
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 172947454
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+**Incident Summary:**
+
+- **Database:** AdventureWorks2019
+- **Monitoring Time:** 2026-06-11 15:42:20
+- **Overall Status:** ATTENTION REQUIRED
+
+**Root Cause Analysis:**
+
+The monitoring context indicates that Session ID 54 is in a suspended state due to a long-running update query. This session is being blocked by Session ID 55, which is causing wait times of over 172 seconds. The blocking session (Session ID 55) is holding a lock that prevents the update operation from proceeding. The wait type observed is `LCK_M_U`, which signifies that a lock upgrade is preventing the query from completing.
+
+**Risk Assessment:**
+
+The high wait time and suspended status of Session ID 54 represent a potential performance degradation in the database. This could lead to decreased application responsiveness, as queries that are dependent on completing this update may time out or fail. If this blocking scenario persists, it could escalate into application-level issues, impacting user experience and operational effectiveness.
+
+**Recommended Actions:**
+
+1. **Investigate Blocking Session:** Identify Session ID 55 that is causing the blockage. Determine if it is an active query that can be optimized or if it can be safely terminated to release the lock.
+   
+2. **Review Query Plans:** Analyze the query plan for both the blocking query and the long-running query to ensure they are efficient and not leading to excessive locking.
+
+3. **Increase Lock Timeout Settings:** If feasible, consider adjusting the lock timeout settings for queries to ensure they do not wait indefinitely.
+
+4. **Monitor for Recurrence:** Set up alerts to notify the DBA team if similar blocking scenarios repeat, allowing for more immediate intervention.
+
+**Prevention Recommendations:**
+
+- **Optimize Long-Running Queries:** Regularly assess and optimize queries that frequently cause long wait times to minimize the potential for blocking.
+- **Implement Query Timeout Limits:** Applying timeout limits on queries can help in preventing prolonged locking situations.
+- **Scheduled Maintenance:** Conduct regular maintenance on indexes and statistics to ensure queries execute efficiently, minimizing the duration of locks held.
+- **Training and Awareness:** Provide training for development teams on best practices for transaction management and concurrency control to reduce locking issues in the future.
+
+========================================
+ END OF REPORT
+========================================
+

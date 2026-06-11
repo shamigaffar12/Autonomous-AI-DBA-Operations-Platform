@@ -1,0 +1,69 @@
+========================================
+ PERFORMANCE TUNING REPORT
+ Autonomous AI DBA Operations Platform
+========================================
+
+Report Time: 2026-06-11 15:57:27.963752
+
+----------------------------------------
+Tool   : CHECK_INDEX_FRAGMENTATION
+Status : EXECUTED
+Health : ATTENTION REQUIRED
+Message: Fragmented indexes detected.
+
+Fragmented Index Details:
+- Database: AdventureWorks2019, Table: DatabaseLog, Index: None, Fragmentation: 23.711340206185564%, Pages: 776
+
+----------------------------------------
+Tool   : CHECK_STATISTICS_HEALTH
+Status : EXECUTED
+Health : ATTENTION REQUIRED
+Message: Outdated or heavily modified statistics detected.
+
+Statistics Health Details:
+- Database: AdventureWorks2019, Table: sysrscols, Stats: clst, Last Updated: 2019-11-17 14:53:38.513333, Rows: 1238, Modification Counter: 2408
+- Database: AdventureWorks2019, Table: sysrscols, Stats: _WA_Sys_00000002_00000003, Last Updated: 2019-11-17 14:53:38.526666, Rows: 1238, Modification Counter: 2408
+- Database: AdventureWorks2019, Table: sysrscols, Stats: _WA_Sys_00000005_00000003, Last Updated: 2019-11-17 14:53:38.533333, Rows: 1238, Modification Counter: 2408
+- Database: AdventureWorks2019, Table: DatabaseLog, Stats: PK_DatabaseLog_DatabaseLogID, Last Updated: 2023-05-08 12:07:33.136666, Rows: 109, Modification Counter: 1487
+- Database: AdventureWorks2019, Table: sysschobjs, Stats: _WA_Sys_00000005_00000022, Last Updated: 2019-11-17 14:53:39.306666, Rows: 2541, Modification Counter: 951
+- Database: AdventureWorks2019, Table: sysmultiobjrefs, Stats: _WA_Sys_00000005_0000004B, Last Updated: 2020-01-08 13:49:49.330000, Rows: 107, Modification Counter: 776
+- Database: AdventureWorks2019, Table: sysschobjs, Stats: nc3, Last Updated: 2019-11-17 14:53:38.043333, Rows: 2541, Modification Counter: 608
+- Database: AdventureWorks2019, Table: sysschobjs, Stats: _WA_Sys_00000003_00000022, Last Updated: 2019-11-17 14:53:38.033333, Rows: 2541, Modification Counter: 608
+- Database: AdventureWorks2019, Table: sysschobjs, Stats: _WA_Sys_00000008_00000022, Last Updated: 2019-11-17 14:53:38.040000, Rows: 2541, Modification Counter: 608
+- Database: AdventureWorks2019, Table: sysschobjs, Stats: _WA_Sys_00000006_00000022, Last Updated: 2019-11-17 14:53:38.086666, Rows: 2541, Modification Counter: 608
+- Database: AdventureWorks2019, Table: sysschobjs, Stats: clst, Last Updated: 2019-11-17 14:53:38.040000, Rows: 2541, Modification Counter: 608
+- Database: AdventureWorks2019, Table: sysschobjs, Stats: _WA_Sys_0000000C_00000022, Last Updated: 2020-01-08 13:49:50.040000, Rows: 2543, Modification Counter: 606
+- Database: AdventureWorks2019, Table: sysschobjs, Stats: nc1, Last Updated: 2023-05-08 12:07:29.190000, Rows: 2559, Modification Counter: 584
+- Database: AdventureWorks2019, Table: sysschobjs, Stats: nc2, Last Updated: 2023-05-08 12:07:29.193333, Rows: 2559, Modification Counter: 584
+- Database: AdventureWorks2019, Table: sysidxstats, Stats: _WA_Sys_00000006_00000036, Last Updated: 2020-01-08 13:49:46.810000, Rows: 211, Modification Counter: 502
+- Database: AdventureWorks2019, Table: sysallocunits, Stats: nc, Last Updated: 2019-11-17 14:53:38.490000, Rows: 191, Modification Counter: 499
+- Database: AdventureWorks2019, Table: sysallocunits, Stats: _WA_Sys_00000002_00000007, Last Updated: 2019-11-17 14:53:38.480000, Rows: 191, Modification Counter: 499
+- Database: AdventureWorks2019, Table: sysidxstats, Stats: _WA_Sys_00000007_00000036, Last Updated: 2020-01-08 13:49:32.033333, Rows: 210, Modification Counter: 495
+- Database: AdventureWorks2019, Table: sysidxstats, Stats: nc, Last Updated: 2023-05-08 12:07:29.203333, Rows: 223, Modification Counter: 480
+- Database: AdventureWorks2019, Table: sysqnames, Stats: clst, Last Updated: 2009-04-13 12:59:17.200000, Rows: 92, Modification Counter: 273
+- Database: AdventureWorks2019, Table: sysqnames, Stats: nc1, Last Updated: 2009-04-13 12:59:17.200000, Rows: 92, Modification Counter: 273
+- Database: AdventureWorks2019, Table: sysprivs, Stats: clust, Last Updated: 2009-04-13 12:59:17.483333, Rows: 19, Modification Counter: 177
+- Database: AdventureWorks2019, Table: sysobjvalues, Stats: _WA_Sys_00000005_0000003C, Last Updated: 2026-05-27 18:51:18.810000, Rows: 792, Modification Counter: 53
+- Database: AdventureWorks2019, Table: sysrowsets, Stats: _WA_Sys_00000002_00000005, Last Updated: 2023-05-08 12:07:43.950000, Rows: 368, Modification Counter: 20
+- Database: AdventureWorks2019, Table: sysrowsets, Stats: _WA_Sys_00000003_00000005, Last Updated: 2023-05-08 12:07:43.956666, Rows: 368, Modification Counter: 20
+- Database: AdventureWorks2019, Table: sysrowsets, Stats: _WA_Sys_00000006_00000005, Last Updated: 2023-05-08 12:07:43.956666, Rows: 368, Modification Counter: 20
+- Database: AdventureWorks2019, Table: sysidxstats, Stats: clst, Last Updated: 2026-05-27 18:51:18.973333, Rows: 470, Modification Counter: 15
+- Database: AdventureWorks2019, Table: sysidxstats, Stats: _WA_Sys_00000002_00000036, Last Updated: 2026-05-27 18:51:18.970000, Rows: 470, Modification Counter: 15
+- Database: AdventureWorks2019, Table: sysobjvalues, Stats: clst, Last Updated: 2026-05-27 18:51:18.800000, Rows: 792, Modification Counter: 15
+- Database: AdventureWorks2019, Table: sysobjvalues, Stats: _WA_Sys_00000002_0000003C, Last Updated: 2026-05-27 18:51:18.823333, Rows: 792, Modification Counter: 15
+...Additional stale statistics count: 313
+
+========================================
+ PERFORMANCE RECOMMENDATIONS
+========================================
+
+- Review highly fragmented indexes.
+- Rebuild indexes when fragmentation is above 30%.
+- Reorganize indexes when fragmentation is between 10% and 30%.
+- Update outdated SQL Server statistics.
+- Review execution plans for long-running queries.
+- Monitor blocking sessions before running maintenance jobs.
+
+========================================
+OVERALL PERFORMANCE STATUS: ATTENTION REQUIRED
+========================================

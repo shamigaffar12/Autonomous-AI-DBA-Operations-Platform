@@ -1,0 +1,128 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 18:10:57.980432
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 53
+Status: running
+CPU Time: 30
+Elapsed Time: 30
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 181869357
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 76
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 62
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1229
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1625
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 181869386
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 181869411
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+The SQL Server database "AdventureWorks2019" has encountered a situation requiring immediate attention due to the presence of a long-running query and blocking sessions.
+
+### Root Cause Analysis
+The monitoring data indicates that Session ID 54 is in a suspended state and is waiting on a lock (`LCK_M_U`) for an extended period (approximately 181.8 million milliseconds). This session is involved in an UPDATE operation, which suggests it is attempting to modify data but is blocked by another session (Session ID 55). This blocking has caused Session ID 54 to run significantly longer than anticipated, resulting in poor performance and potentially impacting user experience.
+
+### Risk Assessment
+The current blocking situation presents several risks:
+- **Performance Degradation:** Other sessions may experience delays if they are waiting for resources held by the blocking session.
+- **Resource Contention:** Increased resource usage and contention may lead to further degradation in overall database performance.
+- **Potential for Deadlocks:** If the blocking continues without resolution, there’s a risk of deadlocks occurring, which can halt operations and require manual intervention.
+
+### Recommended Actions
+1. **Investigate Blocking Session (Session ID 55):** Analyze what operation Session ID 55 is performing, determine its resource usage, and evaluate whether it can be optimized or terminated.
+2. **Terminate Long Running Query (if necessary):** If Session ID 54 does not complete soon, consider terminating it to relieve the block. However, ensure data integrity and transactional considerations are taken into account.
+3. **Implement Query Optimization:** Review the query plan for Session ID 54 (the long-running UPDATE) for potential improvements to enhance performance and reduce lock duration.
+4. **Monitor System Performance:** Closely monitor CPU, memory, and I/O usage following adjustments to ensure stability.
+
+### Prevention Recommendations
+- **Optimize Queries:** Regularly review and optimize long-running queries to prevent blocking situations in the future. 
+- **Resource Management:** Ensure accurate resource allocation and monitor long-running processes to avoid bottlenecks.
+- **Set Up Alerts:** Establish alerts for long-running queries and blocking sessions to facilitate quicker responses to similar issues in the future.
+- **Regular Maintenance:** Conduct routine index maintenance and statistics updates to improve query performance and reduce locking contention.
+
+========================================
+ END OF REPORT
+========================================
+
