@@ -1,0 +1,142 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 12:07:25.763471
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 59
+Status: running
+CPU Time: 8
+Elapsed Time: 8
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 160053176
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 833
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 609
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 467
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 50
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 160053186
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 160053202
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+**Date/Time Monitored:** 2026-06-11 12:07:25  
+**Database:** AdventureWorks2019  
+**Overall Status:** ATTENTION REQUIRED  
+
+A long-running query has been detected, with a specific session being suspended due to blocking.
+
+### Root Cause Analysis
+The primary issue identified is a blocking situation involving **Session ID 54** (executing an UPDATE command), which is currently in a suspended state. It is being blocked by another session (Session ID 55) that is holding a lock, indicated by the `LCK_M_U` wait type. The elapsed time for session 54 has reached a significant duration of over 160 seconds, contributing to performance degradation.
+
+### Risk Assessment
+The presence of blocking can lead to:
+- Increased wait times for end-users or applications relying on affected queries.
+- Potential decrease in overall database performance due to resources being tied up by the blocking session.
+- Risk of timeouts and transaction rollbacks affecting the integrity of application processes.
+
+### Recommended Actions
+1. Identify the root command of **Session ID 55** to assess why it is holding the lock and if it can be optimized or terminated.
+2. Investigate potential reasons for the long execution time originating from **Session ID 54** and determine if the update can be modified or alternatively indexed for better performance.
+3. Consider implementing a query timeout or modifying application logic to prevent prolonged blocking situations.
+
+### Prevention Recommendations
+1. Regularly monitor and analyze long-running queries and session states to address blocking before it escalates.
+2. Assess and optimize sessions routinely, specifically those that are frequently involved in blocking scenarios.
+3. Consider implementing database maintenance plans, which include index optimization and statistics updates, to enhance query performance.
+4. Deploy alerts for blocking sessions to ensure prompt responses to such occurrences in the future. 
+
+These actions and recommendations aim to mitigate risks associated with locking and improve overall database operation efficiency.
+
+========================================
+ END OF REPORT
+========================================
+

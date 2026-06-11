@@ -1,0 +1,91 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 17:22:11.129500
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 11
+Elapsed Time: 11
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 92532080
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 92532087
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 92532106
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+**Date & Time:** 2026-06-10 17:22:11  
+**Database:** AdventureWorks2019  
+**Overall Status:** ATTENTION REQUIRED  
+A long-running query has been detected that is causing blocking issues within the database environment.
+
+### Root Cause Analysis
+The issue appears to stem from a suspended session (Session ID: 54) that has been in a wait state due to locking on updates (Wait Type: LCK_M_U). This session is blocking by another active session (Session ID: 55), causing a resource contention scenario that is impacting overall performance.
+
+### Risk Assessment
+This situation poses a risk as it could lead to performance degradation across the system, as other queries may be waiting longer than necessary. If not addressed promptly, it may lead to further escalating resource contention and potential downtimes for dependent applications.
+
+### Recommended Actions
+1. **Identify and Terminate Blocking Session:** Examine the operations performed by Session ID 55 and consider terminating or resolving them appropriately to release the lock on the resources.
+2. **Investigate the Long-Running Query:** Analyze the execution plan and indexing strategy for the UPDATE command in Session ID 54 to identify any optimization opportunities or potential deadlocks.
+3. **Monitor for Further Issues:** Keep an eye on ongoing performance metrics and SQL activities to identify any trends or escalating issues related to query execution and blocking.
+
+### Prevention Recommendations
+1. **Optimize Long-Running Queries:** Regularly review and optimize queries identified as long-running to reduce their duration and enhance performance.
+2. **Implement Lock Timeout Settings:** Consider adjusting lock timeout settings or using query hints to minimize the impact of blocking scenarios.
+3. **Monitor Blocking Trends:** Establish a monitoring solution for blocking sessions and set alerts for any instances that exceed defined thresholds, enabling quick identification and resolution of performance issues. 
+4. **Conduct Regular Workload Optimization:** Schedule periodic reviews of workload and index optimization strategies to ensure queries perform efficiently under varying business loads.
+
+========================================
+ END OF REPORT
+========================================
+

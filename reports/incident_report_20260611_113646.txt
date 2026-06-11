@@ -1,0 +1,133 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 11:36:39.363262
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 58
+Status: running
+CPU Time: 7
+Elapsed Time: 8
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 158206774
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 100
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 142
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 375
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 158206788
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 158206805
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+# Incident Summary
+**Database**: AdventureWorks2019  
+**Monitoring Time**: 2026-06-11 11:36:39  
+
+The current analysis reveals an instance of a long-running query causing blocking within the database, specifically concerning Session ID 54, which is suspended due to locking issues.
+
+# Root Cause Analysis
+The root cause of this incident stems from Session ID 54, which is in a suspended state due to an update operation that is currently being blocked by Session ID 55. The update command in Session ID 54 has a significant elapsed time of 158206805 milliseconds and falls under the wait type "LCK_M_U", indicating it is waiting for a user lock. This suggests a possible contention issue, where multiple sessions compete for the same resources.
+
+# Risk Assessment
+The blockage is likely to affect overall database performance, as long-running queries can lead to:
+- Increased wait times for other transactions
+- Potential timeouts for applications relying on swift database access
+- Resource consumption may lead to a degradation of user experience and application performance
+
+If not addressed promptly, the situation could escalate and impact availability and responsiveness of the service connected to this database.
+
+# Recommended Actions
+1. Identify Session ID 55 to understand the operation being executed and determine if it is essential for ongoing processes. 
+2. Assess whether the blocking session can be terminated if it is non-essential or can be rolled back to release the locks.
+3. Investigate whether any locking hints can be applied to the query in Session ID 54 to mitigate blocking.
+4. Monitor other sessions closely to ensure no further contention issues arise.
+
+# Prevention Recommendations
+1. **Query Optimization**: Regularly review and optimize queries to ensure they do not hold locks longer than necessary.
+2. **Lock Management**: Reassess transaction isolation levels and consider using lower isolation levels, like Read Committed Snapshot Isolation (RCSI), where applicable.
+3. **Monitoring**: Setup alerts for long-running queries and blocking sessions to proactively address performance issues before escalation.
+4. **Maintenance Schedule**: Conduct regular maintenance to reduce the likelihood of deadlocks and contention, including index tuning and statistics updates.
+
+========================================
+ END OF REPORT
+========================================
+

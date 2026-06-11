@@ -1,47 +1,112 @@
 # =========================================================
 # Agent Planner
+# Autonomous AI DBA Operations Platform
 # =========================================================
 
-def create_investigation_plan(
+def create_investigation_plan(intent_result):
+    """
+    Create agentic DBA investigation plan based on detected intent.
+    """
 
-    incident_summary
+    intent = intent_result.get(
+        "intent",
+        "GENERAL_HEALTH_CHECK"
+    )
 
-):
+    # =====================================================
+    # DAILY DBA HEALTH CHECK
+    # =====================================================
 
-    plan = []
+    if intent == "DAILY_HEALTH_CHECK":
 
-    summary = incident_summary.upper()
+        return [
+            "CHECK_CPU",
+            "CHECK_BLOCKING",
+            "CHECK_LONG_RUNNING_QUERIES",
+            "CHECK_FAILED_JOBS",
+            "CHECK_BACKUP_STATUS",
+            "CHECK_DATABASE_SPACE",
+            "GENERATE_DAILY_HEALTH_REPORT"
+        ]
 
-    if "CPU" in summary:
+    # =====================================================
+    # FAILED SQL JOB CHECK
+    # =====================================================
 
-        plan.append(
+    if intent == "FAILED_JOB_CHECK":
 
-            "CHECK_CPU"
+        return [
+            "CHECK_FAILED_JOBS"
+        ]
 
-        )
+    # =====================================================
+    # BACKUP HEALTH CHECK
+    # =====================================================
 
-    if "BLOCKING" in summary:
+    if intent == "BACKUP_HEALTH_CHECK":
 
-        plan.append(
+        return [
+            "CHECK_BACKUP_STATUS"
+        ]
 
+    # =====================================================
+    # BLOCKING ANALYSIS
+    # =====================================================
+
+    if intent == "BLOCKING_ANALYSIS":
+
+        return [
             "CHECK_BLOCKING"
+        ]
 
-        )
+    # =====================================================
+    # PERFORMANCE ANALYSIS
+    # =====================================================
 
-    if "LONG RUNNING" in summary:
+    if intent == "PERFORMANCE_ANALYSIS":
 
-        plan.append(
+        return [
+            "CHECK_CPU",
+            "CHECK_LONG_RUNNING_QUERIES",
+            "CHECK_BLOCKING"
+        ]
 
-            "CHECK_LONG_RUNNING_QUERIES"
+    # =====================================================
+    # SPACE ANALYSIS
+    # =====================================================
 
-        )
+    if intent == "SPACE_ANALYSIS":
 
-    if not plan:
+        return [
+            "CHECK_DATABASE_SPACE"
+        ]
 
-        plan.append(
+    # =====================================================
+    # DEFAULT GENERAL HEALTH CHECK
+    # =====================================================
 
-            "GENERAL_HEALTH_CHECK"
+    return [
+        "CHECK_CPU",
+        "CHECK_BLOCKING",
+        "CHECK_LONG_RUNNING_QUERIES"
+    ]
 
-        )
 
-    return plan
+# =========================================================
+# TEST EXECUTION
+# =========================================================
+
+if __name__ == "__main__":
+
+    sample_intent = {
+        "intent": "DAILY_HEALTH_CHECK",
+        "confidence": 95
+    }
+
+    plan = create_investigation_plan(sample_intent)
+
+    print("\n========================================")
+    print(" AGENT INVESTIGATION PLAN ")
+    print("========================================\n")
+
+    print(plan)

@@ -3,115 +3,97 @@
 # Autonomous AI DBA Operations Platform
 # =========================================================
 
-from app.mcp_server.monitoring_executor import (
-    run_monitoring
-)
+DBA_TOOL_REGISTRY = {
 
-from app.mcp_server.ai_executor import (
-    run_ai_analysis
-)
-
-from app.mcp_server.report_executor import (
-    save_report
-)
-
-from app.mcp_server.notification_executor import (
-    run_notifications
-)
-
-# =========================================================
-# REGISTERED TOOLS
-# =========================================================
-
-REGISTERED_TOOLS = {
-
-    "monitoring_tool": {
-
-        "description": "Central SQL Monitoring Engine",
-
-        "status": "Implemented",
-
-        "executor": run_monitoring
+    "CHECK_CPU": {
+        "name": "CPU Health Monitor",
+        "category": "MONITORING",
+        "description": "Checks SQL Server CPU pressure and active workload.",
+        "risk": "LOW",
+        "approval_required": False
     },
 
-    "ai_analysis_tool": {
-
-        "description": "AI DBA Agent",
-
-        "status": "Implemented",
-
-        "executor": run_ai_analysis
+    "CHECK_BLOCKING": {
+        "name": "Blocking Session Monitor",
+        "category": "MONITORING",
+        "description": "Detects blocking sessions in SQL Server.",
+        "risk": "LOW",
+        "approval_required": False
     },
 
-    "report_tool": {
-
-        "description": "Incident Report Generator",
-
-        "status": "Implemented",
-
-        "executor": save_report
+    "CHECK_LONG_RUNNING_QUERIES": {
+        "name": "Long Running Query Monitor",
+        "category": "PERFORMANCE",
+        "description": "Detects long running SQL Server queries.",
+        "risk": "LOW",
+        "approval_required": False
     },
 
-    "notification_tool": {
+    "CHECK_FAILED_JOBS": {
+        "name": "Failed SQL Job Monitor",
+        "category": "MONITORING",
+        "description": "Detects failed SQL Server Agent jobs.",
+        "risk": "LOW",
+        "approval_required": False
+    },
 
-        "description": "Notification Engine",
+    "CHECK_BACKUP_STATUS": {
+        "name": "Backup Status Monitor",
+        "category": "BACKUP",
+        "description": "Checks latest database backup status.",
+        "risk": "LOW",
+        "approval_required": False
+    },
 
-        "status": "Implemented",
+    "CHECK_DATABASE_SPACE": {
+        "name": "Database Space Monitor",
+        "category": "CAPACITY",
+        "description": "Checks database size and space usage.",
+        "risk": "LOW",
+        "approval_required": False
+    },
 
-        "executor": run_notifications
+    "GENERATE_DAILY_HEALTH_REPORT": {
+        "name": "Daily DBA Health Report Generator",
+        "category": "REPORTING",
+        "description": "Generates daily DBA operational health report.",
+        "risk": "LOW",
+        "approval_required": False
     }
 }
 
 
 # =========================================================
-# GET TOOL
+# GET TOOL DETAILS
 # =========================================================
 
-def get_tool(tool_name):
+def get_tool_details(tool_name):
+    """
+    Return tool metadata from registry.
+    """
 
-    return REGISTERED_TOOLS.get(tool_name)
-
-
-# =========================================================
-# DISPLAY REGISTERED TOOLS
-# =========================================================
-
-def display_registered_tools():
-
-    print("\n========================================")
-
-    print(" MCP REGISTERED TOOLS ")
-
-    print("========================================\n")
-
-    for tool_name, tool_info in REGISTERED_TOOLS.items():
-
-        print(
-            f"{tool_name} -> "
-            f"{tool_info['description']} "
-            f"[{tool_info['status']}]"
-        )
+    return DBA_TOOL_REGISTRY.get(
+        tool_name,
+        {
+            "name": "Unknown Tool",
+            "category": "UNKNOWN",
+            "description": "Tool not registered.",
+            "risk": "UNKNOWN",
+            "approval_required": True
+        }
+    )
 
 
 # =========================================================
-# TEST TOOL LOADING
+# LIST TOOLS
 # =========================================================
 
-def test_tool_loading():
+def list_registered_tools():
+    """
+    Return all registered DBA tools.
+    """
 
-    print("\n========================================")
-
-    print(" TOOL LOADING TEST ")
-
-    print("========================================\n")
-
-    for tool_name in REGISTERED_TOOLS:
-
-        tool = get_tool(tool_name)
-
-        print(
-            f"Loaded Tool : {tool['description']}"
-        )
+    return DBA_TOOL_REGISTRY
 
 
 # =========================================================
@@ -120,6 +102,10 @@ def test_tool_loading():
 
 if __name__ == "__main__":
 
-    display_registered_tools()
+    print("\n========================================")
+    print(" REGISTERED DBA TOOLS ")
+    print("========================================\n")
 
-    test_tool_loading()
+    for tool, details in list_registered_tools().items():
+
+        print(f"{tool} -> {details['name']}")

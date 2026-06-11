@@ -1,0 +1,102 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 13:18:59.026962
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 164346458
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 51
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 325
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 164346460
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 164346474
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+**Incident Summary**  
+**Date:** 2026-06-11  
+**Time:** 13:18:59  
+**Database:** AdventureWorks2019  
+**Overall Status:** ATTENTION REQUIRED  
+
+**Root Cause Analysis**  
+The database displays a blocked session (Session ID: 54) that is suspended due to a locking issue (wait type: LCK_M_U). The blocking is caused by another session (Session ID: 55), which is preventing ongoing operations. The long execution time (164,346,474 ms elapsed) indicates that the suspended session has been waiting for an extended period. 
+
+**Risk Assessment**  
+This incident could result in potential data update delays and affect the application’s performance. Additionally, if blocking persists, it may lead to user frustration and impact overall database responsiveness. Long wait times can severely affect application SLAs and degrade user experience.
+
+**Recommended Actions**  
+1. **Identify Blocking Session:** Determine the statement being executed by session ID 55, which is currently causing the block.
+2. **Examine Indexing:** Evaluate if proper indexing exists for the involved tables to reduce lock contention.
+3. **Modify Queries:** If possible, modify the queries to reduce locking duration or adjust the isolation level.
+4. **Monitor Sessions:** Regularly monitor active sessions to identify any recurring blocking issues.
+
+**Prevention Recommendations**  
+- Implement proper indexing strategies on tables frequently updated or queried to reduce performance bottlenecks.
+- Regularly review and optimize SQL queries to minimize execution time and resource consumption.
+- Establish a monitoring routine for long-running queries, possibly automating alerts for any session exceeding predefined thresholds.
+- Consider using query hints or isolating transactions to minimize locking where feasible.
+- Ensure regular maintenance tasks, such as statistics updates and index rebuilds, to maintain optimal performance.
+
+========================================
+ END OF REPORT
+========================================
+

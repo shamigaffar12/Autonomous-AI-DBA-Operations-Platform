@@ -1,0 +1,134 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 12:48:16.495993
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 162503927
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: running
+CPU Time: 4
+Elapsed Time: 4
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 2599
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 254
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 396
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 142
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 162503931
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 162503943
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+Timestamp: 2026-06-11 12:48:16.495993  
+Database: AdventureWorks2019  
+Overall Status: ATTENTION REQUIRED
+
+### Root Cause Analysis
+A long-running query has been detected involving Session ID 54, which is currently suspended due to a lock contention situation, specifically waiting on a lock (LCK_M_U) held by Blocking Session ID 55. The current status of Session 54 indicates it has been suspended for an extended period (over 162 seconds) while attempting to execute an UPDATE command.
+
+### Risk Assessment
+The primary risk associated with this situation is potential degradation in application performance and database responsiveness due to the prolonged locking mechanisms. Additionally, if the blocking session cannot be resolved promptly, it may lead to cascading delays across other sessions and overall database operations, impacting user experience and application availability.
+
+### Recommended Actions
+1. **Identify Blocking Session**: Investigate Session ID 55 to determine the cause of the lock and consider terminating it if appropriate, after assessing the nature of the workload.
+2. **Optimize Long-Running Query**: Review the query being executed in Session ID 54 for optimization opportunities, including examining indexes and query logic to reduce execution time.
+3. **Monitor Wait Stats**: Continuously monitor wait statistics for the database to quickly identify similar issues.
+
+### Prevention Recommendations
+- **Regular Query Performance Tuning**: Implement a routine performance assessment to identify and optimize long-running queries and blocking scenarios, potentially leveraging database tuning advisors.
+- **Lock Management Strategy**: Review and implement best practices for transaction isolation levels and locking hints tailored to application workloads to minimize blocking situations.
+- **Increase Monitoring Frequency**: Enhance monitoring parameters for session statuses and query performance to detect and respond to issues in real-time.
+
+========================================
+ END OF REPORT
+========================================
+

@@ -1,0 +1,110 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 17:01:38.837085
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 7
+Elapsed Time: 7
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 91299807
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 700
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 91299808
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 91299819
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+**Incident Summary:**
+The current status of the AdventureWorks2019 database has been classified as requiring attention due to the detection of blocking sessions and a long-running query that has resulted in a suspended state.
+
+---
+
+**Root Cause Analysis:**
+The primary issue identified is with Session ID 54, which is suspended and blocked by Session ID 55. This blocking is caused by a lock (LCK_M_U) occurring during an UPDATE command, which has led to an extended wait time of over 912 seconds. The blocking scenario is causing potential performance degradation and impacts the overall responsiveness of the database system.
+
+---
+
+**Risk Assessment:**
+The presence of blocking sessions poses a risk to database performance and user experience. Long running queries, especially those related to DML operations such as UPDATE, can lead to increased wait times for other operations, which may ultimately affect application performance, user satisfaction, and can lead to transaction timeouts or failure.
+
+---
+
+**Recommended Actions:**
+1. **Investigate Session 55:**
+   - Identify and analyze the activity of Session ID 55 to determine the reason for the lock and whether it can be optimized or resolved.
+2. **Kill/View Session:**
+   - If Session 55 is determined to be idle or non-essential, consider terminating it or prompting a reassessment of the blocking logic.
+3. **Review Execution Plan:**
+   - Examine the execution plan for the long-running query in Session ID 54 to identify any optimization opportunities or missing indexes that could enhance performance.
+4. **Increase Monitoring:**
+   - Implement or enhance monitoring around session blocking scenarios to detect similar issues proactively in the future.
+
+---
+
+**Prevention Recommendations:**
+- Optimize query performance across all stored procedures and transactions to minimize locking issues.
+- Regularly review and refactor queries to ensure efficient locking and reduce the likelihood of long wait times.
+- Consider employing isolation levels that provide fewer locks, such as Read Committed Snapshot Isolation (RCSI), for long-running or heavy-read queries.
+- Perform routine health checks and performance tuning practices on long-running transactions as part of a standard maintenance schedule.
+
+========================================
+ END OF REPORT
+========================================
+

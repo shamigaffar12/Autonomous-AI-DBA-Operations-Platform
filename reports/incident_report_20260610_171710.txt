@@ -1,0 +1,134 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-10 17:17:03.369814
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 15
+Elapsed Time: 15
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 92224324
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 375
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 57
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 467
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 92224330
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 92224348
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+**Incident Summary**
+
+**Date/Time of Monitoring**: 2026-06-10 17:17:03  
+**Database**: AdventureWorks2019  
+**Overall Status**: ATTENTION REQUIRED  
+
+A long-running query has been detected that is causing a blocking scenario in the SQL Server environment. Immediate attention is required to address the potential impact on database performance and user experience.
+
+---
+
+**Root Cause Analysis**
+
+The blocking session (Session ID: 54) is currently suspended and is experiencing a prolonged wait state for locks due to a blocking session (Session ID: 55). With an elapsed time exceeding 922 seconds, this session is affecting database performance and responsiveness.
+
+---
+
+**Risk Assessment**
+
+The event presents several risks:
+- **Impact on Performance**: User queries may be delayed due to blocking, which could lead to timeouts and degraded performance.
+- **User Experience**: Prolonged wait times can frustrate users and affect application functionality.
+- **Potential Data Integrity Issues**: Extended locking periods can lead to potential issues with data integrity if transactions are not completing as expected.
+
+---
+
+**Recommended Actions**
+
+1. **Investigate Blocking Session**: Identify the process and transaction of Session ID: 55 to understand the cause of the blocking. Consider terminating if it poses unacceptable performance risks and is not essential.
+  
+2. **Monitor Execution Plans**: Review the execution plan of the long-running query in Session ID: 54 to identify potential optimizations or performance improvements.
+
+3. **Assess Indexing Strategy**: Ensure indexes are optimized for the queries being executed. Analyze if any missing indexes need to be created or existing indexes need adjustments to mitigate locking.
+
+4. **Evaluate Query Design**: Ensure that queries are designed to minimize locking, including review of transaction isolation levels and the use of appropriate locking hints where applicable.
+
+---
+
+**Prevention Recommendations**
+
+- **Regularly Review Blocking and Long-Running Queries**: Implement monitoring solutions that flag blocking scenarios or long-running queries to preemptively address issues.
+- **Implement Query Timeouts**: Establish query timeouts where appropriate to limit long wait states.
+- **Investigate and Tune Resource Bottlenecks**: Regularly analyze performance metrics for signs of resource bottlenecks that may lead to blocking.
+- **Training and Awareness**: Ensure database developers are trained on best practices for writing efficient and non-blocking SQL queries.
+
+--- 
+
+Timely intervention is essential to ensure optimal performance of the AdventureWorks2019 database and to maintain user satisfaction.
+
+========================================
+ END OF REPORT
+========================================
+

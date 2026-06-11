@@ -1,0 +1,123 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 13:08:49.341770
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 52
+Status: running
+CPU Time: 6
+Elapsed Time: 6
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 163736775
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1696
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 163736776
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 163736789
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+**Incident Summary**  
+**Database**: AdventureWorks2019  
+**Monitoring Time**: 2026-06-11 13:08:49.341770  
+**Overall Status**: ATTENTION REQUIRED
+
+---
+
+**Root Cause Analysis**  
+The database has a long-running query (Session ID: 54) that is currently suspended and blocked by another session (Session ID: 55). The wait type indicates a lock escalation due to an update operation, which is causing the session to wait excessively due to resource contention. 
+
+**Blocking Details**:  
+- **Blocking Session ID**: 55  
+- **Wait Type**: LCK_M_U (Update lock)  
+- **Wait Duration**: Approximately 163 seconds  
+
+---
+
+**Risk Assessment**  
+The prolonged blocking of Session ID: 54 poses risks to database performance, potentially affecting user experience and application functionality. If unresolved, this could lead to timeouts, reduced throughput, and user frustration due to delays in transaction processing.
+
+---
+
+**Recommended Actions**  
+1. **Identify and Resolve Blocking Session**: Investigate Session ID: 55 for potential issues that may be causing it to hold locks for an extended period, which may involve reviewing long-running transactions, index utilization, or other resource consumption factors.
+  
+2. **Assess Query Execution Plan**: Examine the execution plan of the blocked query. It may provide insights into inefficiencies or missing indexes that may contribute to excessive locking or waits.
+
+3. **Temporary Termination**: If Session ID: 55 is not performing critical work, consider terminating it to release the block and allow User Session 54 to proceed.
+
+4. **Query Optimization**: For Session ID: 54, explore optimizing the UPDATE command to minimize locking duration and resource footprint, thereby reducing the likelihood of future blocking scenarios.
+
+---
+
+**Prevention Recommendations**  
+1. **Monitoring and Alerts**: Implement proactive monitoring solutions to alert on extended lock waits or long-running queries, enabling quicker response times before user-impacting issues arise.
+
+2. **Index Maintenance**: Regularly review and maintain indexes to ensure query performance is optimized and minimize locking contention in transactional operations.
+
+3. **Batch Processing**: If applicable, consider encapsulating large update operations within transactions that can be broken into smaller batches to reduce locking duration and resource consumption.
+
+4. **Query Review**: Establish a periodic script review process for long-running queries, enabling continuous optimization and adjustment as database usage patterns evolve.
+
+--- 
+
+It is essential to address the current situation promptly while also prioritizing the implementation of preventative measures to foster a sustainable and reliable database environment.
+
+========================================
+ END OF REPORT
+========================================
+

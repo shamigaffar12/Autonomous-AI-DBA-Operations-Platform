@@ -1,0 +1,114 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 12:43:11.761373
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 57
+Status: running
+CPU Time: 7
+Elapsed Time: 7
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 162199193
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 56
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 650
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1270
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 2254
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 162199198
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 162199210
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+The SQL Server database AdventureWorks2019 is currently exhibiting signs that require immediate attention. Notably, there is a long-running suspended query that is being blocked, which is impacting performance.
+
+### Root Cause Analysis
+The primary issue is linked to Session ID 54, which is currently in a suspended state due to blocking by Session ID 55. The blocking is caused by a lock (LCK_M_U) related to an UPDATE command, resulting in a prolonged wait time of over 162 seconds.
+
+### Risk Assessment
+The ongoing blocking situation has the potential to severely degrade database performance, leading to increased response times for users and blocking further operations. If left unchecked, this could escalate into more significant database downtime or degraded service levels for application users.
+
+### Recommended Actions
+1. **Analyze Blocking Session**: Investigate the activity of Session ID 55 to determine why it is holding locks and assess if it can be terminated safely.
+2. **Identify Query Optimization**: Review the SQL plan of the long-running query associated with Session ID 54 to identify potential performance improvements.
+3. **Monitor Blocking**: Set up alerts to inform the DBA team of any future blocking scenarios to act on them proactively.
+
+### Prevention Recommendations
+- **Index Optimization**: Regularly review and optimize indexes on the database to ensure queries run efficiently and avoid long wait times due to locking.
+- **Regular Health Checks**: Implement daily health checks on active sessions, query performance, and lock wait times to proactively handle similar incidents in the future.
+- **Concurrency Management**: Consider modifying transaction isolation levels or breaking down long transactions into smaller ones to minimize locking contention.
+
+========================================
+ END OF REPORT
+========================================
+
