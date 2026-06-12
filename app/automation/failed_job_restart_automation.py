@@ -5,20 +5,17 @@
 
 from datetime import datetime
 
+from app.approvals.approval_manager import (
+    create_approval_request
+)
 
-# =========================================================
-# REQUEST FAILED JOB RESTART APPROVAL
-# =========================================================
 
 def request_failed_job_restart_approval(
     failed_job_result
 ):
     """
-    Prepare approval-controlled restart recommendation
-    for failed SQL Server Agent jobs.
-
-    This module does not restart jobs directly.
-    It creates an approval request for DBA review.
+    Automatically create approval request when failed SQL job is detected.
+    This does not restart the job directly.
     """
 
     try:
@@ -34,14 +31,12 @@ def request_failed_job_restart_approval(
 
         if not failed_jobs:
 
-            print(
-                "No failed jobs found for restart approval."
-            )
+            print("No failed jobs found. No approval required.")
 
             return {
                 "overall_status": "NO_ACTION_REQUIRED",
                 "automation_name": "FAILED_JOB_RESTART_APPROVAL",
-                "message": "No failed jobs found for restart approval.",
+                "message": "No failed SQL Agent jobs found.",
                 "approval_required": False,
                 "restart_request_count": 0,
                 "restart_requests": [],
@@ -55,18 +50,33 @@ def request_failed_job_restart_approval(
         for job in failed_jobs:
 
             job_name = job.get(
-                "job_name"
+                "job_name",
+                "UNKNOWN_JOB"
+            )
+
+            approval_result = create_approval_request(
+                action_name="RESTART_SQL_AGENT_JOB",
+                target_name=job_name,
+                risk_level="MEDIUM",
+                requested_by="DBA",
+                reason=(
+                    "AI Agent detected failed SQL Server Agent job. "
+                    "Restart recommendation requires Lead DBA approval."
+                ),
+                metadata={
+                    "source": "AI_AGENT_FAILED_JOB_RECOMMENDATION",
+                    "job_details": job
+                }
             )
 
             restart_request = {
+                "approval_id": approval_result.get(
+                    "approval_id"
+                ),
                 "job_name": job_name,
                 "action": "RESTART_SQL_AGENT_JOB",
                 "approval_status": "PENDING_APPROVAL",
                 "risk": "MEDIUM",
-                "reason": (
-                    "SQL Server Agent job failed and requires "
-                    "DBA approval before restart."
-                ),
                 "created_at": str(
                     datetime.now()
                 )
@@ -77,7 +87,8 @@ def request_failed_job_restart_approval(
             )
 
             print(f"Job Name        : {job_name}")
-            print("Action          : Restart SQL Agent Job")
+            print(f"Approval ID     : {restart_request['approval_id']}")
+            print("Action          : RESTART_SQL_AGENT_JOB")
             print("Approval Status : PENDING_APPROVAL")
             print("Risk            : MEDIUM")
             print("----------------------------------------")
@@ -85,7 +96,7 @@ def request_failed_job_restart_approval(
         return {
             "overall_status": "APPROVAL_REQUIRED",
             "automation_name": "FAILED_JOB_RESTART_APPROVAL",
-            "message": "Failed job restart approval request created.",
+            "message": "Approval request created automatically by AI Agent workflow.",
             "approval_required": True,
             "restart_request_count": len(
                 restart_requests
@@ -98,7 +109,7 @@ def request_failed_job_restart_approval(
 
     except Exception as error:
 
-        print("\nFailed Job Restart Automation Error:\n")
+        print("\nFailed Job Restart Automation Error:")
         print(error)
 
         return {
@@ -116,24 +127,14 @@ def request_failed_job_restart_approval(
         }
 
 
-# =========================================================
-# TEST EXECUTION
-# =========================================================
-
 if __name__ == "__main__":
 
     sample_failed_job_result = {
-        "overall_status": "ATTENTION REQUIRED",
-        "check_name": "FAILED_JOBS",
-        "message": "Failed SQL jobs detected.",
-        "failed_jobs_count": 1,
         "failed_jobs": [
             {
                 "job_name": "syspolicy_purge_history",
-                "run_date": "2026-06-11",
-                "run_time": "14:30:00",
                 "run_status": "FAILED",
-                "message": "Job execution failed."
+                "message": "Job failed during execution."
             }
         ]
     }
@@ -141,10 +142,6 @@ if __name__ == "__main__":
     result = request_failed_job_restart_approval(
         sample_failed_job_result
     )
-
-    print("\n========================================")
-    print(" FAILED JOB RESTART APPROVAL RESULT ")
-    print("========================================\n")
 
     print(
         result

@@ -1,0 +1,169 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+ATTENTION REQUIRED
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-11 23:54:45.321396
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 65
+Status: running
+CPU Time: 9
+Elapsed Time: 9
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 54
+Status: suspended
+CPU Time: 5
+Elapsed Time: 202517426
+Reads: 0
+Writes: 0
+Logical Reads: 61
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 53
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 1096
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 52
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 883
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 64
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 508
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 63
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 762
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 62
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 50
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 61
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 325
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 59
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 0
+Alert: CPU Usage Within Normal Range
+--------------------------
+Session ID: 58
+Status: sleeping
+CPU Time: 0
+Elapsed Time: 0
+Reads: 0
+Writes: 0
+Logical Reads: 579
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+Blocking Sessions Detected:
+Session ID: 54
+Blocking Session ID: 55
+Wait Type: LCK_M_U
+Wait Time: 202517469
+Status: suspended
+--------------------------
+
+Long Running Query Analysis:
+Session ID: 54
+Status: suspended
+Command: UPDATE
+CPU Time: 5
+Elapsed Time: 202517505
+Blocking Session: 55
+Wait Type: LCK_M_U
+Alert: Long Running Query Detected
+--------------------------
+
+Overall Status: ATTENTION REQUIRED
+
+
+AI Analysis
+-----------
+### Incident Summary
+**Database:** AdventureWorks2019  
+**Monitoring Time:** 2026-06-11 23:54:45.321396  
+**Overall Status:** ATTENTION REQUIRED  
+
+This report indicates that an incident has been identified due to a long-running query in conjunction with blocking sessions.  
+
+### Root Cause Analysis
+The query from Session ID 54, which is an UPDATE command, is currently suspended and experiencing a long wait time due to being blocked by Session ID 55. The wait type identified is `LCK_M_U`, indicating that the session is waiting for an update lock that is held by another transaction.
+
+### Risk Assessment
+The long wait time (202,517 seconds) and blocking status of Session ID 54 could lead to:
+- Application timeouts and performance degradation.
+- Potential deadlocks if locking contention increases.
+- Loss of transactional throughput affecting user experience and system responsiveness.
+
+### Recommended Actions
+1. **Investigate Blocking Session (Session ID 55)**: Identify the transaction causing the block and evaluate if it can be optimized or terminated if it is inappropriate.
+2. **Terminate or Kill Sessions**: If blocking issues are severe and impact performance, consider terminating Session ID 55, after a thorough investigation of the implications.
+3. **Optimize SQL Queries**: Analyze the UPDATE command for Session ID 54 for any possible optimizations regarding indexing or query structure to reduce execution time.
+
+### Prevention Recommendations
+- **Implement Lock Monitoring**: Utilize SQL Server tools to monitor locks and deadlocks actively to ensure that locking issues are identified quickly.
+- **Schedule Maintenance Windows**: If updates or heavy transactions are necessary, schedule those during off-peak hours to minimize impact on system performance.
+- **Transaction Management**: Encourage more efficient use of transactions, ensuring they are kept as short as possible to prevent long waits for locks.
+- **Update Statistics and Indexes**: Regularly maintain statistics and indexes to improve the performance of the queries and prevent long-running operations. 
+
+Continuously monitoring the environment and applying the aforementioned recommendations will help in maintaining a healthier SQL Server instance.
+
+========================================
+ END OF REPORT
+========================================
+
