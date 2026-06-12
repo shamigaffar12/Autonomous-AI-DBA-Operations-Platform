@@ -14,6 +14,14 @@ from app.azure_integration.azure_automation_adapter import (
     create_azure_automation_runbook_request
 )
 
+from app.reporting.excel_health_report_generator import (
+    generate_excel_health_report
+)
+
+
+# =========================================================
+# IMPORT AGENTIC WORKFLOW SAFELY
+# =========================================================
 
 try:
 
@@ -28,25 +36,42 @@ except ImportError:
     )
 
 
+# =========================================================
+# RUN DAILY HEALTH CHECK
+# =========================================================
+
 def run_daily_health_check():
     """
     Run Agentic AI DBA workflow.
-    Approval request will be automatically created
-    if failed SQL job remediation is recommended.
+
+    This workflow performs SQL Server monitoring,
+    AI analysis, RBAC validation, approval request creation,
+    reporting, Azure Monitor adapter execution, and audit logging.
     """
 
     print("\n========================================")
     print(" Running Agentic AI DBA Workflow ")
     print("========================================\n")
 
-    run_agentic_workflow(
-        "Run daily DBA health check"
-    )
+    try:
 
+        run_agentic_workflow(
+            "Run daily DBA health check"
+        )
+
+    except TypeError:
+
+        run_agentic_workflow()
+
+
+# =========================================================
+# APPROVE REQUEST AND TRIGGER AZURE AUTOMATION
+# =========================================================
 
 def approve_and_trigger_automation():
     """
-    Lead DBA approves request.
+    Approve pending remediation request.
+
     Azure Automation request is created only after approval.
     """
 
@@ -122,11 +147,20 @@ def approve_and_trigger_automation():
             automation_request
         )
 
+    else:
+
+        print("\nApproval was not completed. Azure Automation was not triggered.")
+
+
+# =========================================================
+# REJECT AUTOMATION REQUEST
+# =========================================================
 
 def reject_automation_request():
     """
-    Lead DBA rejects request.
-    Remediation is blocked.
+    Reject pending remediation request.
+
+    If rejected, remediation is blocked.
     """
 
     pending_result = view_pending_approvals()
@@ -175,10 +209,55 @@ def reject_automation_request():
         print("Status : REJECTED")
         print("Action : Automation request will not be triggered.")
 
+    else:
+
+        print("\nReject action was not completed.")
+
+
+# =========================================================
+# GENERATE EXCEL REPORT
+# =========================================================
+
+def generate_excel_report():
+    """
+    Generate Excel analytics and health report.
+    """
+
+    print("\n========================================")
+    print(" Generating Excel Health Analytics Report ")
+    print("========================================\n")
+
+    result = generate_excel_health_report()
+
+    if result.get(
+        "overall_status"
+    ) == "COMPLETED":
+
+        print("\nExcel report generated successfully.")
+        print(
+            "Report Path :",
+            result.get(
+                "report_path"
+            )
+        )
+
+    else:
+
+        print("\nExcel report generation failed.")
+        print(
+            result.get(
+                "message"
+            )
+        )
+
+
+# =========================================================
+# SHOW MENU
+# =========================================================
 
 def show_menu():
     """
-    Display Operations Console menu.
+    Display main Operations Console menu.
     """
 
     print("\n========================================")
@@ -190,8 +269,13 @@ def show_menu():
     print("3. Approve Request and Trigger Azure Automation")
     print("4. Reject Request")
     print("5. View Approval History")
-    print("6. Exit")
+    print("6. Generate Excel Health Analytics Report")
+    print("7. Exit")
 
+
+# =========================================================
+# MAIN APPLICATION LOOP
+# =========================================================
 
 def main():
     """
@@ -228,6 +312,10 @@ def main():
 
         elif choice == "6":
 
+            generate_excel_report()
+
+        elif choice == "7":
+
             print("\nExiting platform...")
             break
 
@@ -235,6 +323,10 @@ def main():
 
             print("\nInvalid choice. Please try again.")
 
+
+# =========================================================
+# APPLICATION START
+# =========================================================
 
 if __name__ == "__main__":
 

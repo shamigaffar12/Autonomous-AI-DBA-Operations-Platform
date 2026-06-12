@@ -63,5 +63,29 @@
                 "message": null
             }
         }
+    },
+    {
+        "approval_id": "aac6e98e-dcb3-45cb-9489-df3f8d02b947",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "risk_level": "MEDIUM",
+        "requested_by": "DBA",
+        "reason": "AI Agent detected failed SQL Server Agent job. Restart recommendation requires Lead DBA approval.",
+        "approval_status": "APPROVED",
+        "approved_by": "shami",
+        "rejected_by": null,
+        "decision_reason": "demo for excel",
+        "created_at": "2026-06-12 17:05:56.497418",
+        "decision_at": "2026-06-12 17:06:44.215555",
+        "metadata": {
+            "source": "AI_AGENT_FAILED_JOB_RECOMMENDATION",
+            "job_details": {
+                "job_name": "syspolicy_purge_history",
+                "run_date": 1,
+                "run_time": "2025-06-16 17:43:28.670000",
+                "run_status": null,
+                "message": null
+            }
+        }
     }
 ]
