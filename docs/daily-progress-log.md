@@ -667,3 +667,62 @@
 * Add real Email and Teams notification configuration.
 * Continue real Azure Monitor and Azure Automation integration planning.
 * Replace hardcoded RBAC role with user-based role handling.
+
+# Day 18 Progress Update
+
+## Completed
+
+* Integrated the approval workflow with the FastAPI Governance dashboard.
+* Connected the Governance dashboard with existing approval JSON storage.
+* Fixed approval dashboard data loading issue where pending approvals and history were showing as zero.
+* Validated approval data loading from `approval_requests/pending_approvals.json`.
+* Validated approval history loading from `approval_requests/approval_history.json`.
+* Added approval debug route to verify backend approval data loading.
+* Integrated the approval page with the common `base.html` layout.
+* Confirmed Governance sidebar navigation is working from the main platform UI.
+* Updated the approval dashboard to show pending requests, approved requests, rejected requests, total requests, and completed requests.
+* Validated approve request functionality from the FastAPI dashboard.
+* Validated reject request functionality from the FastAPI dashboard.
+* Confirmed approved requests move from pending queue to approval history.
+* Confirmed rejected requests move from pending queue to approval history with blocked status.
+* Implemented approved remediation execution support.
+* Tested approved remediation execution using approval ID `4ddc91f1-066f-4487-a04f-f114bd2d3383`.
+* Confirmed simulated Azure Automation runbook request is created only after approval.
+* Verified approved execution result with `RUNBOOK_REQUEST_CREATED` status.
+
+## Current Status
+
+* FastAPI Governance dashboard is operational.
+* Approval dashboard is integrated with the main platform layout.
+* Sidebar navigation for Governance is operational.
+* Pending approval queue is operational.
+* Approval history tracking is operational.
+* Approve and reject actions are operational from the UI.
+* Approved remediation execution is operational in simulated mode.
+* Azure Automation runbook request creation is working in simulated mode after approval.
+* Approval workflow is now connected across backend, JSON storage, dashboard, and execution flow.
+* Existing SQL Server monitoring, RBAC validation, reporting, and automation flow remain operational.
+
+## Issues / Blockers
+
+* No critical blockers identified.
+* Azure Automation is currently working in simulated mode only.
+* Real Azure Automation Account, Runbook, and credentials are not yet connected.
+* Production SQL Agent testing will require SQL Server Standard or Enterprise edition.
+* Execution result is currently printed in the console and not yet stored in execution history.
+* Live Azure Monitor and Azure Automation integration still requires real cloud configuration.
+
+## Next Steps
+
+* Add execution history storage for approved remediation actions.
+* Display execution result status in the Governance dashboard.
+* Add audit logging for approve, reject, and execute actions.
+* Connect Azure Automation adapter with a real Azure Automation Account.
+* Trigger a real Azure Automation runbook after approval.
+* Add Teams and Email notification for approval decisions.
+* Continue improving Excel reports with live monitoring result data.
+* Prepare User Guide document.
+* Prepare Product Specification document.
+* Prepare Future Roadmap document.
+* Replace hardcoded RBAC role with user-based role handling.
+  

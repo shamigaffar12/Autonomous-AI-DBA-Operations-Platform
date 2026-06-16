@@ -46,5 +46,57 @@
         "recommendation": "Severity: MEDIUM | Analyze execution plan and optimize long running query.",
         "requested_by": "AI DBA Agent",
         "status": "APPROVED"
+    },
+    {
+        "approval_id": "e6df938e-0b46-454a-bc46-109e9ab66476",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "risk_level": "MEDIUM",
+        "approval_status": "PENDING_APPROVAL",
+        "requested_by": "AI_AGENT",
+        "reason": "SQL Server Agent job failed and requires Lead DBA approval before restart automation can be triggered.",
+        "metadata": {
+            "source": "FAILED_JOB_RESTART_AUTOMATION",
+            "job_name": "syspolicy_purge_history",
+            "failed_job_details": {
+                "job_name": "syspolicy_purge_history",
+                "run_date": 1,
+                "run_time": "2025-06-16 17:43:28.670000",
+                "run_status": null,
+                "message": null
+            }
+        },
+        "created_at": "2026-06-16 14:48:39.202421",
+        "request_id": "e6df938e-0b46-454a-bc46-109e9ab66476",
+        "request_time": "2026-06-16 14:48:39.202426",
+        "request_type": "RESTART_SQL_AGENT_JOB",
+        "recommendation": "syspolicy_purge_history",
+        "status": "PENDING_APPROVAL"
+    },
+    {
+        "approval_id": "c4f823ab-6bc6-473a-8918-260c3aabe835",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "risk_level": "MEDIUM",
+        "approval_status": "PENDING_APPROVAL",
+        "requested_by": "AI_AGENT",
+        "reason": "SQL Server Agent job failed and requires Lead DBA approval before restart automation can be triggered.",
+        "metadata": {
+            "source": "FAILED_JOB_RESTART_AUTOMATION",
+            "job_name": "syspolicy_purge_history",
+            "failed_job_details": {
+                "job_name": "syspolicy_purge_history",
+                "run_date": 1,
+                "run_time": "2025-06-16 17:43:28.670000",
+                "run_status": null,
+                "message": null
+            }
+        },
+        "created_at": "2026-06-16 14:49:32.083178",
+        "request_id": "c4f823ab-6bc6-473a-8918-260c3aabe835",
+        "request_time": "2026-06-16 14:49:32.083185",
+        "request_type": "RESTART_SQL_AGENT_JOB",
+        "recommendation": "syspolicy_purge_history",
+        "status": "PENDING_APPROVAL"
     }
 ]

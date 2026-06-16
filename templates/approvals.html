@@ -4,367 +4,392 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
 
-```
-<div>
+    <div>
+        <h2 class="fw-bold mb-1">
+            Governance Control Center
+        </h2>
 
-    <h2 class="fw-bold mb-1">
+        <p class="text-muted mb-0">
+            Approval Workflow • Risk Governance • Change Control
+        </p>
+    </div>
 
-        Governance Control Center
-
-    </h2>
-
-    <p class="text-muted mb-0">
-
-        Human Approval Workflow • Risk Governance • Change Control
-
-    </p>
-
-</div>
-
-<div>
-
-    <span class="badge bg-primary fs-6">
-
-        {{ approvals|length }} Requests
-
-    </span>
+    <div>
+        <span class="badge bg-primary fs-6">
+            {{ pending_count }} Pending Requests
+        </span>
+    </div>
 
 </div>
-```
 
-</div>
 
 <!-- ===================================================== -->
-
-<!-- GOVERNANCE KPI -->
-
+<!-- GOVERNANCE KPI CARDS -->
 <!-- ===================================================== -->
 
 <div class="row g-3 mb-4">
 
-```
-<div class="col-lg-3 col-md-6">
-
-    <div class="card shadow-sm h-100">
-
-        <div class="card-body">
-
-            <h6 class="text-muted">
-
-                Total Requests
-
-            </h6>
-
-            <hr>
-
-            <h2 class="fw-bold">
-
-                {{ approvals|length }}
-
-            </h2>
-
+    <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h6 class="text-muted">
+                    Pending Requests
+                </h6>
+                <hr>
+                <h2 class="fw-bold text-warning">
+                    {{ pending_count }}
+                </h2>
+            </div>
         </div>
+    </div>
 
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h6 class="text-muted">
+                    Approved
+                </h6>
+                <hr>
+                <h2 class="fw-bold text-success">
+                    {{ approved_count }}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h6 class="text-muted">
+                    Rejected
+                </h6>
+                <hr>
+                <h2 class="fw-bold text-danger">
+                    {{ rejected_count }}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h6 class="text-muted">
+                    Total Requests
+                </h6>
+                <hr>
+                <h2 class="fw-bold">
+                    {{ total_requests }}
+                </h2>
+            </div>
+        </div>
     </div>
 
 </div>
 
-<div class="col-lg-3 col-md-6">
-
-    <div class="card shadow-sm h-100">
-
-        <div class="card-body">
-
-            <h6 class="text-muted">
-
-                Pending
-
-            </h6>
-
-            <hr>
-
-            <h2 class="fw-bold text-warning">
-
-                {{ approvals | selectattr("status","equalto","PENDING") | list | length }}
-
-            </h2>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="col-lg-3 col-md-6">
-
-    <div class="card shadow-sm h-100">
-
-        <div class="card-body">
-
-            <h6 class="text-muted">
-
-                Approved
-
-            </h6>
-
-            <hr>
-
-            <h2 class="fw-bold text-success">
-
-                {{ approvals | selectattr("status","equalto","APPROVED") | list | length }}
-
-            </h2>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="col-lg-3 col-md-6">
-
-    <div class="card shadow-sm h-100">
-
-        <div class="card-body">
-
-            <h6 class="text-muted">
-
-                Rejected
-
-            </h6>
-
-            <hr>
-
-            <h2 class="fw-bold text-danger">
-
-                {{ approvals | selectattr("status","equalto","REJECTED") | list | length }}
-
-            </h2>
-
-        </div>
-
-    </div>
-
-</div>
-```
-
-</div>
 
 <!-- ===================================================== -->
-
 <!-- GOVERNANCE STATUS -->
-
 <!-- ===================================================== -->
 
 <div class="card shadow-sm mb-4">
 
-```
-<div class="card-header bg-white">
+    <div class="card-header bg-white">
+        <strong>
+            Governance Status
+        </strong>
+    </div>
 
-    <strong>
+    <div class="card-body">
 
-        Governance Status
+        <div class="row text-center">
 
-    </strong>
+            <div class="col-md-4 mb-2">
+                <span class="badge bg-success fs-6">
+                    Governance Active
+                </span>
+            </div>
 
-</div>
+            <div class="col-md-4 mb-2">
+                <span class="badge bg-success fs-6">
+                    Approval Enabled
+                </span>
+            </div>
 
-<div class="card-body">
-
-    <div class="row text-center">
-
-        <div class="col-md-4">
-
-            <span class="badge bg-success fs-6">
-
-                Governance Active
-
-            </span>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <span class="badge bg-success fs-6">
-
-                Human Approval Enabled
-
-            </span>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <span class="badge bg-primary fs-6">
-
-                Change Control Active
-
-            </span>
+            <div class="col-md-4 mb-2">
+                <span class="badge bg-primary fs-6">
+                    Change Control Active
+                </span>
+            </div>
 
         </div>
 
     </div>
 
 </div>
-```
+
+
+<!-- ===================================================== -->
+<!-- PENDING APPROVAL QUEUE -->
+<!-- ===================================================== -->
+
+<div class="card shadow-sm mb-4">
+
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+        <strong>
+            Pending Approval Queue
+        </strong>
+
+        <span class="badge bg-warning text-dark">
+            {{ pending_count }} Pending
+        </span>
+
+    </div>
+
+    <div class="card-body">
+
+        {% if pending_approvals %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Approval ID</th>
+                        <th>Action</th>
+                        <th>Target</th>
+                        <th>Risk</th>
+                        <th>Status</th>
+                        <th>Decision</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for approval in pending_approvals %}
+
+                    <tr>
+
+                        <td>
+                            <small>
+                                {{ approval.approval_id }}
+                            </small>
+                        </td>
+
+                        <td>
+                            {{ approval.action_name }}
+                        </td>
+
+                        <td>
+                            {{ approval.target_name }}
+                        </td>
+
+                        <td>
+                            {% if approval.risk_level == "HIGH" %}
+                                <span class="badge bg-danger">
+                                    HIGH
+                                </span>
+                            {% elif approval.risk_level == "MEDIUM" %}
+                                <span class="badge bg-warning text-dark">
+                                    MEDIUM
+                                </span>
+                            {% else %}
+                                <span class="badge bg-success">
+                                    LOW
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <span class="badge bg-warning text-dark">
+                                {{ approval.approval_status }}
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <form method="post" action="/approvals/approve" style="display:inline;">
+                                <input type="hidden" name="approval_id" value="{{ approval.approval_id }}">
+
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    Approve
+                                </button>
+                            </form>
+
+                            <form method="post" action="/approvals/reject" style="display:inline;">
+                                <input type="hidden" name="approval_id" value="{{ approval.approval_id }}">
+
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    Reject
+                                </button>
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-info mb-0">
+            No pending approval requests found.
+        </div>
+
+        {% endif %}
+
+    </div>
 
 </div>
 
+
 <!-- ===================================================== -->
-
-<!-- APPROVAL QUEUE -->
-
+<!-- APPROVAL HISTORY -->
 <!-- ===================================================== -->
 
 <div class="card shadow-sm">
 
-```
-<div class="card-header bg-white">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
 
-    <strong>
+        <strong>
+            Approval History
+        </strong>
 
-        Approval Queue
-
-    </strong>
-
-</div>
-
-<div class="card-body">
-
-    {% if approvals %}
-
-    <div class="table-responsive">
-
-        <table class="table table-hover align-middle">
-
-            <thead class="table-dark">
-
-                <tr>
-
-                    <th>Request ID</th>
-
-                    <th>Request Type</th>
-
-                    <th>Recommendation</th>
-
-                    <th>Status</th>
-
-                    <th>Action</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                {% for approval in approvals|reverse %}
-
-                <tr>
-
-                    <td>
-
-                        {{ approval.request_id }}
-
-                    </td>
-
-                    <td>
-
-                        {{ approval.request_type }}
-
-                    </td>
-
-                    <td>
-
-                        {{ approval.recommendation }}
-
-                    </td>
-
-                    <td>
-
-                        {% if approval.status == "PENDING" %}
-
-                            <span class="badge bg-warning text-dark">
-
-                                PENDING
-
-                            </span>
-
-                        {% elif approval.status == "APPROVED" %}
-
-                            <span class="badge bg-success">
-
-                                APPROVED
-
-                            </span>
-
-                        {% elif approval.status == "REJECTED" %}
-
-                            <span class="badge bg-danger">
-
-                                REJECTED
-
-                            </span>
-
-                        {% endif %}
-
-                    </td>
-
-                    <td>
-
-                        {% if approval.status == "PENDING" %}
-
-                            <a
-                                href="/approve/{{ approval.request_id }}"
-                                class="btn btn-success btn-sm"
-                            >
-
-                                Approve
-
-                            </a>
-
-                            <a
-                                href="/reject/{{ approval.request_id }}"
-                                class="btn btn-danger btn-sm"
-                            >
-
-                                Reject
-
-                            </a>
-
-                        {% else %}
-
-                            <span class="text-muted">
-
-                                Completed
-
-                            </span>
-
-                        {% endif %}
-
-                    </td>
-
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
+        <span class="badge bg-secondary">
+            {{ history_count }} Completed
+        </span>
 
     </div>
 
-    {% else %}
+    <div class="card-body">
 
-    <div class="alert alert-info mb-0">
+        {% if approval_history %}
 
-        No approval requests found.
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Approval ID</th>
+                        <th>Action</th>
+                        <th>Target</th>
+                        <th>Risk</th>
+                        <th>Status</th>
+                        <th>Execution</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for approval in approval_history %}
+
+                    <tr>
+
+                        <td>
+                            <small>
+                                {{ approval.approval_id }}
+                            </small>
+                        </td>
+
+                        <td>
+                            {{ approval.action_name }}
+                        </td>
+
+                        <td>
+                            {{ approval.target_name }}
+                        </td>
+
+                        <td>
+                            {% if approval.risk_level == "HIGH" %}
+                                <span class="badge bg-danger">
+                                    HIGH
+                                </span>
+                            {% elif approval.risk_level == "MEDIUM" %}
+                                <span class="badge bg-warning text-dark">
+                                    MEDIUM
+                                </span>
+                            {% else %}
+                                <span class="badge bg-success">
+                                    LOW
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if approval.approval_status == "APPROVED" %}
+                                <span class="badge bg-success">
+                                    APPROVED
+                                </span>
+                            {% elif approval.approval_status == "REJECTED" %}
+                                <span class="badge bg-danger">
+                                    REJECTED
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary">
+                                    {{ approval.approval_status }}
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+
+                            {% if approval.approval_status == "APPROVED" %}
+
+                                <form method="post" action="/approvals/execute" style="display:inline;">
+                                    <input type="hidden" name="approval_id" value="{{ approval.approval_id }}">
+
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        Execute
+                                    </button>
+                                </form>
+
+                            {% elif approval.approval_status == "REJECTED" %}
+
+                                <span class="text-danger">
+                                    Blocked
+                                </span>
+
+                            {% else %}
+
+                                <span class="text-muted">
+                                    Not Allowed
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-info mb-0">
+            No approval history found.
+        </div>
+
+        {% endif %}
 
     </div>
-
-    {% endif %}
-
-</div>
-```
 
 </div>
 

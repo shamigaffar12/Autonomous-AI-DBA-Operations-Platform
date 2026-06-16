@@ -1,0 +1,54 @@
+[
+    {
+        "approval_id": "df0459f4-2ebb-4af7-9ec7-7b041022f3af",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "risk_level": "MEDIUM",
+        "requested_by": "AI_AGENT",
+        "reason": "SQL Server Agent job failed and requires Lead DBA approval before restart automation can be triggered.",
+        "approval_status": "PENDING_APPROVAL",
+        "created_at": "2026-06-16 14:35:25.188222",
+        "approved_by": null,
+        "approved_at": null,
+        "rejected_by": null,
+        "rejected_at": null,
+        "comments": null,
+        "metadata": {
+            "source": "FAILED_JOB_RESTART_AUTOMATION",
+            "job_name": "syspolicy_purge_history",
+            "failed_job_details": {
+                "job_name": "syspolicy_purge_history",
+                "run_date": 1,
+                "run_time": "2025-06-16 17:43:28.670000",
+                "run_status": null,
+                "message": null
+            }
+        }
+    },
+    {
+        "approval_id": "92c18d08-656c-4833-b0fd-654d42db6b3a",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "risk_level": "MEDIUM",
+        "requested_by": "AI_AGENT",
+        "reason": "SQL Server Agent job failed and requires Lead DBA approval before restart automation can be triggered.",
+        "approval_status": "PENDING_APPROVAL",
+        "created_at": "2026-06-16 14:40:49.775993",
+        "approved_by": null,
+        "approved_at": null,
+        "rejected_by": null,
+        "rejected_at": null,
+        "comments": null,
+        "metadata": {
+            "source": "FAILED_JOB_RESTART_AUTOMATION",
+            "job_name": "syspolicy_purge_history",
+            "failed_job_details": {
+                "job_name": "syspolicy_purge_history",
+                "run_date": 1,
+                "run_time": "2025-06-16 17:43:28.670000",
+                "run_status": null,
+                "message": null
+            }
+        }
+    }
+]

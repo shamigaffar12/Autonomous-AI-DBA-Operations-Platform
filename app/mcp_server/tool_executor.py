@@ -79,9 +79,7 @@ def build_tool_response(
         "tool_name": tool_details["name"],
         "category": tool_details["category"],
         "risk": tool_details["risk"],
-        "approval_required": tool_details[
-            "approval_required"
-        ],
+        "approval_required": tool_details["approval_required"],
         "status": status,
         "result": result
     }
@@ -91,15 +89,12 @@ def build_tool_response(
 # BUILD HEALTH SUMMARY FOR AZURE MONITOR
 # =========================================================
 
-def build_azure_health_summary(
-    results
-):
+def build_azure_health_summary(results):
     """
-    Build simple DBA health summary for Azure Monitor adapter.
+    Build DBA health summary payload for Azure Monitor adapter.
     """
 
     issues_detected = []
-
     overall_status = "HEALTHY"
 
     for item in results:
@@ -109,61 +104,75 @@ def build_azure_health_summary(
             {}
         )
 
-        if isinstance(
-            result,
-            dict
-        ):
+        if not isinstance(result, dict):
+            continue
 
-            result_status = result.get(
-                "overall_status"
-            )
+        result_status = result.get(
+            "overall_status"
+        )
 
-            message = result.get(
-                "message"
-            )
+        message = result.get(
+            "message"
+        )
 
-            if result_status in [
-                "ATTENTION REQUIRED",
-                "ERROR",
-                "APPROVAL_REQUIRED",
-                "ACCESS_DENIED"
-            ]:
+        if result_status in [
+            "ATTENTION REQUIRED",
+            "ERROR",
+            "APPROVAL_REQUIRED",
+            "ACCESS_DENIED",
+            "WAITING_FOR_APPROVAL",
+            "REMEDIATION_BLOCKED",
+            "NO_FAILED_JOB_DATA",
+            "NO_RBAC_DATA"
+        ]:
 
-                overall_status = "ATTENTION REQUIRED"
+            overall_status = "ATTENTION REQUIRED"
 
-                if message:
-
-                    issues_detected.append(
-                        message
-                    )
+            if message:
+                issues_detected.append(message)
 
     return {
         "source": "Autonomous-AI-DBA-Operations-Platform",
         "database": "AdventureWorks2019",
         "overall_status": overall_status,
         "issues_detected": issues_detected,
-        "tools_executed": len(
-            results
-        )
+        "tools_executed": len(results)
     }
+
+
+# =========================================================
+# GET PREVIOUS TOOL RESULT
+# =========================================================
+
+def get_previous_tool_result(results, tool_name):
+    """
+    Return previous result from already executed tool list.
+    """
+
+    for item in results:
+
+        if item.get("tool") == tool_name:
+
+            return item.get("result")
+
+    return None
 
 
 # =========================================================
 # GET AUTOMATION ACTION FOR AZURE RUNBOOK
 # =========================================================
 
-def get_automation_action_from_results(
-    results
-):
+def get_automation_action_from_results(results):
     """
     Get failed job restart approval action from previous results.
+
+    Important:
+    Azure Automation must not create a runbook request while approval is pending.
     """
 
     for item in results:
 
-        if item.get(
-            "tool"
-        ) == "REQUEST_FAILED_JOB_RESTART_APPROVAL":
+        if item.get("tool") == "REQUEST_FAILED_JOB_RESTART_APPROVAL":
 
             automation_result = item.get(
                 "result",
@@ -176,13 +185,66 @@ def get_automation_action_from_results(
             )
 
             if restart_requests:
-
                 return restart_requests[0]
 
     return {
         "action": "NO_AUTOMATION_ACTION",
-        "message": "No approved or pending automation action found.",
+        "approval_status": "NOT_AVAILABLE",
+        "message": "No automation approval action found.",
         "risk": "LOW"
+    }
+
+
+# =========================================================
+# CHECK APPROVAL STATUS FOR AUTOMATION
+# =========================================================
+
+def evaluate_automation_approval_status(automation_action):
+    """
+    Decide whether Azure Automation is allowed to proceed.
+
+    Rules:
+    - APPROVED: allow runbook request creation
+    - PENDING_APPROVAL: block and wait
+    - REJECTED: block remediation
+    - Anything else: block safely
+    """
+
+    approval_status = str(
+        automation_action.get(
+            "approval_status",
+            "NOT_AVAILABLE"
+        )
+    ).upper()
+
+    if approval_status == "APPROVED":
+
+        return {
+            "can_create_runbook": True,
+            "overall_status": "APPROVED_FOR_AUTOMATION",
+            "message": "Approval completed. Azure Automation runbook request can be created."
+        }
+
+    if approval_status == "PENDING_APPROVAL":
+
+        return {
+            "can_create_runbook": False,
+            "overall_status": "WAITING_FOR_APPROVAL",
+            "message": "Azure Automation runbook request is blocked until approval is completed."
+        }
+
+    if approval_status == "REJECTED":
+
+        return {
+            "can_create_runbook": False,
+            "overall_status": "REMEDIATION_BLOCKED",
+            "message": "Azure Automation runbook request blocked because remediation was rejected."
+        }
+
+    return {
+        "can_create_runbook": False,
+        "overall_status": "AUTOMATION_BLOCKED",
+        "message": "Azure Automation runbook request blocked because approval status is unavailable or invalid."
     }
 
 
@@ -190,11 +252,12 @@ def get_automation_action_from_results(
 # EXECUTE SINGLE DBA TOOL
 # =========================================================
 
-def execute_tool(
-    tool_name
-):
+def execute_tool(tool_name):
     """
     Execute one DBA tool selected by the AI Agent.
+
+    This function handles independent tools.
+    Tools that depend on previous results are handled inside execute_tool_plan().
     """
 
     try:
@@ -207,17 +270,9 @@ def execute_tool(
         print(" DBA TOOL EXECUTOR ")
         print("========================================\n")
 
-        print(
-            f"Tool Selected : {tool_name}"
-        )
-
-        print(
-            f"Tool Name     : {tool_details['name']}"
-        )
-
-        print(
-            f"Category      : {tool_details['category']}"
-        )
+        print(f"Tool Selected : {tool_name}")
+        print(f"Tool Name     : {tool_details['name']}")
+        print(f"Category      : {tool_details['category']}")
 
         if tool_name in [
             "CHECK_CPU",
@@ -258,19 +313,6 @@ def execute_tool(
                 tool_details,
                 "EXECUTED",
                 result
-            )
-
-        if tool_name == "REQUEST_FAILED_JOB_RESTART_APPROVAL":
-
-            return build_tool_response(
-                tool_name,
-                tool_details,
-                "WAITING_FOR_FAILED_JOB_AND_RBAC_RESULTS",
-                (
-                    "Failed job restart approval will be created "
-                    "after failed job monitoring and RBAC validation "
-                    "results are collected."
-                )
             )
 
         if tool_name == "CHECK_BACKUP_STATUS":
@@ -317,16 +359,34 @@ def execute_tool(
                 result
             )
 
+        if tool_name == "REQUEST_FAILED_JOB_RESTART_APPROVAL":
+
+            return build_tool_response(
+                tool_name,
+                tool_details,
+                "WAITING_FOR_FAILED_JOB_AND_RBAC_RESULTS",
+                {
+                    "overall_status": "WAITING",
+                    "message": (
+                        "Failed job restart approval requires failed job "
+                        "monitoring result and RBAC validation result."
+                    )
+                }
+            )
+
         if tool_name == "GENERATE_PERFORMANCE_TUNING_REPORT":
 
             return build_tool_response(
                 tool_name,
                 tool_details,
                 "WAITING_FOR_TOOL_RESULTS",
-                (
-                    "Performance tuning report will be generated "
-                    "after performance tool results are collected."
-                )
+                {
+                    "overall_status": "WAITING",
+                    "message": (
+                        "Performance tuning report will be generated after "
+                        "performance tool results are collected."
+                    )
+                }
             )
 
         if tool_name == "GENERATE_DAILY_HEALTH_REPORT":
@@ -335,10 +395,13 @@ def execute_tool(
                 tool_name,
                 tool_details,
                 "WAITING_FOR_TOOL_RESULTS",
-                (
-                    "Daily DBA health report will be generated "
-                    "after all tool results are collected."
-                )
+                {
+                    "overall_status": "WAITING",
+                    "message": (
+                        "Daily DBA health report will be generated after "
+                        "all tool results are collected."
+                    )
+                }
             )
 
         if tool_name == "SEND_TO_AZURE_MONITOR":
@@ -347,10 +410,13 @@ def execute_tool(
                 tool_name,
                 tool_details,
                 "WAITING_FOR_HEALTH_SUMMARY",
-                (
-                    "Azure Monitor payload will be prepared "
-                    "after health results are collected."
-                )
+                {
+                    "overall_status": "WAITING",
+                    "message": (
+                        "Azure Monitor payload will be prepared after "
+                        "health results are collected."
+                    )
+                }
             )
 
         if tool_name == "CREATE_AZURE_AUTOMATION_RUNBOOK_REQUEST":
@@ -358,18 +424,24 @@ def execute_tool(
             return build_tool_response(
                 tool_name,
                 tool_details,
-                "WAITING_FOR_AUTOMATION_ACTION",
-                (
-                    "Azure Automation runbook request will be created "
-                    "after automation action is prepared."
-                )
+                "WAITING_FOR_APPROVAL_STATUS",
+                {
+                    "overall_status": "WAITING",
+                    "message": (
+                        "Azure Automation request will be evaluated after "
+                        "approval status is checked."
+                    )
+                }
             )
 
         return build_tool_response(
             tool_name,
             tool_details,
             "UNKNOWN_TOOL",
-            None
+            {
+                "overall_status": "UNKNOWN_TOOL",
+                "message": f"Tool {tool_name} is not mapped in Tool Executor."
+            }
         )
 
     except Exception as error:
@@ -381,14 +453,256 @@ def execute_tool(
 
 
 # =========================================================
+# EXECUTE FAILED JOB APPROVAL WORKFLOW
+# =========================================================
+
+def execute_failed_job_restart_approval(results, tool_name):
+    """
+    Create failed job restart approval only after:
+    1. Failed job result is available
+    2. RBAC validation result is available
+    3. RBAC is not denied
+    """
+
+    tool_details = get_tool_details(
+        tool_name
+    )
+
+    failed_job_result = get_previous_tool_result(
+        results,
+        "CHECK_FAILED_JOBS"
+    )
+
+    rbac_result = get_previous_tool_result(
+        results,
+        "VALIDATE_RBAC_PERMISSION"
+    )
+
+    if failed_job_result is None:
+
+        automation_result = {
+            "overall_status": "NO_FAILED_JOB_DATA",
+            "automation_name": "FAILED_JOB_RESTART_APPROVAL",
+            "message": "Failed job monitoring result not found.",
+            "approval_required": False,
+            "restart_request_count": 0,
+            "restart_requests": []
+        }
+
+    elif rbac_result is None:
+
+        automation_result = {
+            "overall_status": "NO_RBAC_DATA",
+            "automation_name": "FAILED_JOB_RESTART_APPROVAL",
+            "message": "RBAC validation result not found.",
+            "approval_required": True,
+            "restart_request_count": 0,
+            "restart_requests": []
+        }
+
+    elif rbac_result.get("overall_status") == "ACCESS_DENIED":
+
+        automation_result = {
+            "overall_status": "ACCESS_DENIED",
+            "automation_name": "FAILED_JOB_RESTART_APPROVAL",
+            "message": "Automation blocked due to RBAC access denial.",
+            "approval_required": True,
+            "restart_request_count": 0,
+            "restart_requests": []
+        }
+
+    else:
+
+        automation_result = request_failed_job_restart_approval(
+            failed_job_result
+        )
+
+        automation_result["rbac_status"] = rbac_result.get(
+            "overall_status"
+        )
+
+        automation_result["rbac_message"] = rbac_result.get(
+            "message"
+        )
+
+    return build_tool_response(
+        tool_name,
+        tool_details,
+        "EXECUTED",
+        automation_result
+    )
+
+
+# =========================================================
+# EXECUTE PERFORMANCE TUNING REPORT
+# =========================================================
+
+def execute_performance_report(results, tool_name):
+    """
+    Generate performance tuning report using all previous monitoring results.
+    """
+
+    tool_details = get_tool_details(
+        tool_name
+    )
+
+    report_result = generate_performance_tuning_report(
+        {
+            "results": results
+        }
+    )
+
+    return build_tool_response(
+        tool_name,
+        tool_details,
+        "EXECUTED",
+        report_result
+    )
+
+
+# =========================================================
+# EXECUTE DAILY HEALTH REPORT
+# =========================================================
+
+def execute_daily_health_report(results, tool_name):
+    """
+    Generate daily DBA health report using all previous tool results.
+    """
+
+    tool_details = get_tool_details(
+        tool_name
+    )
+
+    report_result = generate_daily_health_report(
+        {
+            "results": results
+        }
+    )
+
+    return build_tool_response(
+        tool_name,
+        tool_details,
+        "EXECUTED",
+        report_result
+    )
+
+
+# =========================================================
+# EXECUTE AZURE MONITOR ADAPTER
+# =========================================================
+
+def execute_azure_monitor(results, tool_name):
+    """
+    Send simulated DBA health payload to Azure Monitor adapter.
+    """
+
+    tool_details = get_tool_details(
+        tool_name
+    )
+
+    health_summary = build_azure_health_summary(
+        results
+    )
+
+    azure_monitor_result = send_health_summary_to_azure_monitor(
+        health_summary
+    )
+
+    return build_tool_response(
+        tool_name,
+        tool_details,
+        "EXECUTED",
+        azure_monitor_result
+    )
+
+
+# =========================================================
+# EXECUTE AZURE AUTOMATION ADAPTER
+# =========================================================
+
+def execute_azure_automation(results, tool_name):
+    """
+    Create Azure Automation runbook request only after approval.
+
+    Security rule:
+    - If approval is pending, do not create runbook request.
+    - If approval is rejected, block remediation.
+    - If approval is approved, create runbook request.
+    """
+
+    tool_details = get_tool_details(
+        tool_name
+    )
+
+    automation_action = get_automation_action_from_results(
+        results
+    )
+
+    approval_decision = evaluate_automation_approval_status(
+        automation_action
+    )
+
+    if not approval_decision["can_create_runbook"]:
+
+        blocked_result = {
+            "overall_status": approval_decision["overall_status"],
+            "adapter_name": "AZURE_AUTOMATION_ADAPTER",
+            "message": approval_decision["message"],
+            "integration_mode": "SIMULATED",
+            "approval_required": True,
+            "runbook_request_created": False,
+            "automation_action": automation_action
+        }
+
+        print("\n========================================")
+        print(" Azure Automation Adapter ")
+        print("========================================\n")
+        print("Target Service    : Azure Automation")
+        print("Mode              : SIMULATED")
+        print("Approval Required : True")
+        print(f"Status            : {approval_decision['overall_status']}")
+        print(f"Message           : {approval_decision['message']}")
+
+        return build_tool_response(
+            tool_name,
+            tool_details,
+            "BLOCKED",
+            blocked_result
+        )
+
+    azure_automation_result = create_azure_automation_runbook_request(
+        automation_action
+    )
+
+    azure_automation_result["approval_status"] = automation_action.get(
+        "approval_status"
+    )
+
+    azure_automation_result["runbook_request_created"] = True
+
+    return build_tool_response(
+        tool_name,
+        tool_details,
+        "EXECUTED",
+        azure_automation_result
+    )
+
+
+# =========================================================
 # EXECUTE TOOL PLAN
 # =========================================================
 
-def execute_tool_plan(
-    plan
-):
+def execute_tool_plan(plan):
     """
     Execute all DBA tools selected by the AI Agent Planner.
+
+    This function is responsible for:
+    - Executing independent monitoring tools
+    - Enforcing RBAC before remediation approval
+    - Creating approval request before automation
+    - Blocking Azure Automation until approval is approved
+    - Generating reports after monitoring tools complete
+    - Sending summary to Azure Monitor adapter
     """
 
     results = []
@@ -399,247 +713,61 @@ def execute_tool_plan(
 
     for tool_name in plan:
 
-        # =================================================
-        # RBAC VALIDATION
-        # =================================================
-
-        if tool_name == "VALIDATE_RBAC_PERMISSION":
-
-            tool_details = get_tool_details(
-                tool_name
-            )
-
-            rbac_result = validate_action_permission(
-                user_role="DBA",
-                action_name="RESTART_SQL_AGENT_JOB",
-                risk_level="MEDIUM"
-            )
-
-            results.append(
-                build_tool_response(
-                    tool_name,
-                    tool_details,
-                    "EXECUTED",
-                    rbac_result
-                )
-            )
-
-            continue
-
-        # =================================================
-        # FAILED JOB RESTART APPROVAL
-        # =================================================
-
         if tool_name == "REQUEST_FAILED_JOB_RESTART_APPROVAL":
 
-            tool_details = get_tool_details(
+            result = execute_failed_job_restart_approval(
+                results,
                 tool_name
             )
 
-            failed_job_result = None
-            rbac_result = None
-
-            for item in results:
-
-                if item.get(
-                    "tool"
-                ) == "CHECK_FAILED_JOBS":
-
-                    failed_job_result = item.get(
-                        "result"
-                    )
-
-                if item.get(
-                    "tool"
-                ) == "VALIDATE_RBAC_PERMISSION":
-
-                    rbac_result = item.get(
-                        "result"
-                    )
-
-            if failed_job_result is None:
-
-                automation_result = {
-                    "overall_status": "NO_FAILED_JOB_DATA",
-                    "automation_name": "FAILED_JOB_RESTART_APPROVAL",
-                    "message": "Failed job monitoring result not found.",
-                    "approval_required": False,
-                    "restart_request_count": 0,
-                    "restart_requests": []
-                }
-
-            elif rbac_result is None:
-
-                automation_result = {
-                    "overall_status": "NO_RBAC_DATA",
-                    "automation_name": "FAILED_JOB_RESTART_APPROVAL",
-                    "message": "RBAC validation result not found.",
-                    "approval_required": True,
-                    "restart_request_count": 0,
-                    "restart_requests": []
-                }
-
-            elif rbac_result.get(
-                "overall_status"
-            ) == "ACCESS_DENIED":
-
-                automation_result = {
-                    "overall_status": "ACCESS_DENIED",
-                    "automation_name": "FAILED_JOB_RESTART_APPROVAL",
-                    "message": "Automation blocked due to RBAC access denial.",
-                    "approval_required": True,
-                    "restart_request_count": 0,
-                    "restart_requests": []
-                }
-
-            else:
-
-                automation_result = request_failed_job_restart_approval(
-                    failed_job_result
-                )
-
-                automation_result[
-                    "rbac_status"
-                ] = rbac_result.get(
-                    "overall_status"
-                )
-
-                automation_result[
-                    "rbac_message"
-                ] = rbac_result.get(
-                    "message"
-                )
-
-            results.append(
-                build_tool_response(
-                    tool_name,
-                    tool_details,
-                    "EXECUTED",
-                    automation_result
-                )
-            )
-
+            results.append(result)
             continue
-
-        # =================================================
-        # PERFORMANCE TUNING REPORT
-        # =================================================
 
         if tool_name == "GENERATE_PERFORMANCE_TUNING_REPORT":
 
-            tool_details = get_tool_details(
+            result = execute_performance_report(
+                results,
                 tool_name
             )
 
-            report_result = generate_performance_tuning_report(
-                {
-                    "results": results
-                }
-            )
-
-            results.append(
-                build_tool_response(
-                    tool_name,
-                    tool_details,
-                    "EXECUTED",
-                    report_result
-                )
-            )
-
+            results.append(result)
             continue
-
-        # =================================================
-        # DAILY HEALTH REPORT
-        # =================================================
 
         if tool_name == "GENERATE_DAILY_HEALTH_REPORT":
 
-            tool_details = get_tool_details(
+            result = execute_daily_health_report(
+                results,
                 tool_name
             )
 
-            report_result = generate_daily_health_report(
-                {
-                    "results": results
-                }
-            )
-
-            results.append(
-                build_tool_response(
-                    tool_name,
-                    tool_details,
-                    "EXECUTED",
-                    report_result
-                )
-            )
-
+            results.append(result)
             continue
-
-        # =================================================
-        # AZURE MONITOR ADAPTER
-        # =================================================
 
         if tool_name == "SEND_TO_AZURE_MONITOR":
 
-            tool_details = get_tool_details(
+            result = execute_azure_monitor(
+                results,
                 tool_name
             )
 
-            health_summary = build_azure_health_summary(
-                results
-            )
-
-            azure_monitor_result = send_health_summary_to_azure_monitor(
-                health_summary
-            )
-
-            results.append(
-                build_tool_response(
-                    tool_name,
-                    tool_details,
-                    "EXECUTED",
-                    azure_monitor_result
-                )
-            )
-
+            results.append(result)
             continue
-
-        # =================================================
-        # AZURE AUTOMATION RUNBOOK REQUEST
-        # =================================================
 
         if tool_name == "CREATE_AZURE_AUTOMATION_RUNBOOK_REQUEST":
 
-            tool_details = get_tool_details(
+            result = execute_azure_automation(
+                results,
                 tool_name
             )
 
-            automation_action = get_automation_action_from_results(
-                results
-            )
-
-            azure_automation_result = create_azure_automation_runbook_request(
-                automation_action
-            )
-
-            results.append(
-                build_tool_response(
-                    tool_name,
-                    tool_details,
-                    "EXECUTED",
-                    azure_automation_result
-                )
-            )
-
+            results.append(result)
             continue
 
         result = execute_tool(
             tool_name
         )
 
-        results.append(
-            result
-        )
+        results.append(result)
 
     print("\n========================================")
     print(" DBA TOOL PLAN EXECUTION COMPLETED ")
@@ -647,12 +775,8 @@ def execute_tool_plan(
 
     return {
         "execution_status": "COMPLETED",
-        "tools_requested": len(
-            plan
-        ),
-        "tools_executed": len(
-            results
-        ),
+        "tools_requested": len(plan),
+        "tools_executed": len(results),
         "results": results
     }
 
@@ -663,22 +787,18 @@ def execute_tool_plan(
 
 if __name__ == "__main__":
 
-    sample_plan = [
-        "CHECK_CPU",
-        "CHECK_BLOCKING",
-        "CHECK_LONG_RUNNING_QUERIES",
-        "CHECK_FAILED_JOBS",
-        "VALIDATE_RBAC_PERMISSION",
-        "REQUEST_FAILED_JOB_RESTART_APPROVAL",
-        "CHECK_BACKUP_STATUS",
-        "CHECK_DATABASE_SPACE",
-        "CHECK_INDEX_FRAGMENTATION",
-        "CHECK_STATISTICS_HEALTH",
-        "GENERATE_PERFORMANCE_TUNING_REPORT",
-        "GENERATE_DAILY_HEALTH_REPORT",
-        "SEND_TO_AZURE_MONITOR",
-        "CREATE_AZURE_AUTOMATION_RUNBOOK_REQUEST"
-    ]
+    from app.ai_agent.agent_planner import (
+        generate_agent_investigation_plan
+    )
+
+    sample_plan = generate_agent_investigation_plan()
+
+    print("\n========================================")
+    print(" AGENT GENERATED TOOL PLAN ")
+    print("========================================\n")
+
+    for tool in sample_plan:
+        print(f"- {tool}")
 
     result = execute_tool_plan(
         sample_plan
@@ -688,6 +808,4 @@ if __name__ == "__main__":
     print(" DBA TOOL EXECUTION RESULT ")
     print("========================================\n")
 
-    print(
-        result
-    )
+    print(result)
