@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h2 class="fw-bold mb-1">
+            NLP DBA Assistant
+        </h2>
+
+        <p class="text-muted mb-0">
+            Ask DBA questions in natural language • Governance-aware responses
+        </p>
+    </div>
+
+    <span class="badge bg-primary fs-6">
+        Assistant Active
+    </span>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- ASSISTANT INPUT -->
+<!-- ===================================================== -->
+
+<div class="card mb-4">
+
+    <div class="card-header bg-white">
+        <strong>
+            Ask a DBA Question
+        </strong>
+    </div>
+
+    <div class="card-body">
+
+        <form method="post" action="/assistant">
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Enter your DBA question
+                </label>
+
+                <input
+                    type="text"
+                    name="user_query"
+                    class="form-control"
+                    placeholder="Example: show pending approvals"
+                    value="{{ user_query }}"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Ask Assistant
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- EXAMPLE QUESTIONS -->
+<!-- ===================================================== -->
+
+<div class="card mb-4">
+
+    <div class="card-header bg-white">
+        <strong>
+            Example Questions
+        </strong>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row g-2">
+
+            <div class="col-md-4">
+                <span class="badge bg-light text-dark border">
+                    show pending approvals
+                </span>
+            </div>
+
+            <div class="col-md-4">
+                <span class="badge bg-light text-dark border">
+                    check failed sql jobs
+                </span>
+            </div>
+
+            <div class="col-md-4">
+                <span class="badge bg-light text-dark border">
+                    show audit events
+                </span>
+            </div>
+
+            <div class="col-md-4">
+                <span class="badge bg-light text-dark border">
+                    show execution history
+                </span>
+            </div>
+
+            <div class="col-md-4">
+                <span class="badge bg-light text-dark border">
+                    show database health
+                </span>
+            </div>
+
+            <div class="col-md-4">
+                <span class="badge bg-light text-dark border">
+                    restart sql agent job
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- ASSISTANT RESPONSE -->
+<!-- ===================================================== -->
+
+{% if assistant_result %}
+
+<div class="card">
+
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+        <strong>
+            Assistant Response
+        </strong>
+
+        {% if assistant_result.risk_level == "MEDIUM" %}
+
+            <span class="badge bg-warning text-dark">
+                Risk: {{ assistant_result.risk_level }}
+            </span>
+
+        {% elif assistant_result.risk_level == "HIGH" %}
+
+            <span class="badge bg-danger">
+                Risk: {{ assistant_result.risk_level }}
+            </span>
+
+        {% else %}
+
+            <span class="badge bg-success">
+                Risk: {{ assistant_result.risk_level }}
+            </span>
+
+        {% endif %}
+
+    </div>
+
+    <div class="card-body">
+
+        <h6 class="text-muted">
+            User Query
+        </h6>
+
+        <p>
+            {{ assistant_result.user_query }}
+        </p>
+
+        <hr>
+
+        <div class="row mb-3">
+
+            <div class="col-md-4 mb-2">
+                <strong>Intent:</strong>
+
+                <span class="badge bg-primary">
+                    {{ assistant_result.intent }}
+                </span>
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <strong>Confidence:</strong>
+
+                <span class="badge bg-success">
+                    {{ assistant_result.confidence }}
+                </span>
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <strong>Risk Level:</strong>
+
+                {% if assistant_result.risk_level == "MEDIUM" %}
+
+                    <span class="badge bg-warning text-dark">
+                        {{ assistant_result.risk_level }}
+                    </span>
+
+                {% elif assistant_result.risk_level == "HIGH" %}
+
+                    <span class="badge bg-danger">
+                        {{ assistant_result.risk_level }}
+                    </span>
+
+                {% else %}
+
+                    <span class="badge bg-success">
+                        {{ assistant_result.risk_level }}
+                    </span>
+
+                {% endif %}
+            </div>
+
+        </div>
+
+
+        <h6 class="text-muted">
+            Response
+        </h6>
+
+        <div class="alert alert-info">
+            {{ assistant_result.assistant_response }}
+        </div>
+
+
+        <h6 class="text-muted">
+            Summary
+        </h6>
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered align-middle">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for key, value in assistant_result.summary.items() %}
+
+                    <tr>
+                        <td>
+                            {{ key }}
+                        </td>
+
+                        <td>
+                            {{ value }}
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <h6 class="text-muted">
+            Recommended Next Action
+        </h6>
+
+        <div class="alert alert-secondary mb-0">
+            {{ assistant_result.recommended_next_action }}
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

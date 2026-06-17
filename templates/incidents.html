@@ -4,282 +4,139 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
 
-```
-<div>
+    <div>
+        <h2 class="fw-bold mb-1">
+            Incident Investigation Center
+        </h2>
 
-    <h2 class="fw-bold mb-1">
-
-        Incident Repository
-
-    </h2>
-
-    <p class="text-muted mb-0">
-
-        Historical Incidents • AI Analysis • RCA Reports
-
-    </p>
-
-</div>
-
-<div>
+        <p class="text-muted mb-0">
+            Incident Tracking • RCA • Remediation Review
+        </p>
+    </div>
 
     <span class="badge bg-primary fs-6">
-
-        {{ incidents|length }} Records
-
+        {{ total_incidents }} Incidents
     </span>
 
 </div>
-```
 
-</div>
-
-<!-- ===================================================== -->
-
-<!-- INCIDENT KPI -->
-
-<!-- ===================================================== -->
 
 <div class="row g-3 mb-4">
 
-```
-<div class="col-lg-3 col-md-6">
-
-    <div class="card shadow-sm h-100">
-
-        <div class="card-body">
-
-            <h6 class="text-muted">
-
-                Total Incidents
-
-            </h6>
-
-            <hr>
-
-            <h2 class="fw-bold">
-
-                {{ incidents|length }}
-
-            </h2>
-
+    <div class="col-lg-4 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">Total Incidents</h6>
+                <hr>
+                <h2 class="fw-bold text-danger">
+                    {{ total_incidents }}
+                </h2>
+            </div>
         </div>
+    </div>
 
+    <div class="col-lg-4 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">RCA Engine</h6>
+                <hr>
+                <h2 class="fw-bold text-primary">
+                    Ready
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">Remediation</h6>
+                <hr>
+                <h2 class="fw-bold text-warning">
+                    Governed
+                </h2>
+            </div>
+        </div>
     </div>
 
 </div>
 
-<div class="col-lg-3 col-md-6">
 
-    <div class="card shadow-sm h-100">
+<div class="card">
 
-        <div class="card-body">
-
-            <h6 class="text-muted">
-
-                Repository Status
-
-            </h6>
-
-            <hr>
-
-            <span class="badge bg-success">
-
-                ACTIVE
-
-            </span>
-
-        </div>
-
+    <div class="card-header bg-white">
+        <strong>Incident Repository</strong>
     </div>
 
-</div>
+    <div class="card-body">
 
-<div class="col-lg-3 col-md-6">
+        {% if incidents %}
 
-    <div class="card shadow-sm h-100">
+        <div class="table-responsive">
 
-        <div class="card-body">
+            <table class="table table-hover align-middle">
 
-            <h6 class="text-muted">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Incident ID</th>
+                        <th>Type</th>
+                        <th>Severity</th>
+                        <th>Status</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
 
-                Latest Status
+                <tbody>
 
-            </h6>
+                    {% for incident in incidents %}
 
-            <hr>
+                    <tr>
+                        <td>
+                            <small>
+                                {{ incident.incident_id | default("-") }}
+                            </small>
+                        </td>
 
-            {% if incidents %}
+                        <td>
+                            {{ incident.incident_type | default(incident.type | default("-")) }}
+                        </td>
 
-                <strong>
-
-                    {{ incidents[-1].overall_status }}
-
-                </strong>
-
-            {% else %}
-
-                N/A
-
-            {% endif %}
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="col-lg-3 col-md-6">
-
-    <div class="card shadow-sm h-100">
-
-        <div class="card-body">
-
-            <h6 class="text-muted">
-
-                Investigation Console
-
-            </h6>
-
-            <hr>
-
-            <span class="badge bg-primary">
-
-                Enabled
-
-            </span>
-
-        </div>
-
-    </div>
-
-</div>
-```
-
-</div>
-
-<!-- ===================================================== -->
-
-<!-- INCIDENT TABLE -->
-
-<!-- ===================================================== -->
-
-<div class="card shadow-sm">
-
-```
-<div class="card-header bg-white">
-
-    <strong>
-
-        Incident History
-
-    </strong>
-
-</div>
-
-<div class="card-body">
-
-    {% if incidents %}
-
-    <div class="table-responsive">
-
-        <table class="table table-hover align-middle">
-
-            <thead class="table-dark">
-
-                <tr>
-
-                    <th>Timestamp</th>
-
-                    <th>Status</th>
-
-                    <th>Report</th>
-
-                    <th>Investigation</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                {% for incident in incidents|reverse %}
-
-                <tr>
-
-                    <td>
-
-                        {{ incident.timestamp }}
-
-                    </td>
-
-                    <td>
-
-                        {% if incident.overall_status == "HEALTHY" %}
-
-                            <span class="badge bg-success">
-
-                                HEALTHY
-
+                        <td>
+                            <span class="badge bg-warning text-dark">
+                                {{ incident.severity | default("-") }}
                             </span>
+                        </td>
 
-                        {% else %}
-
-                            <span class="badge bg-danger">
-
-                                ATTENTION REQUIRED
-
+                        <td>
+                            <span class="badge bg-primary">
+                                {{ incident.status | default("Tracked") }}
                             </span>
+                        </td>
 
-                        {% endif %}
+                        <td>
+                            <small>
+                                {{ incident.created_at | default("-") }}
+                            </small>
+                        </td>
+                    </tr>
 
-                    </td>
+                    {% endfor %}
 
-                    <td>
+                </tbody>
 
-                        <small>
+            </table>
 
-                            {{ incident.report_file.split('/')[-1] }}
+        </div>
 
-                        </small>
+        {% else %}
 
-                    </td>
+        <div class="alert alert-info mb-0">
+            No active incidents found. Incident repository is ready for workflow-generated events.
+        </div>
 
-                    <td>
-
-                        <a
-                            href="/incidents/{{ incidents.index(incident) }}"
-                            class="btn btn-primary btn-sm"
-                        >
-
-                            View Details
-
-                        </a>
-
-                    </td>
-
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
+        {% endif %}
 
     </div>
-
-    {% else %}
-
-    <div class="alert alert-info mb-0">
-
-        No incident records found.
-
-    </div>
-
-    {% endif %}
-
-</div>
-```
 
 </div>
 

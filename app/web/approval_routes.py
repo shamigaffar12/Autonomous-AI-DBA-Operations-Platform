@@ -26,6 +26,15 @@ from app.approvals.approval_manager import (
     reject_request
 )
 
+from app.automation.execution_history_manager import (
+    list_execution_history
+)
+
+from app.automation.governance_audit_manager import (
+    add_governance_audit_log,
+    list_governance_audit_logs
+)
+
 
 # =========================================================
 # ROUTER CONFIGURATION
@@ -55,12 +64,16 @@ def approvals_debug():
 
         pending_approvals = list_pending_approvals()
         approval_history = list_approval_history()
+        execution_history = list_execution_history()
+        governance_audit_logs = list_governance_audit_logs()
 
         output = ""
         output += "Approval Debug OK\n"
         output += "=================\n"
         output += f"Pending Count: {len(pending_approvals)}\n"
-        output += f"History Count: {len(approval_history)}\n\n"
+        output += f"History Count: {len(approval_history)}\n"
+        output += f"Execution Count: {len(execution_history)}\n"
+        output += f"Audit Count: {len(governance_audit_logs)}\n\n"
 
         output += "First Pending Approval:\n"
 
@@ -100,6 +113,8 @@ def approvals_page(
 
         pending_approvals = list_pending_approvals()
         approval_history = list_approval_history()
+        execution_history = list_execution_history()
+        governance_audit_logs = list_governance_audit_logs()
 
         approved_count = 0
         rejected_count = 0
@@ -126,6 +141,14 @@ def approvals_page(
             approval_history
         )
 
+        execution_count = len(
+            execution_history
+        )
+
+        audit_count = len(
+            governance_audit_logs
+        )
+
         total_requests = pending_count + history_count
 
         return templates.TemplateResponse(
@@ -134,10 +157,14 @@ def approvals_page(
             context={
                 "pending_approvals": pending_approvals,
                 "approval_history": approval_history,
+                "execution_history": execution_history,
+                "governance_audit_logs": governance_audit_logs,
                 "pending_count": pending_count,
                 "approved_count": approved_count,
                 "rejected_count": rejected_count,
                 "history_count": history_count,
+                "execution_count": execution_count,
+                "audit_count": audit_count,
                 "total_requests": total_requests
             }
         )
@@ -179,6 +206,14 @@ def approve_approval_request(
         comments="Approved from FastAPI approval dashboard."
     )
 
+    add_governance_audit_log(
+        event_type="APPROVAL_APPROVED",
+        approval_id=approval_id,
+        status="APPROVED",
+        performed_by="Lead DBA",
+        message="Approval request approved from FastAPI Governance dashboard."
+    )
+
     return RedirectResponse(
         url="/approvals",
         status_code=303
@@ -205,15 +240,19 @@ def reject_approval_request(
         comments="Rejected from FastAPI approval dashboard."
     )
 
+    add_governance_audit_log(
+        event_type="APPROVAL_REJECTED",
+        approval_id=approval_id,
+        status="REJECTED",
+        performed_by="Lead DBA",
+        message="Approval request rejected from FastAPI Governance dashboard."
+    )
+
     return RedirectResponse(
         url="/approvals",
         status_code=303
     )
 
-
-# =========================================================
-# EXECUTE APPROVED REQUEST
-# =========================================================
 
 # =========================================================
 # EXECUTE APPROVED REQUEST

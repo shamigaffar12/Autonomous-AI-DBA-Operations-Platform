@@ -2,114 +2,82 @@
 
 {% block content %}
 
-<div class="mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-    <h2 class="fw-bold">
+    <div>
+        <h2 class="fw-bold mb-1">
+            Action Repository
+        </h2>
 
-        Action Repository
-
-    </h2>
-
-    <p class="text-muted">
-
-        Agent Decisions • Governance • SQL Actions • Notifications
-
-    </p>
-
-</div>
-
-<div class="card shadow-sm mb-4">
-
-    <div class="card-body">
-
-        <h5>
-
-            Total Actions
-
-        </h5>
-
-        <h1 class="fw-bold">
-
-            {{ actions.total_actions }}
-
-        </h1>
-
+        <p class="text-muted mb-0">
+            DBA Actions • Remediation • Reports • Monitoring Tools
+        </p>
     </div>
 
+    <span class="badge bg-primary fs-6">
+        {{ total_actions }} Actions
+    </span>
+
 </div>
 
-<div class="card shadow-sm">
+
+<div class="card">
 
     <div class="card-header bg-white">
-
-        <strong>
-
-            Action History
-
-        </strong>
-
+        <strong>Available Actions</strong>
     </div>
 
     <div class="card-body">
+
+        {% if actions %}
 
         <div class="table-responsive">
 
-            <table class="table table-hover">
+            <table class="table table-hover align-middle">
 
                 <thead class="table-dark">
-
                     <tr>
-
-                        <th>Timestamp</th>
-
-                        <th>Action Type</th>
-
-                        <th>Component</th>
-
+                        <th>Action Name</th>
+                        <th>Category</th>
+                        <th>Risk Level</th>
                         <th>Status</th>
-
-                        <th>Details</th>
-
                     </tr>
-
                 </thead>
 
                 <tbody>
 
-                    {% for action in actions.actions %}
+                    {% for action in actions %}
 
                     <tr>
-
                         <td>
-
-                            {{ action.timestamp }}
-
+                            {{ action.action_name | default(action.name | default("-")) }}
                         </td>
 
                         <td>
-
-                            {{ action.action_type }}
-
+                            {{ action.category | default("-") }}
                         </td>
 
                         <td>
-
-                            {{ action.component }}
-
+                            {% if action.risk_level == "High" or action.risk_level == "HIGH" %}
+                                <span class="badge bg-danger">
+                                    {{ action.risk_level }}
+                                </span>
+                            {% elif action.risk_level == "Medium" or action.risk_level == "MEDIUM" %}
+                                <span class="badge bg-warning text-dark">
+                                    {{ action.risk_level }}
+                                </span>
+                            {% else %}
+                                <span class="badge bg-success">
+                                    {{ action.risk_level | default("Low") }}
+                                </span>
+                            {% endif %}
                         </td>
 
                         <td>
-
-                            {{ action.status }}
-
+                            <span class="badge bg-primary">
+                                {{ action.status | default("Available") }}
+                            </span>
                         </td>
-
-                        <td>
-
-                            {{ action.details }}
-
-                        </td>
-
                     </tr>
 
                     {% endfor %}
@@ -119,6 +87,14 @@
             </table>
 
         </div>
+
+        {% else %}
+
+        <div class="alert alert-info mb-0">
+            No actions found.
+        </div>
+
+        {% endif %}
 
     </div>
 

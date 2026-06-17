@@ -1,0 +1,44 @@
+[
+    {
+        "execution_id": "EXEC-20260617143944229252",
+        "approval_id": "4ddc91f1-066f-4487-a04f-f114bd2d3383",
+        "approval_status": "APPROVED",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "overall_status": "RUNBOOK_REQUEST_CREATED",
+        "runbook_name": "Restart-Failed-SQL-Agent-Job",
+        "integration_mode": "SIMULATED",
+        "runbook_request_created": true,
+        "executed": true,
+        "message": "Azure Automation runbook request created after approval.",
+        "executed_at": "2026-06-17 14:39:44.226400"
+    },
+    {
+        "execution_id": "EXEC-20260617144926979040",
+        "approval_id": "652c04ce-e6a9-47b5-8fd8-6b313165e1d1",
+        "approval_status": "APPROVED",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "overall_status": "RUNBOOK_REQUEST_CREATED",
+        "runbook_name": "Restart-Failed-SQL-Agent-Job",
+        "integration_mode": "SIMULATED",
+        "runbook_request_created": true,
+        "executed": true,
+        "message": "Azure Automation runbook request created after approval.",
+        "executed_at": "2026-06-17 14:49:26.977971"
+    },
+    {
+        "execution_id": "EXEC-20260617145048673505",
+        "approval_id": "224af227-cada-4b80-9d55-353d72c7704a",
+        "approval_status": "APPROVED",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "overall_status": "RUNBOOK_REQUEST_CREATED",
+        "runbook_name": "Restart-Failed-SQL-Agent-Job",
+        "integration_mode": "SIMULATED",
+        "runbook_request_created": true,
+        "executed": true,
+        "message": "Azure Automation runbook request created after approval.",
+        "executed_at": "2026-06-17 14:50:48.672558"
+    }
+]

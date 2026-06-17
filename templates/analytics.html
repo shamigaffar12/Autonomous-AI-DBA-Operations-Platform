@@ -2,147 +2,117 @@
 
 {% block content %}
 
-<h2 class="mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-    Analytics Dashboard
+    <div>
+        <h2 class="fw-bold mb-1">
+            Analytics Center
+        </h2>
 
-</h2>
-
-<div class="row">
-
-    <div class="col-md-3">
-
-        <div class="card shadow-sm">
-
-            <div class="card-body">
-
-                <h6>Total Incidents</h6>
-
-                <h3>
-
-                    {{ analytics.total_incidents }}
-
-                </h3>
-
-            </div>
-
-        </div>
-
+        <p class="text-muted mb-0">
+            Health Insights • Trends • Governance Analytics
+        </p>
     </div>
 
-    <div class="col-md-3">
+    <span class="badge bg-primary fs-6">
+        Analytics Ready
+    </span>
 
-        <div class="card shadow-sm">
+</div>
 
+
+<div class="row g-3 mb-4">
+
+    <div class="col-lg-4 col-md-6">
+        <div class="card h-100">
             <div class="card-body">
-
-                <h6>Healthy Incidents</h6>
-
-                <h3>
-
-                    {{ analytics.healthy_incidents }}
-
-                </h3>
-
+                <h6 class="text-muted">Health Score</h6>
+                <hr>
+                <h2 class="fw-bold text-success">
+                    {{ health_score }}%
+                </h2>
             </div>
-
         </div>
-
     </div>
 
-    <div class="col-md-3">
-
-        <div class="card shadow-sm">
-
+    <div class="col-lg-4 col-md-6">
+        <div class="card h-100">
             <div class="card-body">
-
-                <h6>Attention Required</h6>
-
-                <h3>
-
-                    {{ analytics.attention_required }}
-
-                </h3>
-
+                <h6 class="text-muted">Risk Level</h6>
+                <hr>
+                <h2 class="fw-bold text-warning">
+                    {{ risk_level }}
+                </h2>
             </div>
-
         </div>
-
     </div>
 
-    <div class="col-md-3">
-
-        <div class="card shadow-sm">
-
+    <div class="col-lg-4 col-md-6">
+        <div class="card h-100">
             <div class="card-body">
-
-                <h6>Status</h6>
-
-                <h3>
-
-                    {{ analytics.status }}
-
-                </h3>
-
+                <h6 class="text-muted">Automation Mode</h6>
+                <hr>
+                <h2 class="fw-bold text-primary">
+                    {{ automation_mode }}
+                </h2>
             </div>
-
         </div>
-
     </div>
 
 </div>
 
-<div class="card shadow-sm mt-4">
+
+<div class="card">
+
+    <div class="card-header bg-white">
+        <strong>Live Analytics Summary</strong>
+    </div>
 
     <div class="card-body">
 
-        <h5>
+        {% if analytics_results %}
 
-            Daily Operations Summary
+        <div class="table-responsive">
 
-        </h5>
+            <table class="table table-hover align-middle">
 
-        <hr>
+                <thead class="table-dark">
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
 
-        <p>
+                <tbody>
 
-            <strong>Date:</strong>
+                    {% for item in analytics_results %}
 
-            {{ summary.date }}
+                    <tr>
+                        <td>{{ item.metric }}</td>
+                        <td>{{ item.value }}</td>
+                        <td>
+                            <span class="badge bg-success">
+                                {{ item.status }}
+                            </span>
+                        </td>
+                    </tr>
 
-        </p>
+                    {% endfor %}
 
-        <p>
+                </tbody>
 
-            <strong>Total Incidents:</strong>
+            </table>
 
-            {{ summary.total_incidents }}
+        </div>
 
-        </p>
+        {% else %}
 
-        <p>
+        <div class="alert alert-info mb-0">
+            No analytics data found.
+        </div>
 
-            <strong>Healthy Incidents:</strong>
-
-            {{ summary.healthy_incidents }}
-
-        </p>
-
-        <p>
-
-            <strong>Attention Required:</strong>
-
-            {{ summary.attention_required }}
-
-        </p>
-
-        <p>
-
-            <strong>Platform Health:</strong>
-
-            {{ summary.platform_health }}
-
-        </p>
+        {% endif %}
 
     </div>
 

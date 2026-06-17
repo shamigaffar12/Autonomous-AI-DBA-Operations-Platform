@@ -10,6 +10,14 @@ from app.approvals.approval_manager import (
     get_approval_status
 )
 
+from app.automation.execution_history_manager import (
+    add_execution_history
+)
+
+from app.automation.governance_audit_manager import (
+    add_governance_audit_log
+)
+
 
 # =========================================================
 # EXECUTE APPROVED REQUEST
@@ -31,10 +39,27 @@ def execute_approved_request(
         result = {
             "overall_status": "NOT_FOUND",
             "approval_id": approval_id,
-            "message": "Approval request not found.",
+            "approval_status": None,
+            "action_name": None,
+            "target_name": None,
+            "runbook_name": None,
+            "integration_mode": "SIMULATED",
+            "runbook_request_created": False,
             "executed": False,
+            "message": "Approval request not found.",
             "executed_at": str(datetime.now())
         }
+
+        add_execution_history(
+            result
+        )
+
+        add_governance_audit_log(
+            event_type="REMEDIATION_EXECUTION_NOT_FOUND",
+            approval_id=approval_id,
+            status="NOT_FOUND",
+            message="Execution failed because approval request was not found."
+        )
 
         print_execution_result(
             result
@@ -46,23 +71,6 @@ def execute_approved_request(
         approval_id
     )
 
-    if approval_status != "APPROVED":
-
-        result = {
-            "overall_status": "BLOCKED",
-            "approval_id": approval_id,
-            "approval_status": approval_status,
-            "message": "Execution blocked. Approval is not completed.",
-            "executed": False,
-            "executed_at": str(datetime.now())
-        }
-
-        print_execution_result(
-            result
-        )
-
-        return result
-
     action_name = approval_request.get(
         "action_name"
     )
@@ -71,9 +79,40 @@ def execute_approved_request(
         "target_name"
     )
 
-    # =====================================================
-    # SIMULATED REMEDIATION EXECUTION
-    # =====================================================
+    if approval_status != "APPROVED":
+
+        result = {
+            "overall_status": "BLOCKED",
+            "approval_id": approval_id,
+            "approval_status": approval_status,
+            "action_name": action_name,
+            "target_name": target_name,
+            "runbook_name": None,
+            "integration_mode": "SIMULATED",
+            "runbook_request_created": False,
+            "executed": False,
+            "message": "Execution blocked. Approval is not completed.",
+            "executed_at": str(datetime.now())
+        }
+
+        add_execution_history(
+            result
+        )
+
+        add_governance_audit_log(
+            event_type="REMEDIATION_EXECUTION_BLOCKED",
+            approval_id=approval_id,
+            action_name=action_name,
+            target_name=target_name,
+            status="BLOCKED",
+            message="Execution blocked because approval status is not APPROVED."
+        )
+
+        print_execution_result(
+            result
+        )
+
+        return result
 
     if action_name == "RESTART_SQL_AGENT_JOB":
 
@@ -85,11 +124,24 @@ def execute_approved_request(
             "target_name": target_name,
             "runbook_name": "Restart-Failed-SQL-Agent-Job",
             "integration_mode": "SIMULATED",
-            "message": "Azure Automation runbook request created after approval.",
             "runbook_request_created": True,
             "executed": True,
+            "message": "Azure Automation runbook request created after approval.",
             "executed_at": str(datetime.now())
         }
+
+        add_execution_history(
+            result
+        )
+
+        add_governance_audit_log(
+            event_type="REMEDIATION_EXECUTED",
+            approval_id=approval_id,
+            action_name=action_name,
+            target_name=target_name,
+            status="RUNBOOK_REQUEST_CREATED",
+            message="Approved remediation execution completed in simulated mode."
+        )
 
         print_execution_result(
             result
@@ -103,10 +155,26 @@ def execute_approved_request(
         "approval_status": approval_status,
         "action_name": action_name,
         "target_name": target_name,
-        "message": "No execution handler found for this approved action.",
+        "runbook_name": None,
+        "integration_mode": "SIMULATED",
+        "runbook_request_created": False,
         "executed": False,
+        "message": "No execution handler found for this approved action.",
         "executed_at": str(datetime.now())
     }
+
+    add_execution_history(
+        result
+    )
+
+    add_governance_audit_log(
+        event_type="REMEDIATION_EXECUTION_UNSUPPORTED",
+        approval_id=approval_id,
+        action_name=action_name,
+        target_name=target_name,
+        status="UNSUPPORTED_ACTION",
+        message="No execution handler found for this approved action."
+    )
 
     print_execution_result(
         result

@@ -1,0 +1,57 @@
+[
+    {
+        "audit_id": "AUDIT-20260617143944231605",
+        "event_type": "REMEDIATION_EXECUTED",
+        "approval_id": "4ddc91f1-066f-4487-a04f-f114bd2d3383",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "status": "RUNBOOK_REQUEST_CREATED",
+        "performed_by": "Lead DBA",
+        "message": "Approved remediation execution completed in simulated mode.",
+        "created_at": "2026-06-17 14:39:44.231636"
+    },
+    {
+        "audit_id": "AUDIT-20260617144926980860",
+        "event_type": "REMEDIATION_EXECUTED",
+        "approval_id": "652c04ce-e6a9-47b5-8fd8-6b313165e1d1",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "status": "RUNBOOK_REQUEST_CREATED",
+        "performed_by": "Lead DBA",
+        "message": "Approved remediation execution completed in simulated mode.",
+        "created_at": "2026-06-17 14:49:26.980884"
+    },
+    {
+        "audit_id": "AUDIT-20260617144937842336",
+        "event_type": "APPROVAL_APPROVED",
+        "approval_id": "224af227-cada-4b80-9d55-353d72c7704a",
+        "action_name": null,
+        "target_name": null,
+        "status": "APPROVED",
+        "performed_by": "Lead DBA",
+        "message": "Approval request approved from FastAPI Governance dashboard.",
+        "created_at": "2026-06-17 14:49:37.842368"
+    },
+    {
+        "audit_id": "AUDIT-20260617145048675917",
+        "event_type": "REMEDIATION_EXECUTED",
+        "approval_id": "224af227-cada-4b80-9d55-353d72c7704a",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "status": "RUNBOOK_REQUEST_CREATED",
+        "performed_by": "Lead DBA",
+        "message": "Approved remediation execution completed in simulated mode.",
+        "created_at": "2026-06-17 14:50:48.675944"
+    },
+    {
+        "audit_id": "AUDIT-20260617145055687869",
+        "event_type": "APPROVAL_REJECTED",
+        "approval_id": "2de445b2-a9d8-4eba-8dc2-9f822fe903dc",
+        "action_name": null,
+        "target_name": null,
+        "status": "REJECTED",
+        "performed_by": "Lead DBA",
+        "message": "Approval request rejected from FastAPI Governance dashboard.",
+        "created_at": "2026-06-17 14:50:55.687903"
+    }
+]

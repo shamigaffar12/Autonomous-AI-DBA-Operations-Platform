@@ -24,18 +24,20 @@
 
 
 <!-- ===================================================== -->
-<!-- GOVERNANCE KPI CARDS -->
+<!-- KPI CARDS -->
 <!-- ===================================================== -->
 
 <div class="row g-3 mb-4">
 
     <div class="col-lg-3 col-md-6">
-        <div class="card shadow-sm h-100">
+        <div class="card h-100">
             <div class="card-body">
                 <h6 class="text-muted">
                     Pending Requests
                 </h6>
+
                 <hr>
+
                 <h2 class="fw-bold text-warning">
                     {{ pending_count }}
                 </h2>
@@ -45,12 +47,14 @@
 
 
     <div class="col-lg-3 col-md-6">
-        <div class="card shadow-sm h-100">
+        <div class="card h-100">
             <div class="card-body">
                 <h6 class="text-muted">
                     Approved
                 </h6>
+
                 <hr>
+
                 <h2 class="fw-bold text-success">
                     {{ approved_count }}
                 </h2>
@@ -60,12 +64,14 @@
 
 
     <div class="col-lg-3 col-md-6">
-        <div class="card shadow-sm h-100">
+        <div class="card h-100">
             <div class="card-body">
                 <h6 class="text-muted">
                     Rejected
                 </h6>
+
                 <hr>
+
                 <h2 class="fw-bold text-danger">
                     {{ rejected_count }}
                 </h2>
@@ -75,14 +81,54 @@
 
 
     <div class="col-lg-3 col-md-6">
-        <div class="card shadow-sm h-100">
+        <div class="card h-100">
             <div class="card-body">
                 <h6 class="text-muted">
                     Total Requests
                 </h6>
+
                 <hr>
+
                 <h2 class="fw-bold">
                     {{ total_requests }}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row g-3 mb-4">
+
+    <div class="col-lg-6 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">
+                    Execution Records
+                </h6>
+
+                <hr>
+
+                <h2 class="fw-bold text-primary">
+                    {{ execution_count }}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">
+                    Governance Audit Events
+                </h6>
+
+                <hr>
+
+                <h2 class="fw-bold text-secondary">
+                    {{ audit_count }}
                 </h2>
             </div>
         </div>
@@ -95,7 +141,7 @@
 <!-- GOVERNANCE STATUS -->
 <!-- ===================================================== -->
 
-<div class="card shadow-sm mb-4">
+<div class="card mb-4">
 
     <div class="card-header bg-white">
         <strong>
@@ -133,10 +179,10 @@
 
 
 <!-- ===================================================== -->
-<!-- PENDING APPROVAL QUEUE -->
+<!-- PENDING APPROVALS -->
 <!-- ===================================================== -->
 
-<div class="card shadow-sm mb-4">
+<div class="card mb-4">
 
     <div class="card-header bg-white d-flex justify-content-between align-items-center">
 
@@ -214,7 +260,11 @@
                         <td>
 
                             <form method="post" action="/approvals/approve" style="display:inline;">
-                                <input type="hidden" name="approval_id" value="{{ approval.approval_id }}">
+                                <input
+                                    type="hidden"
+                                    name="approval_id"
+                                    value="{{ approval.approval_id }}"
+                                >
 
                                 <button type="submit" class="btn btn-success btn-sm">
                                     Approve
@@ -222,7 +272,11 @@
                             </form>
 
                             <form method="post" action="/approvals/reject" style="display:inline;">
-                                <input type="hidden" name="approval_id" value="{{ approval.approval_id }}">
+                                <input
+                                    type="hidden"
+                                    name="approval_id"
+                                    value="{{ approval.approval_id }}"
+                                >
 
                                 <button type="submit" class="btn btn-danger btn-sm">
                                     Reject
@@ -258,7 +312,7 @@
 <!-- APPROVAL HISTORY -->
 <!-- ===================================================== -->
 
-<div class="card shadow-sm">
+<div class="card">
 
     <div class="card-header bg-white d-flex justify-content-between align-items-center">
 
@@ -344,11 +398,14 @@
                         </td>
 
                         <td>
-
                             {% if approval.approval_status == "APPROVED" %}
 
                                 <form method="post" action="/approvals/execute" style="display:inline;">
-                                    <input type="hidden" name="approval_id" value="{{ approval.approval_id }}">
+                                    <input
+                                        type="hidden"
+                                        name="approval_id"
+                                        value="{{ approval.approval_id }}"
+                                    >
 
                                     <button type="submit" class="btn btn-primary btn-sm">
                                         Execute
@@ -368,7 +425,6 @@
                                 </span>
 
                             {% endif %}
-
                         </td>
 
                     </tr>
@@ -385,6 +441,223 @@
 
         <div class="alert alert-info mb-0">
             No approval history found.
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- REMEDIATION EXECUTION HISTORY -->
+<!-- ===================================================== -->
+
+<div class="card mt-4">
+
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+        <strong>
+            Remediation Execution History
+        </strong>
+
+        <span class="badge bg-primary">
+            {{ execution_count }} Executions
+        </span>
+
+    </div>
+
+    <div class="card-body">
+
+        {% if execution_history %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Approval ID</th>
+                        <th>Action</th>
+                        <th>Target</th>
+                        <th>Status</th>
+                        <th>Mode</th>
+                        <th>Executed</th>
+                        <th>Executed At</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for execution in execution_history %}
+
+                    <tr>
+
+                        <td>
+                            <small>
+                                {{ execution.approval_id }}
+                            </small>
+                        </td>
+
+                        <td>
+                            {{ execution.action_name }}
+                        </td>
+
+                        <td>
+                            {{ execution.target_name }}
+                        </td>
+
+                        <td>
+                            {% if execution.overall_status == "RUNBOOK_REQUEST_CREATED" %}
+                                <span class="badge bg-success">
+                                    RUNBOOK CREATED
+                                </span>
+                            {% elif execution.overall_status == "BLOCKED" %}
+                                <span class="badge bg-danger">
+                                    BLOCKED
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary">
+                                    {{ execution.overall_status }}
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <span class="badge bg-info text-dark">
+                                {{ execution.integration_mode }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {% if execution.executed %}
+                                <span class="badge bg-success">
+                                    True
+                                </span>
+                            {% else %}
+                                <span class="badge bg-danger">
+                                    False
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <small>
+                                {{ execution.executed_at }}
+                            </small>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-info mb-0">
+            No remediation execution history found.
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- GOVERNANCE AUDIT LOGS -->
+<!-- ===================================================== -->
+
+<div class="card mt-4">
+
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+        <strong>
+            Governance Audit Logs
+        </strong>
+
+        <span class="badge bg-secondary">
+            {{ audit_count }} Audit Events
+        </span>
+
+    </div>
+
+    <div class="card-body">
+
+        {% if governance_audit_logs %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Event</th>
+                        <th>Approval ID</th>
+                        <th>Status</th>
+                        <th>Performed By</th>
+                        <th>Message</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for audit in governance_audit_logs %}
+
+                    <tr>
+
+                        <td>
+                            {{ audit.event_type }}
+                        </td>
+
+                        <td>
+                            <small>
+                                {{ audit.approval_id }}
+                            </small>
+                        </td>
+
+                        <td>
+                            <span class="badge bg-primary">
+                                {{ audit.status }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {{ audit.performed_by }}
+                        </td>
+
+                        <td>
+                            {{ audit.message }}
+                        </td>
+
+                        <td>
+                            <small>
+                                {{ audit.created_at }}
+                            </small>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-info mb-0">
+            No governance audit logs found.
         </div>
 
         {% endif %}

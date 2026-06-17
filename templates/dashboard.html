@@ -2,523 +2,247 @@
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-```
-<div>
+    <div>
+        <h2 class="fw-bold mb-1">
+            Operations Dashboard
+        </h2>
 
-    <h2 class="fw-bold mb-1">
-
-        AI DBA Operations Control Center
-
-    </h2>
-
-    <p class="text-muted mb-0">
-
-        Monitoring • AI Analysis • Governance • Repository • Agent Actions
-
-    </p>
-
-</div>
-
-<div class="mt-2 mt-md-0">
-
-    {% if metrics.platform_health == "STABLE" %}
+        <p class="text-muted mb-0">
+            Platform Overview • Monitoring • Governance • Reporting
+        </p>
+    </div>
 
     <span class="badge bg-success fs-6">
-
-        Platform Stable
-
+        {{ platform_status }}
     </span>
 
-    {% else %}
-
-    <span class="badge bg-danger fs-6">
-
-        Attention Required
-
-    </span>
-
-    {% endif %}
-
-</div>
-```
-
 </div>
 
-<!-- ===================================================== -->
 
-<!-- PLATFORM OVERVIEW -->
+<!-- KPI CARDS -->
 
-<!-- ===================================================== -->
+<div class="row g-3 mb-4">
 
-<div class="row g-3">
+    <div class="col-lg-3 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">Incidents</h6>
+                <hr>
+                <h2 class="fw-bold text-danger">
+                    {{ total_incidents }}
+                </h2>
+            </div>
+        </div>
+    </div>
 
-```
-<div class="col-xl-3 col-md-6">
+    <div class="col-lg-3 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">Actions</h6>
+                <hr>
+                <h2 class="fw-bold text-primary">
+                    {{ total_actions }}
+                </h2>
+            </div>
+        </div>
+    </div>
 
-    <div class="card border-0 shadow-sm h-100">
+    <div class="col-lg-3 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">Reports</h6>
+                <hr>
+                <h2 class="fw-bold text-success">
+                    {{ total_reports }}
+                </h2>
+            </div>
+        </div>
+    </div>
 
-        <div class="card-body">
+    <div class="col-lg-3 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">Audit Events</h6>
+                <hr>
+                <h2 class="fw-bold text-secondary">
+                    {{ total_audit_events }}
+                </h2>
+            </div>
+        </div>
+    </div>
 
-            <div class="text-muted">
+</div>
 
-                Platform Health
 
+<div class="row g-3 mb-4">
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">Pending Approvals</h6>
+                <hr>
+                <h2 class="fw-bold text-warning">
+                    {{ pending_count }}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">Approved</h6>
+                <hr>
+                <h2 class="fw-bold text-success">
+                    {{ approved_count }}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">Rejected</h6>
+                <hr>
+                <h2 class="fw-bold text-danger">
+                    {{ rejected_count }}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="text-muted">Executions</h6>
+                <hr>
+                <h2 class="fw-bold text-primary">
+                    {{ execution_count }}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- PLATFORM STATUS -->
+
+<div class="card mb-4">
+
+    <div class="card-header bg-white">
+        <strong>V1 Platform Status</strong>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row text-center">
+
+            <div class="col-md-3 mb-2">
+                <span class="badge bg-success fs-6">
+                    Monitoring {{ monitoring_status }}
+                </span>
             </div>
 
-            <hr>
-
-            {% if metrics.platform_health == "STABLE" %}
-
-            <h4 class="text-success">
-
-                STABLE
-
-            </h4>
-
-            {% else %}
-
-            <h4 class="text-danger">
-
-                ATTENTION REQUIRED
-
-            </h4>
-
-            {% endif %}
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="col-xl-3 col-md-6">
-
-    <div class="card border-0 shadow-sm h-100">
-
-        <div class="card-body">
-
-            <div class="text-muted">
-
-                Total Incidents
-
+            <div class="col-md-3 mb-2">
+                <span class="badge bg-success fs-6">
+                    Governance {{ governance_status }}
+                </span>
             </div>
 
-            <hr>
-
-            <h1 class="fw-bold">
-
-                {{ metrics.total_incidents }}
-
-            </h1>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="col-xl-3 col-md-6">
-
-    <div class="card border-0 shadow-sm h-100">
-
-        <div class="card-body">
-
-            <div class="text-muted">
-
-                Healthy Incidents
-
+            <div class="col-md-3 mb-2">
+                <span class="badge bg-warning text-dark fs-6">
+                    Automation {{ automation_mode }}
+                </span>
             </div>
 
-            <hr>
-
-            <h1 class="fw-bold text-success">
-
-                {{ metrics.healthy_incidents }}
-
-            </h1>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="col-xl-3 col-md-6">
-
-    <div class="card border-0 shadow-sm h-100">
-
-        <div class="card-body">
-
-            <div class="text-muted">
-
-                Attention Required
-
+            <div class="col-md-3 mb-2">
+                <span class="badge bg-success fs-6">
+                    Audit {{ audit_status }}
+                </span>
             </div>
 
-            <hr>
-
-            <h1 class="fw-bold text-danger">
-
-                {{ metrics.attention_required }}
-
-            </h1>
-
-        </div>
-
-    </div>
-
-</div>
-```
-
-</div>
-
-<!-- ===================================================== -->
-
-<!-- OPERATIONS KPI -->
-
-<!-- ===================================================== -->
-
-<div class="row g-3 mt-1">
-
-```
-<div class="col-xl-4 col-md-6">
-
-    <div class="card border-0 shadow-sm h-100">
-
-        <div class="card-body">
-
-            <div class="text-muted">
-
-                Total Actions
-
-            </div>
-
-            <hr>
-
-            <h1 class="fw-bold text-primary">
-
-                {{ metrics.total_actions }}
-
-            </h1>
-
         </div>
 
     </div>
 
 </div>
 
-<div class="col-xl-4 col-md-6">
 
-    <div class="card border-0 shadow-sm h-100">
+<!-- RECENT GOVERNANCE AUDIT -->
 
-        <div class="card-body">
+<div class="card">
 
-            <div class="text-muted">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <strong>Recent Governance Activity</strong>
 
-                Audit Events
-
-            </div>
-
-            <hr>
-
-            <h1 class="fw-bold text-secondary">
-
-                {{ metrics.total_audit_events }}
-
-            </h1>
-
-        </div>
-
+        <span class="badge bg-secondary">
+            {{ audit_count }} Events
+        </span>
     </div>
 
-</div>
+    <div class="card-body">
 
-<div class="col-xl-4 col-md-12">
+        {% if governance_audit_logs %}
 
-    <div class="card border-0 shadow-sm h-100">
+        <div class="table-responsive">
 
-        <div class="card-body">
+            <table class="table table-hover align-middle">
 
-            <div class="text-muted">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Event</th>
+                        <th>Approval ID</th>
+                        <th>Status</th>
+                        <th>Performed By</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
 
-                Reports Generated
+                <tbody>
 
-            </div>
+                    {% for event in governance_audit_logs[-5:] %}
 
-            <hr>
+                    <tr>
+                        <td>{{ event.event_type }}</td>
 
-            <h1 class="fw-bold text-success">
+                        <td>
+                            <small>{{ event.approval_id }}</small>
+                        </td>
 
-                {{ metrics.total_reports }}
+                        <td>
+                            <span class="badge bg-primary">
+                                {{ event.status }}
+                            </span>
+                        </td>
 
-            </h1>
+                        <td>{{ event.performed_by }}</td>
+
+                        <td>
+                            <small>{{ event.created_at }}</small>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
 
         </div>
+
+        {% else %}
+
+        <div class="alert alert-info mb-0">
+            No governance activity found.
+        </div>
+
+        {% endif %}
 
     </div>
-
-</div>
-```
-
-</div>
-
-<!-- ===================================================== -->
-
-<!-- GOVERNANCE KPI -->
-
-<!-- ===================================================== -->
-
-<div class="row g-3 mt-1">
-
-```
-<div class="col-xl-3 col-md-6">
-
-    <div class="card border-0 shadow-sm h-100">
-
-        <div class="card-body">
-
-            <div class="text-muted">
-
-                Total Requests
-
-            </div>
-
-            <hr>
-
-            <h1 class="fw-bold">
-
-                {{ metrics.total_requests }}
-
-            </h1>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="col-xl-3 col-md-6">
-
-    <div class="card border-0 shadow-sm h-100">
-
-        <div class="card-body">
-
-            <div class="text-muted">
-
-                Pending
-
-            </div>
-
-            <hr>
-
-            <h1 class="fw-bold text-warning">
-
-                {{ metrics.pending_requests }}
-
-            </h1>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="col-xl-3 col-md-6">
-
-    <div class="card border-0 shadow-sm h-100">
-
-        <div class="card-body">
-
-            <div class="text-muted">
-
-                Approved
-
-            </div>
-
-            <hr>
-
-            <h1 class="fw-bold text-success">
-
-                {{ metrics.approved_requests }}
-
-            </h1>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="col-xl-3 col-md-6">
-
-    <div class="card border-0 shadow-sm h-100">
-
-        <div class="card-body">
-
-            <div class="text-muted">
-
-                Rejected
-
-            </div>
-
-            <hr>
-
-            <h1 class="fw-bold text-danger">
-
-                {{ metrics.rejected_requests }}
-
-            </h1>
-
-        </div>
-
-    </div>
-
-</div>
-```
-
-</div>
-
-<!-- ===================================================== -->
-
-<!-- QUICK ACTIONS -->
-
-<!-- ===================================================== -->
-
-<div class="card border-0 shadow-sm mt-4">
-
-```
-<div class="card-header bg-white">
-
-    <strong>
-
-        Quick Navigation
-
-    </strong>
-
-</div>
-
-<div class="card-body">
-
-    <a href="/monitoring" class="btn btn-primary me-2 mb-2">
-
-        Monitoring
-
-    </a>
-
-    <a href="/incidents" class="btn btn-danger me-2 mb-2">
-
-        Incidents
-
-    </a>
-
-    <a href="/approvals" class="btn btn-warning me-2 mb-2">
-
-        Governance
-
-    </a>
-
-    <a href="/actions" class="btn btn-dark me-2 mb-2">
-
-        Actions
-
-    </a>
-
-    <a href="/analytics" class="btn btn-success me-2 mb-2">
-
-        Analytics
-
-    </a>
-
-</div>
-```
-
-</div>
-
-<!-- ===================================================== -->
-
-<!-- OPERATIONS SUMMARY -->
-
-<!-- ===================================================== -->
-
-<div class="row mt-4">
-
-```
-<div class="col-lg-6">
-
-    <div class="card border-0 shadow-sm h-100">
-
-        <div class="card-header bg-white">
-
-            <strong>
-
-                Latest Incident
-
-            </strong>
-
-        </div>
-
-        <div class="card-body">
-
-            <p>
-
-                <strong>Status:</strong>
-
-                {{ metrics.latest_status }}
-
-            </p>
-
-            <p>
-
-                <strong>Repository Records:</strong>
-
-                {{ metrics.repository_records }}
-
-            </p>
-
-            <p class="mb-0">
-
-                <strong>Platform Health:</strong>
-
-                {{ metrics.platform_health }}
-
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="col-lg-6">
-
-    <div class="card border-0 shadow-sm h-100">
-
-        <div class="card-header bg-white">
-
-            <strong>
-
-                Latest Report
-
-            </strong>
-
-        </div>
-
-        <div class="card-body">
-
-            <small class="text-muted">
-
-                {{ metrics.latest_report }}
-
-            </small>
-
-        </div>
-
-    </div>
-
-</div>
-```
 
 </div>
 
