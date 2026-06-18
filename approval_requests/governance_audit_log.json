@@ -53,5 +53,38 @@
         "performed_by": "Lead DBA",
         "message": "Approval request rejected from FastAPI Governance dashboard.",
         "created_at": "2026-06-17 14:50:55.687903"
+    },
+    {
+        "audit_id": "AUDIT-20260618153838145433",
+        "event_type": "NLP_APPROVAL_REQUEST_CREATED",
+        "approval_id": "16983979-efcc-4dbc-b7de-12f1bb34271f",
+        "action_name": "FULL_DATABASE_BACKUP",
+        "target_name": "AdventureWorks2019",
+        "status": "PENDING_APPROVAL",
+        "performed_by": "NLP DBA Assistant",
+        "message": "Approval request created from NLP DBA Assistant.",
+        "created_at": "2026-06-18 15:38:38.145502"
+    },
+    {
+        "audit_id": "AUDIT-20260618154848064086",
+        "event_type": "NLP_APPROVAL_REQUEST_CREATED",
+        "approval_id": "57a88ccd-7337-424f-8897-891fcf2148b2",
+        "action_name": "FULL_DATABASE_BACKUP",
+        "target_name": "AdventureWorks2019",
+        "status": "PENDING_APPROVAL",
+        "performed_by": "NLP DBA Assistant",
+        "message": "Approval request created from NLP DBA Assistant.",
+        "created_at": "2026-06-18 15:48:48.064151"
+    },
+    {
+        "audit_id": "AUDIT-20260618154947880877",
+        "event_type": "NLP_APPROVAL_REQUEST_CREATED",
+        "approval_id": "07b2b058-3e77-4ff0-89c9-572d4010c748",
+        "action_name": "FULL_DATABASE_BACKUP",
+        "target_name": "AdventureWorks2019",
+        "status": "PENDING_APPROVAL",
+        "performed_by": "NLP DBA Assistant",
+        "message": "Approval request created from NLP DBA Assistant.",
+        "created_at": "2026-06-18 15:49:47.880947"
     }
 ]

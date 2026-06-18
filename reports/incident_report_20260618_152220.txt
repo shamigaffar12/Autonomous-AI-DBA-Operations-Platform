@@ -1,0 +1,46 @@
+
+
+========================================
+ INCIDENT REPORT
+========================================
+
+Overall Status
+--------------
+HEALTHY
+
+
+Monitoring Summary
+------------------
+
+SQL Monitoring Summary
+
+Monitoring Time: 2026-06-18 15:22:20.466974
+Database: AdventureWorks2019
+
+
+CPU Monitoring:
+Session ID: 60
+Status: running
+CPU Time: 7
+Elapsed Time: 7
+Reads: 0
+Writes: 0
+Logical Reads: 257
+Alert: CPU Usage Within Normal Range
+--------------------------
+
+No blocking sessions detected.
+
+No long running queries detected.
+
+Overall Status: HEALTHY
+
+
+AI Analysis
+-----------
+{'summary': '\n\nSystem Health Summary:\nMonitoring completed successfully for the SQL Server environment.\n\nMonitoring Observations:\n- CPU usage was captured successfully.\n- Blocking and long-running query checks were performed.\n- Database size information was retrieved successfully.\n\nRecommended Actions:\n- Continue regular monitoring.\n- Review workload trends periodically.\n- Maintain index and statistics upkeep.\n\nPrevention Recommendations:\n- Keep alert thresholds in place.\n- Perform routine capacity planning.\n- Maintain documentation and operational logs.\n\n', 'root_cause': 'AI analysis response was not structured.', 'recommendation': 'Continue monitoring and review SQL health manually.', 'severity': 'LOW'}
+
+========================================
+ END OF REPORT
+========================================
+
