@@ -501,19 +501,23 @@ def build_nlp_response(
     # EXECUTE APPROVED REMEDIATION
     # =====================================================
 
+        # =====================================================
+    # EXECUTE APPROVED REMEDIATION
+    # =====================================================
+
     if intent == "EXECUTE_APPROVED_REMEDIATION":
 
         return {
-            "assistant_response": "Approved remediation execution command identified. The assistant must verify approval status before executing any automation.",
+            "assistant_response": "Approved remediation execution command identified. The request has been routed through the NLP workflow router and validated through the Governance execution workflow.",
             "summary": {
                 "workflow": "Approved Remediation Execution",
                 "approval_validation_required": True,
-                "execution_mode": "Simulated",
+                "execution_mode": "Governance Controlled",
                 "execution_records": len(
                     execution_history
                 )
             },
-            "recommended_next_action": "Connect this intent to the execution console so only approved requests can be executed.",
+            "recommended_next_action": "Review the workflow result, execution history, and governance audit logs to confirm the remediation execution status.",
             "risk_level": risk_level
         }
 

@@ -1,141 +1,282 @@
 {% extends "base.html" %}
 
+{% block title %}
+Incidents - Autonomous AI DBA Operations Platform
+{% endblock %}
+
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="container-fluid">
 
-    <div>
-        <h2 class="fw-bold mb-1">
-            Incident Investigation Center
-        </h2>
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="fw-bold">
+                Incident Repository
+            </h2>
+            <p class="text-muted">
+                Live incident records generated from SQL Server monitoring and AI DBA workflow.
+            </p>
+        </div>
 
-        <p class="text-muted mb-0">
-            Incident Tracking • RCA • Remediation Review
-        </p>
+        <div class="col-md-4 text-end">
+            <span class="badge bg-danger fs-6">
+                {{ total_incidents | default(0, true) }} Incidents
+            </span>
+        </div>
     </div>
 
-    <span class="badge bg-primary fs-6">
-        {{ total_incidents }} Incidents
-    </span>
+    <!-- KPI Cards -->
+    <div class="row mb-4">
 
-</div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Total Incidents
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-danger">
+                        {{ total_incidents | default(0, true) }}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Total incident records available.
+                    </p>
+                </div>
+            </div>
+        </div>
 
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Selected Status
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-primary">
+                        {{ selected_status | default("ALL", true) }}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Current incident filter.
+                    </p>
+                </div>
+            </div>
+        </div>
 
-<div class="row g-3 mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Search Query
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-secondary">
+                        {% if search_query %}
+                            {{ search_query }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Current search keyword.
+                    </p>
+                </div>
+            </div>
+        </div>
 
-    <div class="col-lg-4 col-md-6">
-        <div class="card h-100">
-            <div class="card-body">
-                <h6 class="text-muted">Total Incidents</h6>
-                <hr>
-                <h2 class="fw-bold text-danger">
-                    {{ total_incidents }}
-                </h2>
+    </div>
+
+    <!-- Filters -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+
+                    <form method="get" action="/incidents" class="row g-3">
+
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Status
+                            </label>
+                            <select name="status" class="form-select">
+                                <option value="">
+                                    All
+                                </option>
+
+                                <option value="HEALTHY" {% if selected_status == "HEALTHY" %}selected{% endif %}>
+                                    HEALTHY
+                                </option>
+
+                                <option value="ATTENTION REQUIRED" {% if selected_status == "ATTENTION REQUIRED" %}selected{% endif %}>
+                                    ATTENTION REQUIRED
+                                </option>
+
+                                <option value="FAILED" {% if selected_status == "FAILED" %}selected{% endif %}>
+                                    FAILED
+                                </option>
+
+                                <option value="BLOCKED" {% if selected_status == "BLOCKED" %}selected{% endif %}>
+                                    BLOCKED
+                                </option>
+
+                                <option value="TRACKED" {% if selected_status == "TRACKED" %}selected{% endif %}>
+                                    TRACKED
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label">
+                                Search
+                            </label>
+                            <input
+                                type="text"
+                                name="q"
+                                class="form-control"
+                                placeholder="Search incidents"
+                                value="{{ search_query | default('', true) }}"
+                            >
+                        </div>
+
+                        <div class="col-md-3 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary me-2">
+                                Apply
+                            </button>
+
+                            <a href="/incidents" class="btn btn-outline-secondary">
+                                Reset
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6">
-        <div class="card h-100">
-            <div class="card-body">
-                <h6 class="text-muted">RCA Engine</h6>
-                <hr>
-                <h2 class="fw-bold text-primary">
-                    Ready
-                </h2>
+    <!-- Incident Table -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        Incident Records
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    {% if incidents %}
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Incident ID</th>
+                                    <th>Type</th>
+                                    <th>Severity</th>
+                                    <th>Status</th>
+                                    <th>Created At</th>
+                                    <th>Report</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for incident in incidents %}
+                                <tr>
+                                    <td>
+                                        {{ loop.index }}
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ incident.incident_id | default("-", true) }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ incident.type | default("DBA Monitoring", true) }}
+                                    </td>
+
+                                    <td>
+                                        {% set severity_value = incident.severity | default("LOW", true) %}
+
+                                        {% if severity_value == "HIGH" %}
+                                        <span class="badge bg-danger">
+                                            {{ severity_value }}
+                                        </span>
+                                        {% elif severity_value == "MEDIUM" %}
+                                        <span class="badge bg-warning text-dark">
+                                            {{ severity_value }}
+                                        </span>
+                                        {% else %}
+                                        <span class="badge bg-success">
+                                            {{ severity_value }}
+                                        </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {% set status_value = incident.status | default(incident.overall_status, true) | default("-", true) %}
+
+                                        {% if status_value == "HEALTHY" %}
+                                        <span class="badge bg-success">
+                                            {{ status_value }}
+                                        </span>
+                                        {% elif status_value == "ATTENTION REQUIRED" %}
+                                        <span class="badge bg-warning text-dark">
+                                            {{ status_value }}
+                                        </span>
+                                        {% elif status_value == "FAILED" or status_value == "BLOCKED" %}
+                                        <span class="badge bg-danger">
+                                            {{ status_value }}
+                                        </span>
+                                        {% else %}
+                                        <span class="badge bg-secondary">
+                                            {{ status_value }}
+                                        </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        <small>
+                                            {{ incident.created_at | default(incident.timestamp, true) | default("-", true) }}
+                                        </small>
+                                    </td>
+
+                                    <td class="text-break">
+                                        <small>
+                                            {{ incident.report_file | default(incident.report_path, true) | default("-", true) }}
+                                        </small>
+                                    </td>
+
+                                    <td>
+                                        <a href="/incidents/{{ loop.index0 }}" class="btn btn-sm btn-outline-primary">
+                                            View
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {% else %}
+
+                    <div class="alert alert-info mb-0">
+                        No active incidents found. Incident repository is ready for workflow-generated events.
+                    </div>
+
+                    {% endif %}
+
+                </div>
             </div>
-        </div>
-    </div>
-
-    <div class="col-lg-4 col-md-6">
-        <div class="card h-100">
-            <div class="card-body">
-                <h6 class="text-muted">Remediation</h6>
-                <hr>
-                <h2 class="fw-bold text-warning">
-                    Governed
-                </h2>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-
-<div class="card">
-
-    <div class="card-header bg-white">
-        <strong>Incident Repository</strong>
-    </div>
-
-    <div class="card-body">
-
-        {% if incidents %}
-
-        <div class="table-responsive">
-
-            <table class="table table-hover align-middle">
-
-                <thead class="table-dark">
-                    <tr>
-                        <th>Incident ID</th>
-                        <th>Type</th>
-                        <th>Severity</th>
-                        <th>Status</th>
-                        <th>Created At</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    {% for incident in incidents %}
-
-                    <tr>
-                        <td>
-                            <small>
-                                {{ incident.incident_id | default("-") }}
-                            </small>
-                        </td>
-
-                        <td>
-                            {{ incident.incident_type | default(incident.type | default("-")) }}
-                        </td>
-
-                        <td>
-                            <span class="badge bg-warning text-dark">
-                                {{ incident.severity | default("-") }}
-                            </span>
-                        </td>
-
-                        <td>
-                            <span class="badge bg-primary">
-                                {{ incident.status | default("Tracked") }}
-                            </span>
-                        </td>
-
-                        <td>
-                            <small>
-                                {{ incident.created_at | default("-") }}
-                            </small>
-                        </td>
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
 
         </div>
-
-        {% else %}
-
-        <div class="alert alert-info mb-0">
-            No active incidents found. Incident repository is ready for workflow-generated events.
-        </div>
-
-        {% endif %}
-
     </div>
 
 </div>

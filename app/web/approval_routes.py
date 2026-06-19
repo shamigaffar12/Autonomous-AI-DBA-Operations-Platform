@@ -151,10 +151,27 @@ def approvals_page(
 
         total_requests = pending_count + history_count
 
+        approvals_data = {
+            "pending_approvals": pending_approvals,
+            "approval_history": approval_history,
+            "execution_history": execution_history,
+            "governance_audit_logs": governance_audit_logs,
+            "pending_count": pending_count,
+            "approved_count": approved_count,
+            "rejected_count": rejected_count,
+            "history_count": history_count,
+            "execution_count": execution_count,
+            "audit_count": audit_count,
+            "total_requests": total_requests,
+            "total_count": total_requests
+        }
+
         return templates.TemplateResponse(
-            name="approvals.html",
             request=request,
+            name="approvals.html",
             context={
+                "approvals": approvals_data,
+                "approval_data": approvals_data,
                 "pending_approvals": pending_approvals,
                 "approval_history": approval_history,
                 "execution_history": execution_history,
@@ -209,6 +226,8 @@ def approve_approval_request(
     add_governance_audit_log(
         event_type="APPROVAL_APPROVED",
         approval_id=approval_id,
+        action_name="APPROVE_REQUEST",
+        target_name="Governance Approval",
         status="APPROVED",
         performed_by="Lead DBA",
         message="Approval request approved from FastAPI Governance dashboard."
@@ -243,6 +262,8 @@ def reject_approval_request(
     add_governance_audit_log(
         event_type="APPROVAL_REJECTED",
         approval_id=approval_id,
+        action_name="REJECT_REQUEST",
+        target_name="Governance Approval",
         status="REJECTED",
         performed_by="Lead DBA",
         message="Approval request rejected from FastAPI Governance dashboard."

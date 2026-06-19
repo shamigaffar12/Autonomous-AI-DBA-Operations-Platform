@@ -2,6 +2,10 @@
 
 {% block content %}
 
+<!-- ===================================================== -->
+<!-- PAGE HEADER -->
+<!-- ===================================================== -->
+
 <div class="d-flex justify-content-between align-items-center mb-4">
 
     <div>
@@ -10,129 +14,376 @@
         </h2>
 
         <p class="text-muted mb-0">
-            SQL Health • Jobs • Blocking • Backup • Space Monitoring
+            Live SQL Server Health Monitoring • MCP Workflow Execution
         </p>
     </div>
 
-    <span class="badge bg-success fs-6">
-        {{ monitoring_status }}
-    </span>
+    {% if monitoring.overall_status == "HEALTHY" %}
+        <span class="badge bg-success fs-6">
+            HEALTHY
+        </span>
+    {% elif monitoring.overall_status == "ATTENTION REQUIRED" %}
+        <span class="badge bg-danger fs-6">
+            ATTENTION REQUIRED
+        </span>
+    {% else %}
+        <span class="badge bg-secondary fs-6">
+            {{ monitoring.overall_status }}
+        </span>
+    {% endif %}
 
 </div>
 
 
-<div class="row g-3 mb-4">
+<!-- ===================================================== -->
+<!-- MONITORING CONTROL CENTER -->
+<!-- ===================================================== -->
 
-    <div class="col-lg-3 col-md-6">
-        <div class="card h-100">
-            <div class="card-body">
-                <h6 class="text-muted">CPU Status</h6>
-                <hr>
-                <h4 class="fw-bold text-success">
-                    {{ cpu_status }}
-                </h4>
-            </div>
-        </div>
-    </div>
+<div class="card mb-4 shadow-sm border-primary">
 
-    <div class="col-lg-3 col-md-6">
-        <div class="card h-100">
-            <div class="card-body">
-                <h6 class="text-muted">Blocking Status</h6>
-                <hr>
-                <h4 class="fw-bold text-success">
-                    {{ blocking_status }}
-                </h4>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6">
-        <div class="card h-100">
-            <div class="card-body">
-                <h6 class="text-muted">Failed Jobs</h6>
-                <hr>
-                <h4 class="fw-bold text-warning">
-                    {{ failed_jobs_status }}
-                </h4>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6">
-        <div class="card h-100">
-            <div class="card-body">
-                <h6 class="text-muted">Backup Status</h6>
-                <hr>
-                <h4 class="fw-bold text-success">
-                    {{ backup_status }}
-                </h4>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-
-<div class="card">
-
-    <div class="card-header bg-white">
-        <strong>Monitoring Workflow Tools</strong>
+    <div class="card-header bg-primary text-white">
+        <strong>
+            Monitoring Control Center
+        </strong>
     </div>
 
     <div class="card-body">
 
-        {% if monitoring_results %}
+        <p class="text-muted mb-3">
+            Start the SQL Server monitoring workflow from the UI.
+            This executes the controlled MCP workflow and records the action in Governance Audit Logs.
+        </p>
 
-        <div class="table-responsive">
+        <form method="post" action="/monitoring/start">
 
-            <table class="table table-hover align-middle">
+            <button type="submit" class="btn btn-success">
+                Start Monitoring
+            </button>
 
-                <thead class="table-dark">
-                    <tr>
-                        <th>Check Name</th>
-                        <th>Status</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
+            <a href="/monitoring" class="btn btn-outline-secondary ms-2">
+                Refresh
+            </a>
 
-                <tbody>
+        </form>
 
-                    {% for result in monitoring_results %}
+    </div>
 
-                    <tr>
-                        <td>{{ result.check_name }}</td>
+</div>
 
-                        <td>
-                            {% if result.status == "Governed" %}
-                                <span class="badge bg-warning text-dark">
-                                    {{ result.status }}
-                                </span>
-                            {% else %}
-                                <span class="badge bg-success">
-                                    {{ result.status }}
-                                </span>
-                            {% endif %}
-                        </td>
 
-                        <td>{{ result.details }}</td>
-                    </tr>
+<!-- ===================================================== -->
+<!-- MONITORING START RESULT -->
+<!-- ===================================================== -->
 
-                    {% endfor %}
+{% if monitoring_start_result %}
 
-                </tbody>
+<div class="card mb-4 shadow-sm border-info">
 
-            </table>
+    <div class="card-header bg-info text-dark">
+        <strong>
+            Monitoring Execution Result
+        </strong>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row mb-3">
+
+            <div class="col-md-4 mb-2">
+
+                <strong>
+                    Status:
+                </strong>
+                <br>
+
+                {% if monitoring_start_result.status == "SUCCESS" %}
+                    <span class="badge bg-success">
+                        {{ monitoring_start_result.status }}
+                    </span>
+                {% elif monitoring_start_result.status == "FAILED" %}
+                    <span class="badge bg-danger">
+                        {{ monitoring_start_result.status }}
+                    </span>
+                {% else %}
+                    <span class="badge bg-secondary">
+                        {{ monitoring_start_result.status }}
+                    </span>
+                {% endif %}
+
+            </div>
+
+            <div class="col-md-4 mb-2">
+
+                <strong>
+                    Overall Status:
+                </strong>
+                <br>
+
+                {% if monitoring_start_result.overall_status == "HEALTHY" %}
+                    <span class="badge bg-success">
+                        {{ monitoring_start_result.overall_status }}
+                    </span>
+                {% elif monitoring_start_result.overall_status == "INCIDENT" %}
+                    <span class="badge bg-danger">
+                        {{ monitoring_start_result.overall_status }}
+                    </span>
+                {% elif monitoring_start_result.overall_status == "ATTENTION REQUIRED" %}
+                    <span class="badge bg-danger">
+                        {{ monitoring_start_result.overall_status }}
+                    </span>
+                {% elif monitoring_start_result.overall_status == "FAILED" %}
+                    <span class="badge bg-danger">
+                        {{ monitoring_start_result.overall_status }}
+                    </span>
+                {% else %}
+                    <span class="badge bg-secondary">
+                        {{ monitoring_start_result.overall_status }}
+                    </span>
+                {% endif %}
+
+            </div>
+
+            <div class="col-md-4 mb-2">
+
+                <strong>
+                    Execution Mode:
+                </strong>
+                <br>
+
+                <span class="badge bg-dark">
+                    {{ monitoring_start_result.execution_mode }}
+                </span>
+
+            </div>
 
         </div>
 
-        {% else %}
+        <h6 class="text-muted">
+            Message
+        </h6>
 
-        <div class="alert alert-info mb-0">
-            No monitoring results found.
+        <div class="alert alert-light border">
+            {{ monitoring_start_result.message }}
         </div>
+
+        {% if monitoring_start_result.report_file %}
+
+            <h6 class="text-muted">
+                Generated Report
+            </h6>
+
+            <div class="alert alert-success">
+                {{ monitoring_start_result.report_file }}
+            </div>
 
         {% endif %}
+
+        {% if monitoring_start_result.sql_action %}
+
+            <h6 class="text-muted">
+                SQL Action
+            </h6>
+
+            <pre class="bg-dark text-white p-3 rounded" style="white-space: pre-wrap;">{{ monitoring_start_result.sql_action }}</pre>
+
+        {% endif %}
+
+        {% if monitoring_start_result.sql_risk %}
+
+            <h6 class="text-muted">
+                SQL Risk
+            </h6>
+
+            <pre class="bg-dark text-white p-3 rounded" style="white-space: pre-wrap;">{{ monitoring_start_result.sql_risk }}</pre>
+
+        {% endif %}
+
+        {% if monitoring_start_result.validation_result %}
+
+            <h6 class="text-muted">
+                Validation Result
+            </h6>
+
+            <pre class="bg-dark text-white p-3 rounded" style="white-space: pre-wrap;">{{ monitoring_start_result.validation_result }}</pre>
+
+        {% endif %}
+
+        {% if monitoring_start_result.execution_result %}
+
+            <h6 class="text-muted">
+                Execution Result
+            </h6>
+
+            <pre class="bg-dark text-white p-3 rounded" style="white-space: pre-wrap;">{{ monitoring_start_result.execution_result }}</pre>
+
+        {% endif %}
+
+        {% if monitoring_start_result.verification_result %}
+
+            <h6 class="text-muted">
+                Verification Result
+            </h6>
+
+            <pre class="bg-dark text-white p-3 rounded" style="white-space: pre-wrap;">{{ monitoring_start_result.verification_result }}</pre>
+
+        {% endif %}
+
+        {% if monitoring_start_result.remediation_result %}
+
+            <h6 class="text-muted">
+                Remediation Result
+            </h6>
+
+            <pre class="bg-dark text-white p-3 rounded mb-0" style="white-space: pre-wrap;">{{ monitoring_start_result.remediation_result }}</pre>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endif %}
+
+
+<!-- ===================================================== -->
+<!-- MONITORING KPI CARDS -->
+<!-- ===================================================== -->
+
+<div class="row g-3">
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Platform Status
+                </h6>
+
+                {% if monitoring.overall_status == "HEALTHY" %}
+
+                    <span class="badge bg-success fs-6">
+                        HEALTHY
+                    </span>
+
+                {% elif monitoring.overall_status == "ATTENTION REQUIRED" %}
+
+                    <span class="badge bg-danger fs-6">
+                        ATTENTION REQUIRED
+                    </span>
+
+                {% else %}
+
+                    <span class="badge bg-secondary fs-6">
+                        {{ monitoring.overall_status }}
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    CPU Sessions
+                </h6>
+
+                <h2>
+                    {{ monitoring.cpu_sessions }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Blocking Sessions
+                </h6>
+
+                <h2>
+                    {{ monitoring.blocking_sessions }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Long Queries
+                </h6>
+
+                <h2>
+                    {{ monitoring.long_queries }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- LAST MONITORING RUN -->
+<!-- ===================================================== -->
+
+<div class="card mt-4 shadow-sm">
+
+    <div class="card-header bg-white">
+        <strong>
+            Last Monitoring Run
+        </strong>
+    </div>
+
+    <div class="card-body">
+        {{ monitoring.last_check }}
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- INCIDENT SUMMARY -->
+<!-- ===================================================== -->
+
+<div class="card mt-4 shadow-sm">
+
+    <div class="card-header bg-white">
+        <strong>
+            Incident Summary
+        </strong>
+    </div>
+
+    <div class="card-body">
+
+        <pre class="bg-dark text-white p-3 rounded mb-0" style="white-space: pre-wrap;">{{ monitoring.incident_summary }}</pre>
 
     </div>
 

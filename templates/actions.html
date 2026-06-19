@@ -1,101 +1,212 @@
 {% extends "base.html" %}
 
+{% block title %}
+Actions - Autonomous AI DBA Operations Platform
+{% endblock %}
+
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="container-fluid">
 
-    <div>
-        <h2 class="fw-bold mb-1">
-            Action Repository
-        </h2>
-
-        <p class="text-muted mb-0">
-            DBA Actions • Remediation • Reports • Monitoring Tools
-        </p>
-    </div>
-
-    <span class="badge bg-primary fs-6">
-        {{ total_actions }} Actions
-    </span>
-
-</div>
-
-
-<div class="card">
-
-    <div class="card-header bg-white">
-        <strong>Available Actions</strong>
-    </div>
-
-    <div class="card-body">
-
-        {% if actions %}
-
-        <div class="table-responsive">
-
-            <table class="table table-hover align-middle">
-
-                <thead class="table-dark">
-                    <tr>
-                        <th>Action Name</th>
-                        <th>Category</th>
-                        <th>Risk Level</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    {% for action in actions %}
-
-                    <tr>
-                        <td>
-                            {{ action.action_name | default(action.name | default("-")) }}
-                        </td>
-
-                        <td>
-                            {{ action.category | default("-") }}
-                        </td>
-
-                        <td>
-                            {% if action.risk_level == "High" or action.risk_level == "HIGH" %}
-                                <span class="badge bg-danger">
-                                    {{ action.risk_level }}
-                                </span>
-                            {% elif action.risk_level == "Medium" or action.risk_level == "MEDIUM" %}
-                                <span class="badge bg-warning text-dark">
-                                    {{ action.risk_level }}
-                                </span>
-                            {% else %}
-                                <span class="badge bg-success">
-                                    {{ action.risk_level | default("Low") }}
-                                </span>
-                            {% endif %}
-                        </td>
-
-                        <td>
-                            <span class="badge bg-primary">
-                                {{ action.status | default("Available") }}
-                            </span>
-                        </td>
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
-
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="fw-bold">
+                Action Repository
+            </h2>
+            <p class="text-muted">
+                Live automation, remediation, SQL execution, notification, and workflow action records.
+            </p>
         </div>
 
-        {% else %}
+        <div class="col-md-4 text-end">
+            <span class="badge bg-primary fs-6">
+                {{ total_actions | default(actions.total_actions, true) | default(0, true) }} Actions
+            </span>
+        </div>
+    </div>
 
-        <div class="alert alert-info mb-0">
-            No actions found.
+    <!-- KPI Cards -->
+    <div class="row mb-4">
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Total Actions
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-primary">
+                        {{ total_actions | default(actions.total_actions, true) | default(0, true) }}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Total action records available.
+                    </p>
+                </div>
+            </div>
         </div>
 
-        {% endif %}
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Latest Action
+                    </h6>
+                    <hr>
 
+                    {% if action_records %}
+                    <h5 class="fw-bold text-dark">
+                        {{ action_records[0].action_name | default(action_records[0].action_type, true) | default("-", true) }}
+                    </h5>
+                    {% else %}
+                    <h5 class="fw-bold text-muted">
+                        -
+                    </h5>
+                    {% endif %}
+
+                    <p class="text-muted mb-0">
+                        Most recent action entry.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Repository Status
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-success">
+                        ACTIVE
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Reading from live action repository.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Actions Table -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        Action Records
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    {% set records = action_records | default(actions.actions, true) | default([], true) %}
+
+                    {% if records %}
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Action Name</th>
+                                    <th>Category</th>
+                                    <th>Risk</th>
+                                    <th>Status</th>
+                                    <th>Timestamp</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for action in records %}
+                                <tr>
+                                    <td>
+                                        {{ loop.index }}
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ action.action_name | default(action.action_type, true) | default("-", true) }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ action.category | default(action.component, true) | default("-", true) }}
+                                    </td>
+
+                                    <td>
+                                        {% set risk_value = action.risk_level | default("LOW", true) %}
+
+                                        {% if risk_value == "HIGH" %}
+                                        <span class="badge bg-danger">
+                                            {{ risk_value }}
+                                        </span>
+                                        {% elif risk_value == "MEDIUM" %}
+                                        <span class="badge bg-warning text-dark">
+                                            {{ risk_value }}
+                                        </span>
+                                        {% else %}
+                                        <span class="badge bg-success">
+                                            {{ risk_value }}
+                                        </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {% set status_value = action.status | default("-", true) %}
+
+                                        {% if status_value == "SUCCESS" or status_value == "COMPLETED" or status_value == "AVAILABLE" or status_value == "Available" %}
+                                        <span class="badge bg-success">
+                                            {{ status_value }}
+                                        </span>
+                                        {% elif status_value == "FAILED" or status_value == "BLOCKED" %}
+                                        <span class="badge bg-danger">
+                                            {{ status_value }}
+                                        </span>
+                                        {% elif status_value == "SKIPPED" %}
+                                        <span class="badge bg-secondary">
+                                            {{ status_value }}
+                                        </span>
+                                        {% else %}
+                                        <span class="badge bg-info">
+                                            {{ status_value }}
+                                        </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        <small>
+                                            {{ action.timestamp | default(action.created_at, true) | default("-", true) }}
+                                        </small>
+                                    </td>
+
+                                    <td class="text-break">
+                                        <small>
+                                            {{ action.details | default(action.message, true) | default("-", true) }}
+                                        </small>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {% else %}
+
+                    <div class="alert alert-info mb-0">
+                        No action records found. Run monitoring or remediation workflow to generate actions.
+                    </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
     </div>
 
 </div>

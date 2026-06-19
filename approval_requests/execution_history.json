@@ -40,5 +40,61 @@
         "executed": true,
         "message": "Azure Automation runbook request created after approval.",
         "executed_at": "2026-06-17 14:50:48.672558"
+    },
+    {
+        "execution_id": "EXEC-20260619123726556291",
+        "approval_id": "4ddc91f1-066f-4487-a04f-f114bd2d3383",
+        "approval_status": "APPROVED",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "overall_status": "RUNBOOK_REQUEST_CREATED",
+        "runbook_name": "Restart-Failed-SQL-Agent-Job",
+        "integration_mode": "SIMULATED",
+        "runbook_request_created": true,
+        "executed": true,
+        "message": "Azure Automation runbook request created after approval.",
+        "executed_at": "2026-06-19 12:37:26.553880"
+    },
+    {
+        "execution_id": "EXEC-20260619123756259043",
+        "approval_id": "57a88ccd-7337-424f-8897-891fcf2148b2",
+        "approval_status": "PENDING_APPROVAL",
+        "action_name": "FULL_DATABASE_BACKUP",
+        "target_name": "AdventureWorks2019",
+        "overall_status": "BLOCKED",
+        "runbook_name": null,
+        "integration_mode": "SIMULATED",
+        "runbook_request_created": false,
+        "executed": false,
+        "message": "Execution blocked. Approval is not completed.",
+        "executed_at": "2026-06-19 12:37:56.257689"
+    },
+    {
+        "execution_id": "EXEC-20260619125434055525",
+        "approval_id": "c6583d38-9408-410b-8773-a5c5bf14b060",
+        "approval_status": "PENDING_APPROVAL",
+        "action_name": "FULL_DATABASE_BACKUP",
+        "target_name": "AdventureWorks2019",
+        "overall_status": "BLOCKED",
+        "runbook_name": null,
+        "integration_mode": "SIMULATED",
+        "runbook_request_created": false,
+        "executed": false,
+        "message": "Execution blocked. Approval is not completed.",
+        "executed_at": "2026-06-19 12:54:34.053692"
+    },
+    {
+        "execution_id": "EXEC-20260619141527366997",
+        "approval_id": "224af227-cada-4b80-9d55-353d72c7704a",
+        "approval_status": "APPROVED",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "overall_status": "RUNBOOK_REQUEST_CREATED",
+        "runbook_name": "Restart-Failed-SQL-Agent-Job",
+        "integration_mode": "SIMULATED",
+        "runbook_request_created": true,
+        "executed": true,
+        "message": "Azure Automation runbook request created after approval.",
+        "executed_at": "2026-06-19 14:15:27.364461"
     }
 ]

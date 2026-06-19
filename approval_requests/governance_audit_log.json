@@ -86,5 +86,93 @@
         "performed_by": "NLP DBA Assistant",
         "message": "Approval request created from NLP DBA Assistant.",
         "created_at": "2026-06-18 15:49:47.880947"
+    },
+    {
+        "audit_id": "AUDIT-20260619123726559234",
+        "event_type": "REMEDIATION_EXECUTED",
+        "approval_id": "4ddc91f1-066f-4487-a04f-f114bd2d3383",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "status": "RUNBOOK_REQUEST_CREATED",
+        "performed_by": "Lead DBA",
+        "message": "Approved remediation execution completed in simulated mode.",
+        "created_at": "2026-06-19 12:37:26.559267"
+    },
+    {
+        "audit_id": "AUDIT-20260619123756262060",
+        "event_type": "REMEDIATION_EXECUTION_BLOCKED",
+        "approval_id": "57a88ccd-7337-424f-8897-891fcf2148b2",
+        "action_name": "FULL_DATABASE_BACKUP",
+        "target_name": "AdventureWorks2019",
+        "status": "BLOCKED",
+        "performed_by": "Lead DBA",
+        "message": "Execution blocked because approval status is not APPROVED.",
+        "created_at": "2026-06-19 12:37:56.262094"
+    },
+    {
+        "audit_id": "AUDIT-20260619125342139508",
+        "event_type": "NLP_APPROVAL_REQUEST_CREATED",
+        "approval_id": "c6583d38-9408-410b-8773-a5c5bf14b060",
+        "action_name": "FULL_DATABASE_BACKUP",
+        "target_name": "AdventureWorks2019",
+        "status": "PENDING_APPROVAL",
+        "performed_by": "NLP DBA Assistant",
+        "message": "Approval request created from NLP DBA Assistant.",
+        "created_at": "2026-06-19 12:53:42.139559"
+    },
+    {
+        "audit_id": "AUDIT-20260619125434059721",
+        "event_type": "REMEDIATION_EXECUTION_BLOCKED",
+        "approval_id": "c6583d38-9408-410b-8773-a5c5bf14b060",
+        "action_name": "FULL_DATABASE_BACKUP",
+        "target_name": "AdventureWorks2019",
+        "status": "BLOCKED",
+        "performed_by": "Lead DBA",
+        "message": "Execution blocked because approval status is not APPROVED.",
+        "created_at": "2026-06-19 12:54:34.059759"
+    },
+    {
+        "audit_id": "AUDIT-20260619130706430324",
+        "event_type": "MONITORING_STARTED_FROM_UI",
+        "approval_id": null,
+        "action_name": "START_MONITORING",
+        "target_name": "SQL Server Monitoring Workflow",
+        "status": "SUCCESS",
+        "performed_by": "Lead DBA",
+        "message": "Monitoring workflow started from FastAPI Monitoring UI.",
+        "created_at": "2026-06-19 13:07:06.430384"
+    },
+    {
+        "audit_id": "AUDIT-20260619140414696260",
+        "event_type": "MONITORING_STARTED_FROM_UI",
+        "approval_id": null,
+        "action_name": "START_MONITORING",
+        "target_name": "SQL Server Monitoring Workflow",
+        "status": "SUCCESS",
+        "performed_by": "Lead DBA",
+        "message": "Monitoring workflow started from FastAPI Monitoring UI.",
+        "created_at": "2026-06-19 14:04:14.696293"
+    },
+    {
+        "audit_id": "AUDIT-20260619141349045067",
+        "event_type": "MONITORING_STARTED_FROM_UI",
+        "approval_id": null,
+        "action_name": "START_MONITORING",
+        "target_name": "SQL Server Monitoring Workflow",
+        "status": "SUCCESS",
+        "performed_by": "Lead DBA",
+        "message": "Monitoring workflow started from FastAPI Monitoring UI.",
+        "created_at": "2026-06-19 14:13:49.045116"
+    },
+    {
+        "audit_id": "AUDIT-20260619141527372416",
+        "event_type": "REMEDIATION_EXECUTED",
+        "approval_id": "224af227-cada-4b80-9d55-353d72c7704a",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "status": "RUNBOOK_REQUEST_CREATED",
+        "performed_by": "Lead DBA",
+        "message": "Approved remediation execution completed in simulated mode.",
+        "created_at": "2026-06-19 14:15:27.372449"
     }
 ]

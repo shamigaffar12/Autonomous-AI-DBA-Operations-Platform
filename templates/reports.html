@@ -1,84 +1,162 @@
 {% extends "base.html" %}
 
+{% block title %}
+Reports - Autonomous AI DBA Operations Platform
+{% endblock %}
+
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="container-fluid">
 
-    <div>
-        <h2 class="fw-bold mb-1">
-            Reports Center
-        </h2>
-
-        <p class="text-muted mb-0">
-            DBA Health Reports • Performance Reports • Excel Analytics
-        </p>
-    </div>
-
-    <span class="badge bg-success fs-6">
-        {{ total_reports }} Reports
-    </span>
-
-</div>
-
-
-<div class="card">
-
-    <div class="card-header bg-white">
-        <strong>Generated Reports</strong>
-    </div>
-
-    <div class="card-body">
-
-        {% if reports %}
-
-        <div class="table-responsive">
-
-            <table class="table table-hover align-middle">
-
-                <thead class="table-dark">
-                    <tr>
-                        <th>Report Name</th>
-                        <th>Report Type</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    {% for report in reports %}
-
-                    <tr>
-                        <td>
-                            {{ report.report_name | default(report.name | default("-")) }}
-                        </td>
-
-                        <td>
-                            {{ report.report_type | default("Generated Report") }}
-                        </td>
-
-                        <td>
-                            <span class="badge bg-success">
-                                {{ report.status | default("Available") }}
-                            </span>
-                        </td>
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
-
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="fw-bold">
+                Reports Center
+            </h2>
+            <p class="text-muted">
+                Live DBA reports generated from incident monitoring, daily health checks, and performance tuning workflows.
+            </p>
         </div>
 
-        {% else %}
+        <div class="col-md-4 text-end">
+            <span class="badge bg-success fs-6">
+                {{ total_reports | default(reports.total_reports, true) | default(0, true) }} Reports
+            </span>
+        </div>
+    </div>
 
-        <div class="alert alert-info mb-0">
-            No generated reports found.
+    <!-- KPI Cards -->
+    <div class="row mb-4">
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Total Reports
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-success">
+                        {{ total_reports | default(reports.total_reports, true) | default(0, true) }}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Total generated reports available.
+                    </p>
+                </div>
+            </div>
         </div>
 
-        {% endif %}
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Latest Report
+                    </h6>
+                    <hr>
+                    <h6 class="fw-bold text-primary text-break">
+                        {{ latest_report | default(reports.latest_report, true) | default("-", true) }}
+                    </h6>
+                    <p class="text-muted mb-0">
+                        Latest detected report file.
+                    </p>
+                </div>
+            </div>
+        </div>
 
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Repository Status
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-success">
+                        ACTIVE
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Reading from reports folder and subfolders.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Reports Table -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        Generated Reports
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    {% set records = report_files | default(reports.reports, true) | default([], true) %}
+
+                    {% if records %}
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Report Name</th>
+                                    <th>Report Type</th>
+                                    <th>Status</th>
+                                    <th>File Path</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for report in records %}
+                                <tr>
+                                    <td>
+                                        {{ loop.index }}
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ report.report_name | default(report.name, true) | default("-", true) }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ report.report_type | default(report.type, true) | default("Generated Report", true) }}
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-success">
+                                            {{ report.status | default("Available", true) }}
+                                        </span>
+                                    </td>
+
+                                    <td class="text-break">
+                                        <small>
+                                            {{ report.file_path | default(report.path, true) | default("-", true) }}
+                                        </small>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {% else %}
+
+                    <div class="alert alert-info mb-0">
+                        No reports found. Run monitoring or reporting workflow to generate reports.
+                    </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
     </div>
 
 </div>

@@ -1,369 +1,212 @@
 {% extends "base.html" %}
 
+{% block title %}
+Audit Logs - Autonomous AI DBA Operations Platform
+{% endblock %}
+
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="container-fluid">
 
-    <div>
-        <h2 class="fw-bold mb-1">
-            Audit Control Center
-        </h2>
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="fw-bold">
+                Governance Audit Logs
+            </h2>
+            <p class="text-muted">
+                Live governance audit records for approvals, blocked executions, remediation, and UI-triggered monitoring.
+            </p>
+        </div>
 
-        <p class="text-muted mb-0">
-            Workflow Tracking • Governance Audit • Agent Activity
-        </p>
+        <div class="col-md-4 text-end">
+            <span class="badge bg-dark fs-6">
+                {{ total_events | default(audit.total_events, true) | default(0, true) }} Audit Events
+            </span>
+        </div>
     </div>
 
-    <div>
-        <span class="badge bg-primary fs-6">
-            {{ total_events }} Events
-        </span>
-    </div>
+    <!-- KPI Cards -->
+    <div class="row mb-4">
 
-</div>
-
-
-<!-- ===================================================== -->
-<!-- AUDIT KPI CARDS -->
-<!-- ===================================================== -->
-
-<div class="row g-3 mb-4">
-
-    <div class="col-lg-3 col-md-6">
-
-        <div class="card h-100">
-
-            <div class="card-body">
-
-                <h6 class="text-muted">
-                    Total Events
-                </h6>
-
-                <hr>
-
-                <h2 class="fw-bold text-primary">
-                    {{ total_events }}
-                </h2>
-
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Total Audit Events
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-dark">
+                        {{ total_events | default(audit.total_events, true) | default(0, true) }}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Governance audit records available.
+                    </p>
+                </div>
             </div>
+        </div>
 
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Latest Event
+                    </h6>
+                    <hr>
+
+                    {% set records = audit_events | default(audit.audit_events, true) | default([], true) %}
+
+                    {% if records %}
+                    <h5 class="fw-bold text-primary">
+                        {{ records[0].event_type | default("-", true) }}
+                    </h5>
+                    {% else %}
+                    <h5 class="fw-bold text-muted">
+                        -
+                    </h5>
+                    {% endif %}
+
+                    <p class="text-muted mb-0">
+                        Most recent governance activity.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Audit Source
+                    </h6>
+                    <hr>
+                    <h5 class="fw-bold text-success">
+                        governance_audit_log.json
+                    </h5>
+                    <p class="text-muted mb-0">
+                        Live audit file source.
+                    </p>
+                </div>
+            </div>
         </div>
 
     </div>
 
+    <!-- Audit Table -->
+    <div class="row mb-4">
+        <div class="col-md-12">
 
-    <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        Audit Event Records
+                    </h5>
+                </div>
 
-        <div class="card h-100">
+                <div class="card-body">
 
-            <div class="card-body">
+                    {% set records = audit_events | default(events, true) | default(audit.audit_events, true) | default([], true) %}
 
-                <h6 class="text-muted">
-                    Audit Status
-                </h6>
+                    {% if records %}
 
-                <hr>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Event Type</th>
+                                    <th>Approval ID</th>
+                                    <th>Action</th>
+                                    <th>Target</th>
+                                    <th>Status</th>
+                                    <th>Performed By</th>
+                                    <th>Message</th>
+                                    <th>Created At</th>
+                                </tr>
+                            </thead>
 
-                <span class="badge bg-success fs-6">
-                    {{ audit_status }}
-                </span>
+                            <tbody>
+                                {% for event in records %}
+                                <tr>
+                                    <td>
+                                        {{ loop.index }}
+                                    </td>
 
+                                    <td>
+                                        <strong>
+                                            {{ event.event_type | default(event.event, true) | default("-", true) }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        <small>
+                                            {{ event.approval_id | default("-", true) }}
+                                        </small>
+                                    </td>
+
+                                    <td>
+                                        {{ event.action_name | default("-", true) }}
+                                    </td>
+
+                                    <td>
+                                        {{ event.target_name | default("-", true) }}
+                                    </td>
+
+                                    <td>
+                                        {% set status_value = event.status | default("-", true) %}
+
+                                        {% if status_value == "APPROVED" or status_value == "SUCCESS" or status_value == "RUNBOOK_REQUEST_CREATED" %}
+                                        <span class="badge bg-success">
+                                            {{ status_value }}
+                                        </span>
+                                        {% elif status_value == "REJECTED" or status_value == "FAILED" or status_value == "BLOCKED" %}
+                                        <span class="badge bg-danger">
+                                            {{ status_value }}
+                                        </span>
+                                        {% elif status_value == "PENDING_APPROVAL" %}
+                                        <span class="badge bg-warning text-dark">
+                                            {{ status_value }}
+                                        </span>
+                                        {% else %}
+                                        <span class="badge bg-secondary">
+                                            {{ status_value }}
+                                        </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {{ event.performed_by | default("System", true) }}
+                                    </td>
+
+                                    <td class="text-break">
+                                        <small>
+                                            {{ event.message | default("-", true) }}
+                                        </small>
+                                    </td>
+
+                                    <td>
+                                        <small>
+                                            {{ event.created_at | default(event.timestamp, true) | default("-", true) }}
+                                        </small>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {% else %}
+
+                    <div class="alert alert-info mb-0">
+                        No audit events found.
+                    </div>
+
+                    {% endif %}
+
+                </div>
             </div>
 
         </div>
-
-    </div>
-
-
-    <div class="col-lg-3 col-md-6">
-
-        <div class="card h-100">
-
-            <div class="card-body">
-
-                <h6 class="text-muted">
-                    Governance Tracking
-                </h6>
-
-                <hr>
-
-                <span class="badge bg-success fs-6">
-                    {{ governance_tracking }}
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="col-lg-3 col-md-6">
-
-        <div class="card h-100">
-
-            <div class="card-body">
-
-                <h6 class="text-muted">
-                    Log Source
-                </h6>
-
-                <hr>
-
-                <small>
-                    {{ log_file }}
-                </small>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ===================================================== -->
-<!-- AUDIT HEALTH -->
-<!-- ===================================================== -->
-
-<div class="card mb-4">
-
-    <div class="card-header bg-white">
-        <strong>
-            Audit Health
-        </strong>
-    </div>
-
-    <div class="card-body">
-
-        <div class="row text-center">
-
-            <div class="col-md-4 mb-2">
-                <span class="badge bg-success fs-6">
-                    Audit Logging Active
-                </span>
-            </div>
-
-            <div class="col-md-4 mb-2">
-                <span class="badge bg-success fs-6">
-                    Repository Tracking Active
-                </span>
-            </div>
-
-            <div class="col-md-4 mb-2">
-                <span class="badge bg-success fs-6">
-                    Governance Tracking Active
-                </span>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ===================================================== -->
-<!-- AUDIT TRAIL -->
-<!-- ===================================================== -->
-
-<div class="card">
-
-    <div class="card-header bg-white d-flex justify-content-between align-items-center">
-
-        <strong>
-            Audit Trail
-        </strong>
-
-        <span class="badge bg-secondary">
-            {{ total_events }} Events
-        </span>
-
-    </div>
-
-    <div class="card-body">
-
-        {% if audit_events %}
-
-        <div class="table-responsive">
-
-            <table class="table table-hover align-middle">
-
-                <thead class="table-dark">
-
-                    <tr>
-                        <th>Audit ID</th>
-                        <th>Event Type</th>
-                        <th>Approval ID</th>
-                        <th>Action</th>
-                        <th>Target</th>
-                        <th>Status</th>
-                        <th>Performed By</th>
-                        <th>Message</th>
-                        <th>Created At</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {% for event in audit_events %}
-
-                    <tr>
-
-                        <td>
-                            <small>
-                                {{ event.audit_id }}
-                            </small>
-                        </td>
-
-                        <td>
-                            {% if event.event_type == "APPROVAL_APPROVED" %}
-
-                                <span class="badge bg-success">
-                                    APPROVAL APPROVED
-                                </span>
-
-                            {% elif event.event_type == "APPROVAL_REJECTED" %}
-
-                                <span class="badge bg-danger">
-                                    APPROVAL REJECTED
-                                </span>
-
-                            {% elif event.event_type == "REMEDIATION_EXECUTED" %}
-
-                                <span class="badge bg-primary">
-                                    REMEDIATION EXECUTED
-                                </span>
-
-                            {% elif event.event_type == "REMEDIATION_EXECUTION_BLOCKED" %}
-
-                                <span class="badge bg-danger">
-                                    EXECUTION BLOCKED
-                                </span>
-
-                            {% elif event.event_type == "REMEDIATION_EXECUTION_NOT_FOUND" %}
-
-                                <span class="badge bg-warning text-dark">
-                                    REQUEST NOT FOUND
-                                </span>
-
-                            {% elif event.event_type == "REMEDIATION_EXECUTION_UNSUPPORTED" %}
-
-                                <span class="badge bg-warning text-dark">
-                                    UNSUPPORTED ACTION
-                                </span>
-
-                            {% else %}
-
-                                <span class="badge bg-secondary">
-                                    {{ event.event_type }}
-                                </span>
-
-                            {% endif %}
-                        </td>
-
-                        <td>
-                            <small>
-                                {{ event.approval_id }}
-                            </small>
-                        </td>
-
-                        <td>
-                            {% if event.action_name %}
-                                {{ event.action_name }}
-                            {% else %}
-                                -
-                            {% endif %}
-                        </td>
-
-                        <td>
-                            {% if event.target_name %}
-                                {{ event.target_name }}
-                            {% else %}
-                                -
-                            {% endif %}
-                        </td>
-
-                        <td>
-                            {% if event.status == "APPROVED" %}
-
-                                <span class="badge bg-success">
-                                    APPROVED
-                                </span>
-
-                            {% elif event.status == "REJECTED" %}
-
-                                <span class="badge bg-danger">
-                                    REJECTED
-                                </span>
-
-                            {% elif event.status == "RUNBOOK_REQUEST_CREATED" %}
-
-                                <span class="badge bg-primary">
-                                    RUNBOOK CREATED
-                                </span>
-
-                            {% elif event.status == "BLOCKED" %}
-
-                                <span class="badge bg-danger">
-                                    BLOCKED
-                                </span>
-
-                            {% elif event.status == "NOT_FOUND" %}
-
-                                <span class="badge bg-warning text-dark">
-                                    NOT FOUND
-                                </span>
-
-                            {% elif event.status == "UNSUPPORTED_ACTION" %}
-
-                                <span class="badge bg-warning text-dark">
-                                    UNSUPPORTED
-                                </span>
-
-                            {% else %}
-
-                                <span class="badge bg-info text-dark">
-                                    {{ event.status }}
-                                </span>
-
-                            {% endif %}
-                        </td>
-
-                        <td>
-                            {{ event.performed_by }}
-                        </td>
-
-                        <td>
-                            {{ event.message }}
-                        </td>
-
-                        <td>
-                            <small>
-                                {{ event.created_at }}
-                            </small>
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-        {% else %}
-
-        <div class="alert alert-info mb-0">
-            No audit events found.
-        </div>
-
-        {% endif %}
-
     </div>
 
 </div>

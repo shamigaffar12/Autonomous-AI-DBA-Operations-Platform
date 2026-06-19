@@ -12,140 +12,81 @@
     <span class="badge bg-primary fs-6">Assistant Active</span>
 </div>
 
-<!-- =====================================================
-     ASK QUESTION CARD
-===================================================== -->
+
+<!-- ===================================================== -->
+<!-- NLP QUERY FORM -->
+<!-- ===================================================== -->
 
 <div class="card mb-4 shadow-sm">
-    <div class="card-header bg-white">
-        <strong>Ask a DBA Question</strong>
+    <div class="card-header bg-dark text-white">
+        <strong>Ask the DBA Assistant</strong>
     </div>
 
     <div class="card-body">
-        <form method="post" action="/assistant">
-            <div class="mb-3">
-                <label class="form-label">Enter your DBA question</label>
 
-                <input
-                    type="text"
-                    name="user_query"
+        <form method="post" action="/assistant">
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">
+                    Enter DBA Query
+                </label>
+
+                <textarea
                     class="form-control"
-                    placeholder="Example: run full dba workflow"
-                    value="{{ user_query }}"
-                    required
-                >
+                    name="user_query"
+                    rows="4"
+                    placeholder="Example: run full dba workflow, create approval for full backup, execute approved remediation for approval-id"
+                    required>{% if user_query %}{{ user_query }}{% endif %}</textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">
-                Ask Assistant
+                Submit Query
             </button>
+
+            <a href="/assistant" class="btn btn-outline-secondary ms-2">
+                Clear
+            </a>
+
         </form>
+
     </div>
 </div>
 
-<!-- =====================================================
-     EXAMPLE QUESTIONS
-===================================================== -->
 
-<div class="card mb-4 shadow-sm">
-    <div class="card-header bg-white">
-        <strong>Example Questions</strong>
-    </div>
-
-    <div class="card-body">
-        <div class="row g-2">
-
-            <div class="col-md-4">
-                <span class="badge bg-light text-dark border">
-                    run full dba workflow
-                </span>
-            </div>
-
-            <div class="col-md-4">
-                <span class="badge bg-light text-dark border">
-                    start monitoring
-                </span>
-            </div>
-
-            <div class="col-md-4">
-                <span class="badge bg-light text-dark border">
-                    check deadlock situation
-                </span>
-            </div>
-
-            <div class="col-md-4">
-                <span class="badge bg-light text-dark border">
-                    take full backup
-                </span>
-            </div>
-
-            <div class="col-md-4">
-                <span class="badge bg-light text-dark border">
-                    show pending approvals
-                </span>
-            </div>
-
-            <div class="col-md-4">
-                <span class="badge bg-light text-dark border">
-                    show execution history
-                </span>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- =====================================================
-     ASSISTANT RESPONSE
-===================================================== -->
+<!-- ===================================================== -->
+<!-- ASSISTANT RESPONSE -->
+<!-- ===================================================== -->
 
 {% if assistant_result %}
 
-<div class="card mb-4 shadow-sm">
-    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+<div class="card mb-4 shadow-sm border-primary">
+    <div class="card-header bg-primary text-white">
         <strong>Assistant Response</strong>
-
-        {% if assistant_result.risk_level == "HIGH" %}
-            <span class="badge bg-danger">
-                Risk: {{ assistant_result.risk_level }}
-            </span>
-        {% elif assistant_result.risk_level == "MEDIUM" %}
-            <span class="badge bg-warning text-dark">
-                Risk: {{ assistant_result.risk_level }}
-            </span>
-        {% else %}
-            <span class="badge bg-success">
-                Risk: {{ assistant_result.risk_level }}
-            </span>
-        {% endif %}
     </div>
 
     <div class="card-body">
-
-        <h6 class="text-muted">User Query</h6>
-        <p>{{ assistant_result.user_query }}</p>
-
-        <hr>
 
         <div class="row mb-3">
 
             <div class="col-md-4 mb-2">
                 <strong>Intent:</strong>
-                <span class="badge bg-primary">
+                <br>
+                <span class="badge bg-info text-dark">
                     {{ assistant_result.intent }}
                 </span>
             </div>
 
             <div class="col-md-4 mb-2">
                 <strong>Confidence:</strong>
-                <span class="badge bg-success">
+                <br>
+                <span class="badge bg-secondary">
                     {{ assistant_result.confidence }}
                 </span>
             </div>
 
             <div class="col-md-4 mb-2">
                 <strong>Risk Level:</strong>
-
+                <br>
                 {% if assistant_result.risk_level == "HIGH" %}
                     <span class="badge bg-danger">
                         {{ assistant_result.risk_level }}
@@ -164,31 +105,48 @@
         </div>
 
         <h6 class="text-muted">Response</h6>
-        <div class="alert alert-info">
+        <div class="alert alert-light border">
             {{ assistant_result.assistant_response }}
         </div>
 
-        <h6 class="text-muted">Summary</h6>
-        <pre class="bg-light p-3 border rounded">{{ assistant_result.summary }}</pre>
-
         <h6 class="text-muted">Recommended Next Action</h6>
-        <div class="alert alert-secondary mb-0">
+        <div class="alert alert-secondary">
             {{ assistant_result.recommended_next_action }}
         </div>
 
     </div>
 </div>
 
+
+<!-- ===================================================== -->
+<!-- SUMMARY -->
+<!-- ===================================================== -->
+
+{% if assistant_result.summary %}
+
+<div class="card mb-4 shadow-sm">
+    <div class="card-header bg-light">
+        <strong>Assistant Summary</strong>
+    </div>
+
+    <div class="card-body">
+
+        <pre class="bg-dark text-white p-3 rounded mb-0" style="white-space: pre-wrap;">{{ assistant_result.summary }}</pre>
+
+    </div>
+</div>
+
 {% endif %}
 
-<!-- =====================================================
-     WORKFLOW RESULT
-===================================================== -->
 
-{% if assistant_result and assistant_result.workflow_result %}
+<!-- ===================================================== -->
+<!-- WORKFLOW EXECUTION RESULT -->
+<!-- ===================================================== -->
 
-<div class="card mb-4 shadow-sm border-primary">
-    <div class="card-header bg-primary text-white">
+{% if assistant_result.workflow_result %}
+
+<div class="card mb-4 shadow-sm border-info">
+    <div class="card-header bg-info text-dark">
         <strong>Workflow Execution Result</strong>
     </div>
 
@@ -213,14 +171,13 @@
             </div>
 
             <div class="col-md-4 mb-2">
-                <strong>Status:</strong>
+                <strong>Workflow Status:</strong>
                 <br>
-
-                {% if assistant_result.workflow_result.workflow_status == "SUCCESS" %}
+                {% if assistant_result.workflow_result.workflow_status in ["SUCCESS", "COMPLETED", "PENDING_APPROVAL"] %}
                     <span class="badge bg-success">
                         {{ assistant_result.workflow_result.workflow_status }}
                     </span>
-                {% elif assistant_result.workflow_result.workflow_status == "FAILED" %}
+                {% elif assistant_result.workflow_result.workflow_status in ["BLOCKED", "FAILED", "NOT_FOUND", "UNSUPPORTED_ACTION"] %}
                     <span class="badge bg-danger">
                         {{ assistant_result.workflow_result.workflow_status }}
                     </span>
@@ -229,7 +186,7 @@
                         {{ assistant_result.workflow_result.workflow_status }}
                     </span>
                 {% else %}
-                    <span class="badge bg-info text-dark">
+                    <span class="badge bg-secondary">
                         {{ assistant_result.workflow_result.workflow_status }}
                     </span>
                 {% endif %}
@@ -246,7 +203,6 @@
             <div class="col-md-4 mb-2">
                 <strong>Risk Level:</strong>
                 <br>
-
                 {% if assistant_result.workflow_result.risk_level == "HIGH" %}
                     <span class="badge bg-danger">
                         {{ assistant_result.workflow_result.risk_level }}
@@ -265,12 +221,12 @@
         </div>
 
         <h6 class="text-muted">Workflow Message</h6>
-        <div class="alert alert-primary">
+        <div class="alert alert-light border">
             {{ assistant_result.workflow_result.message }}
         </div>
 
         <h6 class="text-muted">Workflow Next Action</h6>
-        <div class="alert alert-secondary">
+        <div class="alert alert-secondary mb-0">
             {{ assistant_result.workflow_result.next_action }}
         </div>
 
@@ -279,36 +235,276 @@
 
 {% endif %}
 
-<!-- =====================================================
-     EXECUTED STEPS
-===================================================== -->
 
-{% if assistant_result and assistant_result.workflow_result and assistant_result.workflow_result.executed_steps %}
+<!-- ===================================================== -->
+<!-- EXECUTED WORKFLOW STEPS -->
+<!-- ===================================================== -->
+
+{% if assistant_result.workflow_result and assistant_result.workflow_result.executed_steps %}
 
 <div class="card mb-4 shadow-sm">
-    <div class="card-header bg-white">
+    <div class="card-header bg-light">
         <strong>Executed / Prepared Steps</strong>
     </div>
 
     <div class="card-body">
+
         <ol class="mb-0">
             {% for step in assistant_result.workflow_result.executed_steps %}
-                <li>{{ step }}</li>
+                <li class="mb-1">
+                    {{ step }}
+                </li>
             {% endfor %}
         </ol>
+
     </div>
 </div>
 
 {% endif %}
 
-<!-- =====================================================
-     MCP RESULT SUMMARY
-===================================================== -->
 
-{% if assistant_result and assistant_result.workflow_result and assistant_result.workflow_result.mcp_result %}
+<!-- ===================================================== -->
+<!-- GOVERNANCE APPROVAL RESULT -->
+<!-- ===================================================== -->
+
+{% if assistant_result.workflow_result and assistant_result.workflow_result.approval_result %}
+
+<div class="card mb-4 shadow-sm border-warning">
+    <div class="card-header bg-warning text-dark">
+        <strong>Governance Approval Result</strong>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row mb-3">
+
+            <div class="col-md-6 mb-2">
+                <strong>Approval ID:</strong>
+                <br>
+                <span class="text-muted">
+                    {{ assistant_result.workflow_result.approval_result.approval_id }}
+                </span>
+            </div>
+
+            <div class="col-md-6 mb-2">
+                <strong>Approval Status:</strong>
+                <br>
+                <span class="badge bg-warning text-dark">
+                    {{ assistant_result.workflow_result.approval_result.approval_status }}
+                </span>
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <strong>Action:</strong>
+                <br>
+                <span class="text-muted">
+                    {{ assistant_result.workflow_result.approval_result.action_name }}
+                </span>
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <strong>Target:</strong>
+                <br>
+                <span class="text-muted">
+                    {{ assistant_result.workflow_result.approval_result.target_name }}
+                </span>
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <strong>Risk Level:</strong>
+                <br>
+                {% if assistant_result.workflow_result.approval_result.risk_level == "HIGH" %}
+                    <span class="badge bg-danger">
+                        {{ assistant_result.workflow_result.approval_result.risk_level }}
+                    </span>
+                {% elif assistant_result.workflow_result.approval_result.risk_level == "MEDIUM" %}
+                    <span class="badge bg-warning text-dark">
+                        {{ assistant_result.workflow_result.approval_result.risk_level }}
+                    </span>
+                {% else %}
+                    <span class="badge bg-success">
+                        {{ assistant_result.workflow_result.approval_result.risk_level }}
+                    </span>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6 mb-2">
+                <strong>Requested By:</strong>
+                <br>
+                <span class="text-muted">
+                    {{ assistant_result.workflow_result.approval_result.requested_by }}
+                </span>
+            </div>
+
+            <div class="col-md-6 mb-2">
+                <strong>Created At:</strong>
+                <br>
+                <span class="text-muted">
+                    {{ assistant_result.workflow_result.approval_result.created_at }}
+                </span>
+            </div>
+
+        </div>
+
+        <h6 class="text-muted">Reason</h6>
+        <div class="alert alert-secondary mb-0">
+            {{ assistant_result.workflow_result.approval_result.reason }}
+        </div>
+
+    </div>
+</div>
+
+{% endif %}
+
+
+<!-- ===================================================== -->
+<!-- APPROVED REMEDIATION EXECUTION RESULT -->
+<!-- ===================================================== -->
+
+{% if assistant_result.workflow_result and assistant_result.workflow_result.execution_result %}
 
 <div class="card mb-4 shadow-sm border-success">
     <div class="card-header bg-success text-white">
+        <strong>Approved Remediation Execution Result</strong>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row mb-3">
+
+            <div class="col-md-6 mb-2">
+                <strong>Approval ID:</strong>
+                <br>
+                <span class="text-muted">
+                    {{ assistant_result.workflow_result.execution_result.approval_id }}
+                </span>
+            </div>
+
+            <div class="col-md-6 mb-2">
+                <strong>Approval Status:</strong>
+                <br>
+                {% if assistant_result.workflow_result.execution_result.approval_status == "APPROVED" %}
+                    <span class="badge bg-success">
+                        {{ assistant_result.workflow_result.execution_result.approval_status }}
+                    </span>
+                {% elif assistant_result.workflow_result.execution_result.approval_status == "PENDING_APPROVAL" %}
+                    <span class="badge bg-warning text-dark">
+                        {{ assistant_result.workflow_result.execution_result.approval_status }}
+                    </span>
+                {% else %}
+                    <span class="badge bg-secondary">
+                        {{ assistant_result.workflow_result.execution_result.approval_status }}
+                    </span>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <strong>Overall Status:</strong>
+                <br>
+                {% if assistant_result.workflow_result.execution_result.overall_status == "RUNBOOK_REQUEST_CREATED" %}
+                    <span class="badge bg-success">
+                        {{ assistant_result.workflow_result.execution_result.overall_status }}
+                    </span>
+                {% elif assistant_result.workflow_result.execution_result.overall_status == "BLOCKED" %}
+                    <span class="badge bg-danger">
+                        {{ assistant_result.workflow_result.execution_result.overall_status }}
+                    </span>
+                {% elif assistant_result.workflow_result.execution_result.overall_status == "NOT_FOUND" %}
+                    <span class="badge bg-danger">
+                        {{ assistant_result.workflow_result.execution_result.overall_status }}
+                    </span>
+                {% elif assistant_result.workflow_result.execution_result.overall_status == "UNSUPPORTED_ACTION" %}
+                    <span class="badge bg-warning text-dark">
+                        {{ assistant_result.workflow_result.execution_result.overall_status }}
+                    </span>
+                {% else %}
+                    <span class="badge bg-secondary">
+                        {{ assistant_result.workflow_result.execution_result.overall_status }}
+                    </span>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <strong>Action:</strong>
+                <br>
+                <span class="text-muted">
+                    {{ assistant_result.workflow_result.execution_result.action_name }}
+                </span>
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <strong>Target:</strong>
+                <br>
+                <span class="text-muted">
+                    {{ assistant_result.workflow_result.execution_result.target_name }}
+                </span>
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <strong>Runbook Name:</strong>
+                <br>
+                <span class="text-muted">
+                    {{ assistant_result.workflow_result.execution_result.runbook_name }}
+                </span>
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <strong>Runbook Created:</strong>
+                <br>
+                {% if assistant_result.workflow_result.execution_result.runbook_request_created %}
+                    <span class="badge bg-success">True</span>
+                {% else %}
+                    <span class="badge bg-danger">False</span>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <strong>Executed:</strong>
+                <br>
+                {% if assistant_result.workflow_result.execution_result.executed %}
+                    <span class="badge bg-success">True</span>
+                {% else %}
+                    <span class="badge bg-danger">False</span>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6 mb-2">
+                <strong>Integration Mode:</strong>
+                <br>
+                <span class="badge bg-info text-dark">
+                    {{ assistant_result.workflow_result.execution_result.integration_mode }}
+                </span>
+            </div>
+
+            <div class="col-md-6 mb-2">
+                <strong>Executed At:</strong>
+                <br>
+                <span class="text-muted">
+                    {{ assistant_result.workflow_result.execution_result.executed_at }}
+                </span>
+            </div>
+
+        </div>
+
+        <h6 class="text-muted">Execution Message</h6>
+        <div class="alert alert-secondary mb-0">
+            {{ assistant_result.workflow_result.execution_result.message }}
+        </div>
+
+    </div>
+</div>
+
+{% endif %}
+
+
+<!-- ===================================================== -->
+<!-- MCP WORKFLOW RESULT SUMMARY -->
+<!-- ===================================================== -->
+
+{% if assistant_result.workflow_result and assistant_result.workflow_result.mcp_result %}
+
+<div class="card mb-4 shadow-sm border-dark">
+    <div class="card-header bg-dark text-white">
         <strong>MCP Workflow Result Summary</strong>
     </div>
 
@@ -317,56 +513,185 @@
         <div class="row mb-3">
 
             <div class="col-md-4 mb-2">
+                <strong>MCP Status:</strong>
+                <br>
+                {% if assistant_result.workflow_result.mcp_result.status == "SUCCESS" %}
+                    <span class="badge bg-success">
+                        {{ assistant_result.workflow_result.mcp_result.status }}
+                    </span>
+                {% else %}
+                    <span class="badge bg-danger">
+                        {{ assistant_result.workflow_result.mcp_result.status }}
+                    </span>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4 mb-2">
                 <strong>Overall Status:</strong>
                 <br>
-
                 {% if assistant_result.workflow_result.mcp_result.overall_status == "HEALTHY" %}
                     <span class="badge bg-success">
                         {{ assistant_result.workflow_result.mcp_result.overall_status }}
                     </span>
+                {% elif assistant_result.workflow_result.mcp_result.overall_status == "INCIDENT" %}
+                    <span class="badge bg-danger">
+                        {{ assistant_result.workflow_result.mcp_result.overall_status }}
+                    </span>
                 {% else %}
-                    <span class="badge bg-warning text-dark">
+                    <span class="badge bg-secondary">
                         {{ assistant_result.workflow_result.mcp_result.overall_status }}
                     </span>
                 {% endif %}
             </div>
 
-            <div class="col-md-8 mb-2">
-                <strong>Report File:</strong>
+            <div class="col-md-4 mb-2">
+                <strong>Workflow Type:</strong>
                 <br>
-                <span class="text-muted">
-                    {{ assistant_result.workflow_result.mcp_result.report_file }}
+                <span class="badge bg-info text-dark">
+                    MCP Workflow
                 </span>
             </div>
 
         </div>
 
-        <h6 class="text-muted mt-3">SQL Action</h6>
-        <pre class="bg-light p-3 border rounded">{{ assistant_result.workflow_result.mcp_result.sql_action }}</pre>
+        {% if assistant_result.workflow_result.mcp_result.ai_result %}
 
-        <h6 class="text-muted mt-3">SQL Risk</h6>
-        <pre class="bg-light p-3 border rounded">{{ assistant_result.workflow_result.mcp_result.sql_risk }}</pre>
+        <h6 class="text-muted">AI Analysis Result</h6>
+        <div class="alert alert-light border">
+            <strong>Status:</strong>
+            {{ assistant_result.workflow_result.mcp_result.ai_result.status }}
+            <br>
+            <strong>Summary:</strong>
+            {{ assistant_result.workflow_result.mcp_result.ai_result.analysis }}
+        </div>
 
-        <h6 class="text-muted mt-3">Validation Result</h6>
-        <pre class="bg-light p-3 border rounded">{{ assistant_result.workflow_result.mcp_result.validation_result }}</pre>
+        {% endif %}
 
-        <h6 class="text-muted mt-3">Execution Result</h6>
-        <pre class="bg-light p-3 border rounded">{{ assistant_result.workflow_result.mcp_result.execution_result }}</pre>
+        {% if assistant_result.workflow_result.mcp_result.agent_result %}
 
-        <h6 class="text-muted mt-3">Verification Result</h6>
-        <pre class="bg-light p-3 border rounded">{{ assistant_result.workflow_result.mcp_result.verification_result }}</pre>
+        <h6 class="text-muted">Agent Result</h6>
+        <pre class="bg-dark text-white p-3 rounded" style="white-space: pre-wrap;">{{ assistant_result.workflow_result.mcp_result.agent_result }}</pre>
 
-        <h6 class="text-muted mt-3">Remediation Result</h6>
-        <pre class="bg-light p-3 border rounded">{{ assistant_result.workflow_result.mcp_result.remediation_result }}</pre>
+        {% endif %}
 
-        {% if assistant_result.workflow_result.mcp_result.approval_request %}
-            <h6 class="text-muted mt-3">Approval Request</h6>
-            <pre class="bg-light p-3 border rounded">{{ assistant_result.workflow_result.mcp_result.approval_request }}</pre>
+        {% if assistant_result.workflow_result.mcp_result.sql_action_result %}
+
+        <h6 class="text-muted">SQL Action Result</h6>
+        <pre class="bg-dark text-white p-3 rounded" style="white-space: pre-wrap;">{{ assistant_result.workflow_result.mcp_result.sql_action_result }}</pre>
+
+        {% endif %}
+
+        {% if assistant_result.workflow_result.mcp_result.sql_risk_result %}
+
+        <h6 class="text-muted">SQL Risk Result</h6>
+        <pre class="bg-dark text-white p-3 rounded" style="white-space: pre-wrap;">{{ assistant_result.workflow_result.mcp_result.sql_risk_result }}</pre>
+
+        {% endif %}
+
+        {% if assistant_result.workflow_result.mcp_result.validation_result %}
+
+        <h6 class="text-muted">Validation Result</h6>
+        <pre class="bg-dark text-white p-3 rounded" style="white-space: pre-wrap;">{{ assistant_result.workflow_result.mcp_result.validation_result }}</pre>
+
+        {% endif %}
+
+        {% if assistant_result.workflow_result.mcp_result.execution_result %}
+
+        <h6 class="text-muted">Execution Result</h6>
+        <pre class="bg-dark text-white p-3 rounded" style="white-space: pre-wrap;">{{ assistant_result.workflow_result.mcp_result.execution_result }}</pre>
+
+        {% endif %}
+
+        {% if assistant_result.workflow_result.mcp_result.verification_result %}
+
+        <h6 class="text-muted">Verification Result</h6>
+        <pre class="bg-dark text-white p-3 rounded" style="white-space: pre-wrap;">{{ assistant_result.workflow_result.mcp_result.verification_result }}</pre>
+
+        {% endif %}
+
+        {% if assistant_result.workflow_result.mcp_result.remediation_result %}
+
+        <h6 class="text-muted">Remediation Result</h6>
+        <pre class="bg-dark text-white p-3 rounded" style="white-space: pre-wrap;">{{ assistant_result.workflow_result.mcp_result.remediation_result }}</pre>
+
+        {% endif %}
+
+        {% if assistant_result.workflow_result.mcp_result.report_file %}
+
+        <h6 class="text-muted">Generated Report</h6>
+        <div class="alert alert-success mb-0">
+            {{ assistant_result.workflow_result.mcp_result.report_file }}
+        </div>
+
         {% endif %}
 
     </div>
 </div>
 
 {% endif %}
+
+
+<!-- ===================================================== -->
+<!-- RAW WORKFLOW ERROR -->
+<!-- ===================================================== -->
+
+{% if assistant_result.workflow_result and assistant_result.workflow_result.error %}
+
+<div class="card mb-4 shadow-sm border-danger">
+    <div class="card-header bg-danger text-white">
+        <strong>Workflow Error</strong>
+    </div>
+
+    <div class="card-body">
+        <pre class="bg-dark text-white p-3 rounded mb-0" style="white-space: pre-wrap;">{{ assistant_result.workflow_result.error }}</pre>
+    </div>
+</div>
+
+{% endif %}
+
+{% endif %}
+
+
+<!-- ===================================================== -->
+<!-- SAMPLE COMMANDS -->
+<!-- ===================================================== -->
+
+<div class="card mb-4 shadow-sm">
+    <div class="card-header bg-light">
+        <strong>Sample DBA Assistant Commands</strong>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <h6 class="text-muted">Monitoring and Workflow</h6>
+                <ul>
+                    <li>run full dba workflow</li>
+                    <li>start monitoring</li>
+                    <li>stop monitoring</li>
+                    <li>run health check</li>
+                    <li>check deadlock situation</li>
+                    <li>check backup status</li>
+                </ul>
+            </div>
+
+            <div class="col-md-6">
+                <h6 class="text-muted">Governance and Approval</h6>
+                <ul>
+                    <li>show pending approvals</li>
+                    <li>create approval for full backup</li>
+                    <li>create approval for restart sql agent job</li>
+                    <li>execute approved remediation for approval-id</li>
+                    <li>show execution history</li>
+                    <li>show audit logs</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 
 {% endblock %}

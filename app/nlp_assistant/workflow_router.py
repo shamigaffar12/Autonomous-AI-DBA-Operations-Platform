@@ -207,21 +207,10 @@ def route_nlp_workflow(
 
     if intent == "EXECUTE_APPROVED_REMEDIATION":
 
-        return build_workflow_result(
+        return execute_nlp_approved_remediation(
             user_query=user_query,
             intent=intent,
-            workflow_name="Approved Remediation Execution Workflow",
-            workflow_status="APPROVAL_VALIDATION_REQUIRED",
-            risk_level=risk_level,
-            execution_mode="SIMULATED",
-            executed_steps=[
-                "Execution request identified",
-                "Approval validation required",
-                "Execution history target identified",
-                "Governance audit target identified"
-            ],
-            message="Approved remediation execution requires approval ID validation before automation trigger.",
-            next_action="Next enhancement: connect this route with approval execution console."
+            risk_level=risk_level
         )
 
     # =====================================================
@@ -440,6 +429,121 @@ def create_nlp_approval_request(
             "executed_steps": [],
             "message": "Failed to create approval request from NLP command.",
             "next_action": "Check NLP approval parser, approval manager, and governance audit manager.",
+            "error": str(
+                error
+            ),
+            "created_at": str(
+                datetime.now()
+            )
+        }
+        
+        
+        # =========================================================
+# EXECUTE NLP APPROVED REMEDIATION
+# =========================================================
+
+def execute_nlp_approved_remediation(
+    user_query,
+    intent,
+    risk_level
+):
+    """
+    Execute approved remediation from NLP command using approval ID.
+    """
+
+    try:
+
+        from app.nlp_assistant.approval_id_parser import (
+            extract_approval_id
+        )
+
+        from app.automation.approval_execution_console import (
+            execute_approved_request
+        )
+
+        approval_id = extract_approval_id(
+            user_query
+        )
+
+        if not approval_id:
+
+            return {
+                "workflow_id": f"NLP-WF-{datetime.now().strftime('%Y%m%d%H%M%S%f')}",
+                "user_query": user_query,
+                "intent": intent,
+                "workflow_name": "NLP Approved Remediation Execution Workflow",
+                "workflow_status": "APPROVAL_ID_REQUIRED",
+                "risk_level": risk_level,
+                "execution_mode": "GOVERNANCE",
+                "executed_steps": [
+                    "Execution command identified",
+                    "Approval ID extraction attempted",
+                    "Approval ID not found"
+                ],
+                "message": "Approval ID is required to execute approved remediation.",
+                "next_action": "Use command format: execute approved remediation for <approval_id>",
+                "execution_result": None,
+                "created_at": str(
+                    datetime.now()
+                )
+            }
+
+        execution_result = execute_approved_request(
+            approval_id
+        )
+
+        overall_status = execution_result.get(
+            "overall_status"
+        )
+
+        workflow_status = "COMPLETED"
+
+        if overall_status in [
+            "BLOCKED",
+            "NOT_FOUND",
+            "UNSUPPORTED_ACTION"
+        ]:
+
+            workflow_status = overall_status
+
+        return {
+            "workflow_id": f"NLP-WF-{datetime.now().strftime('%Y%m%d%H%M%S%f')}",
+            "user_query": user_query,
+            "intent": intent,
+            "workflow_name": "NLP Approved Remediation Execution Workflow",
+            "workflow_status": workflow_status,
+            "risk_level": risk_level,
+            "execution_mode": "GOVERNANCE",
+            "executed_steps": [
+                "Execution command identified",
+                "Approval ID extracted",
+                "Approval status validated",
+                "Approval execution console triggered",
+                "Execution history updated",
+                "Governance audit log updated"
+            ],
+            "message": "Approved remediation execution workflow completed through NLP command.",
+            "next_action": "Review Governance page execution history and audit logs.",
+            "approval_id": approval_id,
+            "execution_result": execution_result,
+            "created_at": str(
+                datetime.now()
+            )
+        }
+
+    except Exception as error:
+
+        return {
+            "workflow_id": f"NLP-WF-{datetime.now().strftime('%Y%m%d%H%M%S%f')}",
+            "user_query": user_query,
+            "intent": intent,
+            "workflow_name": "NLP Approved Remediation Execution Workflow",
+            "workflow_status": "FAILED",
+            "risk_level": risk_level,
+            "execution_mode": "GOVERNANCE",
+            "executed_steps": [],
+            "message": "Failed to execute approved remediation from NLP command.",
+            "next_action": "Check approval ID parser and approval execution console.",
             "error": str(
                 error
             ),

@@ -1,118 +1,307 @@
 {% extends "base.html" %}
 
+{% block title %}
+Analytics - Autonomous AI DBA Operations Platform
+{% endblock %}
+
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="container-fluid">
 
-    <div>
-        <h2 class="fw-bold mb-1">
-            Analytics Center
-        </h2>
-
-        <p class="text-muted mb-0">
-            Health Insights • Trends • Governance Analytics
-        </p>
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2 class="fw-bold">
+                DBA Analytics Dashboard
+            </h2>
+            <p class="text-muted">
+                Live analytics generated from incident repository, governance approvals, and audit activity.
+            </p>
+        </div>
     </div>
 
-    <span class="badge bg-primary fs-6">
-        Analytics Ready
-    </span>
+    <!-- Main Analytics Cards -->
+    <div class="row mb-4">
 
-</div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Health Score %
+                    </h6>
+                    <hr>
 
+                    {% set health_value = health_score | default(analytics.health_score, true) | default(0, true) %}
 
-<div class="row g-3 mb-4">
+                    {% if health_value >= 90 %}
+                    <h1 class="fw-bold text-success">
+                        {{ health_value }}%
+                    </h1>
+                    {% elif health_value >= 70 %}
+                    <h1 class="fw-bold text-warning">
+                        {{ health_value }}%
+                    </h1>
+                    {% else %}
+                    <h1 class="fw-bold text-danger">
+                        {{ health_value }}%
+                    </h1>
+                    {% endif %}
 
-    <div class="col-lg-4 col-md-6">
-        <div class="card h-100">
-            <div class="card-body">
-                <h6 class="text-muted">Health Score</h6>
-                <hr>
-                <h2 class="fw-bold text-success">
-                    {{ health_score }}%
-                </h2>
+                    <p class="text-muted mb-0">
+                        Calculated from healthy incident records.
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-lg-4 col-md-6">
-        <div class="card h-100">
-            <div class="card-body">
-                <h6 class="text-muted">Risk Level</h6>
-                <hr>
-                <h2 class="fw-bold text-warning">
-                    {{ risk_level }}
-                </h2>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Risk Level
+                    </h6>
+                    <hr>
+
+                    {% set risk_value = risk_level | default(analytics.risk_level, true) | default("LOW", true) %}
+
+                    {% if risk_value == "LOW" %}
+                    <h1 class="fw-bold text-success">
+                        {{ risk_value }}
+                    </h1>
+                    {% elif risk_value == "MEDIUM" %}
+                    <h1 class="fw-bold text-warning">
+                        {{ risk_value }}
+                    </h1>
+                    {% elif risk_value == "HIGH" %}
+                    <h1 class="fw-bold text-danger">
+                        {{ risk_value }}
+                    </h1>
+                    {% else %}
+                    <h1 class="fw-bold text-secondary">
+                        {{ risk_value }}
+                    </h1>
+                    {% endif %}
+
+                    <p class="text-muted mb-0">
+                        Based on incidents requiring attention.
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-lg-4 col-md-6">
-        <div class="card h-100">
-            <div class="card-body">
-                <h6 class="text-muted">Automation Mode</h6>
-                <hr>
-                <h2 class="fw-bold text-primary">
-                    {{ automation_mode }}
-                </h2>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Automation Mode
+                    </h6>
+                    <hr>
+                    <h1 class="fw-bold text-primary">
+                        {{ automation_mode | default(analytics.automation_mode, true) | default("SIMULATED", true) }}
+                    </h1>
+                    <p class="text-muted mb-0">
+                        Current controlled automation execution mode.
+                    </p>
+                </div>
             </div>
         </div>
+
     </div>
 
-</div>
+    <!-- Incident Analytics -->
+    <div class="row mb-4">
 
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Total Incidents
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-danger">
+                        {{ total_incidents | default(analytics.total_incidents, true) | default(0, true) }}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Total incident records available.
+                    </p>
+                </div>
+            </div>
+        </div>
 
-<div class="card">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Healthy Incidents
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-success">
+                        {{ healthy_incidents | default(analytics.healthy_incidents, true) | default(0, true) }}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Incidents with healthy overall status.
+                    </p>
+                </div>
+            </div>
+        </div>
 
-    <div class="card-header bg-white">
-        <strong>Live Analytics Summary</strong>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Attention Required
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-warning">
+                        {{ attention_required | default(analytics.attention_required, true) | default(0, true) }}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Incidents requiring DBA review.
+                    </p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="card-body">
+    <!-- Governance Analytics -->
+    <div class="row mb-4">
 
-        {% if analytics_results %}
-
-        <div class="table-responsive">
-
-            <table class="table table-hover align-middle">
-
-                <thead class="table-dark">
-                    <tr>
-                        <th>Metric</th>
-                        <th>Value</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    {% for item in analytics_results %}
-
-                    <tr>
-                        <td>{{ item.metric }}</td>
-                        <td>{{ item.value }}</td>
-                        <td>
-                            <span class="badge bg-success">
-                                {{ item.status }}
-                            </span>
-                        </td>
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
-
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Pending Approvals
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-warning">
+                        {{ analytics.pending_approvals | default(0, true) }}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Waiting for Lead DBA approval.
+                    </p>
+                </div>
+            </div>
         </div>
 
-        {% else %}
-
-        <div class="alert alert-info mb-0">
-            No analytics data found.
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Execution Records
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-info">
+                        {{ analytics.execution_records | default(0, true) }}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Approved remediation executions.
+                    </p>
+                </div>
+            </div>
         </div>
 
-        {% endif %}
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">
+                        Audit Events
+                    </h6>
+                    <hr>
+                    <h2 class="fw-bold text-dark">
+                        {{ analytics.audit_events | default(0, true) }}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Governance audit log events.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Daily Summary -->
+    <div class="row mb-4">
+
+        <div class="col-md-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        Daily Analytics Summary
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    {% if summary %}
+
+                    <p>
+                        <strong>Date:</strong>
+                        {{ summary.date | default("-", true) }}
+                    </p>
+
+                    <p>
+                        <strong>Platform Health:</strong>
+                        {{ summary.platform_health | default("-", true) }}
+                    </p>
+
+                    <p>
+                        <strong>Summary:</strong>
+                        {{ summary.summary | default("No analytics summary available.", true) }}
+                    </p>
+
+                    {% else %}
+
+                    <div class="alert alert-info mb-0">
+                        No analytics data found.
+                    </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Analytics Interpretation -->
+    <div class="row mb-4">
+
+        <div class="col-md-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        Interpretation
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    {% set attention_value = attention_required | default(analytics.attention_required, true) | default(0, true) %}
+
+                    {% if attention_value == 0 %}
+
+                    <div class="alert alert-success mb-0">
+                        Platform is currently stable. No incidents require immediate attention.
+                    </div>
+
+                    {% elif attention_value <= 2 %}
+
+                    <div class="alert alert-warning mb-0">
+                        A small number of incidents require review. DBA validation is recommended before any remediation.
+                    </div>
+
+                    {% else %}
+
+                    <div class="alert alert-danger mb-0">
+                        Multiple incidents require attention. Review incident details, audit logs, and approval workflow before execution.
+                    </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
 
     </div>
 

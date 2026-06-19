@@ -187,5 +187,65 @@
             "severity": "LOW"
         },
         "report_file": "reports/incident_report_20260618_155555.txt"
+    },
+    {
+        "timestamp": "2026-06-19 12:52:20.722621",
+        "overall_status": "HEALTHY",
+        "incident_summary": "\nSQL Monitoring Summary\n\nMonitoring Time: 2026-06-19 12:52:18.030499\nDatabase: AdventureWorks2019\n\n\nCPU Monitoring:\nSession ID: 60\nStatus: running\nCPU Time: 15\nElapsed Time: 15\nReads: 0\nWrites: 0\nLogical Reads: 257\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 63\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 1068\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 59\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 0\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 58\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 306\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 55\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 254\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 54\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 52\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 53\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 560\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 52\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 812\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 51\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 762\nAlert: CPU Usage Within Normal Range\n--------------------------\n\nNo blocking sessions detected.\n\nNo long running queries detected.\n\nOverall Status: HEALTHY",
+        "ai_analysis": {
+            "summary": "\n\nSystem Health Summary:\nMonitoring completed successfully for the SQL Server environment.\n\nMonitoring Observations:\n- CPU usage was captured successfully.\n- Blocking and long-running query checks were performed.\n- Database size information was retrieved successfully.\n\nRecommended Actions:\n- Continue regular monitoring.\n- Review workload trends periodically.\n- Maintain index and statistics upkeep.\n\nPrevention Recommendations:\n- Keep alert thresholds in place.\n- Perform routine capacity planning.\n- Maintain documentation and operational logs.\n\n",
+            "root_cause": "AI analysis response was not structured.",
+            "recommendation": "Continue monitoring and review SQL health manually.",
+            "severity": "LOW"
+        },
+        "report_file": "reports/incident_report_20260619_125220.txt"
+    },
+    {
+        "timestamp": "2026-06-19 13:07:06.350416",
+        "overall_status": "HEALTHY",
+        "incident_summary": "\nSQL Monitoring Summary\n\nMonitoring Time: 2026-06-19 13:07:03.846699\nDatabase: AdventureWorks2019\n\n\nCPU Monitoring:\nSession ID: 63\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 254\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 62\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 304\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 61\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 508\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 60\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 52\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 59\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 558\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 58\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 254\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 55\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 156\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 54\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 306\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 53\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 254\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 52\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 558\nAlert: CPU Usage Within Normal Range\n--------------------------\n\nNo blocking sessions detected.\n\nNo long running queries detected.\n\nOverall Status: HEALTHY",
+        "ai_analysis": {
+            "summary": "\n\nSystem Health Summary:\nMonitoring completed successfully for the SQL Server environment.\n\nMonitoring Observations:\n- CPU usage was captured successfully.\n- Blocking and long-running query checks were performed.\n- Database size information was retrieved successfully.\n\nRecommended Actions:\n- Continue regular monitoring.\n- Review workload trends periodically.\n- Maintain index and statistics upkeep.\n\nPrevention Recommendations:\n- Keep alert thresholds in place.\n- Perform routine capacity planning.\n- Maintain documentation and operational logs.\n\n",
+            "root_cause": "AI analysis response was not structured.",
+            "recommendation": "Continue monitoring and review SQL health manually.",
+            "severity": "LOW"
+        },
+        "report_file": "reports/incident_report_20260619_130706.txt"
+    },
+    {
+        "timestamp": "2026-06-19 13:07:51.179516",
+        "overall_status": "HEALTHY",
+        "incident_summary": "\nSQL Monitoring Summary\n\nMonitoring Time: 2026-06-19 13:07:50.880287\nDatabase: AdventureWorks2019\n\n\nCPU Monitoring:\nSession ID: 69\nStatus: running\nCPU Time: 3\nElapsed Time: 3\nReads: 0\nWrites: 0\nLogical Reads: 257\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 63\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 254\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 62\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 558\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 61\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 508\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 60\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 306\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 59\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 558\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 58\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 508\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 55\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 156\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 54\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 916\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 53\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 306\nAlert: CPU Usage Within Normal Range\n--------------------------\n\nNo blocking sessions detected.\n\nNo long running queries detected.\n\nOverall Status: HEALTHY",
+        "ai_analysis": {
+            "summary": "\n\nSystem Health Summary:\nMonitoring completed successfully for the SQL Server environment.\n\nMonitoring Observations:\n- CPU usage was captured successfully.\n- Blocking and long-running query checks were performed.\n- Database size information was retrieved successfully.\n\nRecommended Actions:\n- Continue regular monitoring.\n- Review workload trends periodically.\n- Maintain index and statistics upkeep.\n\nPrevention Recommendations:\n- Keep alert thresholds in place.\n- Perform routine capacity planning.\n- Maintain documentation and operational logs.\n\n",
+            "root_cause": "AI analysis response was not structured.",
+            "recommendation": "Continue monitoring and review SQL health manually.",
+            "severity": "LOW"
+        },
+        "report_file": "reports/incident_report_20260619_130751.txt"
+    },
+    {
+        "timestamp": "2026-06-19 14:04:14.643093",
+        "overall_status": "HEALTHY",
+        "incident_summary": "\nSQL Monitoring Summary\n\nMonitoring Time: 2026-06-19 14:04:11.446048\nDatabase: AdventureWorks2019\n\n\nCPU Monitoring:\nSession ID: 51\nStatus: running\nCPU Time: 1\nElapsed Time: 1\nReads: 0\nWrites: 0\nLogical Reads: 0\nAlert: CPU Usage Within Normal Range\n--------------------------\n\nNo blocking sessions detected.\n\nNo long running queries detected.\n\nOverall Status: HEALTHY",
+        "ai_analysis": {
+            "summary": "\n\nSystem Health Summary:\nMonitoring completed successfully for the SQL Server environment.\n\nMonitoring Observations:\n- CPU usage was captured successfully.\n- Blocking and long-running query checks were performed.\n- Database size information was retrieved successfully.\n\nRecommended Actions:\n- Continue regular monitoring.\n- Review workload trends periodically.\n- Maintain index and statistics upkeep.\n\nPrevention Recommendations:\n- Keep alert thresholds in place.\n- Perform routine capacity planning.\n- Maintain documentation and operational logs.\n\n",
+            "root_cause": "AI analysis response was not structured.",
+            "recommendation": "Continue monitoring and review SQL health manually.",
+            "severity": "LOW"
+        },
+        "report_file": "reports/incident_report_20260619_140414.txt"
+    },
+    {
+        "timestamp": "2026-06-19 14:13:48.980458",
+        "overall_status": "HEALTHY",
+        "incident_summary": "\nSQL Monitoring Summary\n\nMonitoring Time: 2026-06-19 14:13:47.956651\nDatabase: AdventureWorks2019\n\n\nCPU Monitoring:\nSession ID: 55\nStatus: sleeping\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 612\nAlert: CPU Usage Within Normal Range\n--------------------------\nSession ID: 52\nStatus: running\nCPU Time: 0\nElapsed Time: 0\nReads: 0\nWrites: 0\nLogical Reads: 0\nAlert: CPU Usage Within Normal Range\n--------------------------\n\nNo blocking sessions detected.\n\nNo long running queries detected.\n\nOverall Status: HEALTHY",
+        "ai_analysis": {
+            "summary": "\n\nSystem Health Summary:\nMonitoring completed successfully for the SQL Server environment.\n\nMonitoring Observations:\n- CPU usage was captured successfully.\n- Blocking and long-running query checks were performed.\n- Database size information was retrieved successfully.\n\nRecommended Actions:\n- Continue regular monitoring.\n- Review workload trends periodically.\n- Maintain index and statistics upkeep.\n\nPrevention Recommendations:\n- Keep alert thresholds in place.\n- Perform routine capacity planning.\n- Maintain documentation and operational logs.\n\n",
+            "root_cause": "AI analysis response was not structured.",
+            "recommendation": "Continue monitoring and review SQL health manually.",
+            "severity": "LOW"
+        },
+        "report_file": "reports/incident_report_20260619_141348.txt"
     }
 ]
