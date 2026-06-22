@@ -1,0 +1,29 @@
+[
+    {
+        "timestamp": "2026-06-22 15:27:49",
+        "user": "Lead DBA",
+        "natural_language_query": "Generate monthly DBA report and validate approval workflow.",
+        "generated_sql": "",
+        "risk_classification": "LOW",
+        "approval_status": "NOT_REQUIRED",
+        "execution_status": "COMPLETED"
+    },
+    {
+        "timestamp": "2026-06-22 15:39:45",
+        "user": "Lead DBA",
+        "natural_language_query": "check approval status for 2270e58a-5763-4b23-8b28-924d5c35b5dd",
+        "generated_sql": "",
+        "risk_classification": "MEDIUM",
+        "approval_status": "APPROVED",
+        "execution_status": "STATUS_CHECKED"
+    },
+    {
+        "timestamp": "2026-06-22 15:40:12",
+        "user": "Lead DBA",
+        "natural_language_query": "execute approval 2270e58a-5763-4b23-8b28-924d5c35b5dd",
+        "generated_sql": "",
+        "risk_classification": "MEDIUM",
+        "approval_status": "APPROVED",
+        "execution_status": "BACKUP_REQUEST_CREATED"
+    }
+]

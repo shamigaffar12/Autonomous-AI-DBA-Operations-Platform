@@ -551,5 +551,145 @@
         "component": "NOTIFICATION ENGINE",
         "status": "SKIPPED",
         "details": "Notification not required"
+    },
+    {
+        "timestamp": "2026-06-22 13:08:21.721137",
+        "action_type": "RISK_CLASSIFICATION",
+        "component": "RISK CLASSIFIER",
+        "status": "SUCCESS",
+        "details": "LOW"
+    },
+    {
+        "timestamp": "2026-06-22 13:08:21.732066",
+        "action_type": "RECOMMENDATION",
+        "component": "RECOMMENDATION ENGINE",
+        "status": "SUCCESS",
+        "details": "System healthy. Continue monitoring."
+    },
+    {
+        "timestamp": "2026-06-22 13:08:21.826446",
+        "action_type": "SQL_EXECUTION",
+        "component": "SQL EXECUTOR",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'No SQL Action Required'}"
+    },
+    {
+        "timestamp": "2026-06-22 13:08:21.887586",
+        "action_type": "REMEDIATION",
+        "component": "REMEDIATION ENGINE",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'System Healthy'}"
+    },
+    {
+        "timestamp": "2026-06-22 13:08:21.961107",
+        "action_type": "NOTIFICATION",
+        "component": "NOTIFICATION ENGINE",
+        "status": "SKIPPED",
+        "details": "Notification not required"
+    },
+    {
+        "timestamp": "2026-06-22 13:40:35.556222",
+        "action_type": "RISK_CLASSIFICATION",
+        "component": "RISK CLASSIFIER",
+        "status": "SUCCESS",
+        "details": "LOW"
+    },
+    {
+        "timestamp": "2026-06-22 13:40:35.560484",
+        "action_type": "RECOMMENDATION",
+        "component": "RECOMMENDATION ENGINE",
+        "status": "SUCCESS",
+        "details": "System healthy. Continue monitoring."
+    },
+    {
+        "timestamp": "2026-06-22 13:40:35.630566",
+        "action_type": "SQL_EXECUTION",
+        "component": "SQL EXECUTOR",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'No SQL Action Required'}"
+    },
+    {
+        "timestamp": "2026-06-22 13:40:35.668847",
+        "action_type": "REMEDIATION",
+        "component": "REMEDIATION ENGINE",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'System Healthy'}"
+    },
+    {
+        "timestamp": "2026-06-22 13:40:36.157006",
+        "action_type": "NOTIFICATION",
+        "component": "NOTIFICATION ENGINE",
+        "status": "SKIPPED",
+        "details": "Notification not required"
+    },
+    {
+        "timestamp": "2026-06-22 13:56:46.315068",
+        "action_type": "RISK_CLASSIFICATION",
+        "component": "RISK CLASSIFIER",
+        "status": "SUCCESS",
+        "details": "LOW"
+    },
+    {
+        "timestamp": "2026-06-22 13:56:46.319618",
+        "action_type": "RECOMMENDATION",
+        "component": "RECOMMENDATION ENGINE",
+        "status": "SUCCESS",
+        "details": "System healthy. Continue monitoring."
+    },
+    {
+        "timestamp": "2026-06-22 13:56:46.388449",
+        "action_type": "SQL_EXECUTION",
+        "component": "SQL EXECUTOR",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'No SQL Action Required'}"
+    },
+    {
+        "timestamp": "2026-06-22 13:56:46.427725",
+        "action_type": "REMEDIATION",
+        "component": "REMEDIATION ENGINE",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'System Healthy'}"
+    },
+    {
+        "timestamp": "2026-06-22 13:56:47.214818",
+        "action_type": "NOTIFICATION",
+        "component": "NOTIFICATION ENGINE",
+        "status": "SKIPPED",
+        "details": "Notification not required"
+    },
+    {
+        "timestamp": "2026-06-22 16:10:55.045377",
+        "action_type": "RISK_CLASSIFICATION",
+        "component": "RISK CLASSIFIER",
+        "status": "SUCCESS",
+        "details": "LOW"
+    },
+    {
+        "timestamp": "2026-06-22 16:10:55.050357",
+        "action_type": "RECOMMENDATION",
+        "component": "RECOMMENDATION ENGINE",
+        "status": "SUCCESS",
+        "details": "System healthy. Continue monitoring."
+    },
+    {
+        "timestamp": "2026-06-22 16:10:55.097727",
+        "action_type": "SQL_EXECUTION",
+        "component": "SQL EXECUTOR",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'No SQL Action Required'}"
+    },
+    {
+        "timestamp": "2026-06-22 16:10:55.125052",
+        "action_type": "REMEDIATION",
+        "component": "REMEDIATION ENGINE",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'System Healthy'}"
+    },
+    {
+        "timestamp": "2026-06-22 16:10:55.668204",
+        "action_type": "NOTIFICATION",
+        "component": "NOTIFICATION ENGINE",
+        "status": "SKIPPED",
+        "details": "Notification not required"
     }
 ]

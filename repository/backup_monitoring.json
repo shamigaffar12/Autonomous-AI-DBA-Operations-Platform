@@ -1,0 +1,18 @@
+[
+    {
+        "timestamp": "2026-06-22 15:27:49",
+        "database": "AdventureWorks2019",
+        "last_backup_time": "2026-06-22 15:27:49",
+        "backup_type": "FULL",
+        "backup_status": "MONITORED",
+        "recovery_model": "FULL"
+    },
+    {
+        "timestamp": "2026-06-22 16:00:13",
+        "database": "AdventureWorks2019",
+        "last_backup_time": "2026-06-22 16:00:13",
+        "backup_type": "FULL",
+        "backup_status": "BACKUP_COMPLETED",
+        "recovery_model": "FULL"
+    }
+]

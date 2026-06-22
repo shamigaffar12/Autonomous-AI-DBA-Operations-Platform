@@ -12,17 +12,65 @@ Reports - Autonomous AI DBA Operations Platform
     <div class="row mb-4">
         <div class="col-md-8">
             <h2 class="fw-bold">
-                Reports Center
+                Reports
             </h2>
             <p class="text-muted">
-                Live DBA reports generated from incident monitoring, daily health checks, and performance tuning workflows.
+                Generate, view, download, email, and manage monthly DBA Excel reports.
             </p>
         </div>
 
         <div class="col-md-4 text-end">
             <span class="badge bg-success fs-6">
-                {{ total_reports | default(reports.total_reports, true) | default(0, true) }} Reports
+                {{ total_reports | default(0, true) }} Excel Reports
             </span>
+        </div>
+    </div>
+
+    {% if message %}
+    <div class="alert alert-info">
+        <strong>{{ message_status | default("INFO", true) }}:</strong>
+        {{ message }}
+    </div>
+    {% endif %}
+
+    <!-- Action Buttons -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        Report Actions
+                    </h5>
+                </div>
+
+                <div class="card-body d-flex flex-wrap gap-2">
+
+                    <form method="post" action="/reports/generate/monthly">
+                        <button type="submit" class="btn btn-primary">
+                            Generate Monthly Report
+                        </button>
+                    </form>
+
+                    <form method="post" action="/reports/generate/weekly">
+                        <button type="submit" class="btn btn-outline-primary">
+                            Generate Weekly Report
+                        </button>
+                    </form>
+
+                    <a href="/reports/download/latest" class="btn btn-success">
+                        Download Latest Report
+                    </a>
+
+                    <form method="post" action="/reports/email/latest">
+                        <button type="submit" class="btn btn-outline-success">
+                            Email Report
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -33,14 +81,14 @@ Reports - Autonomous AI DBA Operations Platform
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-body text-center">
                     <h6 class="text-muted">
-                        Total Reports
+                        Total Excel Reports
                     </h6>
                     <hr>
                     <h2 class="fw-bold text-success">
-                        {{ total_reports | default(reports.total_reports, true) | default(0, true) }}
+                        {{ total_reports | default(0, true) }}
                     </h2>
                     <p class="text-muted mb-0">
-                        Total generated reports available.
+                        Total monthly Excel reports available.
                     </p>
                 </div>
             </div>
@@ -54,10 +102,10 @@ Reports - Autonomous AI DBA Operations Platform
                     </h6>
                     <hr>
                     <h6 class="fw-bold text-primary text-break">
-                        {{ latest_report | default(reports.latest_report, true) | default("-", true) }}
+                        {{ latest_report | default("-", true) }}
                     </h6>
                     <p class="text-muted mb-0">
-                        Latest detected report file.
+                        Latest generated monthly Excel report.
                     </p>
                 </div>
             </div>
@@ -67,14 +115,14 @@ Reports - Autonomous AI DBA Operations Platform
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-body text-center">
                     <h6 class="text-muted">
-                        Repository Status
+                        Reporting Model
                     </h6>
                     <hr>
-                    <h2 class="fw-bold text-success">
-                        ACTIVE
-                    </h2>
+                    <h5 class="fw-bold text-success">
+                        Monthly Workbook
+                    </h5>
                     <p class="text-muted mb-0">
-                        Reading from reports folder and subfolders.
+                        One Excel file per month with multiple sheets.
                     </p>
                 </div>
             </div>
@@ -82,20 +130,70 @@ Reports - Autonomous AI DBA Operations Platform
 
     </div>
 
-    <!-- Reports Table -->
+    <!-- Excel Generation Workflow -->
     <div class="row mb-4">
         <div class="col-md-12">
 
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-white">
                     <h5 class="mb-0">
-                        Generated Reports
+                        Excel Generation Workflow
                     </h5>
                 </div>
 
                 <div class="card-body">
+                    <pre class="mb-0" style="white-space: pre-wrap; background: #f8f9fa; padding: 16px; border-radius: 8px;">Monitoring Engine
+       │
+       ▼
+Repository Layer
+       │
+       ▼
+Report Service
+       │
+       ▼
+Monthly Excel Generator
+       │
+       ├── Summary Sheet
+       ├── Daily Incidents Sheet
+       ├── Performance Metrics Sheet
+       ├── NLP Actions Sheet
+       ├── Approvals Audit Sheet
+       ├── Execution History Sheet
+       ├── Governance Audit Sheet
+       ├── AI Recommendations Sheet
+       ├── Backup Monitoring Sheet
+       └── Agentic Workflow History Sheet
+       │
+       ▼
+Excel File: DBA_Monthly_Report_YYYY_MM.xlsx
+       │
+       ├── Download from UI
+       ├── Email Attachment
+       └── Archive Repository</pre>
+                </div>
+            </div>
 
-                    {% set records = report_files | default(reports.reports, true) | default([], true) %}
+        </div>
+    </div>
+
+    <!-- Report History -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        Report History
+                    </h5>
+
+                    <small class="text-muted">
+                        Excel reports only
+                    </small>
+                </div>
+
+                <div class="card-body">
+
+                    {% set records = report_files | default([], true) %}
 
                     {% if records %}
 
@@ -107,7 +205,10 @@ Reports - Autonomous AI DBA Operations Platform
                                     <th>Report Name</th>
                                     <th>Report Type</th>
                                     <th>Status</th>
+                                    <th>Size KB</th>
+                                    <th>Modified At</th>
                                     <th>File Path</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
 
@@ -120,12 +221,12 @@ Reports - Autonomous AI DBA Operations Platform
 
                                     <td>
                                         <strong>
-                                            {{ report.report_name | default(report.name, true) | default("-", true) }}
+                                            {{ report.report_name | default("-", true) }}
                                         </strong>
                                     </td>
 
                                     <td>
-                                        {{ report.report_type | default(report.type, true) | default("Generated Report", true) }}
+                                        {{ report.report_type | default("Excel Report", true) }}
                                     </td>
 
                                     <td>
@@ -134,10 +235,34 @@ Reports - Autonomous AI DBA Operations Platform
                                         </span>
                                     </td>
 
+                                    <td>
+                                        {{ report.file_size_kb | default(0, true) }}
+                                    </td>
+
+                                    <td>
+                                        {{ report.modified_at | default("-", true) }}
+                                    </td>
+
                                     <td class="text-break">
                                         <small>
-                                            {{ report.file_path | default(report.path, true) | default("-", true) }}
+                                            {{ report.file_path | default("-", true) }}
                                         </small>
+                                    </td>
+
+                                    <td>
+                                        <a
+                                            href="{{ report.view_url }}"
+                                            class="btn btn-sm btn-outline-primary mb-1"
+                                        >
+                                            View
+                                        </a>
+
+                                        <a
+                                            href="{{ report.download_url }}"
+                                            class="btn btn-sm btn-outline-success mb-1"
+                                        >
+                                            Download
+                                        </a>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -147,8 +272,8 @@ Reports - Autonomous AI DBA Operations Platform
 
                     {% else %}
 
-                    <div class="alert alert-info mb-0">
-                        No reports found. Run monitoring or reporting workflow to generate reports.
+                    <div class="alert alert-warning mb-0">
+                        No Excel reports found. Click Generate Monthly Report to create the current monthly workbook.
                     </div>
 
                     {% endif %}

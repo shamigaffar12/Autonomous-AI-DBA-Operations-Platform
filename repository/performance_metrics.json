@@ -1,0 +1,12 @@
+[
+    {
+        "timestamp": "2026-06-22 15:27:49",
+        "cpu_percent": "Normal",
+        "memory_percent": "Normal",
+        "blocking_sessions": 0,
+        "deadlocks": 0,
+        "long_running_queries": 0,
+        "database_size_gb": "0.27",
+        "active_connections": "Active"
+    }
+]

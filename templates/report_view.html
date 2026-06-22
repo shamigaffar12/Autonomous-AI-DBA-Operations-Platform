@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}
+Excel Report Viewer - Autonomous AI DBA Operations Platform
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="fw-bold">
+                Excel Report Viewer
+            </h2>
+            <p class="text-muted">
+                Browser preview of the monthly DBA Excel report.
+            </p>
+        </div>
+
+        <div class="col-md-4 text-end">
+            <a href="/reports" class="btn btn-outline-secondary mb-1">
+                Back to Reports
+            </a>
+
+            <a
+                href="/reports/download?file_path={{ report_path }}"
+                class="btn btn-success mb-1"
+            >
+                Download Excel
+            </a>
+        </div>
+    </div>
+
+    <!-- Report Metadata -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        Report Details
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <p>
+                        <strong>Report Name:</strong>
+                        {{ report_name | default("-", true) }}
+                    </p>
+
+                    <p>
+                        <strong>Report Path:</strong>
+                        <span class="text-break">
+                            {{ report_path | default("-", true) }}
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>File Type:</strong>
+                        {{ file_extension | default(".xlsx", true) }}
+                    </p>
+
+                    {% if preview_status == "SUCCESS" %}
+                    <span class="badge bg-success">
+                        Excel Preview Loaded
+                    </span>
+                    {% else %}
+                    <span class="badge bg-danger">
+                        Excel Preview Failed
+                    </span>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {% if preview_status != "SUCCESS" %}
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                {{ preview_error | default("Unable to preview Excel report.", true) }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Sheet Preview -->
+    {% if sheets %}
+    {% for sheet in sheets %}
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        Sheet: {{ sheet.sheet_name }}
+                    </h5>
+
+                    <small class="text-muted">
+                        Preview rows: {{ sheet.preview_rows }}
+                    </small>
+                </div>
+
+                <div class="card-body">
+
+                    {% if sheet.rows %}
+
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered table-hover align-middle">
+
+                            <tbody>
+                                {% for row in sheet.rows %}
+
+                                {% if loop.index == 1 %}
+                                <tr class="table-primary">
+                                    {% for cell in row %}
+                                    <th>
+                                        {{ cell }}
+                                    </th>
+                                    {% endfor %}
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    {% for cell in row %}
+                                    <td>
+                                        {{ cell }}
+                                    </td>
+                                    {% endfor %}
+                                </tr>
+                                {% endif %}
+
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    {% else %}
+
+                    <div class="alert alert-info mb-0">
+                        This sheet does not contain previewable data.
+                    </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {% endfor %}
+    {% endif %}
+
+</div>
+
+{% endblock %}

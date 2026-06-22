@@ -19,7 +19,9 @@ from fastapi.templating import (
 )
 
 from fastapi.responses import (
-    RedirectResponse
+    RedirectResponse,
+    FileResponse,
+    HTMLResponse
 )
 
 
@@ -484,54 +486,61 @@ def load_live_reports():
     """
 
     report_items = []
-    report_folder = "reports"
+    report_folders = [
+        "reports",
+        "excel_reports"
+    ]
 
     try:
 
-        if os.path.exists(
-            report_folder
-        ):
+        for report_folder in report_folders:
 
-            for root, directories, files in os.walk(
+            if os.path.exists(
                 report_folder
             ):
 
-                for report_file in files:
+                for root, directories, files in os.walk(
+                    report_folder
+                ):
 
-                    if report_file.endswith(
-                        (
-                            ".txt",
-                            ".xlsx",
-                            ".csv",
-                            ".json"
-                        )
-                    ):
+                    for report_file in files:
 
-                        file_path = os.path.join(
-                            root,
-                            report_file
-                        ).replace(
-                            "\\",
-                            "/"
-                        )
-
-                        report_items.append(
-                            ReportItem(
-                                {
-                                    "report_name": report_file,
-                                    "name": report_file,
-                                    "report_type": get_report_type(
-                                        report_file
-                                    ),
-                                    "type": get_report_type(
-                                        report_file
-                                    ),
-                                    "status": "Available",
-                                    "file_path": file_path,
-                                    "path": file_path
-                                }
+                        if report_file.endswith(
+                            (
+                                ".txt",
+                                ".xlsx",
+                                ".csv",
+                                ".json",
+                                ".log",
+                                ".md"
                             )
-                        )
+                        ):
+
+                            file_path = os.path.join(
+                                root,
+                                report_file
+                            ).replace(
+                                "\\",
+                                "/"
+                            )
+
+                            report_items.append(
+                                ReportItem(
+                                    {
+                                        "report_name": report_file,
+                                        "name": report_file,
+                                        "report_type": get_report_type(
+                                            report_file
+                                        ),
+                                        "type": get_report_type(
+                                            report_file
+                                        ),
+                                        "status": "Available",
+                                        "file_path": file_path,
+                                        "path": file_path
+                                    }
+                                )
+                            )
 
     except Exception:
 
@@ -564,6 +573,124 @@ def load_live_reports():
         "reports": report_items,
         "report_files": report_items
     }
+
+
+# =========================================================
+# REPORT FILE SAFETY HELPER
+# =========================================================
+
+def resolve_safe_report_path(
+    report_path
+):
+    """
+    Resolve and validate report file path safely.
+    Prevents access outside allowed report folders.
+    """
+
+    if not report_path:
+
+        return None
+
+    normalized_path = str(
+        report_path
+    ).replace(
+        "\\",
+        "/"
+    ).strip()
+
+    allowed_prefixes = [
+        "reports/",
+        "excel_reports/"
+    ]
+
+    is_allowed = False
+
+    for prefix in allowed_prefixes:
+
+        if normalized_path.startswith(
+            prefix
+        ):
+
+            is_allowed = True
+            break
+
+    if not is_allowed:
+
+        return None
+
+    absolute_path = os.path.abspath(
+        normalized_path
+    )
+
+    project_root = os.path.abspath(
+        "."
+    )
+
+    if not absolute_path.startswith(
+        project_root
+    ):
+
+        return None
+
+    if not os.path.exists(
+        absolute_path
+    ):
+
+        return None
+
+    if not os.path.isfile(
+        absolute_path
+    ):
+
+        return None
+
+    return absolute_path
+
+
+# =========================================================
+# REPORT CONTENT READER
+# =========================================================
+
+def read_report_preview_content(
+    file_path
+):
+    """
+    Read preview content for supported text-based report files.
+    """
+
+    try:
+
+        with open(
+            file_path,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            content = file.read()
+
+        return content
+
+    except UnicodeDecodeError:
+
+        try:
+
+            with open(
+                file_path,
+                "r",
+                encoding="latin-1"
+            ) as file:
+
+                content = file.read()
+
+            return content
+
+        except Exception:
+
+            return "Unable to preview this file content."
+
+    except Exception as error:
+
+        return f"Unable to read report file. Error: {str(error)}"
 
 
 # =========================================================
@@ -932,6 +1059,9 @@ def debug_live_data():
             ),
             "reports_folder": os.path.exists(
                 "reports"
+            ),
+            "excel_reports_folder": os.path.exists(
+                "excel_reports"
             )
         }
     }
@@ -1648,6 +1778,127 @@ def reports(
                 "-"
             )
         }
+    )
+
+
+# =========================================================
+# REPORT VIEW
+# =========================================================
+
+@router.get("/reports/view")
+def view_report(
+    request: Request,
+    file_path: str
+):
+    """
+    View supported report file content in browser.
+    """
+
+    safe_path = resolve_safe_report_path(
+        file_path
+    )
+
+    if not safe_path:
+
+        return HTMLResponse(
+            content="""
+            <html>
+                <body style="font-family: Arial; padding: 30px;">
+                    <h3>Invalid or missing report file.</h3>
+                    <p>The selected report file could not be found or is not allowed.</p>
+                    <a href="/reports">Back to Reports</a>
+                </body>
+            </html>
+            """,
+            status_code=404
+        )
+
+    file_name = os.path.basename(
+        safe_path
+    )
+
+    file_extension = os.path.splitext(
+        file_name
+    )[1].lower()
+
+    preview_supported_extensions = [
+        ".txt",
+        ".json",
+        ".csv",
+        ".log",
+        ".md"
+    ]
+
+    if file_extension not in preview_supported_extensions:
+
+        return templates.TemplateResponse(
+            request=request,
+            name="report_view.html",
+            context={
+                "report_name": file_name,
+                "report_path": file_path,
+                "report_content": "Preview is not available for this file type. Please use the Download button.",
+                "preview_supported": False,
+                "file_extension": file_extension
+            }
+        )
+
+    report_content = read_report_preview_content(
+        safe_path
+    )
+
+    return templates.TemplateResponse(
+        request=request,
+        name="report_view.html",
+        context={
+            "report_name": file_name,
+            "report_path": file_path,
+            "report_content": report_content,
+            "preview_supported": True,
+            "file_extension": file_extension
+        }
+    )
+
+
+# =========================================================
+# REPORT DOWNLOAD
+# =========================================================
+
+@router.get("/reports/download")
+def download_report(
+    file_path: str
+):
+    """
+    Download selected report file.
+    """
+
+    safe_path = resolve_safe_report_path(
+        file_path
+    )
+
+    if not safe_path:
+
+        return HTMLResponse(
+            content="""
+            <html>
+                <body style="font-family: Arial; padding: 30px;">
+                    <h3>Invalid or missing report file.</h3>
+                    <p>The selected report file could not be found or is not allowed.</p>
+                    <a href="/reports">Back to Reports</a>
+                </body>
+            </html>
+            """,
+            status_code=404
+        )
+
+    file_name = os.path.basename(
+        safe_path
+    )
+
+    return FileResponse(
+        path=safe_path,
+        filename=file_name,
+        media_type="application/octet-stream"
     )
 
 
