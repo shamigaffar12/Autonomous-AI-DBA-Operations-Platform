@@ -883,3 +883,135 @@
 * Add real email and Microsoft Teams alert notification adapters.
 * Add dashboard charts and live monitoring trend graphs.
 * Continue planning real Azure Monitor, Azure Automation, and Key Vault integration.
+
+# Day 21 Progress Update
+
+## Completed
+
+* Fixed FastAPI live data loading issue for dashboard and UI pages.
+* Added and validated `/debug/live-data` endpoint.
+* Confirmed backend is reading real project data successfully.
+* Verified live repository data:
+
+  * Incidents: 25
+  * Actions: 69
+  * Reports: 502
+  * Pending Approvals: 7
+  * Approved Requests: 6
+  * Rejected Requests: 2
+  * Execution Records: 6
+  * Audit Events: 13
+* Updated Dashboard page to display live metrics from repository data.
+* Updated Analytics page to show health score, risk level, incidents, and governance metrics.
+* Updated Incidents page to show live incident records with filters and details navigation.
+* Updated Actions page to show live action repository records.
+* Updated Reports page to show generated reports from folders and subfolders.
+* Updated Audit Logs page to show governance audit events.
+* Validated JSON files successfully.
+* Generated project analysis files for future cleanup and duplicate logic review.
+* Identified duplicate route and logic areas for future cleanup, but no cleanup was performed because current system is stable.
+
+## Current Status
+
+* FastAPI web application is running successfully.
+* Dashboard, Analytics, Incidents, Actions, Reports, Audit Logs, Approvals, Monitoring, and NLP DBA Assistant pages are functional.
+* Live project data is visible on UI pages.
+* JSON repositories are valid.
+* Project is stable after UI/backend integration updates.
+
+## Issues / Blockers
+
+* Duplicate `/approvals` GET route exists in both `routes.py` and `approval_routes.py`.
+* Approval logic is currently split between `app/approvals` and `app/governance`.
+* Some helper functions such as JSON loading are duplicated in different modules.
+* Action repository logic exists in more than one location.
+* These cleanup items are not blocking current functionality and will be handled after final project completion.
+
+## Next Planned Work
+
+The next planned task is to add the **Report View and Download Feature**.
+
+Currently, the `/reports` page displays the report list. The next enhancement will allow users to open, view, and download reports directly from the UI.
+
+This feature will improve demo usability and help employees access DBA health, incident, and performance reports easily from the dashboard.
+
+
+# Day 22 Progress Update
+
+## Completed
+
+* Implemented and validated dashboard live metrics integration.
+
+* Added dedicated dashboard route handling in `dashboard_routes.py`.
+
+* Verified backend dashboard data through `/debug/dashboard-data`.
+
+* Confirmed live repository data:
+
+  * Incidents: 31
+  * Actions: 99
+  * Reports: 4
+  * Pending Approvals: 4
+  * Approved Requests: 7
+  * Rejected Requests: 4
+  * Execution Records: 12
+  * Audit Events: 27
+  * Healthy Status Count: 28
+  * Attention Required Count: 3
+
+* Fixed dashboard internal server error caused by incorrect `TemplateResponse` usage.
+
+* Identified root cause of dashboard rendering failure:
+
+  * Existing FastAPI/Starlette version requires `TemplateResponse(request, template_name, context)` format.
+
+* Updated dashboard route to use correct template rendering format.
+
+* Restored dashboard to use common `base.html` layout instead of standalone HTML.
+
+* Updated dashboard page to show live metrics using template-friendly view model data.
+
+* Added dashboard visual sections:
+
+  * Incident Health Distribution
+  * Governance Approval Status
+  * Operational Activity
+  * Platform Readiness
+  * Quick Operations
+
+* Confirmed dashboard backend functions compile successfully.
+
+* Confirmed dashboard HTML generation and endpoint testing through terminal.
+
+* Fixed Pylance string literal issue caused by copied/incomplete large HTML string.
+
+* Verified dashboard endpoint returned HTTP 200 during standalone route validation.
+
+* Prepared final base-template-based dashboard implementation for consistent UI format.
+
+## Current Status
+
+* FastAPI web application is running successfully.
+* Dashboard live data is available from backend.
+* `/debug/dashboard-data` endpoint is working.
+* Dashboard route is registered correctly from `app.web.dashboard_routes`.
+* Dashboard UI is aligned with the common platform layout using `base.html`.
+* Dashboard metrics are now mapped correctly from repository JSON files.
+* Project remains stable after dashboard route and UI integration updates.
+
+## Issues / Blockers
+
+* Dashboard initially showed internal server error when rendering with `base.html`.
+* Root cause was incorrect `TemplateResponse` argument order for the current FastAPI/Starlette version.
+* Duplicate `/dashboard` route still exists in both `dashboard_routes.py` and `routes.py`.
+* Current routing order makes `dashboard_routes.py` handle the dashboard correctly, but duplicate route cleanup is still required later.
+* Some older UI route logic remains in `routes.py`, which may cause confusion during future maintenance.
+* These issues are not blocking current dashboard functionality but should be cleaned up before final submission.
+
+## Next Planned Work
+
+The next planned task is to continue final UI consistency validation across all pages.
+
+The focus will be to verify that Dashboard, Reports, Approvals, Audit Logs, Monitoring, Actions, Incidents, Analytics, and NLP DBA Assistant pages follow the same layout, navigation style, and live-data behavior.
+
+After UI validation, the next enhancement will be final documentation preparation, including the User Guide, Product Specification Document, and final technical report updates.
