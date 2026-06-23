@@ -243,5 +243,59 @@
                 "message": null
             }
         }
+    },
+    {
+        "approval_id": "16983979-efcc-4dbc-b7de-12f1bb34271f",
+        "action_name": "FULL_DATABASE_BACKUP",
+        "target_name": "AdventureWorks2019",
+        "risk_level": "MEDIUM",
+        "requested_by": "NLP DBA Assistant",
+        "reason": "NLP request to create approval for full database backup.",
+        "approval_status": "APPROVED",
+        "approved_by": "Lead DBA",
+        "rejected_by": null,
+        "decision_reason": "Approved from FastAPI approval dashboard.",
+        "created_at": "2026-06-18 15:38:38.140600",
+        "decision_at": "2026-06-23 12:04:17.127698",
+        "metadata": {
+            "source": "NLP_DBA_ASSISTANT",
+            "original_query": "create approval for full backup"
+        }
+    },
+    {
+        "approval_id": "57a88ccd-7337-424f-8897-891fcf2148b2",
+        "action_name": "FULL_DATABASE_BACKUP",
+        "target_name": "AdventureWorks2019",
+        "risk_level": "MEDIUM",
+        "requested_by": "NLP DBA Assistant",
+        "reason": "NLP request to create approval for full database backup.",
+        "approval_status": "APPROVED",
+        "approved_by": "Lead DBA",
+        "rejected_by": null,
+        "decision_reason": "Approved from FastAPI approval dashboard.",
+        "created_at": "2026-06-18 15:48:48.059371",
+        "decision_at": "2026-06-23 15:34:32.893288",
+        "metadata": {
+            "source": "NLP_DBA_ASSISTANT",
+            "original_query": "create approval for full backup"
+        }
+    },
+    {
+        "approval_id": "c6583d38-9408-410b-8773-a5c5bf14b060",
+        "action_name": "FULL_DATABASE_BACKUP",
+        "target_name": "AdventureWorks2019",
+        "risk_level": "MEDIUM",
+        "requested_by": "NLP DBA Assistant",
+        "reason": "NLP request to create approval for full database backup.",
+        "approval_status": "REJECTED",
+        "approved_by": null,
+        "rejected_by": "Lead DBA",
+        "decision_reason": "Rejected from FastAPI approval dashboard.",
+        "created_at": "2026-06-19 12:53:42.133134",
+        "decision_at": "2026-06-23 15:39:14.034878",
+        "metadata": {
+            "source": "NLP_DBA_ASSISTANT",
+            "original_query": "create approval for full backup\r\n"
+        }
     }
 ]

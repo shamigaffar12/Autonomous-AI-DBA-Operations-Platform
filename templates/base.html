@@ -130,6 +130,26 @@
 
         }
 
+        .sidebar a.disabled-link {
+
+            color: #64748b;
+
+            cursor: not-allowed;
+
+            opacity: 0.6;
+
+        }
+
+        .sidebar a.disabled-link:hover {
+
+            background-color: transparent;
+
+            color: #64748b;
+
+            padding-left: 20px;
+
+        }
+
         .main-content {
 
             margin-left: 260px;
@@ -184,6 +204,42 @@
 
         }
 
+        .user-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+        .user-info {
+
+            text-align: right;
+
+            line-height: 1.2;
+
+        }
+
+        .user-name {
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+            color: #0f172a;
+
+        }
+
+        .user-role {
+
+            font-size: 12px;
+
+            color: #64748b;
+
+        }
+
         .footer {
 
             margin-top: 40px;
@@ -232,43 +288,35 @@
         </div>
 
         <a href="/dashboard">
-
             <i class="bi bi-speedometer2"></i>
-
             Dashboard
-
         </a>
 
         <a href="/assistant">
-
             <i class="bi bi-robot"></i>
-
             NLP DBA Assistant
-
         </a>
 
+        {% if request.state.permissions.can_run_monitoring %}
         <a href="/monitoring">
-
             <i class="bi bi-activity"></i>
-
             Monitoring
-
         </a>
+        {% else %}
+        <a class="disabled-link">
+            <i class="bi bi-activity"></i>
+            Monitoring
+        </a>
+        {% endif %}
 
         <a href="/analytics">
-
             <i class="bi bi-graph-up"></i>
-
             Analytics
-
         </a>
 
         <a href="/incidents">
-
             <i class="bi bi-exclamation-triangle"></i>
-
             Incidents
-
         </a>
 
 
@@ -279,19 +327,13 @@
         </div>
 
         <a href="/approvals">
-
             <i class="bi bi-shield-check"></i>
-
             Governance
-
         </a>
 
         <a href="/audit">
-
             <i class="bi bi-journal-text"></i>
-
             Audit Logs
-
         </a>
 
 
@@ -301,20 +343,21 @@
             Repository
         </div>
 
+        {% if request.state.permissions.can_manage_actions %}
         <a href="/actions">
-
             <i class="bi bi-list-check"></i>
-
             Actions
-
         </a>
+        {% else %}
+        <a class="disabled-link">
+            <i class="bi bi-list-check"></i>
+            Actions
+        </a>
+        {% endif %}
 
         <a href="/reports">
-
             <i class="bi bi-file-earmark-text"></i>
-
             Reports
-
         </a>
 
     </div>
@@ -342,13 +385,35 @@
 
                 </div>
 
-                <div>
+                <div class="user-box">
 
                     <span
                         class="badge bg-success status-online"
                     >
                         Platform Online
                     </span>
+
+                    {% if request.state.current_user %}
+                    <div class="user-info">
+
+                        <div class="user-name">
+                            {{ request.state.current_user.display_name }}
+                        </div>
+
+                        <div class="user-role">
+                            {{ request.state.current_user.role }}
+                        </div>
+
+                    </div>
+
+                    <a
+                        class="btn btn-sm btn-outline-danger"
+                        href="/auth/logout"
+                    >
+                        <i class="bi bi-box-arrow-right"></i>
+                        Logout
+                    </a>
+                    {% endif %}
 
                 </div>
 

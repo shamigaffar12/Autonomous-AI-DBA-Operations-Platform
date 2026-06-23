@@ -173,5 +173,33 @@
         "backup_file_path": "database_backups\\AdventureWorks2019_FULL_20260622_160013.bak",
         "backup_sql_command": "BACKUP DATABASE [AdventureWorks2019] TO DISK = N'database_backups\\\\AdventureWorks2019_FULL_20260622_160013.bak' WITH INIT, COMPRESSION, STATS = 10;",
         "performed_by": "Lead DBA"
+    },
+    {
+        "execution_id": "EXEC-20260623120424003940",
+        "approval_id": "16983979-efcc-4dbc-b7de-12f1bb34271f",
+        "approval_status": "APPROVED",
+        "action_name": "FULL_DATABASE_BACKUP",
+        "target_name": "AdventureWorks2019",
+        "overall_status": "UNSUPPORTED_ACTION",
+        "runbook_name": null,
+        "integration_mode": "SIMULATED",
+        "runbook_request_created": false,
+        "executed": false,
+        "message": "No execution handler found for this approved action.",
+        "executed_at": "2026-06-23 12:04:24.001710"
+    },
+    {
+        "execution_id": "EXEC-20260623153438096512",
+        "approval_id": "4ddc91f1-066f-4487-a04f-f114bd2d3383",
+        "approval_status": "APPROVED",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "overall_status": "RUNBOOK_REQUEST_CREATED",
+        "runbook_name": "Restart-Failed-SQL-Agent-Job",
+        "integration_mode": "SIMULATED",
+        "runbook_request_created": true,
+        "executed": true,
+        "message": "Azure Automation runbook request created after approval.",
+        "executed_at": "2026-06-23 15:34:38.094779"
     }
 ]

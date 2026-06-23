@@ -691,5 +691,40 @@
         "component": "NOTIFICATION ENGINE",
         "status": "SKIPPED",
         "details": "Notification not required"
+    },
+    {
+        "timestamp": "2026-06-23 12:03:48.088984",
+        "action_type": "RISK_CLASSIFICATION",
+        "component": "RISK CLASSIFIER",
+        "status": "SUCCESS",
+        "details": "LOW"
+    },
+    {
+        "timestamp": "2026-06-23 12:03:48.099773",
+        "action_type": "RECOMMENDATION",
+        "component": "RECOMMENDATION ENGINE",
+        "status": "SUCCESS",
+        "details": "System healthy. Continue monitoring."
+    },
+    {
+        "timestamp": "2026-06-23 12:03:48.207141",
+        "action_type": "SQL_EXECUTION",
+        "component": "SQL EXECUTOR",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'No SQL Action Required'}"
+    },
+    {
+        "timestamp": "2026-06-23 12:03:48.266605",
+        "action_type": "REMEDIATION",
+        "component": "REMEDIATION ENGINE",
+        "status": "SKIPPED",
+        "details": "{'status': 'SKIPPED', 'reason': 'System Healthy'}"
+    },
+    {
+        "timestamp": "2026-06-23 12:03:49.730495",
+        "action_type": "NOTIFICATION",
+        "component": "NOTIFICATION ENGINE",
+        "status": "SKIPPED",
+        "details": "Notification not required"
     }
 ]

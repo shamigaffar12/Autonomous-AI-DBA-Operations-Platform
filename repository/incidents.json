@@ -295,5 +295,17 @@
             "severity": "LOW"
         },
         "report_file": "excel_reports/DBA_Monthly_Report_2026_06.xlsx"
+    },
+    {
+        "timestamp": "2026-06-23 12:03:49.709285",
+        "overall_status": "HEALTHY",
+        "incident_summary": "\nSQL Monitoring Summary\n\nMonitoring Time: 2026-06-23 12:03:44.668018\nDatabase: AdventureWorks2019\n\n\nCPU Monitoring:\nSession ID: 52\nStatus: running\nCPU Time: 18\nElapsed Time: 18\nReads: 0\nWrites: 0\nLogical Reads: 257\nAlert: CPU Usage Within Normal Range\n--------------------------\n\nNo blocking sessions detected.\n\nNo long running queries detected.\n\nOverall Status: HEALTHY",
+        "ai_analysis": {
+            "summary": "\n\nSystem Health Summary:\nMonitoring completed successfully for the SQL Server environment.\n\nMonitoring Observations:\n- CPU usage was captured successfully.\n- Blocking and long-running query checks were performed.\n- Database size information was retrieved successfully.\n\nRecommended Actions:\n- Continue regular monitoring.\n- Review workload trends periodically.\n- Maintain index and statistics upkeep.\n\nPrevention Recommendations:\n- Keep alert thresholds in place.\n- Perform routine capacity planning.\n- Maintain documentation and operational logs.\n\n",
+            "root_cause": "AI analysis response was not structured.",
+            "recommendation": "Continue monitoring and review SQL health manually.",
+            "severity": "LOW"
+        },
+        "report_file": "excel_reports/DBA_Monthly_Report_2026_06.xlsx"
     }
 ]
