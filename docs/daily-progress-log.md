@@ -1108,3 +1108,64 @@ After UI validation, the next enhancement will be final documentation preparatio
 * NLP DBA Assistant command restriction testing.
 * Full page validation after login.
 
+# Day 24 Progress Update
+## Completed
+* Continued Authentication and Route-Level RBAC implementation.
+* Reused and expanded the existing app/security/rbac_validator.py file instead of creating   duplicate RBAC logic.
+* Added role-based permission registry for:
+* Admin
+* DBA Manager
+* Lead DBA
+* DBA
+* Viewer
+* Added page-level permission handling for major FastAPI pages.
+* Added method-level RBAC validation using both route path and HTTP method.
+* Fixed the security gap where Viewer users were able to approve, reject, execute, and submit
+* NLP DBA Assistant commands.
+* Added separate permissions for viewing pages and performing actions.
+* Added can_submit_assistant_command permission to restrict operational NLP command submission.
+* Restricted Viewer role from:
+* Running monitoring
+* Managing actions
+* Approving governance requests
+* Rejecting governance requests
+* Executing approved remediation
+* Submitting NLP DBA Assistant operational commands
+* Allowed Viewer role to retain view-only access for:
+* Dashboard
+* Analytics
+* Incidents
+* Reports
+* Audit Logs
+* Governance page view
+* NLP DBA Assistant page view
+* Created/updated app/security/auth_service.py for authentication handling.
+* Added signed token generation using HS256-style HMAC validation.
+* Added HTTP-only cookie-based session handling.
+* Added demo user authentication for Admin, DBA, Lead DBA, DBA Manager, and Viewer.
+* Created app/web/auth_routes.py for login and logout routes.
+* Created templates/login.html for browser-based login UI.
+* Updated templates/base.html to show logged-in user name, role, and logout button.
+* Updated sidebar behavior to disable restricted links for Viewer users.
+* Updated app/web/app.py to register authentication routes and authentication/RBAC middleware.
+* Prepared compile and validation commands for all updated authentication and RBAC files.
+## Current Status
+* Authentication implementation is added.
+* Login page is available at /auth/login.
+* Logout route is available at /auth/logout.
+* Route-level RBAC is implemented.
+* Method-level RBAC is implemented for approval, execution, action, monitoring, and NLP command routes.
+* Viewer role is restricted from sensitive operational actions.
+* Existing workflow-level RBAC validator is preserved.
+* The platform is moving from UI-only access control to server-side permission enforcement.
+## Issues / Blockers
+* Final browser validation is still required after applying the updated files.
+* Viewer restrictions need to be tested manually for approve, reject, execute, monitoring, actions, and NLP command submission.
+* Current authentication uses local demo users.
+* Production-grade user storage, password reset, account lockout, and enterprise identity integration are still pending.
+* JWT secret is currently development-safe and should be moved to .env or Azure Key Vault for production.
+## Next Planned Work
+
+* The next planned task is to validate Authentication and Method-Level RBAC end-to-end.
+
+

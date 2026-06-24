@@ -136,6 +136,24 @@ DEMO_USERS: Dict[str, Dict[str, Any]] = {
             salt="dba-static-dev-salt"
         )
     },
+    "lead_dba": {
+        "username": "lead_dba",
+        "display_name": "Lead DBA",
+        "role": "LEAD_DBA",
+        **build_password_record(
+            password="lead@123",
+            salt="lead-dba-static-dev-salt"
+        )
+    },
+    "manager": {
+        "username": "manager",
+        "display_name": "DBA Manager",
+        "role": "DBA_MANAGER",
+        **build_password_record(
+            password="manager@123",
+            salt="manager-static-dev-salt"
+        )
+    },
     "viewer": {
         "username": "viewer",
         "display_name": "Viewer User",
@@ -428,6 +446,33 @@ def clear_auth_cookie(
 
 
 # =========================================================
+# REQUEST STATE HELPERS
+# =========================================================
+
+def set_anonymous_request_state(
+    request: Request
+) -> None:
+    """
+    Set safe anonymous request state.
+    """
+
+    request.state.current_user = None
+    request.state.permissions = {}
+
+
+def set_authenticated_request_state(
+    request: Request,
+    current_user: AuthUser
+) -> None:
+    """
+    Set authenticated user request state.
+    """
+
+    request.state.current_user = current_user
+    request.state.permissions = current_user.permissions
+
+
+# =========================================================
 # MIDDLEWARE
 # =========================================================
 
@@ -438,15 +483,24 @@ async def auth_route_guard(
     """
     Enforce login and route-level RBAC.
 
-    This uses path + HTTP method so Viewer users cannot
-    approve, reject, execute, or submit operational NLP commands.
+    Uses path + HTTP method so Viewer users cannot
+    approve, reject, execute, manage actions, run monitoring,
+    or submit operational NLP commands.
     """
 
     path = request.url.path
     method = request.method
 
-    if is_public_path(path):
-        return await call_next(request)
+    if is_public_path(
+        path
+    ):
+        set_anonymous_request_state(
+            request
+        )
+
+        return await call_next(
+            request
+        )
 
     current_user = get_current_user(
         request
@@ -479,7 +533,11 @@ async def auth_route_guard(
             media_type="text/html"
         )
 
-    request.state.current_user = current_user
-    request.state.permissions = current_user.permissions
+    set_authenticated_request_state(
+        request=request,
+        current_user=current_user
+    )
 
-    return await call_next(request)
+    return await call_next(
+        request
+    )

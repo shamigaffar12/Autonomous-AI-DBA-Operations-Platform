@@ -57,7 +57,7 @@ async def authentication_and_rbac_middleware(
     call_next
 ):
     """
-    Enforce authentication and route-level RBAC.
+    Enforce authentication and route-level/method-level RBAC.
     """
 
     return await auth_route_guard(
