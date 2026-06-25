@@ -12,13 +12,9 @@ from app.security.auth_service import (
     clear_auth_cookie,
     create_user_token,
     get_current_user,
-    set_auth_cookie
+    get_or_create_csrf_token,
+    set_auth_cookie,
 )
-
-
-# =========================================================
-# ROUTER CONFIGURATION
-# =========================================================
 
 router = APIRouter(
     prefix="/auth",
@@ -30,18 +26,10 @@ templates = Jinja2Templates(
 )
 
 
-# =========================================================
-# ROUTES
-# =========================================================
-
 @router.get("/login")
 def login_page(
     request: Request
 ):
-    """
-    Render login page.
-    """
-
     current_user = get_current_user(
         request
     )
@@ -52,7 +40,7 @@ def login_page(
             status_code=302
         )
 
-    return templates.TemplateResponse(
+    response = templates.TemplateResponse(
         request,
         "login.html",
         {
@@ -61,15 +49,18 @@ def login_page(
         }
     )
 
+    get_or_create_csrf_token(
+        request,
+        response
+    )
+
+    return response
+
 
 @router.post("/login")
 async def login_submit(
     request: Request
 ):
-    """
-    Handle login form submission.
-    """
-
     form_data = await request.form()
 
     username = str(
@@ -86,7 +77,7 @@ async def login_submit(
     )
 
     if not user:
-        return templates.TemplateResponse(
+        response = templates.TemplateResponse(
             request,
             "login.html",
             {
@@ -95,6 +86,13 @@ async def login_submit(
             },
             status_code=401
         )
+
+        get_or_create_csrf_token(
+            request,
+            response
+        )
+
+        return response
 
     token = create_user_token(
         user
@@ -110,14 +108,16 @@ async def login_submit(
         token=token
     )
 
+    get_or_create_csrf_token(
+        request,
+        response
+    )
+
     return response
 
 
 @router.get("/logout")
 def logout():
-    """
-    Logout current user.
-    """
 
     response = RedirectResponse(
         url="/auth/login",

@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 class="page-title mb-3">User Management</h3>
+
+{% if error_message %}
+<div class="alert alert-danger">
+    {{ error_message }}
+</div>
+{% endif %}
+
+<div class="row g-4">
+
+    <div class="col-lg-5">
+        <div class="card p-4">
+
+            <h5 class="mb-3">
+                Create / Update User
+            </h5>
+
+            <form method="post" action="/users/save">
+
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input class="form-control" name="username" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Display Name</label>
+                    <input class="form-control" name="display_name" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Role</label>
+
+                    <select class="form-select" name="role">
+                        <option>ADMIN</option>
+                        <option>DBA_MANAGER</option>
+                        <option>LEAD_DBA</option>
+                        <option>DBA</option>
+                        <option>VIEWER</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input
+                        class="form-control"
+                        name="password"
+                        type="password"
+                        placeholder="Required for new user; optional for update"
+                    >
+                </div>
+
+                <input type="hidden" name="is_active" value="true">
+
+                <button class="btn btn-primary w-100" type="submit">
+                    Save User
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="card p-4">
+
+            <h5 class="mb-3">
+                Users
+            </h5>
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>
+                                <code>{{ user.username }}</code>
+                            </td>
+
+                            <td>
+                                {{ user.display_name }}
+                            </td>
+
+                            <td>
+                                <span class="badge bg-secondary">
+                                    {{ user.role }}
+                                </span>
+                            </td>
+
+                            <td>
+                                {% if user.is_active %}
+                                <span class="badge bg-success">
+                                    Active
+                                </span>
+                                {% else %}
+                                <span class="badge bg-danger">
+                                    Inactive
+                                </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if user.is_active %}
+                                <form
+                                    method="post"
+                                    action="/users/deactivate"
+                                    class="d-inline"
+                                >
+                                    <input
+                                        type="hidden"
+                                        name="username"
+                                        value="{{ user.username }}"
+                                    >
+
+                                    <button class="btn btn-sm btn-outline-danger">
+                                        Deactivate
+                                    </button>
+                                </form>
+                                {% else %}
+                                <form
+                                    method="post"
+                                    action="/users/activate"
+                                    class="d-inline"
+                                >
+                                    <input
+                                        type="hidden"
+                                        name="username"
+                                        value="{{ user.username }}"
+                                    >
+
+                                    <button class="btn btn-sm btn-outline-success">
+                                        Activate
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

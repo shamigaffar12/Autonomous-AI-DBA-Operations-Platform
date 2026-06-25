@@ -7,10 +7,6 @@ from datetime import datetime
 from typing import Any, Dict, Optional
 
 
-# =========================================================
-# WEB ROLE PERMISSION REGISTRY
-# =========================================================
-
 ROLE_PERMISSIONS: Dict[str, Dict[str, bool]] = {
     "ADMIN": {
         "can_view_dashboard": True,
@@ -25,7 +21,8 @@ ROLE_PERMISSIONS: Dict[str, Dict[str, bool]] = {
         "can_execute": True,
         "can_use_assistant": True,
         "can_submit_assistant_command": True,
-        "can_manage_users": True
+        "can_manage_users": True,
+        "can_manage_notifications": True,
     },
     "DBA_MANAGER": {
         "can_view_dashboard": True,
@@ -40,7 +37,8 @@ ROLE_PERMISSIONS: Dict[str, Dict[str, bool]] = {
         "can_execute": True,
         "can_use_assistant": True,
         "can_submit_assistant_command": True,
-        "can_manage_users": True
+        "can_manage_users": True,
+        "can_manage_notifications": True,
     },
     "LEAD_DBA": {
         "can_view_dashboard": True,
@@ -55,7 +53,8 @@ ROLE_PERMISSIONS: Dict[str, Dict[str, bool]] = {
         "can_execute": True,
         "can_use_assistant": True,
         "can_submit_assistant_command": True,
-        "can_manage_users": False
+        "can_manage_users": False,
+        "can_manage_notifications": True,
     },
     "DBA": {
         "can_view_dashboard": True,
@@ -70,7 +69,8 @@ ROLE_PERMISSIONS: Dict[str, Dict[str, bool]] = {
         "can_execute": True,
         "can_use_assistant": True,
         "can_submit_assistant_command": True,
-        "can_manage_users": False
+        "can_manage_users": False,
+        "can_manage_notifications": False,
     },
     "VIEWER": {
         "can_view_dashboard": True,
@@ -85,14 +85,10 @@ ROLE_PERMISSIONS: Dict[str, Dict[str, bool]] = {
         "can_execute": False,
         "can_use_assistant": True,
         "can_submit_assistant_command": False,
-        "can_manage_users": False
-    }
+        "can_manage_users": False,
+        "can_manage_notifications": False,
+    },
 }
-
-
-# =========================================================
-# PUBLIC ROUTES
-# =========================================================
 
 PUBLIC_PATH_PREFIXES = [
     "/auth/login",
@@ -102,63 +98,30 @@ PUBLIC_PATH_PREFIXES = [
     "/health",
     "/docs",
     "/redoc",
-    "/openapi.json"
+    "/openapi.json",
 ]
 
 
-# =========================================================
-# WEB RBAC HELPERS
-# =========================================================
-
-def normalize_role(
-    user_role: Any
-) -> str:
-    """
-    Normalize user role for consistent RBAC checks.
-    """
-
-    return str(
-        user_role or ""
-    ).strip().upper()
+def normalize_role(user_role: Any) -> str:
+    return str(user_role or "").strip().upper()
 
 
-def normalize_method(
-    method: Any
-) -> str:
-    """
-    Normalize HTTP method.
-    """
-
-    return str(
-        method or "GET"
-    ).strip().upper()
+def normalize_method(method: Any) -> str:
+    return str(method or "GET").strip().upper()
 
 
-def normalize_path(
-    path: Any
-) -> str:
-    """
-    Normalize request path.
-    """
+def normalize_path(path: Any) -> str:
+    normalized_path = str(path or "").strip()
 
-    return str(
-        path or ""
-    ).strip()
+    if normalized_path and not normalized_path.startswith("/"):
+        normalized_path = f"/{normalized_path}"
+
+    return normalized_path
 
 
-def get_role_permissions(
-    user_role: Any
-) -> Dict[str, bool]:
-    """
-    Return permission dictionary for a role.
-    """
-
-    role = normalize_role(
-        user_role
-    )
-
+def get_role_permissions(user_role: Any) -> Dict[str, bool]:
     return ROLE_PERMISSIONS.get(
-        role,
+        normalize_role(user_role),
         {}
     )
 
@@ -167,32 +130,16 @@ def has_permission(
     user_role: Any,
     permission_name: str
 ) -> bool:
-    """
-    Check whether a role has a specific permission.
-    """
-
-    permissions = get_role_permissions(
-        user_role
-    )
-
     return bool(
-        permissions.get(
+        get_role_permissions(user_role).get(
             permission_name,
             False
         )
     )
 
 
-def is_public_path(
-    path: str
-) -> bool:
-    """
-    Check whether the requested path is public.
-    """
-
-    normalized_path = normalize_path(
-        path
-    )
+def is_public_path(path: str) -> bool:
+    normalized_path = normalize_path(path)
 
     return any(
         normalized_path.startswith(public_path)
@@ -204,123 +151,58 @@ def get_required_permission_for_request(
     path: str,
     method: str
 ) -> Optional[str]:
-    """
-    Resolve required permission using route path and HTTP method.
 
-    This prevents Viewer users from submitting approval,
-    execution, action, monitoring, or NLP workflow commands.
-    """
-
-    normalized_path = normalize_path(
-        path
-    )
-
-    normalized_method = normalize_method(
-        method
-    )
-
+    normalized_path = normalize_path(path)
+    normalized_method = normalize_method(method)
     path_lower = normalized_path.lower()
 
-    # -----------------------------------------------------
-    # Authentication routes
-    # -----------------------------------------------------
-
-    if is_public_path(
-        normalized_path
-    ):
+    if is_public_path(normalized_path):
         return None
-
-    # -----------------------------------------------------
-    # Governance / Approval Routes
-    # -----------------------------------------------------
-    # GET  -> view governance
-    # POST -> approve/reject/execute permissions
-    # -----------------------------------------------------
 
     if path_lower.startswith("/approvals"):
 
         if normalized_method == "GET":
             return "can_view_governance"
 
-        if (
-            "execute" in path_lower
-            or "run" in path_lower
-            or "remediate" in path_lower
+        if any(
+            word in path_lower
+            for word in ["execute", "run", "remediate"]
         ):
             return "can_execute"
 
-        if (
-            "approve" in path_lower
-            or "reject" in path_lower
-            or "decision" in path_lower
-            or "status" in path_lower
+        if any(
+            word in path_lower
+            for word in ["approve", "reject", "decision", "status"]
         ):
             return "can_approve"
 
         return "can_approve"
-
-    # -----------------------------------------------------
-    # Actions Routes
-    # -----------------------------------------------------
 
     if path_lower.startswith("/actions"):
 
         if normalized_method == "GET":
             return "can_manage_actions"
 
-        if normalized_method in [
-            "POST",
-            "PUT",
-            "PATCH",
-            "DELETE"
-        ]:
+        if normalized_method in ["POST", "PUT", "PATCH", "DELETE"]:
             return "can_execute"
 
         return "can_manage_actions"
 
-    # -----------------------------------------------------
-    # NLP DBA Assistant Routes
-    # -----------------------------------------------------
-    # Viewer can open Assistant page, but cannot submit
-    # operational NLP workflow commands.
-    # -----------------------------------------------------
-
-    if path_lower.startswith("/assistant"):
-
-        if normalized_method == "GET":
-            return "can_use_assistant"
-
-        if normalized_method in [
-            "POST",
-            "PUT",
-            "PATCH",
-            "DELETE"
-        ]:
-            return "can_submit_assistant_command"
-
-        return "can_use_assistant"
-
-    # -----------------------------------------------------
-    # NLP execution routes
-    # -----------------------------------------------------
-
-    if path_lower.startswith("/nlp"):
+    if path_lower.startswith("/assistant") or path_lower.startswith("/nlp"):
 
         if normalized_method == "GET":
             return "can_use_assistant"
 
         return "can_submit_assistant_command"
 
-    # -----------------------------------------------------
-    # Monitoring Routes
-    # -----------------------------------------------------
-
     if path_lower.startswith("/monitoring"):
         return "can_run_monitoring"
 
-    # -----------------------------------------------------
-    # Normal Page-Level Routes
-    # -----------------------------------------------------
+    if path_lower.startswith("/users"):
+        return "can_manage_users"
+
+    if path_lower.startswith("/notifications"):
+        return "can_manage_notifications"
 
     if path_lower.startswith("/dashboard"):
         return "can_view_dashboard"
@@ -346,10 +228,6 @@ def get_required_permission_for_request(
 def get_required_permission_for_path(
     path: str
 ) -> Optional[str]:
-    """
-    Backward-compatible route permission resolver.
-    """
-
     return get_required_permission_for_request(
         path=path,
         method="GET"
@@ -361,13 +239,8 @@ def validate_route_permission(
     path: str,
     method: str = "GET"
 ) -> Dict[str, Any]:
-    """
-    Validate route-level and method-level RBAC permission.
-    """
 
-    role = normalize_role(
-        user_role
-    )
+    role = normalize_role(user_role)
 
     required_permission = get_required_permission_for_request(
         path=path,
@@ -384,75 +257,41 @@ def validate_route_permission(
             "required_permission": None,
             "permission_granted": True,
             "message": "Public route access granted.",
-            "validated_at": str(datetime.now())
+            "validated_at": str(datetime.now()),
         }
 
-    permission_granted = has_permission(
-        user_role=role,
-        permission_name=required_permission
+    granted = has_permission(
+        role,
+        required_permission
     )
 
-    if permission_granted:
-        return {
-            "overall_status": "ACCESS_GRANTED",
-            "validator_name": "ROUTE_RBAC_VALIDATOR",
-            "user_role": role,
-            "path": path,
-            "method": normalize_method(method),
-            "required_permission": required_permission,
-            "permission_granted": True,
-            "message": "Route access granted.",
-            "validated_at": str(datetime.now())
-        }
-
     return {
-        "overall_status": "ACCESS_DENIED",
+        "overall_status": "ACCESS_GRANTED" if granted else "ACCESS_DENIED",
         "validator_name": "ROUTE_RBAC_VALIDATOR",
         "user_role": role,
         "path": path,
         "method": normalize_method(method),
         "required_permission": required_permission,
-        "permission_granted": False,
-        "message": "User role is not authorized to access this route or action.",
-        "validated_at": str(datetime.now())
+        "permission_granted": granted,
+        "message": "Route access granted." if granted else "User role is not authorized to access this route or action.",
+        "validated_at": str(datetime.now()),
     }
 
-
-# =========================================================
-# EXISTING WORKFLOW RBAC VALIDATOR
-# =========================================================
 
 def validate_action_permission(
     user_role,
     action_name,
     risk_level
 ):
-    """
-    Validate whether a user role is allowed to execute
-    or request a DBA action.
-
-    LOW risk actions are allowed for DBA and privileged roles.
-    MEDIUM risk actions require privileged role or approval workflow.
-    HIGH risk actions require privileged role and explicit approval.
-    """
-
     try:
 
         print("\n========================================")
         print(" RBAC Security Validation ")
         print("========================================\n")
 
-        role = normalize_role(
-            user_role
-        )
-
-        action = str(
-            action_name
-        ).upper()
-
-        risk = str(
-            risk_level
-        ).upper()
+        role = normalize_role(user_role)
+        action = str(action_name).upper()
+        risk = str(risk_level).upper()
 
         allowed_roles = [
             "ADMIN",
@@ -472,114 +311,96 @@ def validate_action_permission(
         print(f"Risk Level  : {risk}")
 
         if role not in allowed_roles:
-
             print("Access Status : DENIED")
 
-            return {
-                "overall_status": "ACCESS_DENIED",
-                "validator_name": "RBAC_VALIDATOR",
-                "user_role": role,
-                "action_name": action,
-                "risk_level": risk,
-                "permission_granted": False,
-                "approval_required": False,
-                "message": "User role is not authorized for DBA operations.",
-                "validated_at": str(datetime.now())
-            }
+            return _action_result(
+                "ACCESS_DENIED",
+                role,
+                action,
+                risk,
+                False,
+                False,
+                "User role is not authorized for DBA operations."
+            )
 
         if risk == "LOW":
-
             print("Access Status : GRANTED")
 
-            return {
-                "overall_status": "ACCESS_GRANTED",
-                "validator_name": "RBAC_VALIDATOR",
-                "user_role": role,
-                "action_name": action,
-                "risk_level": risk,
-                "permission_granted": True,
-                "approval_required": False,
-                "message": "Low-risk DBA action is allowed for this role.",
-                "validated_at": str(datetime.now())
-            }
+            return _action_result(
+                "ACCESS_GRANTED",
+                role,
+                action,
+                risk,
+                True,
+                False,
+                "Low-risk DBA action is allowed for this role."
+            )
 
         if risk == "MEDIUM":
 
             if role in privileged_roles:
-
                 print("Access Status : GRANTED")
 
-                return {
-                    "overall_status": "ACCESS_GRANTED",
-                    "validator_name": "RBAC_VALIDATOR",
-                    "user_role": role,
-                    "action_name": action,
-                    "risk_level": risk,
-                    "permission_granted": True,
-                    "approval_required": False,
-                    "message": "Medium-risk DBA action is allowed for privileged DBA role.",
-                    "validated_at": str(datetime.now())
-                }
+                return _action_result(
+                    "ACCESS_GRANTED",
+                    role,
+                    action,
+                    risk,
+                    True,
+                    False,
+                    "Medium-risk DBA action is allowed for privileged DBA role."
+                )
 
             print("Access Status : APPROVAL_REQUIRED")
 
-            return {
-                "overall_status": "APPROVAL_REQUIRED",
-                "validator_name": "RBAC_VALIDATOR",
-                "user_role": role,
-                "action_name": action,
-                "risk_level": risk,
-                "permission_granted": False,
-                "approval_required": True,
-                "message": "Medium-risk DBA action requires Lead DBA approval.",
-                "validated_at": str(datetime.now())
-            }
+            return _action_result(
+                "APPROVAL_REQUIRED",
+                role,
+                action,
+                risk,
+                False,
+                True,
+                "Medium-risk DBA action requires Lead DBA approval."
+            )
 
         if risk == "HIGH":
 
             if role in privileged_roles:
-
                 print("Access Status : APPROVAL_REQUIRED")
 
-                return {
-                    "overall_status": "APPROVAL_REQUIRED",
-                    "validator_name": "RBAC_VALIDATOR",
-                    "user_role": role,
-                    "action_name": action,
-                    "risk_level": risk,
-                    "permission_granted": False,
-                    "approval_required": True,
-                    "message": "High-risk DBA action requires explicit approval even for privileged role.",
-                    "validated_at": str(datetime.now())
-                }
+                return _action_result(
+                    "APPROVAL_REQUIRED",
+                    role,
+                    action,
+                    risk,
+                    False,
+                    True,
+                    "High-risk DBA action requires explicit approval even for privileged role."
+                )
 
             print("Access Status : DENIED")
 
-            return {
-                "overall_status": "ACCESS_DENIED",
-                "validator_name": "RBAC_VALIDATOR",
-                "user_role": role,
-                "action_name": action,
-                "risk_level": risk,
-                "permission_granted": False,
-                "approval_required": True,
-                "message": "High-risk DBA action is denied for non-privileged role.",
-                "validated_at": str(datetime.now())
-            }
+            return _action_result(
+                "ACCESS_DENIED",
+                role,
+                action,
+                risk,
+                False,
+                True,
+                "High-risk DBA action is denied for non-privileged role."
+            )
 
         print("Access Status : UNKNOWN_RISK")
 
-        return {
-            "overall_status": "UNKNOWN_RISK",
-            "validator_name": "RBAC_VALIDATOR",
-            "user_role": role,
-            "action_name": action,
-            "risk_level": risk,
-            "permission_granted": False,
-            "approval_required": True,
-            "message": "Unknown risk level. Approval required by default.",
-            "validated_at": str(datetime.now())
-        }
+        return _action_result(
+            "UNKNOWN_RISK",
+            role,
+            action,
+            risk,
+            False,
+            True,
+            "Unknown risk level. Approval required by default."
+        )
 
     except Exception as error:
 
@@ -595,56 +416,48 @@ def validate_action_permission(
             "permission_granted": False,
             "approval_required": True,
             "message": str(error),
-            "validated_at": str(datetime.now())
+            "validated_at": str(datetime.now()),
         }
 
 
-# =========================================================
-# TEST EXECUTION
-# =========================================================
+def _action_result(
+    status: str,
+    role: str,
+    action: str,
+    risk: str,
+    granted: bool,
+    approval_required: bool,
+    message: str
+) -> Dict[str, Any]:
+
+    return {
+        "overall_status": status,
+        "validator_name": "RBAC_VALIDATOR",
+        "user_role": role,
+        "action_name": action,
+        "risk_level": risk,
+        "permission_granted": granted,
+        "approval_required": approval_required,
+        "message": message,
+        "validated_at": str(datetime.now()),
+    }
+
 
 if __name__ == "__main__":
 
-    print("\n========================================")
-    print(" RBAC ROUTE TESTS ")
-    print("========================================\n")
+    tests = [
+        ("VIEWER", "/approvals", "GET"),
+        ("VIEWER", "/approvals/approve/123", "POST"),
+        ("VIEWER", "/approvals/execute/123", "POST"),
+        ("VIEWER", "/assistant", "POST"),
+        ("DBA", "/assistant", "POST"),
+    ]
 
-    print(
-        validate_route_permission(
-            user_role="VIEWER",
-            path="/approvals",
-            method="GET"
+    for role, path, method in tests:
+        print(
+            validate_route_permission(
+                role,
+                path,
+                method
+            )
         )
-    )
-
-    print(
-        validate_route_permission(
-            user_role="VIEWER",
-            path="/approvals/approve/123",
-            method="POST"
-        )
-    )
-
-    print(
-        validate_route_permission(
-            user_role="VIEWER",
-            path="/approvals/execute/123",
-            method="POST"
-        )
-    )
-
-    print(
-        validate_route_permission(
-            user_role="VIEWER",
-            path="/assistant",
-            method="POST"
-        )
-    )
-
-    print(
-        validate_route_permission(
-            user_role="DBA",
-            path="/assistant",
-            method="POST"
-        )
-    )

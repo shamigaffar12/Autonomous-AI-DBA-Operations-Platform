@@ -3,71 +3,55 @@
 # Autonomous AI DBA Operations Platform
 # =========================================================
 
-from app.notifications.email_notifier import (
-    send_email_alert
-)
+from app.notifications.email_notifier import send_email_alert
+from app.notifications.teams_notifier import send_teams_alert
 
-from app.notifications.teams_notifier import (
-    send_teams_alert
-)
-
-
-# =========================================================
-# BUILD TEAMS SUMMARY
-# =========================================================
 
 def build_teams_summary(
     overall_status,
     incident_summary
 ):
-    """
-    Create a short Teams-friendly incident message.
-    """
-
-    lines = []
-
-    lines.append(
+    lines = [
         f"SQL Alert: {overall_status}"
+    ]
+
+    summary = str(
+        incident_summary or ""
     )
 
-    if "Blocking Sessions Detected:" in incident_summary:
-
+    if "Blocking Sessions Detected:" in summary:
         lines.append(
             "Blocking session detected"
         )
 
-    if "Long Running Query Analysis:" in incident_summary:
-
+    if "Long Running Query Analysis:" in summary:
         lines.append(
             "Long running query detected"
         )
 
-    if "High CPU Usage Detected" in incident_summary:
-
+    if "High CPU Usage Detected" in summary:
         lines.append(
             "High CPU usage detected"
         )
 
-    return "\n".join(lines)
+    if len(lines) == 1:
+        lines.append(
+            summary[:800]
+        )
 
+    return "\n".join(
+        lines
+    )
 
-# =========================================================
-# SEND NOTIFICATIONS
-# =========================================================
 
 def send_notifications(
     overall_status,
     incident_summary
 ):
-    """
-    Send notifications only when required.
-    """
 
-    # =====================================================
-    # HEALTHY SYSTEM
-    # =====================================================
-
-    if overall_status.upper() == "HEALTHY":
+    if str(
+        overall_status
+    ).upper() == "HEALTHY":
 
         print(
             "\nSystem Healthy. No notifications required."
@@ -75,55 +59,31 @@ def send_notifications(
 
         return True
 
-    # =====================================================
-    # EMAIL ALERT
-    # =====================================================
+    subject = f"SQL Alert - {overall_status}"
 
-    subject = (
-        f"SQL Alert - {overall_status}"
-    )
-
-    send_email_alert(
+    email_sent = send_email_alert(
         subject,
         incident_summary
     )
-
-    # =====================================================
-    # TEAMS ALERT
-    # =====================================================
 
     teams_message = build_teams_summary(
         overall_status,
         incident_summary
     )
 
-    send_teams_alert(
-        teams_message
+    teams_sent = send_teams_alert(
+        teams_message,
+        title=subject
     )
 
-    return True
+    return bool(
+        email_sent or teams_sent
+    )
 
-
-# =========================================================
-# TEST EXECUTION
-# =========================================================
 
 if __name__ == "__main__":
 
-    sample_incident = """
-
-    SQL Monitoring Summary
-
-    Blocking Sessions Detected:
-
-    Session ID: 52
-    Blocking Session ID: 67
-
-    Overall Status: ATTENTION REQUIRED
-
-    """
-
     send_notifications(
         "ATTENTION REQUIRED",
-        sample_incident
+        "SQL Monitoring Summary\nBlocking Sessions Detected:\nSession ID: 52"
     )

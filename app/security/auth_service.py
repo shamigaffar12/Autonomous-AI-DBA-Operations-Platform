@@ -8,9 +8,12 @@ import hashlib
 import hmac
 import json
 import os
+import secrets
 import time
 from dataclasses import dataclass
-from typing import Any, Dict, Optional
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 from fastapi import Request
 from fastapi.responses import RedirectResponse, Response
@@ -20,29 +23,43 @@ from app.security.rbac_validator import (
     get_role_permissions,
     has_permission,
     is_public_path,
-    normalize_role
+    normalize_role,
 )
 
-
-# =========================================================
-# SECURITY CONFIGURATION
-# =========================================================
-
 AUTH_COOKIE_NAME = "ai_dba_auth_token"
+CSRF_COOKIE_NAME = "ai_dba_csrf_token"
 TOKEN_ALGORITHM = "HS256"
-TOKEN_EXPIRY_SECONDS = 8 * 60 * 60
-
+TOKEN_EXPIRY_SECONDS = int(
+    os.getenv(
+        "AUTH_TOKEN_EXPIRY_SECONDS",
+        str(8 * 60 * 60)
+    )
+)
 JWT_SECRET_KEY = os.getenv(
     "JWT_SECRET_KEY",
     "dev-change-this-secret-key-for-ai-dba-platform"
 )
-
 LOGIN_PATH = "/auth/login"
+USER_STORE_PATH = Path(
+    os.getenv(
+        "USER_STORE_PATH",
+        "data/users.json"
+    )
+)
 
+MUTATING_METHODS = {
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE"
+}
 
-# =========================================================
-# USER MODEL
-# =========================================================
+CSRF_EXEMPT_PREFIXES = [
+    "/auth/login",
+    "/auth/logout",
+    "/health"
+]
+
 
 @dataclass
 class AuthUser:
@@ -50,25 +67,25 @@ class AuthUser:
     display_name: str
     role: str
     permissions: Dict[str, bool]
+    is_active: bool = True
 
 
-# =========================================================
-# PASSWORD HASHING
-# =========================================================
+def _utc_now() -> str:
+    return datetime.utcnow().isoformat(
+        timespec="seconds"
+    ) + "Z"
+
 
 def hash_password(
     password: str,
     salt: str
 ) -> str:
-    """
-    Hash password using PBKDF2-HMAC-SHA256.
-    """
 
     password_hash = hashlib.pbkdf2_hmac(
         "sha256",
         password.encode("utf-8"),
         salt.encode("utf-8"),
-        100000
+        120000
     )
 
     return base64.urlsafe_b64encode(
@@ -81,9 +98,6 @@ def verify_password(
     stored_password_hash: str,
     salt: str
 ) -> bool:
-    """
-    Verify password using constant-time comparison.
-    """
 
     calculated_hash = hash_password(
         password=password,
@@ -98,84 +112,310 @@ def verify_password(
 
 def build_password_record(
     password: str,
-    salt: str
+    salt: Optional[str] = None
 ) -> Dict[str, str]:
-    """
-    Build password hash record.
-    """
+
+    final_salt = salt or secrets.token_urlsafe(24)
 
     return {
-        "salt": salt,
+        "salt": final_salt,
         "password_hash": hash_password(
             password=password,
-            salt=salt
+            salt=final_salt
         )
     }
 
 
-# =========================================================
-# LOCAL DEMO USER STORE
-# =========================================================
-
-DEMO_USERS: Dict[str, Dict[str, Any]] = {
-    "admin": {
-        "username": "admin",
-        "display_name": "Platform Admin",
-        "role": "ADMIN",
-        **build_password_record(
-            password="admin@123",
-            salt="admin-static-dev-salt"
-        )
-    },
-    "dba": {
-        "username": "dba",
-        "display_name": "DBA User",
-        "role": "DBA",
-        **build_password_record(
-            password="dba@123",
-            salt="dba-static-dev-salt"
-        )
-    },
-    "lead_dba": {
-        "username": "lead_dba",
-        "display_name": "Lead DBA",
-        "role": "LEAD_DBA",
-        **build_password_record(
-            password="lead@123",
-            salt="lead-dba-static-dev-salt"
-        )
-    },
-    "manager": {
-        "username": "manager",
-        "display_name": "DBA Manager",
-        "role": "DBA_MANAGER",
-        **build_password_record(
-            password="manager@123",
-            salt="manager-static-dev-salt"
-        )
-    },
-    "viewer": {
-        "username": "viewer",
-        "display_name": "Viewer User",
-        "role": "VIEWER",
-        **build_password_record(
-            password="viewer@123",
-            salt="viewer-static-dev-salt"
-        )
+def _default_users() -> Dict[str, Dict[str, Any]]:
+    return {
+        "admin": {
+            "username": "admin",
+            "display_name": "Platform Admin",
+            "role": "ADMIN",
+            "is_active": True,
+            **build_password_record(
+                "admin@123",
+                "admin-static-dev-salt"
+            )
+        },
+        "dba": {
+            "username": "dba",
+            "display_name": "DBA User",
+            "role": "DBA",
+            "is_active": True,
+            **build_password_record(
+                "dba@123",
+                "dba-static-dev-salt"
+            )
+        },
+        "lead_dba": {
+            "username": "lead_dba",
+            "display_name": "Lead DBA",
+            "role": "LEAD_DBA",
+            "is_active": True,
+            **build_password_record(
+                "lead@123",
+                "lead-dba-static-dev-salt"
+            )
+        },
+        "manager": {
+            "username": "manager",
+            "display_name": "DBA Manager",
+            "role": "DBA_MANAGER",
+            "is_active": True,
+            **build_password_record(
+                "manager@123",
+                "manager-static-dev-salt"
+            )
+        },
+        "viewer": {
+            "username": "viewer",
+            "display_name": "Viewer User",
+            "role": "VIEWER",
+            "is_active": True,
+            **build_password_record(
+                "viewer@123",
+                "viewer-static-dev-salt"
+            )
+        },
     }
-}
 
 
-# =========================================================
-# BASE64 URL HELPERS
-# =========================================================
+def ensure_user_store() -> None:
+
+    USER_STORE_PATH.parent.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+    if not USER_STORE_PATH.exists():
+        USER_STORE_PATH.write_text(
+            json.dumps(
+                {
+                    "users": _default_users(),
+                    "created_at": _utc_now(),
+                    "updated_at": _utc_now()
+                },
+                indent=4
+            ),
+            encoding="utf-8"
+        )
+
+
+def load_user_store() -> Dict[str, Any]:
+
+    ensure_user_store()
+
+    try:
+        return json.loads(
+            USER_STORE_PATH.read_text(
+                encoding="utf-8"
+            )
+        )
+
+    except json.JSONDecodeError:
+
+        backup_path = USER_STORE_PATH.with_suffix(
+            ".corrupt.json"
+        )
+
+        USER_STORE_PATH.replace(
+            backup_path
+        )
+
+        USER_STORE_PATH.write_text(
+            json.dumps(
+                {
+                    "users": _default_users(),
+                    "created_at": _utc_now(),
+                    "updated_at": _utc_now()
+                },
+                indent=4
+            ),
+            encoding="utf-8"
+        )
+
+        return json.loads(
+            USER_STORE_PATH.read_text(
+                encoding="utf-8"
+            )
+        )
+
+
+def save_user_store(
+    store: Dict[str, Any]
+) -> None:
+
+    store["updated_at"] = _utc_now()
+
+    USER_STORE_PATH.parent.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+    USER_STORE_PATH.write_text(
+        json.dumps(
+            store,
+            indent=4
+        ),
+        encoding="utf-8"
+    )
+
+
+def list_users() -> List[Dict[str, Any]]:
+
+    store = load_user_store()
+    users = []
+
+    for record in store.get("users", {}).values():
+        users.append(
+            {
+                "username": record.get("username", ""),
+                "display_name": record.get("display_name", ""),
+                "role": normalize_role(
+                    record.get("role", "")
+                ),
+                "is_active": bool(
+                    record.get("is_active", True)
+                ),
+                "created_at": record.get("created_at", ""),
+                "updated_at": record.get("updated_at", ""),
+            }
+        )
+
+    return sorted(
+        users,
+        key=lambda item: item["username"]
+    )
+
+
+def create_or_update_user(
+    username: str,
+    display_name: str,
+    role: str,
+    password: Optional[str] = None,
+    is_active: bool = True
+) -> Dict[str, Any]:
+
+    normalized_username = str(
+        username or ""
+    ).strip().lower()
+
+    if not normalized_username:
+        raise ValueError(
+            "Username is required."
+        )
+
+    normalized_role = normalize_role(
+        role
+    )
+
+    if normalized_role not in [
+        "ADMIN",
+        "DBA_MANAGER",
+        "LEAD_DBA",
+        "DBA",
+        "VIEWER"
+    ]:
+        raise ValueError(
+            "Invalid role."
+        )
+
+    store = load_user_store()
+    users = store.setdefault(
+        "users",
+        {}
+    )
+
+    existing = users.get(
+        normalized_username,
+        {}
+    )
+
+    record = {
+        "username": normalized_username,
+        "display_name": str(
+            display_name or normalized_username
+        ).strip(),
+        "role": normalized_role,
+        "is_active": bool(is_active),
+        "created_at": existing.get(
+            "created_at",
+            _utc_now()
+        ),
+        "updated_at": _utc_now(),
+    }
+
+    if password:
+        record.update(
+            build_password_record(
+                password
+            )
+        )
+    else:
+        fallback_record = build_password_record(
+            "ChangeMe@123"
+        )
+
+        record["salt"] = existing.get(
+            "salt",
+            fallback_record["salt"]
+        )
+
+        record["password_hash"] = existing.get(
+            "password_hash",
+            build_password_record(
+                "ChangeMe@123",
+                record["salt"]
+            )["password_hash"]
+        )
+
+    users[normalized_username] = record
+
+    save_user_store(
+        store
+    )
+
+    return record
+
+
+def set_user_active(
+    username: str,
+    is_active: bool
+) -> bool:
+
+    store = load_user_store()
+
+    normalized_username = str(
+        username or ""
+    ).strip().lower()
+
+    user = store.get(
+        "users",
+        {}
+    ).get(
+        normalized_username
+    )
+
+    if not user:
+        return False
+
+    user["is_active"] = bool(
+        is_active
+    )
+
+    user["updated_at"] = _utc_now()
+
+    save_user_store(
+        store
+    )
+
+    return True
+
 
 def base64url_encode(
     data: bytes
 ) -> str:
-    """
-    Base64 URL-safe encode without padding.
-    """
 
     return base64.urlsafe_b64encode(
         data
@@ -185,9 +425,6 @@ def base64url_encode(
 def base64url_decode(
     data: str
 ) -> bytes:
-    """
-    Base64 URL-safe decode with padding recovery.
-    """
 
     padding = "=" * (-len(data) % 4)
 
@@ -196,16 +433,9 @@ def base64url_decode(
     )
 
 
-# =========================================================
-# TOKEN HELPERS
-# =========================================================
-
 def create_signed_token(
     payload: Dict[str, Any]
 ) -> str:
-    """
-    Create HS256 signed token using Python standard library.
-    """
 
     header = {
         "alg": TOKEN_ALGORITHM,
@@ -226,7 +456,9 @@ def create_signed_token(
         ).encode("utf-8")
     )
 
-    signing_input = f"{header_encoded}.{payload_encoded}".encode("utf-8")
+    signing_input = f"{header_encoded}.{payload_encoded}".encode(
+        "utf-8"
+    )
 
     signature = hmac.new(
         JWT_SECRET_KEY.encode("utf-8"),
@@ -234,19 +466,12 @@ def create_signed_token(
         hashlib.sha256
     ).digest()
 
-    signature_encoded = base64url_encode(
-        signature
-    )
-
-    return f"{header_encoded}.{payload_encoded}.{signature_encoded}"
+    return f"{header_encoded}.{payload_encoded}.{base64url_encode(signature)}"
 
 
 def decode_signed_token(
     token: str
 ) -> Optional[Dict[str, Any]]:
-    """
-    Decode and validate signed token.
-    """
 
     try:
         parts = token.split(".")
@@ -256,7 +481,9 @@ def decode_signed_token(
 
         header_encoded, payload_encoded, signature_encoded = parts
 
-        signing_input = f"{header_encoded}.{payload_encoded}".encode("utf-8")
+        signing_input = f"{header_encoded}.{payload_encoded}".encode(
+            "utf-8"
+        )
 
         expected_signature = hmac.new(
             JWT_SECRET_KEY.encode("utf-8"),
@@ -264,13 +491,9 @@ def decode_signed_token(
             hashlib.sha256
         ).digest()
 
-        received_signature = base64url_decode(
-            signature_encoded
-        )
-
         if not hmac.compare_digest(
             expected_signature,
-            received_signature
+            base64url_decode(signature_encoded)
         ):
             return None
 
@@ -280,11 +503,11 @@ def decode_signed_token(
             ).decode("utf-8")
         )
 
-        expires_at = int(
+        if int(
             payload.get("exp", 0)
-        )
-
-        if expires_at < int(time.time()):
+        ) < int(
+            time.time()
+        ):
             return None
 
         return payload
@@ -293,36 +516,32 @@ def decode_signed_token(
         return None
 
 
-# =========================================================
-# AUTHENTICATION
-# =========================================================
-
 def authenticate_user(
     username: str,
     password: str
 ) -> Optional[AuthUser]:
-    """
-    Authenticate user from local demo user store.
-    """
 
     normalized_username = str(
         username or ""
     ).strip().lower()
 
-    user_record = DEMO_USERS.get(
+    user_record = load_user_store().get(
+        "users",
+        {}
+    ).get(
         normalized_username
     )
 
-    if not user_record:
+    if not user_record or not bool(
+        user_record.get("is_active", True)
+    ):
         return None
 
-    password_valid = verify_password(
+    if not verify_password(
         password=password,
         stored_password_hash=user_record["password_hash"],
         salt=user_record["salt"]
-    )
-
-    if not password_valid:
+    ):
         return None
 
     role = normalize_role(
@@ -331,18 +550,19 @@ def authenticate_user(
 
     return AuthUser(
         username=user_record["username"],
-        display_name=user_record["display_name"],
+        display_name=user_record.get(
+            "display_name",
+            user_record["username"]
+        ),
         role=role,
-        permissions=get_role_permissions(role)
+        permissions=get_role_permissions(role),
+        is_active=True
     )
 
 
 def create_user_token(
     user: AuthUser
 ) -> str:
-    """
-    Create signed authentication token for user.
-    """
 
     now = int(
         time.time()
@@ -365,9 +585,6 @@ def create_user_token(
 def get_current_user(
     request: Request
 ) -> Optional[AuthUser]:
-    """
-    Get current authenticated user from request cookie.
-    """
 
     token = request.cookies.get(
         AUTH_COOKIE_NAME
@@ -387,10 +604,6 @@ def get_current_user(
         payload.get("sub", "")
     )
 
-    display_name = str(
-        payload.get("name", username)
-    )
-
     role = normalize_role(
         payload.get("role", "")
     )
@@ -398,30 +611,38 @@ def get_current_user(
     if not username or not role:
         return None
 
-    permissions = payload.get(
-        "permissions",
-        get_role_permissions(role)
+    user_record = load_user_store().get(
+        "users",
+        {}
+    ).get(
+        username.lower()
     )
+
+    if not user_record or not bool(
+        user_record.get("is_active", True)
+    ):
+        return None
 
     return AuthUser(
         username=username,
-        display_name=display_name,
+        display_name=str(
+            payload.get("name", username)
+        ),
         role=role,
-        permissions=permissions
+        permissions=get_role_permissions(role),
+        is_active=True
     )
 
-
-# =========================================================
-# COOKIE HELPERS
-# =========================================================
 
 def set_auth_cookie(
     response: Response,
     token: str
 ) -> None:
-    """
-    Set authentication cookie.
-    """
+
+    secure_cookie = os.getenv(
+        "AUTH_COOKIE_SECURE",
+        "false"
+    ).lower() == "true"
 
     response.set_cookie(
         key=AUTH_COOKIE_NAME,
@@ -429,32 +650,52 @@ def set_auth_cookie(
         max_age=TOKEN_EXPIRY_SECONDS,
         httponly=True,
         samesite="lax",
-        secure=False
+        secure=secure_cookie
     )
 
 
 def clear_auth_cookie(
     response: Response
 ) -> None:
-    """
-    Clear authentication cookie.
-    """
 
     response.delete_cookie(
         key=AUTH_COOKIE_NAME
     )
 
+    response.delete_cookie(
+        key=CSRF_COOKIE_NAME
+    )
 
-# =========================================================
-# REQUEST STATE HELPERS
-# =========================================================
+
+def get_or_create_csrf_token(
+    request: Request,
+    response: Response
+) -> str:
+
+    csrf_token = request.cookies.get(
+        CSRF_COOKIE_NAME
+    ) or secrets.token_urlsafe(32)
+
+    secure_cookie = os.getenv(
+        "AUTH_COOKIE_SECURE",
+        "false"
+    ).lower() == "true"
+
+    response.set_cookie(
+        key=CSRF_COOKIE_NAME,
+        value=csrf_token,
+        max_age=TOKEN_EXPIRY_SECONDS,
+        httponly=False,
+        samesite="lax",
+        secure=secure_cookie
+    )
+
+    return csrf_token
+
 
 def set_anonymous_request_state(
     request: Request
 ) -> None:
-    """
-    Set safe anonymous request state.
-    """
 
     request.state.current_user = None
     request.state.permissions = {}
@@ -464,36 +705,61 @@ def set_authenticated_request_state(
     request: Request,
     current_user: AuthUser
 ) -> None:
-    """
-    Set authenticated user request state.
-    """
 
     request.state.current_user = current_user
     request.state.permissions = current_user.permissions
 
 
-# =========================================================
-# MIDDLEWARE
-# =========================================================
+def _is_csrf_exempt(
+    path: str
+) -> bool:
+
+    return any(
+        path.startswith(prefix)
+        for prefix in CSRF_EXEMPT_PREFIXES
+    )
+
+
+def _csrf_valid(
+    request: Request
+) -> bool:
+
+    if request.method.upper() not in MUTATING_METHODS:
+        return True
+
+    if _is_csrf_exempt(
+        request.url.path
+    ):
+        return True
+
+    cookie_token = request.cookies.get(
+        CSRF_COOKIE_NAME
+    )
+
+    header_token = request.headers.get(
+        "x-csrf-token"
+    )
+
+    form_token = None
+
+    return bool(
+        cookie_token and (
+            header_token == cookie_token
+            or form_token == cookie_token
+        )
+    )
+
 
 async def auth_route_guard(
     request: Request,
     call_next
 ):
-    """
-    Enforce login and route-level RBAC.
-
-    Uses path + HTTP method so Viewer users cannot
-    approve, reject, execute, manage actions, run monitoring,
-    or submit operational NLP commands.
-    """
 
     path = request.url.path
     method = request.method
 
-    if is_public_path(
-        path
-    ):
+    if is_public_path(path):
+
         set_anonymous_request_state(
             request
         )
@@ -538,6 +804,14 @@ async def auth_route_guard(
         current_user=current_user
     )
 
-    return await call_next(
+    response = await call_next(
         request
     )
+
+    if request.method.upper() == "GET":
+        get_or_create_csrf_token(
+            request,
+            response
+        )
+
+    return response
