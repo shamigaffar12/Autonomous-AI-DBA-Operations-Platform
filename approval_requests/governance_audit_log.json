@@ -360,5 +360,71 @@
         "performed_by": "Lead DBA",
         "message": "Approval request rejected from FastAPI Governance dashboard.",
         "created_at": "2026-06-23 15:39:14.040350"
+    },
+    {
+        "audit_id": "AUDIT-20260626101051984522",
+        "event_type": "MONITORING_STARTED_FROM_UI",
+        "approval_id": null,
+        "action_name": "START_MONITORING",
+        "target_name": "SQL Server Monitoring Workflow",
+        "status": "SUCCESS",
+        "performed_by": "Lead DBA",
+        "message": "Monitoring workflow started from FastAPI Monitoring UI.",
+        "created_at": "2026-06-26 10:10:51.984586"
+    },
+    {
+        "audit_id": "AUDIT-20260626101056754882",
+        "event_type": "MONITORING_STARTED_FROM_UI",
+        "approval_id": null,
+        "action_name": "START_MONITORING",
+        "target_name": "SQL Server Monitoring Workflow",
+        "status": "SUCCESS",
+        "performed_by": "Lead DBA",
+        "message": "Monitoring workflow started from FastAPI Monitoring UI.",
+        "created_at": "2026-06-26 10:10:56.754959"
+    },
+    {
+        "audit_id": "AUDIT-20260626101057175565",
+        "event_type": "MONITORING_STARTED_FROM_UI",
+        "approval_id": null,
+        "action_name": "START_MONITORING",
+        "target_name": "SQL Server Monitoring Workflow",
+        "status": "SUCCESS",
+        "performed_by": "Lead DBA",
+        "message": "Monitoring workflow started from FastAPI Monitoring UI.",
+        "created_at": "2026-06-26 10:10:57.175628"
+    },
+    {
+        "audit_id": "AUDIT-20260626101110509212",
+        "event_type": "APPROVAL_APPROVED",
+        "approval_id": "07b2b058-3e77-4ff0-89c9-572d4010c748",
+        "action_name": "APPROVE_REQUEST",
+        "target_name": "Governance Approval",
+        "status": "APPROVED",
+        "performed_by": "Lead DBA",
+        "message": "Approval request approved from FastAPI Governance dashboard.",
+        "created_at": "2026-06-26 10:11:10.509283"
+    },
+    {
+        "audit_id": "AUDIT-20260626101119947843",
+        "event_type": "REMEDIATION_EXECUTED",
+        "approval_id": "4ddc91f1-066f-4487-a04f-f114bd2d3383",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "status": "RUNBOOK_REQUEST_CREATED",
+        "performed_by": "Lead DBA",
+        "message": "Approved remediation execution completed in simulated mode.",
+        "created_at": "2026-06-26 10:11:19.947908"
+    },
+    {
+        "audit_id": "AUDIT-20260626101621418261",
+        "event_type": "MONITORING_STARTED_FROM_UI",
+        "approval_id": null,
+        "action_name": "START_MONITORING",
+        "target_name": "SQL Server Monitoring Workflow",
+        "status": "SUCCESS",
+        "performed_by": "Lead DBA",
+        "message": "Monitoring workflow started from FastAPI Monitoring UI.",
+        "created_at": "2026-06-26 10:16:21.418334"
     }
 ]

@@ -201,5 +201,19 @@
         "executed": true,
         "message": "Azure Automation runbook request created after approval.",
         "executed_at": "2026-06-23 15:34:38.094779"
+    },
+    {
+        "execution_id": "EXEC-20260626101119939464",
+        "approval_id": "4ddc91f1-066f-4487-a04f-f114bd2d3383",
+        "approval_status": "APPROVED",
+        "action_name": "RESTART_SQL_AGENT_JOB",
+        "target_name": "syspolicy_purge_history",
+        "overall_status": "RUNBOOK_REQUEST_CREATED",
+        "runbook_name": "Restart-Failed-SQL-Agent-Job",
+        "integration_mode": "SIMULATED",
+        "runbook_request_created": true,
+        "executed": true,
+        "message": "Azure Automation runbook request created after approval.",
+        "executed_at": "2026-06-26 10:11:19.932218"
     }
 ]
